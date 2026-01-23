@@ -1,132 +1,81 @@
-# Scientific Python Development with `uv` and LLMs
+# Scientific Python Development: Higgs Boson Classification
 
-This repository serves as a guide and template for setting up a modern, high-performance Python environment for scientific computing and LLM-based development.
+This repository demonstrates a professional, high-performance scientific development workflow in Python. It uses the **Higgs Boson Dataset** (11 Million samples) to showcase modern tools for orchestration, hardware acceleration, and data management.
 
-We use **`uv`** instead of Conda because it is:
-- 🚀 **Extremely Fast**: Resolves dependencies in milliseconds.
-- 📦 **Standardized**: Uses standard `pyproject.toml` and lockfiles for reproducible builds.
-- 🛠️ **Unified**: Manages Python versions, virtual environments, and dependencies in one tool.
+## 🛠️ Technology Stack
 
-## 🚀 Quick Start (Automated)
+- **[uv](https://github.com/astral-sh/uv)**: Extremely fast Python package and project manager.
+- **[JAX](https://github.com/google/jax)**: Composable transformations of Python+NumPy (Autograd, XLA) for hardware-accelerated deep learning.
+- **[Snakemake](https://snakemake.github.io/)**: Workflow management for reproducible and scalable data pipelines.
+- **[DuckDB](https://duckdb.org/)**: High-performance analytical database for streaming large Parquet files.
+- **[Weights & Biases (WandB)](https://wandb.ai/)**: Real-time experiment tracking and training visualization.
+- **[Quarto](https://quarto.org/)**: Scientific and technical publishing system for research websites and interactive dashboards.
+- **[Pydantic](https://docs.pydantic.dev/)**: Robust configuration and data validation.
 
-We provide a script to go from zero to a fully configured environment.
+## 🚀 Getting Started
 
-1.  **Clone this repo** (or download the script).
-2.  **Make the script executable**:
-    ```bash
-    chmod +x setup_repo.sh
-    ```
-3.  **Run the script**:
-    ```bash
-    # Usage: ./setup_repo.sh <project_name> <python_version>
-    ./setup_repo.sh my_new_project 3.12
-    ```
-4.  **Enter your project**:
-    ```bash
-    cd my_new_project
-    uv run jupyter lab
-    ```
-
----
-
-## 📚 Step-by-Step Tutorial (Manual)
-
-If you prefer to understand what's happening under the hood (or just love typing), here is the manual setup process.
-
-### 1. Install `uv`
-
-First, install `uv` if you haven't already.
-
-**MacOS/Linux:**
+### 1. Prerequisites
+Install `uv` if you haven't already:
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-### 2. Initialize a Project
-
-Create a new directory and initialize it. `uv` will create a `pyproject.toml` and a `.python-version` file for you.
-
+### 2. Setup the Environment
 ```bash
-mkdir my_science_project
-cd my_science_project
-uv init --python 3.12
+uv sync
 ```
 
-This creates a lightweight virtual environment at `.venv`. **No more manually creating or activating environments!** `uv` handles it for you.
+### 3. Run the Pipeline
+The workflow is orchestrated via Snakemake. It handles data download, conversion to Parquet, and model training.
 
-### 3. Install Scientific Stack
-
-Add the core libraries for data science. `uv add` installs them and updates your `pyproject.toml` automatically.
-
+**Dry Run:**
 ```bash
-uv add numpy pandas scipy matplotlib seaborn
+uv run snakemake -n
 ```
 
-### 4. Install Jupyter & LLM Tools
-
-We need Jupyter for notebooks and libraries for working with LLMs (OpenAI, Anthropic) and robust data handling (Pydantic).
-
+**Local Execution:**
 ```bash
-# Notebooks
-uv add jupyterlab ipykernel
-
-# LLM Stack
-uv add python-dotenv pydantic openai anthropic
-
-### 5. Register Jupyter Kernel
-
-To make this environment available in Jupyter notebooks, register it as a kernel:
-
-```bash
-uv run python -m ipykernel install --user --name=my_science_project --display-name "Python (My Science Project)"
-```
+uv run snakemake --executor local --cores 4
 ```
 
-### 5. Install Development Tools
-
-Add tools for code quality (linting/formatting) and testing. We add these as **dev** dependencies so they don't bloat production builds.
-
+**HPC (Slurm) Execution:**
 ```bash
-uv add --dev ruff pytest
+uv run snakemake --executor slurm --jobs 10
 ```
 
-### 6. Project Structure
+## 📊 Research Website & Dashboard
 
-Organize your code for scalability.
+We use Quarto to render a cohesive research website from our notebooks.
 
 ```bash
-mkdir -p src notebooks tests data/raw data/processed models
-mv hello.py src/  # Move the default file created by init
+cd notebooks
+quarto preview
 ```
 
-Recommended layout:
+The website includes:
+- **Daily Research Notes**: A chronological record of development.
+- **Scientific Write-up**: A formal report with BibTeX citations.
+- **Results Dashboard**: Interactive visualization of model performance and feature analysis.
+
+## 🧪 Testing and CI
+
+Run unit tests locally:
+```bash
+uv run pytest tests/
+```
+
+This project uses **GitHub Actions** to automatically run linting (`ruff`) and tests on every pull request.
+
+## 📂 Project Structure
+
 ```text
-my_science_project/
-├── data/               # Local data (ignored by git)
-├── notebooks/          # Jupyter notebooks
-├── src/                # Source code modules
-├── tests/              # Unit tests
-├── pyproject.toml      # Dependency definition
-├── uv.lock             # Exact dependency versions (Reproducibility!)
-└── .venv/              # Virtual environment (managed by uv)
+.
+├── .github/workflows/   # CI/CD (GitHub Actions)
+├── data/                # Data storage (Large files excluded from Git)
+├── notebooks/           # Quarto research website (index, daily-notes, writeup, dashboard)
+├── scripts/             # Training and experiment entry points
+├── src/scientific_dev/  # Core logic (JAX models, DuckDB managers, Pydantic schemas)
+├── tests/               # Unit tests for core components
+├── pyproject.toml       # Optimized dependency definitions with uv
+└── Snakefile            # Snakemake workflow orchestration
 ```
-
-### 7. Running Code
-
-With `uv`, you don't need to manually activate the environment. Just use `uv run`.
-
-**Run a script:**
-```bash
-uv run src/hello.py
-```
-
-**Run Jupyter Lab:**
-```bash
-uv run jupyter lab
-```
-
-## 📝 Best Practices
-
-1.  **Always use `uv.lock`**: Commit this file. It ensures your collaborators have the *exact* same package versions as you.
-2.  **Keep secrets out of Git**: Use `.env` for API keys and add it to `.gitignore`.
-3.  **Put logic in `src/`**: Don't write complex functions in Notebooks. Write them in `src/` modules and import them in notebooks.
