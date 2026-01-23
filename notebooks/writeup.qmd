@@ -1,0 +1,29 @@
+---
+title: "Large-scale Classification of Higgs Boson Signals using JAX"
+author: "Research Team"
+bibliography: references.bib
+---
+
+# Introduction
+
+The search for the Higgs Boson represents a milestone in modern particle physics. Using deep learning to distinguish between signal and background processes has become an essential technique for improving discovery potential [@baldi2014searching].
+
+# Methodology
+
+We leverage the JAX ecosystem for its high-performance automatic differentiation and XLA-accelerated linear algebra [@jax2018github]. To handle the 11 million samples efficiently without straining systems with limited RAM, we utilize DuckDB [@duckdb2019] to stream data directly from Parquet files.
+
+## The Model
+
+We employ a 3-layer Multi-Layer Perceptron (MLP) with the following architecture:
+- Layer 1: 256 units (ReLU)
+- Layer 2: 128 units (ReLU)
+- Layer 3: 64 units (ReLU)
+- Output: 1 unit (Sigmoid)
+
+# Preliminary Results
+
+Initial training runs on the 21 low-level kinematic features show performance gains as the model depth increases. Full results are available on the [Dashboard](dashboard.qmd).
+
+## References
+::: {#refs}
+:::

@@ -1,0 +1,21 @@
+---
+title: "Modern Scientific Python Workflow"
+---
+
+# Project Overview
+
+Welcome to the **Higgs Boson Classification** project website. This site serves as a live representation of a professional scientific development pipeline. 
+
+## Key Components
+
+1.  **Orchestration**: Managed by **Snakemake** for reproducible data pipelines.
+2.  **Performance**: Powered by **JAX** and **XLA** for hardware-accelerated deep learning.
+3.  **Data Management**: Utilizing **DuckDB** and **Parquet** for high-performance data streaming.
+4.  **Experiment Tracking**: Integrated with **Weights & Biases** for real-time visualization.
+5.  **Quality Assurance**: Automated testing via **Pytest** and **GitHub Actions**.
+
+## Explore the Work
+
+- [Daily Research Notes](daily-notes/01-23-26.qmd): Follow the development history day-by-day.
+- [Formal Write-up](writeup.qmd): Scientific context and preliminary results with citations.
+- [Results Dashboard](dashboard.qmd): Interactive visualization of model performance and feature distributions.

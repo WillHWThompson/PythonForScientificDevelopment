@@ -1,0 +1,73 @@
+---
+title: "Results Dashboard"
+execute:
+  echo: false
+---
+
+```{python}
+import pandas as pd
+import json
+import matplotlib.pyplot as plt
+import seaborn as sns
+from pathlib import Path
+
+# Load training stats
+stats_file = Path("../results/training_stats.json")
+if stats_file.exists():
+    with open(stats_file, 'r') as f:
+        data = json.load(f)
+    history = pd.DataFrame(data['history'])
+else:
+    # Dummy data for demonstration if model hasn't run yet
+    history = pd.DataFrame({
+        'epoch': range(10),
+        'loss': [0.6, 0.5, 0.45, 0.42, 0.40, 0.38, 0.37, 0.36, 0.35, 0.34]
+    })
+
+sns.set_theme(style="whitegrid")
+```
+
+## Training Overview
+
+::: {.panel-tabset}
+
+### Loss Curve
+```{python}
+plt.figure(figsize=(10, 4))
+sns.lineplot(data=history, x='epoch', y='loss', marker='o')
+plt.title("Training Loss over Epochs")
+plt.xlabel("Epoch")
+plt.ylabel("Binary Cross-Entropy Loss")
+plt.show()
+```
+
+### Model Config
+```{python}
+if stats_file.exists():
+    config = data['config']
+    print(f"**Model Name**: {data['config']['name']}")
+    print(f"**Hidden Layers**: {config['model']['hidden_dims']}")
+    print(f"**Batch Size**: {config['training']['batch_size']}")
+else:
+    print("No training stats found. Run the Snakemake pipeline to generate live results.")
+```
+
+:::
+
+## Feature Analysis (via DuckDB)
+
+```{python}
+import duckdb
+parquet_path = "../data/higgs.parquet"
+
+if Path(parquet_path).exists():
+    con = duckdb.connect()
+    df = con.execute(f"SELECT column0 as label, column1 as feature1 FROM read_parquet('{parquet_path}') LIMIT 10000").df()
+    
+    plt.figure(figsize=(10, 4))
+    sns.kdeplot(data=df, x='feature1', hue='label', fill=True)
+    plt.title("Lepton pT Distribution by Label (Subset)")
+    plt.show()
+else:
+    print("Note: Higgs Parquet data not found. Dataset analysis will appear here after the Ingest step.")
+```

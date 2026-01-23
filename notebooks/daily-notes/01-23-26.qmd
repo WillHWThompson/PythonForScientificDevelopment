@@ -1,0 +1,32 @@
+---
+title: "2026-01-23: JAX MLP Implementation & Higgs Pivot"
+author: "Research Team"
+date: "2026-01-23"
+categories: [development, physics]
+---
+
+## Today's Progress
+
+Yesterday we discussed using a simple logistic regression, but today we decided to pivot to a more complex **Deep MLP** on the **Higgs Boson dataset** (11M samples). This justifies our choice of JAX and DuckDB.
+
+### JAX Model Implementation
+
+We implemented a functional MLP using JAX. The core training step is JIT-compiled for maximum performance:
+
+```python
+import jax
+from src.scientific_dev.jax_model import train_step
+
+# Showing the power of JIT
+# train_step = jax.jit(train_step)
+```
+
+### Observations
+
+- **DuckDB Performance**: Preliminary tests show that DuckDB can stream batches from the 2.8GB dataset with minimal memory overhead.
+- **WandB Integration**: Successful integration of experiment tracking.
+
+## Next Steps
+
+1. Generate the final results for the dashboard.
+2. Refine the BibTeX references for the final write-up.

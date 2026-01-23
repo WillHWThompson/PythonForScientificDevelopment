@@ -1,0 +1,28 @@
+project:
+  type: website
+  output-dir: ../docs
+
+website:
+  title: "Particle Physics & Scientific Python"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: daily-notes/01-23-26.qmd
+        text: Daily Notes
+      - href: writeup.qmd
+        text: Write-up
+      - href: dashboard.qmd
+        text: Dashboard
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: true
+    code-summary: "View Code"
+    self-contained: true
+
+execute:
+  cache: true # Enable caching for long-running notebook cells
+  freeze: auto # Re-render only when source files change

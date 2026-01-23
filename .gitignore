@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+.env
+
+# Data & Results
+data/
+results/
+models/
+
+# Snakemake
+.snakemake/
+
+# Quarto
+.quarto/
+docs/ # Output directory for website
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
+
+# JAX
+jax_cache/
