@@ -35,6 +35,11 @@ h4 {
     font-weight: 800 !important;
 }
 
+strong,
+b {
+    color: $tol-cyan;
+}
+
 a {
     transition: color 0.2s ease-in-out;
 
