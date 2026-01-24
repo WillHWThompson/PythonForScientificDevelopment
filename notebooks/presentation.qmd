@@ -19,7 +19,6 @@ format:
 - Most tools were developed by researchers as a "side-hustle."
 - **The Goal**: How can we contort Python to be at least "okay"?
 
----
 
 # The Dirty Secret...
 
@@ -27,7 +26,6 @@ format:
 - Most of your time isn't in the lab; it's writing and running code.
 - **Fact**: Scientists are (mostly) bad software developers.
 
----
 
 ## The Overhead Trade-off
 
@@ -37,7 +35,6 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 
 > "I have a tendency to over-engineer overcomplicated pipelines I will never use. Now I can do this guilt-free with LLMS!"
 
----
 
 # The Good News
 
@@ -46,7 +43,6 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 - **Fact**: **I basically never write code anymore.**
 - **Fact**: Most LLM failures are failures of **context**, not reasoning.
 
----
 
 ## The Vibe-Coder Thesis
 
@@ -73,7 +69,6 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 - **Stop using Jupyter Notebooks for everything.**
     - If you use them for source code, you are doing things wrong.
 
----
 
 ## 2. Project Structure
 
@@ -94,7 +89,6 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 :::
 :::
 
----
 
 ## 3. UV: The New Standard
 
@@ -104,37 +98,55 @@ UV is a major innovation over `pip` and `conda`.
 - **Reproducibility**:
     - `pyproject.toml` tracks everything.
     - `uv.lock` ensures the **exact** environment every time.
----
+
 ## UV vs. Conda
-- **Conda**: Global environments are a **psychotic choice**
-- **UV**: Local environments live inside your project.
+
+- **Problem 1**: I developed code locally and tried to run it on the VACC. Even with a `requirements.txt`, the environment is throwing version errors.
+- **Problem 2**: A collaborator cloned my repo, but it won't run. After hours of debugging, it's because they have a conflicting global version of NumPy.
+
+- **Conda**: Global environments are a **psychotic choice**.
+- **UV**: Local environments live inside your project folder.
+- **Reproducibility**: The lockfile ensures your collaborator has the **exact** byte-for-byte environment as you.
 - **The Cache**: Uses hard-linking. You won't have 50 redundant versions of PyTorch on your disk.
----
 
-## 4. Pydantic: Strong Typing
 
-- **Problem 1**: I feel like I spend so much of my time writing boilerplate code to read data in/parse it/save it and instiate the same models over and over again 
-- **Problem 2**: I spend a week debugging because I passed in an NxM matrix that should have been a MxN matrix.
-- **Problem 3**: I pass paramters through nested layers of functions, if I want to add or change something I have to change it across ALL THE layers
+## Pydantic: Strong Typing
+
+- **Problem 1**: I spend too much time writing boilerplate code to parse, validate, and save nested configuration dictionaries.
+- **Problem 2**: I spent a week debugging because I passed an $N \times M$ matrix to a function expecting $M \times N$.
+- **Problem 3**: I pass parameters through 5 nested function layers; adding one new option requires changing 5 different file signatures.
 
 - **The Solution**: Use Pydantic for input validation.
-- If you are clear about inputs/outputs, it is **much harder** to make a mistake.
 - **LLM Context**: Pydantic models give LLMs the precise "slots" needed to write correct code.
-- **No Boilerplate**: Bake in preprocessing into the definition of data structure: 
+- **No Boilerplate**: Preprocessing is baked directly into the data structure definition.
 
-## Snakemake
 
-- **Problem 1**: Advisor wants you to regenerate a figure from 6 months ago—what was the script? What were the parameters?
-- **Problem 2**: You changed `src/core/utils.py` and now you need to know which of your 500 simulation results are now invalid.
-- **The Solution**: Directed Acyclic Graphs (DAGs).
-- **Automation**: One command (`snakemake`) to run everything in the correct order.
-- **Reproducibility**: The Snakefile *is* the documentation.
+## Snakemake: Workflow Orchestration
 
----
+- **Problem 1**: "My advisor wants me to regenerate a figure from 6 months ago—what was the script? What were the parameters?"
+- **Problem 2**: "I changed one line in `utils.py`. Which of my 500 simulation results are now invalid?"
+- **Problem 3**: My VACC repo is littered with dozens of Slurm batch files and "launcher" scripts.
+
+- **The Solution**: Define the *Wishlist* (target files) and the *Rules* to create them.
+- **Automation**: Snakemake generates a **Directed Acyclic Graph (DAG)** and executes only what is necessary.
+- **Clean Registry**: Replaces manual Slurm scripts with high-level rule definitions.
+
+
+## Defensive Coding: Testing
+
+- **Unit Testing**: Whenever you write a significant function, define what "correct" looks like.
+    - **Shape Checks**: Is the matrix the size I expect?
+    - **Analytical Baseline**: Does my numerical model match a known analytical solution?
+    - **Regression**: Does my "Optimized" algorithm give the same answer as my "Naive/Slow" one?
+
+- **Integration Testing**: Ensuring the "plumbing" works end-to-end.
+    - **The 1-Epoch Test**: Does the pipeline run on a tiny dataset without crashing?
+    - **The Smoke Test**: If I run for one epoch, does the loss decrease even a tiny bit?
 
 # Summary
+
 1. Accept that you are a Developer.
-2. Provide Context to your LLM.
-3. Use UV for Environments.
-4. Use Pydantic for Safety.
+2. Provide Context to your LLM (Pydantic).
+3. Localize your Environments (UV).
+4. Automate your Pipeline (Snakemake).
 5. **Let the machine do the heavy lifting.**
