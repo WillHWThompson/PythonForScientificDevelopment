@@ -26,4 +26,4 @@ rule train_bert_classifier:
                     k, v = part.split("~")
                     cmd_args += f"--{k} {v} "
         
-        shell("PYTHONPATH=. python scripts/run_training.py {cmd_args}")
+        shell("PYTHONPATH=. uv run python scripts/run_training.py {cmd_args}")

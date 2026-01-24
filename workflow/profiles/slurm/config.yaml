@@ -7,6 +7,11 @@ keep-going: true
 printshellcmds: true
 
 # Default resources for ALL jobs unless overridden in the Snakefile
+# NOTE: Replace 'my_lab_account' with your actual Slurm account.
+# Try these commands on VACC to find yours:
+# 1. sacctmgr show user $USER format=Account%30
+# 2. sshare -U $USER (Look for the 'Account' column)
+# 3. id -gn (Your primary group is often your account)
 default-resources:
   slurm_account: "my_lab_account"
   slurm_partition: "standard"
@@ -15,7 +20,7 @@ default-resources:
 
 # Map Slurm-specific flags for the plugin
 set-resources:
-  train_higgs_model:
+  train_bert_classifier:
     partition: "gpu"
     gpu: 1
     mem_mb: 16000

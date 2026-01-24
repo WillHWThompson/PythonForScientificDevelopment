@@ -26,13 +26,25 @@ A professional scientific research template for NLP, demonstrating **Parameter-E
 └── Snakefile           # Main workflow orchestrator
 ```
 
-## 🛠 Setup & Installation
-
-This project uses `uv` for lightning-fast dependency management.
-
+### Local Installation
 ```bash
 # Install dependencies
 uv sync
+```
+
+### VACC (Cluster) Installation
+On the VACC (or any HPC Slurm cluster), we recommend using the standalone installer:
+
+```bash
+# 1. Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source $HOME/.cargo/env
+
+# 2. Setup environment (inside project folder)
+uv sync
+
+# 3. (Optional) Install specific Python version if needed
+uv python install 3.12
 ```
 
 ## 📈 Running Experiments
@@ -46,6 +58,13 @@ uv run snakemake --workflow-profile workflow/profiles/local --configfile configs
 
 ### 2. High-Performance Sweeps (Slurm)
 The pipeline automatically detects the `sweep` section in your YAML and parallelizes the jobs.
+
+**Note on Slurm Accounts**: Most GPU partitions on clusters like the VACC require an explicit `--account` flag. To find yours, try these commands:
+1. `sacctmgr show user $USER format=Account%30`
+2. `sshare -U $USER` (Check the **Account** column)
+3. `id -gn` (Your primary unix group is often used as the account)
+Update the `slurm_account` field in `workflow/profiles/slurm/config.yaml` with the output.
+
 ```bash
 uv run snakemake --workflow-profile workflow/profiles/slurm --configfile configs/nlp_baseline.yaml
 ```
