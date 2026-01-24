@@ -69,14 +69,24 @@ a {
             }
 
             /* Modern Column Styling */
+            .columns {
+                display: flex !important;
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
+                gap: 1em;
+                align-items: stretch;
+            }
+
             .column {
-                padding: 1.5em;
+                padding: 1.2em;
                 background: rgba(255, 255, 255, 0.5);
                 backdrop-filter: blur(10px);
                 border-radius: 12px;
                 border: 1px solid rgba($tol-purple, 0.1);
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
                 transition: transform 0.3s ease;
+                box-sizing: border-box;
+                /* CRITICAL for side-by-side */
 
                 &:hover {
                     transform: translateY(-5px);
@@ -85,10 +95,10 @@ a {
                 h3 {
                     margin-top: 0;
                     color: $tol-purple;
-                    font-size: 1.3em;
+                    font-size: 1.1em;
                     border-bottom: 2px solid $tol-cyan;
                     display: inline-block;
-                    margin-bottom: 0.8em;
+                    margin-bottom: 0.6em;
                 }
             }
         }

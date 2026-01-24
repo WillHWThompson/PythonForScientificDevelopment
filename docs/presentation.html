@@ -29,7 +29,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-0fbb4c5bd198913fea9fc8c81bc5c72c.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-c08fe81b326294d700060d58f68bf05f.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -305,13 +305,13 @@ Research Team
 <section id="uv-vs.-conda" class="slide level2">
 <h2>UV vs.&nbsp;Conda</h2>
 <div class="columns">
-<div class="column" style="width:45%;">
+<div class="column" style="width:48%;">
 <h3 id="the-problems">The Problems</h3>
 <ul>
 <li><strong>Local vs.&nbsp;Cluster</strong>: “I developed code locally, but the VACC env crashes.”</li>
 <li><strong>Collaboration</strong>: “It works for me, but my coworker has global numpy issues.”</li>
 </ul>
-</div><div class="column" style="width:55%;">
+</div><div class="column" style="width:48%;">
 <h3 id="the-solutions">The Solutions</h3>
 <ul>
 <li><strong>Local Envs</strong>: Environments live in the project folder.</li>
@@ -323,13 +323,13 @@ Research Team
 <section id="pydantic-strong-typing" class="slide level2">
 <h2>Pydantic: Strong Typing</h2>
 <div class="columns">
-<div class="column" style="width:45%;">
+<div class="column" style="width:48%;">
 <h3 id="the-problems-1">The Problems</h3>
 <ul>
 <li><strong>Boilerplate</strong>: Constant manual parsing of nested lists/dicts.</li>
 <li><strong>Silent Bugs</strong>: Passing <span class="math inline">\(N \times M\)</span> when <span class="math inline">\(M \times N\)</span> was expected.</li>
 </ul>
-</div><div class="column" style="width:55%;">
+</div><div class="column" style="width:48%;">
 <h3 id="the-solutions-1">The Solutions</h3>
 <ul>
 <li><strong>Validation</strong>: Catch errors at the boundary.</li>
@@ -345,7 +345,7 @@ Research Team
 <h3 id="the-problems-2">The Problems</h3>
 <ul>
 <li><strong>Amnesia</strong>: “I changed code; what results are now invalid?”</li>
-<li><strong>Lost parameters</strong>: “How did I generate this 6 months ago?”</li>
+<li><strong>Lost parameters</strong>: “How did I generate this figure 6 months ago?”</li>
 </ul>
 </div><div class="column" style="width:55%;">
 <h3 id="the-solutions-2">The Solutions</h3>
@@ -359,13 +359,13 @@ Research Team
 <section id="testing" class="slide level2">
 <h2>Testing</h2>
 <div class="columns">
-<div class="column" style="width:45%;">
+<div class="column" style="width:48%;">
 <h3 id="the-problems-3">The Problems</h3>
 <ul>
 <li><strong>Silent Regression</strong>: Results changed, and you don’t know why.</li>
 <li><strong>Vibe Blindness</strong>: Trusting LLM code without verification.</li>
 </ul>
-</div><div class="column" style="width:55%;">
+</div><div class="column" style="width:48%;">
 <h3 id="the-solutions-3">The Solutions</h3>
 <ul>
 <li><strong>Unit Tests</strong>: Shape checks &amp; Baselines.</li>

@@ -143,13 +143,13 @@ If it doesn't run on your collaborator's machine, it's not **Science**.
 ## UV vs. Conda
 
 ::: {.columns}
-::: {.column width="45%"}
+::: {.column width="48%"}
 ### The Problems
 - **Local vs. Cluster**: "I developed code locally, but the VACC env crashes."
 - **Collaboration**: "It works for me, but my coworker has global numpy issues."
 :::
 
-::: {.column width="55%"}
+::: {.column width="48%"}
 ### The Solutions
 - **Local Envs**: Environments live in the project folder.
 - **Reproducibility**: Lockfile ensures byte-for-byte matching.
@@ -160,13 +160,13 @@ If it doesn't run on your collaborator's machine, it's not **Science**.
 ## Pydantic: Strong Typing
 
 ::: {.columns}
-::: {.column width="45%"}
+::: {.column width="48%"}
 ### The Problems
 - **Boilerplate**: Constant manual parsing of nested lists/dicts.
 - **Silent Bugs**: Passing $N \times M$ when $M \times N$ was expected.
 :::
 
-::: {.column width="55%"}
+::: {.column width="48%"}
 ### The Solutions
 - **Validation**: Catch errors at the boundary.
 - **LLM Context**: Gives models the precise "slots" needed.
@@ -180,7 +180,7 @@ If it doesn't run on your collaborator's machine, it's not **Science**.
 ::: {.column width="45%"}
 ### The Problems
 - **Amnesia**: "I changed code; what results are now invalid?"
-- **Lost parameters**: "How did I generate this 6 months ago?"
+- **Lost parameters**: "How did I generate this figure 6 months ago?"
 :::
 
 ::: {.column width="55%"}
@@ -194,13 +194,13 @@ If it doesn't run on your collaborator's machine, it's not **Science**.
 ## Testing
 
 ::: {.columns}
-::: {.column width="45%"}
+::: {.column width="48%"}
 ### The Problems
 - **Silent Regression**: Results changed, and you don't know why.
 - **Vibe Blindness**: Trusting LLM code without verification.
 :::
 
-::: {.column width="55%"}
+::: {.column width="48%"}
 ### The Solutions
 - **Unit Tests**: Shape checks & Baselines.
 - **Vibe Coding**: Use tests to verify LLM logic.

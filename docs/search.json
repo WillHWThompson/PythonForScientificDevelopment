@@ -88,6 +88,6 @@
     "href": "presentation.html#snakemake-orchestration",
     "title": "Python for Scientific Development",
     "section": "Snakemake: Orchestration",
-    "text": "Snakemake: Orchestration\n\n\nThe Problems\n\nAmnesia: “I changed code; what results are now invalid?”\nLost parameters: “How did I generate this 6 months ago?”\n\n\nThe Solutions\n\nDAG Generation: knows exactly what needs to run.\nSelf-Documentation: The Snakefile is the record.\nExample: Snakefile"
+    "text": "Snakemake: Orchestration\n\n\nThe Problems\n\nAmnesia: “I changed code; what results are now invalid?”\nLost parameters: “How did I generate this figure 6 months ago?”\n\n\nThe Solutions\n\nDAG Generation: knows exactly what needs to run.\nSelf-Documentation: The Snakefile is the record.\nExample: Snakefile"
   }
 ]
