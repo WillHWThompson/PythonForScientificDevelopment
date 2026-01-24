@@ -1,0 +1,19 @@
+2026-01-24 13:22:06,551 INFO    MainThread:48617 [wandb_setup.py:_flush():81] Current SDK version is 0.24.0
+2026-01-24 13:22:06,551 INFO    MainThread:48617 [wandb_setup.py:_flush():81] Configure stats pid to 48617
+2026-01-24 13:22:06,551 INFO    MainThread:48617 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2026-01-24 13:22:06,551 INFO    MainThread:48617 [wandb_init.py:setup_run_log_directory():717] Logging user logs to /Users/willthompson/Documents/CSDS/side_projects/PythonForScientificDevelopment/wandb/run-20260124_132206-56v72ste/logs/debug.log
+2026-01-24 13:22:06,551 INFO    MainThread:48617 [wandb_init.py:setup_run_log_directory():718] Logging internal logs to /Users/willthompson/Documents/CSDS/side_projects/PythonForScientificDevelopment/wandb/run-20260124_132206-56v72ste/logs/debug-internal.log
+2026-01-24 13:22:06,551 INFO    MainThread:48617 [wandb_init.py:init():844] calling init triggers
+2026-01-24 13:22:06,551 INFO    MainThread:48617 [wandb_init.py:init():849] wandb.init called with sweep_config: {}
+config: {'name': 'bert_topic_baseline', 'model': {'model_name': 'distilbert-base-uncased', 'adapter_dim': 512, 'num_classes': 4, 'dropout': 0.1}, 'training': {'learning_rate': 5e-05, 'batch_size': 32, 'epochs': 3, 'max_length': 128, 'seed': 42}, 'data': {'dataset_name': 'ag_news', 'train_split': 'train', 'val_split': 'test', 'max_samples': None}, 'wandb_enabled': True, 'full_run_name': 'bert_topic_baseline_adim_512_lr_5e-05', '_wandb': {}}
+2026-01-24 13:22:06,551 INFO    MainThread:48617 [wandb_init.py:init():892] starting backend
+2026-01-24 13:22:06,840 INFO    MainThread:48617 [wandb_init.py:init():895] sending inform_init request
+2026-01-24 13:22:06,920 INFO    MainThread:48617 [wandb_init.py:init():903] backend started and connected
+2026-01-24 13:22:06,925 INFO    MainThread:48617 [wandb_init.py:init():973] updated telemetry
+2026-01-24 13:22:06,956 INFO    MainThread:48617 [wandb_init.py:init():997] communicating run to backend with 90.0 second timeout
+2026-01-24 13:22:07,719 INFO    MainThread:48617 [wandb_init.py:init():1044] starting run threads in backend
+2026-01-24 13:22:07,894 INFO    MainThread:48617 [wandb_run.py:_console_start():2529] atexit reg
+2026-01-24 13:22:07,896 INFO    MainThread:48617 [wandb_run.py:_redirect():2377] redirect: wrap_raw
+2026-01-24 13:22:07,896 INFO    MainThread:48617 [wandb_run.py:_redirect():2446] Wrapping output streams.
+2026-01-24 13:22:07,896 INFO    MainThread:48617 [wandb_run.py:_redirect():2469] Redirects installed.
+2026-01-24 13:22:07,899 INFO    MainThread:48617 [wandb_init.py:init():1084] run started, returning control to user process

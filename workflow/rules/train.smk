@@ -17,7 +17,7 @@ rule train_bert_classifier:
         # Parse overrides from the params_path wildcard
         overrides = lambda w: " ".join([f"--{p.split('~')[0]} {p.split('~')[1]}" for p in w.params_path.split("/") if "~" in p]) if w.params_path != "base" else ""
     shell:
-        "PYTHONPATH=$(pwd) uv run python scripts/run_training.py "
+        "PYTHONPATH=$(pwd):$(pwd)/src ./.venv/bin/python scripts/run_training.py "
         "--config {params.cfg} "
         "--output {output.weights} "
         "--stats {output.stats} "
