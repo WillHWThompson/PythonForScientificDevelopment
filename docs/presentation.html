@@ -228,6 +228,7 @@ Research Team
 </ul></li>
 <li>Separate scripts from plotting.</li>
 <li>Notebooks are for <strong>plots</strong>, not <strong>logic</strong>.</li>
+<li><strong>Example</strong>: <a href="../src/models/bert_adapter.py">bert_adapter.py</a></li>
 </ul>
 </div><div class="column" style="width:50%;">
 <h3 id="version-control">Version Control</h3>
@@ -235,6 +236,7 @@ Research Team
 <li><strong>Git early, git often.</strong></li>
 <li>Collaborating? Use <strong>Pull Requests</strong>.</li>
 <li>Working alone? <strong>Use Branches.</strong></li>
+<li><strong>Example</strong>: <a href="../README.md">README.md</a> (Git Flow Intro)</li>
 </ul>
 </div></div>
 </section>
@@ -248,56 +250,88 @@ Research Team
 <li><code>pyproject.toml</code> tracks everything.</li>
 <li><code>uv.lock</code> ensures the <strong>exact</strong> environment every time.</li>
 </ul></li>
+<li><strong>Example</strong>: <a href="../pyproject.toml">pyproject.toml</a></li>
 </ul>
 </section>
 <section id="uv-vs.-conda" class="slide level2">
 <h2>UV vs.&nbsp;Conda</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<h3 id="the-problems">The Problems</h3>
 <ul>
-<li><p><strong>Problem 1</strong>: I developed code locally and tried to run it on the VACC. Even with a <code>requirements.txt</code>, the environment is throwing version errors.</p></li>
-<li><p><strong>Problem 2</strong>: A collaborator cloned my repo, but it won’t run. After hours of debugging, it’s because they have a conflicting global version of NumPy.</p></li>
-<li><p><strong>Conda</strong>: Global environments are a <strong>psychotic choice</strong>.</p></li>
-<li><p><strong>UV</strong>: Local environments live inside your project folder.</p></li>
-<li><p><strong>Reproducibility</strong>: The lockfile ensures your collaborator has the <strong>exact</strong> byte-for-byte environment as you.</p></li>
-<li><p><strong>The Cache</strong>: Uses hard-linking. You won’t have 50 redundant versions of PyTorch on your disk.</p></li>
+<li><strong>Local vs.&nbsp;Cluster</strong>: “I developed code locally, but the VACC environment is throwing version errors.”</li>
+<li><strong>Collaboration</strong>: “A coworker cloned my repo, but it won’t run due to their global NumPy version.”</li>
 </ul>
+</div><div class="column" style="width:55%;">
+<h3 id="the-solutions">The Solutions</h3>
+<ul>
+<li><strong>Local Environments</strong>: Envs live inside your project folder.</li>
+<li><strong>Reproducibility</strong>: The lockfile ensures byte-for-byte matching.</li>
+<li><strong>Deep Performance</strong>: Global cache using hard-linking.</li>
+<li><strong>Example</strong>: <a href="../pyproject.toml">pyproject.toml</a></li>
+</ul>
+</div></div>
 </section>
 <section id="pydantic-strong-typing" class="slide level2">
 <h2>Pydantic: Strong Typing</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<h3 id="the-problems-1">The Problems</h3>
 <ul>
-<li><p><strong>Problem 1</strong>: I spend too much time writing boilerplate code to parse, validate, and save nested configuration dictionaries.</p></li>
-<li><p><strong>Problem 2</strong>: I spent a week debugging because I passed an <span class="math inline">\(N \times M\)</span> matrix to a function expecting <span class="math inline">\(M \times N\)</span>.</p></li>
-<li><p><strong>Problem 3</strong>: I pass parameters through 5 nested function layers; adding one new option requires changing 5 different file signatures.</p></li>
-<li><p><strong>The Solution</strong>: Use Pydantic for input validation.</p></li>
-<li><p><strong>LLM Context</strong>: Pydantic models give LLMs the precise “slots” needed to write correct code.</p></li>
-<li><p><strong>No Boilerplate</strong>: Preprocessing is baked directly into the data structure definition.</p></li>
+<li><strong>Boilerplate</strong>: Constant manual parsing and validation of dictionaries.</li>
+<li><strong>Silent Bugs</strong>: Passing <span class="math inline">\(N \times M\)</span> when <span class="math inline">\(M \times N\)</span> was expected.</li>
+<li><strong>Interface Bloat</strong>: Parameters passed through 5+ nested layers.</li>
 </ul>
+</div><div class="column" style="width:55%;">
+<h3 id="the-solutions-1">The Solutions</h3>
+<ul>
+<li><strong>Pydantic Validation</strong>: Catch errors at the boundary.</li>
+<li><strong>LLM Context</strong>: Gives LLMs the precise “slots” needed.</li>
+<li><strong>Baked-in Logic</strong>: Logic belongs in the data definition.</li>
+<li><strong>Example</strong>: <a href="../src/core/schema.py">schema.py</a></li>
+</ul>
+</div></div>
 </section>
 <section id="snakemake-workflow-orchestration" class="slide level2">
 <h2>Snakemake: Workflow Orchestration</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<h3 id="the-problems-2">The Problems</h3>
 <ul>
-<li><p><strong>Problem 1</strong>: “My advisor wants me to regenerate a figure from 6 months ago—what was the script? What were the parameters?”</p></li>
-<li><p><strong>Problem 2</strong>: “I changed one line in <code>utils.py</code>. Which of my 500 simulation results are now invalid?”</p></li>
-<li><p><strong>Problem 3</strong>: My VACC repo is littered with dozens of Slurm batch files and “launcher” scripts.</p></li>
-<li><p><strong>The Solution</strong>: Define the <em>Wishlist</em> (target files) and the <em>Rules</em> to create them.</p></li>
-<li><p><strong>Automation</strong>: Snakemake generates a <strong>Directed Acyclic Graph (DAG)</strong> and executes only what is necessary.</p></li>
-<li><p><strong>Clean Registry</strong>: Replaces manual Slurm scripts with high-level rule definitions.</p></li>
+<li><strong>Amnesia</strong>: “I changed code; what results are now invalid?”</li>
+<li><strong>Lost parameters</strong>: “How did I generate this figure 6 months ago?”</li>
+<li><strong>Batch Hell</strong>: VACC repo littered with 10M Slurm batch files.</li>
 </ul>
+</div><div class="column" style="width:55%;">
+<h3 id="the-solutions-2">The Solutions</h3>
+<ul>
+<li><strong>DAG Generation</strong>: Snakemake knows exactly what needs to run.</li>
+<li><strong>Self-Documentation</strong>: The Snakefile <em>is</em> the record.</li>
+<li><strong>Registry</strong>: High-level rules replace manual Slurm scripts.</li>
+<li><strong>Example</strong>: <a href="../Snakefile">Snakefile</a></li>
+</ul>
+</div></div>
 </section>
-<section id="defensive-coding-testing" class="slide level2">
-<h2>Defensive Coding: Testing</h2>
+<section id="testing" class="slide level2">
+<h2>Testing</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<h3 id="the-problems-3">The Problems</h3>
 <ul>
-<li><strong>Unit Testing</strong>: Whenever you write a significant function, define what “correct” looks like.
-<ul>
-<li><strong>Shape Checks</strong>: Is the matrix the size I expect?</li>
-<li><strong>Analytical Baseline</strong>: Does my numerical model match a known analytical solution?</li>
-<li><strong>Regression</strong>: Does my “Optimized” algorithm give the same answer as my “Naive/Slow” one?</li>
-</ul></li>
-<li><strong>Integration Testing</strong>: Ensuring the “plumbing” works end-to-end.
-<ul>
-<li><strong>The 1-Epoch Test</strong>: Does the pipeline run on a tiny dataset without crashing?</li>
-<li><strong>The Smoke Test</strong>: If I run for one epoch, does the loss decrease even a tiny bit?</li>
-</ul></li>
+<li><strong>Silent Regression</strong>: “I only changed the colors; why are my results different?”</li>
+<li><strong>Legacy Terror</strong>: “My code changed so much I can’t run old figures.”</li>
+<li><strong>Vibe Blindness</strong>: Trusting LLM code without verification.</li>
 </ul>
+</div><div class="column" style="width:55%;">
+<h3 id="the-solutions-3">The Solutions</h3>
+<ul>
+<li><strong>Unit Tests</strong>: Shape checks &amp; Analytical baselines.</li>
+<li><strong>Integration Tests</strong>: “The 1-Epoch Test” for pipeline sanity.</li>
+<li><strong>Vibe Coding</strong>: Use tests to verify LLM-generated logic.</li>
+<li><strong>CI/CD</strong>: Auto-run tests on every push to GitHub.</li>
+<li><strong>Example</strong>: <a href="../tests/test_nlp_logic.py">test_nlp_logic.py</a></li>
+</ul>
+</div></div>
 </section></section>
 <section id="summary" class="title-slide slide level1 center">
 <h1>Summary</h1>

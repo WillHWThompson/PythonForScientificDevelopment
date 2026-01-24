@@ -25,28 +25,28 @@
     "href": "presentation.html#project-structure",
     "title": "Python for Scientific Development",
     "section": "2. Project Structure",
-    "text": "2. Project Structure\n\n\nModularity\n\nSeparate source code from sweeps.\n\nMake your source code a python module\n\nSeparate scripts from plotting.\nNotebooks are for plots, not logic.\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nWorking alone? Use Branches."
+    "text": "2. Project Structure\n\n\nModularity\n\nSeparate source code from sweeps.\n\nMake your source code a python module\n\nSeparate scripts from plotting.\nNotebooks are for plots, not logic.\nExample: bert_adapter.py\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nWorking alone? Use Branches.\nExample: README.md (Git Flow Intro)"
   },
   {
     "objectID": "presentation.html#uv-the-new-standard",
     "href": "presentation.html#uv-the-new-standard",
     "title": "Python for Scientific Development",
     "section": "3. UV: The New Standard",
-    "text": "3. UV: The New Standard\nUV is a major innovation over pip and conda.\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility:\n\npyproject.toml tracks everything.\nuv.lock ensures the exact environment every time."
+    "text": "3. UV: The New Standard\nUV is a major innovation over pip and conda.\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility:\n\npyproject.toml tracks everything.\nuv.lock ensures the exact environment every time.\n\nExample: pyproject.toml"
   },
   {
     "objectID": "presentation.html#uv-vs.-conda",
     "href": "presentation.html#uv-vs.-conda",
     "title": "Python for Scientific Development",
     "section": "UV vs. Conda",
-    "text": "UV vs. Conda\n\nProblem 1: I developed code locally and tried to run it on the VACC. Even with a requirements.txt, the environment is throwing version errors.\nProblem 2: A collaborator cloned my repo, but it won’t run. After hours of debugging, it’s because they have a conflicting global version of NumPy.\nConda: Global environments are a psychotic choice.\nUV: Local environments live inside your project folder.\nReproducibility: The lockfile ensures your collaborator has the exact byte-for-byte environment as you.\nThe Cache: Uses hard-linking. You won’t have 50 redundant versions of PyTorch on your disk."
+    "text": "UV vs. Conda\n\n\nThe Problems\n\nLocal vs. Cluster: “I developed code locally, but the VACC environment is throwing version errors.”\nCollaboration: “A coworker cloned my repo, but it won’t run due to their global NumPy version.”\n\n\nThe Solutions\n\nLocal Environments: Envs live inside your project folder.\nReproducibility: The lockfile ensures byte-for-byte matching.\nDeep Performance: Global cache using hard-linking.\nExample: pyproject.toml"
   },
   {
     "objectID": "presentation.html#pydantic-strong-typing",
     "href": "presentation.html#pydantic-strong-typing",
     "title": "Python for Scientific Development",
     "section": "Pydantic: Strong Typing",
-    "text": "Pydantic: Strong Typing\n\nProblem 1: I spend too much time writing boilerplate code to parse, validate, and save nested configuration dictionaries.\nProblem 2: I spent a week debugging because I passed an \\(N \\times M\\) matrix to a function expecting \\(M \\times N\\).\nProblem 3: I pass parameters through 5 nested function layers; adding one new option requires changing 5 different file signatures.\nThe Solution: Use Pydantic for input validation.\nLLM Context: Pydantic models give LLMs the precise “slots” needed to write correct code.\nNo Boilerplate: Preprocessing is baked directly into the data structure definition."
+    "text": "Pydantic: Strong Typing\n\n\nThe Problems\n\nBoilerplate: Constant manual parsing and validation of dictionaries.\nSilent Bugs: Passing \\(N \\times M\\) when \\(M \\times N\\) was expected.\nInterface Bloat: Parameters passed through 5+ nested layers.\n\n\nThe Solutions\n\nPydantic Validation: Catch errors at the boundary.\nLLM Context: Gives LLMs the precise “slots” needed.\nBaked-in Logic: Logic belongs in the data definition.\nExample: schema.py"
   },
   {
     "objectID": "presentation.html#tools-of-the-trade",
@@ -67,7 +67,7 @@
     "href": "presentation.html#snakemake-workflow-orchestration",
     "title": "Python for Scientific Development",
     "section": "Snakemake: Workflow Orchestration",
-    "text": "Snakemake: Workflow Orchestration\n\nProblem 1: “My advisor wants me to regenerate a figure from 6 months ago—what was the script? What were the parameters?”\nProblem 2: “I changed one line in utils.py. Which of my 500 simulation results are now invalid?”\nProblem 3: My VACC repo is littered with dozens of Slurm batch files and “launcher” scripts.\nThe Solution: Define the Wishlist (target files) and the Rules to create them.\nAutomation: Snakemake generates a Directed Acyclic Graph (DAG) and executes only what is necessary.\nClean Registry: Replaces manual Slurm scripts with high-level rule definitions."
+    "text": "Snakemake: Workflow Orchestration\n\n\nThe Problems\n\nAmnesia: “I changed code; what results are now invalid?”\nLost parameters: “How did I generate this figure 6 months ago?”\nBatch Hell: VACC repo littered with 10M Slurm batch files.\n\n\nThe Solutions\n\nDAG Generation: Snakemake knows exactly what needs to run.\nSelf-Documentation: The Snakefile is the record.\nRegistry: High-level rules replace manual Slurm scripts.\nExample: Snakefile"
   },
   {
     "objectID": "presentation.html#defensive-coding-testing",
@@ -75,5 +75,12 @@
     "title": "Python for Scientific Development",
     "section": "Defensive Coding: Testing",
     "text": "Defensive Coding: Testing\n\nUnit Testing: Whenever you write a significant function, define what “correct” looks like.\n\nShape Checks: Is the matrix the size I expect?\nAnalytical Baseline: Does my numerical model match a known analytical solution?\nRegression: Does my “Optimized” algorithm give the same answer as my “Naive/Slow” one?\n\nIntegration Testing: Ensuring the “plumbing” works end-to-end.\n\nThe 1-Epoch Test: Does the pipeline run on a tiny dataset without crashing?\nThe Smoke Test: If I run for one epoch, does the loss decrease even a tiny bit?"
+  },
+  {
+    "objectID": "presentation.html#testing",
+    "href": "presentation.html#testing",
+    "title": "Python for Scientific Development",
+    "section": "Testing",
+    "text": "Testing\n\n\nThe Problems\n\nSilent Regression: “I only changed the colors; why are my results different?”\nLegacy Terror: “My code changed so much I can’t run old figures.”\nVibe Blindness: Trusting LLM code without verification.\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Analytical baselines.\nIntegration Tests: “The 1-Epoch Test” for pipeline sanity.\nVibe Coding: Use tests to verify LLM-generated logic.\nCI/CD: Auto-run tests on every push to GitHub.\nExample: test_nlp_logic.py"
   }
 ]

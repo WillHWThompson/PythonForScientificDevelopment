@@ -79,6 +79,7 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
     - Make your source code a python module
 - Separate scripts from plotting.
 - Notebooks are for **plots**, not **logic**.
+- **Example**: [bert_adapter.py](../src/models/bert_adapter.py)
 :::
 
 ::: {.column width="50%"}
@@ -86,6 +87,7 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 - **Git early, git often.**
 - Collaborating? Use **Pull Requests**.
 - Working alone? **Use Branches.** 
+- **Example**: [README.md](../README.md) (Git Flow Intro)
 :::
 :::
 
@@ -98,50 +100,87 @@ UV is a major innovation over `pip` and `conda`.
 - **Reproducibility**:
     - `pyproject.toml` tracks everything.
     - `uv.lock` ensures the **exact** environment every time.
+- **Example**: [pyproject.toml](../pyproject.toml)
 
 ## UV vs. Conda
 
-- **Problem 1**: I developed code locally and tried to run it on the VACC. Even with a `requirements.txt`, the environment is throwing version errors.
-- **Problem 2**: A collaborator cloned my repo, but it won't run. After hours of debugging, it's because they have a conflicting global version of NumPy.
+::: {.columns}
+::: {.column width="45%"}
+### The Problems
+- **Local vs. Cluster**: "I developed code locally, but the VACC environment is throwing version errors."
+- **Collaboration**: "A coworker cloned my repo, but it won't run due to their global NumPy version."
+:::
 
-- **Conda**: Global environments are a **psychotic choice**.
-- **UV**: Local environments live inside your project folder.
-- **Reproducibility**: The lockfile ensures your collaborator has the **exact** byte-for-byte environment as you.
-- **The Cache**: Uses hard-linking. You won't have 50 redundant versions of PyTorch on your disk.
+::: {.column width="55%"}
+### The Solutions
+- **Local Environments**: Envs live inside your project folder.
+- **Reproducibility**: The lockfile ensures byte-for-byte matching.
+- **Deep Performance**: Global cache using hard-linking.
+- **Example**: [pyproject.toml](../pyproject.toml)
+:::
+:::
 
 
 ## Pydantic: Strong Typing
 
-- **Problem 1**: I spend too much time writing boilerplate code to parse, validate, and save nested configuration dictionaries.
-- **Problem 2**: I spent a week debugging because I passed an $N \times M$ matrix to a function expecting $M \times N$.
-- **Problem 3**: I pass parameters through 5 nested function layers; adding one new option requires changing 5 different file signatures.
+::: {.columns}
+::: {.column width="45%"}
+### The Problems
+- **Boilerplate**: Constant manual parsing and validation of dictionaries.
+- **Silent Bugs**: Passing $N \times M$ when $M \times N$ was expected.
+- **Interface Bloat**: Parameters passed through 5+ nested layers.
+:::
 
-- **The Solution**: Use Pydantic for input validation.
-- **LLM Context**: Pydantic models give LLMs the precise "slots" needed to write correct code.
-- **No Boilerplate**: Preprocessing is baked directly into the data structure definition.
+::: {.column width="55%"}
+### The Solutions
+- **Pydantic Validation**: Catch errors at the boundary.
+- **LLM Context**: Gives LLMs the precise "slots" needed.
+- **Baked-in Logic**: Logic belongs in the data definition.
+- **Example**: [schema.py](../src/core/schema.py)
+:::
+:::
 
 
 ## Snakemake: Workflow Orchestration
 
-- **Problem 1**: "My advisor wants me to regenerate a figure from 6 months ago—what was the script? What were the parameters?"
-- **Problem 2**: "I changed one line in `utils.py`. Which of my 500 simulation results are now invalid?"
-- **Problem 3**: My VACC repo is littered with dozens of Slurm batch files and "launcher" scripts.
+::: {.columns}
+::: {.column width="45%"}
+### The Problems
+- **Amnesia**: "I changed code; what results are now invalid?"
+- **Lost parameters**: "How did I generate this figure 6 months ago?"
+- **Batch Hell**: VACC repo littered with 10M Slurm batch files.
+:::
 
-- **The Solution**: Define the *Wishlist* (target files) and the *Rules* to create them.
-- **Automation**: Snakemake generates a **Directed Acyclic Graph (DAG)** and executes only what is necessary.
-- **Clean Registry**: Replaces manual Slurm scripts with high-level rule definitions.
+::: {.column width="55%"}
+### The Solutions
+- **DAG Generation**: Snakemake knows exactly what needs to run.
+- **Self-Documentation**: The Snakefile *is* the record.
+- **Registry**: High-level rules replace manual Slurm scripts.
+- **Example**: [Snakefile](../Snakefile)
+:::
+:::
 
 
-## Defensive Coding: Testing
+## Testing
 
-- **Unit Testing**: Whenever you write a significant function, define what "correct" looks like.
-    - **Shape Checks**: Is the matrix the size I expect?
-    - **Analytical Baseline**: Does my numerical model match a known analytical solution?
-    - **Regression**: Does my "Optimized" algorithm give the same answer as my "Naive/Slow" one?
+::: {.columns}
+::: {.column width="45%"}
+### The Problems
+- **Silent Regression**: "I only changed the colors; why are my results different?"
+- **Legacy Terror**: "My code changed so much I can't run old figures."
+- **Vibe Blindness**: Trusting LLM code without verification.
+:::
 
-- **Integration Testing**: Ensuring the "plumbing" works end-to-end.
-    - **The 1-Epoch Test**: Does the pipeline run on a tiny dataset without crashing?
-    - **The Smoke Test**: If I run for one epoch, does the loss decrease even a tiny bit?
+::: {.column width="55%"}
+### The Solutions
+- **Unit Tests**: Shape checks & Analytical baselines.
+- **Integration Tests**: "The 1-Epoch Test" for pipeline sanity.
+- **Vibe Coding**: Use tests to verify LLM-generated logic.
+- **CI/CD**: Auto-run tests on every push to GitHub.
+- **Example**: [test_nlp_logic.py](../tests/test_nlp_logic.py)
+:::
+:::
+
 
 # Summary
 
