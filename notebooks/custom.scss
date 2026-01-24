@@ -42,24 +42,6 @@ b {
     font-weight: 700;
 }
 
-.inverse {
-    color: white !important;
-
-    h1,
-    h2,
-    h3,
-    h4,
-    strong,
-    b {
-        color: white !important;
-    }
-
-    strong,
-    b {
-        color: $tol-cyan !important;
-    }
-}
-
 a {
     transition: all 0.2s ease-in-out;
     color: $tol-purple;
@@ -86,6 +68,47 @@ a {
                 margin-bottom: 0.5em;
             }
 
+            /* High Contrast Overrides for Dark Slides */
+            &.has-dark-background {
+                color: white !important;
+
+                h1,
+                h2,
+                h3,
+                h4 {
+                    color: white !important;
+                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+                }
+
+                strong,
+                b {
+                    color: $tol-cyan !important;
+                }
+
+                li,
+                p {
+                    color: rgba(255, 255, 255, 0.95) !important;
+                }
+
+                a {
+                    color: $tol-cyan;
+
+                    &:hover {
+                        color: white;
+                        border-bottom-color: white;
+                    }
+                }
+            }
+
+            /* Branded Accents for Light Slides */
+            &.has-light-background {
+
+                strong,
+                b {
+                    color: $tol-purple !important;
+                }
+            }
+
             /* Modern Column Styling */
             .columns {
                 display: flex !important;
@@ -104,7 +127,6 @@ a {
                 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
                 transition: transform 0.3s ease;
                 box-sizing: border-box;
-                /* CRITICAL for side-by-side */
 
                 &:hover {
                     transform: translateY(-5px);
@@ -153,63 +175,21 @@ a {
     }
 }
 
-/* --- Glassmorphism Components --- */
-.glass-card {
-    background: rgba(255, 255, 255, 0.7) !important;
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 16px;
-    padding: 2em;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+/* Specific Title Slide Refinement */
+.reveal .slides section.title-slide {
+    h1 {
+        font-size: 2.2em;
+    }
+
+    .subtitle {
+        color: $tol-rose !important;
+        font-weight: 500;
+        font-style: italic;
+    }
 }
 
-/* Slide Background Overlays */
+/* Slide Background Content Opacity Refinement */
 .reveal .slide-background-content {
     background-size: cover;
     opacity: 0.05;
-}
-
-.reveal .slides section[data-background-color="#332288"],
-.reveal .slides section[data-background-color="#AA4499"],
-.reveal .slides section.title-slide {
-    color: white !important;
-
-    h1,
-    h2,
-    h3,
-    h4 {
-        color: white !important;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    }
-
-    strong,
-    b {
-        color: $tol-cyan !important;
-    }
-
-    li,
-    p {
-        color: rgba(255, 255, 255, 0.9) !important;
-    }
-
-    .subtitle {
-        color: $tol-rose;
-        font-weight: 500;
-        font-style: italic;
-    }
-}
-
-/* Specific Section Header Style */
-.reveal .slides section.title-slide {
-    h1 {
-        color: $tol-purple;
-        font-size: 2.2em;
-        text-shadow: 2px 2px 0 rgba($tol-cyan, 0.2);
-    }
-
-    .subtitle {
-        color: $tol-magenta;
-        font-weight: 500;
-        font-style: italic;
-    }
 }
