@@ -4,11 +4,11 @@ rule train_higgs_model:
     input:
         "data/higgs.parquet"
     output:
-        params = "results/{cfg_name}/{exp_id}/trained_model.params",
-        stats = "results/{cfg_name}/{exp_id}/training_stats.json"
+        params = "results/{cfg_name}/{params_path}/trained_model.params",
+        stats = "results/{cfg_name}/{params_path}/training_stats.json"
     wildcard_constraints:
         cfg_name="[^/]+",
-        exp_id="[^/]+"
+        params_path=".+"
     resources:
         mem_mb=16000,
         gpu=1,
@@ -17,10 +17,15 @@ rule train_higgs_model:
         # Use the config file provided on the CLI, or fallback to the one in configs/
         cfg_path = workflow.configfiles[0] if workflow.configfiles else f"configs/{wildcards.cfg_name}.yaml"
         
-        shell(
-            "python scripts/run_training.py "
-            "--exp_name {wildcards.exp_id} "
-            "--config {cfg_path} "
-            "--output {output.params} "
-            "--stats {output.stats}"
-        )
+        # Build command args by parsing the params_path
+        # format: param1~val1/param2~val2
+        cmd_args = f"--config {cfg_path} --output {output.params} --stats {output.stats} "
+        
+        # Extract individual parameters from the path
+        if wildcards.params_path != "base":
+            for part in wildcards.params_path.split("/"):
+                if "~" in part:
+                    k, v = part.split("~")
+                    cmd_args += f"--{k} {v} "
+        
+        shell(f"python scripts/run_training.py {cmd_args}")

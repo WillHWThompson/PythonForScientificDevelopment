@@ -1,6 +1,7 @@
 import duckdb
 import pandas as pd
 import jax.numpy as jnp
+import json
 from pathlib import Path
 from .schema import DataConfig
 
@@ -51,6 +52,26 @@ class HiggsDataManager:
             X = chunk.iloc[:, 1:].values.astype(jnp.float32)
             y = chunk.iloc[:, 0].values.astype(jnp.float32)
             yield jnp.array(X), jnp.array(y)
+
+    def aggregate_sweep_results(self, results_dir: str):
+        """
+        Uses DuckDB to aggregate all training_stats.json files from a sweep
+        into a single flattened DataFrame for analysis.
+        """
+        results_path = Path(results_dir)
+        json_pattern = str(results_path / "**" / "training_stats.json")
+        
+        # DuckDB can read a list of JSON files directly and flatten them
+        query = f"""
+            SELECT 
+                config.name as exp_name,
+                config.model.hidden_dims as architecture,
+                config.training.learning_rate as lr,
+                config.training.epochs as epochs,
+                history as training_history
+            FROM read_json_auto('{json_pattern}')
+        """
+        return self.con.execute(query).df()
 
 def convert_csv_to_parquet(csv_path: str, parquet_path: str):
     """Utility to convert the massive CSV to Parquet using DuckDB."""

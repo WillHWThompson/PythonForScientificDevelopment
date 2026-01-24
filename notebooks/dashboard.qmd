@@ -10,63 +10,71 @@ import json
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
+import sys
+import os
 
-# Load training stats
-stats_file = Path("../results/training_stats.json")
-if stats_file.exists():
-    with open(stats_file, 'r') as f:
-        data = json.load(f)
-    history = pd.DataFrame(data['history'])
-else:
-    # Dummy data for demonstration if model hasn't run yet
-    history = pd.DataFrame({
-        'epoch': range(10),
-        'loss': [0.6, 0.5, 0.45, 0.42, 0.40, 0.38, 0.37, 0.36, 0.35, 0.34]
-    })
+# Ensure the src directory is in the path for imports
+sys.path.append(os.path.abspath(".."))
+from src.scientific_dev.data_manager import HiggsDataManager
+from src.scientific_dev.schema import DataConfig
 
 sns.set_theme(style="whitegrid")
+
+# Initialize Data Manager
+data_config = DataConfig(parquet_path="../data/higgs.parquet")
+dm = HiggsDataManager(data_config)
+
+# Discover results
+results_dir = Path("../results")
+has_results = results_dir.exists() and any(results_dir.glob("**/*.json"))
+
+if has_results:
+    # Use our new DuckDB aggregator to pull ALL results
+    sweep_df = dm.aggregate_sweep_results("../results")
+    
+    # Extract the last loss for comparison
+    sweep_df['final_loss'] = sweep_df['training_history'].apply(lambda x: x[-1]['loss'] if x else None)
+else:
+    # Dummy data for demonstration
+    sweep_df = pd.DataFrame({
+        'exp_name': ['A', 'B', 'C', 'D'],
+        'architecture': ['128-64', '256-128', '128-64', '512-256'],
+        'lr': [0.001, 0.001, 0.0001, 0.0001],
+        'final_loss': [0.45, 0.42, 0.48, 0.41]
+    })
 ```
 
-## Training Overview
+## Sweep Comparison
 
 ::: {.panel-tabset}
 
-### Loss Curve
+### Performance Overview
 ```{python}
-plt.figure(figsize=(10, 4))
-sns.lineplot(data=history, x='epoch', y='loss', marker='o')
-plt.title("Training Loss over Epochs")
-plt.xlabel("Epoch")
-plt.ylabel("Binary Cross-Entropy Loss")
+plt.figure(figsize=(10, 5))
+sns.barplot(data=sweep_df, x='architecture', y='final_loss', hue='lr')
+plt.title("Final Loss by Architecture and Learning Rate")
+plt.ylabel("Binary Cross-Entropy Loss (Lower is better)")
+plt.xticks(rotation=45)
 plt.show()
 ```
 
-### Model Config
+### Raw Sweep Data
 ```{python}
-if stats_file.exists():
-    config = data['config']
-    print(f"**Model Name**: {data['config']['name']}")
-    print(f"**Hidden Layers**: {config['model']['hidden_dims']}")
-    print(f"**Batch Size**: {config['training']['batch_size']}")
-else:
-    print("No training stats found. Run the Snakemake pipeline to generate live results.")
+from IPython.display import display, Markdown
+display(sweep_df[['exp_name', 'architecture', 'lr', 'final_loss']].sort_values('final_loss'))
 ```
 
 :::
 
-## Feature Analysis (via DuckDB)
+## Data Analysis (via DuckDB)
 
 ```{python}
-import duckdb
-parquet_path = "../data/higgs.parquet"
-
-if Path(parquet_path).exists():
-    con = duckdb.connect()
-    df = con.execute(f"SELECT column0 as label, column1 as feature1 FROM read_parquet('{parquet_path}') LIMIT 10000").df()
+if Path(data_config.parquet_path).exists():
+    df = dm.get_summary_stats()
     
     plt.figure(figsize=(10, 4))
-    sns.kdeplot(data=df, x='feature1', hue='label', fill=True)
-    plt.title("Lepton pT Distribution by Label (Subset)")
+    sns.barplot(data=df, x='label', y='avg_lepton_pt')
+    plt.title("Average Lepton pT by Label (Full 11M Rows)")
     plt.show()
 else:
     print("Note: Higgs Parquet data not found. Dataset analysis will appear here after the Ingest step.")

@@ -1,34 +1,44 @@
 # Snakefile
 import yaml
+import pandas as pd
+from itertools import product
 from pathlib import Path
 
-# 1. Include Modular Rules
-include: "workflow/rules/data.smk"
-include: "workflow/rules/train.smk"
-
-# 2. Determine Workflow Mode
-# We expect the user to run: snakemake --configfile configs/my_experiment.yaml
-# The 'config' object is automatically populated by Snakemake from the YAML.
-
-# Derive the config name from the filename provided to --configfile
-# Default to "default" if no configfile is provided (though we'll error out if sweep info is missing)
+# 1. Determine Workflow Mode and Build Experiment Grid
 config_file_path = workflow.configfiles[0] if workflow.configfiles else "configs/default.yaml"
 cfg_name = Path(config_file_path).stem
 
 ALL_OUTPUTS = []
 
+def get_instance_dir(row_dict):
+    """Helper to convert a parameter dict into a directory path: param1~val1/param2~val2"""
+    parts = []
+    for k, v in row_dict.items():
+        # Handle list serialization (hyphenated)
+        val = "-".join(map(str, v)) if isinstance(v, list) else v
+        parts.append(f"{k}~{val}")
+    return "/".join(parts)
+
 if "sweep" in config:
-    for h_dim in config["sweep"]["hidden_dims"]:
-        for lr in config["sweep"]["learning_rate"]:
-            dim_str = "_".join(map(str, h_dim))
-            exp_id = f"mlp_{dim_str}_lr_{lr}"
-            ALL_OUTPUTS.append(f"results/{cfg_name}/{exp_id}/training_stats.json")
-            ALL_OUTPUTS.append(f"results/{cfg_name}/{exp_id}/trained_model.params")
+    keys = config["sweep"].keys()
+    values = config["sweep"].values()
+    
+    # Generate all combinations
+    grid = [dict(zip(keys, v)) for v in product(*values)]
+    
+    # Build output paths
+    for row in grid:
+        instance_path = get_instance_dir(row)
+        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/training_stats.json")
+        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/trained_model.params")
 else:
-    # If no sweep is defined, just run the base model from the config
     ALL_OUTPUTS.append(f"results/{cfg_name}/base/training_stats.json")
     ALL_OUTPUTS.append(f"results/{cfg_name}/base/trained_model.params")
 
 rule all:
     input:
         ALL_OUTPUTS
+
+# 2. Include Modular Rules
+include: "workflow/rules/data.smk"
+include: "workflow/rules/train.smk"
