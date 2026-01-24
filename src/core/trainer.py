@@ -9,7 +9,7 @@ from pathlib import Path
 from ..core.schema import NLPExperimentConfig
 
 class TextClassifierTrainer:
-    def __init__(self, config: NLPExperimentConfig, model: nn.Module, train_loader, val_loader):
+    def __init__(self, config: NLPExperimentConfig, model: nn.Module, train_loader=None, val_loader=None):
         self.config = config
         self.model = model
         self.train_loader = train_loader
@@ -17,16 +17,22 @@ class TextClassifierTrainer:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model.to(self.device)
         
-        self.optimizer = AdamW(self.model.parameters(), lr=config.training.learning_rate)
         self.criterion = nn.CrossEntropyLoss()
         
-        # Scheduler
-        num_training_steps = len(train_loader) * config.training.epochs
-        self.scheduler = get_linear_schedule_with_warmup(
-            self.optimizer, 
-            num_warmup_steps=int(0.1 * num_training_steps), 
-            num_training_steps=num_training_steps
-        )
+        # Training setup only if train_loader is provided
+        if train_loader is not None:
+            self.optimizer = AdamW(self.model.parameters(), lr=config.training.learning_rate)
+            
+            # Scheduler
+            num_training_steps = len(train_loader) * config.training.epochs
+            self.scheduler = get_linear_schedule_with_warmup(
+                self.optimizer, 
+                num_warmup_steps=int(0.1 * num_training_steps), 
+                num_training_steps=num_training_steps
+            )
+        else:
+            self.optimizer = None
+            self.scheduler = None
         
         # Metrics
         self.acc_metric = evaluate.load("accuracy")
