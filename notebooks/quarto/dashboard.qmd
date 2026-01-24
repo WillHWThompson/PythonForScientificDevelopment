@@ -7,6 +7,7 @@ execute:
 ```{python}
 import pandas as pd
 import duckdb
+import numpy as np
 from pathlib import Path
 
 # Result discovery - look up from notebooks/quarto/
@@ -33,7 +34,6 @@ if has_results:
     all_data = con.execute(query).df()
 else:
     # Dummy data for the preview
-    import numpy as np
     epochs = np.arange(10)
     all_data = pd.DataFrame({
         'exp_name': 'Prototype',
