@@ -6,9 +6,12 @@ __pycache__/
 .env
 
 # Data & Results
-data/
-results/
-models/
+/data_raw/
+/results/
+/models/
+
+# WandB
+wandb/
 
 # Snakemake
 .snakemake/
