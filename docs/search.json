@@ -4,7 +4,7 @@
     "href": "presentation.html#the-overhead-trade-off",
     "title": "Python for Scientific Development",
     "section": "The Overhead Trade-off",
-    "text": "The Overhead Trade-off\nThe eternal struggle: Time spent to automate vs. overhead accumulated.\n\nAutomation (Source: XKCD)\n“I have a tendency to over-engineer overcomplicated pipelines I will never use. Now I can do this guilt-free with LLMS!”"
+    "text": "The Overhead Trade-off\nThe eternal struggle: Time spent to automate vs. overhead accumulated.\n\n\n\n\n\nAutomation (Source: XKCD)\n\n\n\n\nLLM ROI\n“I have a tendency to over-engineer pipelines I will never use. Now I can do this guilt-free with LLMs!”"
   },
   {
     "objectID": "presentation.html#the-vibe-coder-thesis",
@@ -18,35 +18,35 @@
     "href": "presentation.html#vscode-cursor",
     "title": "Python for Scientific Development",
     "section": "1. VSCode / Cursor",
-    "text": "1. VSCode / Cursor\n\nYou have no excuse not to use a modern IDE.\nUnless you’re an “old-head,” VIM/EMACS are strictly worse for your velocity.\nStop using Jupyter Notebooks for everything.\n\nIf you use them for source code, you are doing things wrong."
+    "text": "1. VSCode / Cursor\n\n\nModern IDE\n\nYou have no excuse not to use a modern IDE.\nVIM/EMACS are strictly worse for total project velocity.\n\n\nAnti-Pattern\n\nStop using Jupyter Notebooks for everything.\nNotebooks are for exploration, not logic."
   },
   {
     "objectID": "presentation.html#project-structure",
     "href": "presentation.html#project-structure",
     "title": "Python for Scientific Development",
     "section": "2. Project Structure",
-    "text": "2. Project Structure\n\n\nModularity\n\nSeparate source code from sweeps.\n\nMake your source code a python module\n\nSeparate scripts from plotting.\nNotebooks are for plots, not logic.\nExample: bert_adapter.py\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nWorking alone? Use Branches.\nExample: README.md (Git Flow Intro)"
+    "text": "2. Project Structure\n\n\nModularity\n\nSeparate source code from sweeps.\nMake your source code a python module.\nExample: bert_adapter.py\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nExample: README.md"
   },
   {
     "objectID": "presentation.html#uv-the-new-standard",
     "href": "presentation.html#uv-the-new-standard",
     "title": "Python for Scientific Development",
     "section": "3. UV: The New Standard",
-    "text": "3. UV: The New Standard\nUV is a major innovation over pip and conda.\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility:\n\npyproject.toml tracks everything.\nuv.lock ensures the exact environment every time.\n\nExample: pyproject.toml"
+    "text": "3. UV: The New Standard\n\n\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility: uv.lock is non-negotiable.\nExample: pyproject.toml\n\n\n\n\n\n\n\n\nReproducibility\n\n\nIf it doesn’t run on your collaborator’s machine, it’s not Science."
   },
   {
     "objectID": "presentation.html#uv-vs.-conda",
     "href": "presentation.html#uv-vs.-conda",
     "title": "Python for Scientific Development",
     "section": "UV vs. Conda",
-    "text": "UV vs. Conda\n\n\nThe Problems\n\nLocal vs. Cluster: “I developed code locally, but the VACC environment is throwing version errors.”\nCollaboration: “A coworker cloned my repo, but it won’t run due to their global NumPy version.”\n\n\nThe Solutions\n\nLocal Environments: Envs live inside your project folder.\nReproducibility: The lockfile ensures byte-for-byte matching.\nDeep Performance: Global cache using hard-linking.\nExample: pyproject.toml"
+    "text": "UV vs. Conda\n\n\nThe Problems\n\nLocal vs. Cluster: “I developed code locally, but the VACC env crashes.”\nCollaboration: “It works for me, but my coworker has global numpy issues.”\n\n\nThe Solutions\n\nLocal Envs: Environments live in the project folder.\nReproducibility: Lockfile ensures byte-for-byte matching.\nExample: pyproject.toml"
   },
   {
     "objectID": "presentation.html#pydantic-strong-typing",
     "href": "presentation.html#pydantic-strong-typing",
     "title": "Python for Scientific Development",
     "section": "Pydantic: Strong Typing",
-    "text": "Pydantic: Strong Typing\n\n\nThe Problems\n\nBoilerplate: Constant manual parsing and validation of dictionaries.\nSilent Bugs: Passing \\(N \\times M\\) when \\(M \\times N\\) was expected.\nInterface Bloat: Parameters passed through 5+ nested layers.\n\n\nThe Solutions\n\nPydantic Validation: Catch errors at the boundary.\nLLM Context: Gives LLMs the precise “slots” needed.\nBaked-in Logic: Logic belongs in the data definition.\nExample: schema.py"
+    "text": "Pydantic: Strong Typing\n\n\nThe Problems\n\nBoilerplate: Constant manual parsing of nested lists/dicts.\nSilent Bugs: Passing \\(N \\times M\\) when \\(M \\times N\\) was expected.\n\n\nThe Solutions\n\nValidation: Catch errors at the boundary.\nLLM Context: Gives models the precise “slots” needed.\nExample: schema.py"
   },
   {
     "objectID": "presentation.html#tools-of-the-trade",
@@ -81,6 +81,13 @@
     "href": "presentation.html#testing",
     "title": "Python for Scientific Development",
     "section": "Testing",
-    "text": "Testing\n\n\nThe Problems\n\nSilent Regression: “I only changed the colors; why are my results different?”\nLegacy Terror: “My code changed so much I can’t run old figures.”\nVibe Blindness: Trusting LLM code without verification.\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Analytical baselines.\nIntegration Tests: “The 1-Epoch Test” for pipeline sanity.\nVibe Coding: Use tests to verify LLM-generated logic.\nCI/CD: Auto-run tests on every push to GitHub.\nExample: test_nlp_logic.py"
+    "text": "Testing\n\n\nThe Problems\n\nSilent Regression: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py"
+  },
+  {
+    "objectID": "presentation.html#snakemake-orchestration",
+    "href": "presentation.html#snakemake-orchestration",
+    "title": "Python for Scientific Development",
+    "section": "Snakemake: Orchestration",
+    "text": "Snakemake: Orchestration\n\n\nThe Problems\n\nAmnesia: “I changed code; what results are now invalid?”\nLost parameters: “How did I generate this 6 months ago?”\n\n\nThe Solutions\n\nDAG Generation: knows exactly what needs to run.\nSelf-Documentation: The Snakefile is the record.\nExample: Snakefile"
   }
 ]

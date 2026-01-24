@@ -33,23 +33,28 @@ h3,
 h4 {
     color: $body-color;
     font-weight: 800 !important;
+    letter-spacing: -0.02em;
 }
 
 strong,
 b {
-    color: $tol-cyan;
+    color: $tol-purple;
+    font-weight: 700;
 }
 
 a {
-    transition: color 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+    color: $tol-purple;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
 
     &:hover {
         color: $tol-cyan;
-        text-decoration: underline;
+        border-bottom: 2px solid $tol-cyan;
     }
 }
 
-/* --- RevealJS Specialization --- */
+/* --- RevealJS Modernization --- */
 .reveal {
     background-color: $body-bg;
 
@@ -60,12 +65,49 @@ a {
             h2 {
                 color: $tol-purple;
                 text-transform: none;
+                margin-bottom: 0.5em;
+            }
+
+            /* Modern Column Styling */
+            .column {
+                padding: 1.5em;
+                background: rgba(255, 255, 255, 0.5);
+                backdrop-filter: blur(10px);
+                border-radius: 12px;
+                border: 1px solid rgba($tol-purple, 0.1);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+                transition: transform 0.3s ease;
+
+                &:hover {
+                    transform: translateY(-5px);
+                }
+
+                h3 {
+                    margin-top: 0;
+                    color: $tol-purple;
+                    font-size: 1.3em;
+                    border-bottom: 2px solid $tol-cyan;
+                    display: inline-block;
+                    margin-bottom: 0.8em;
+                }
             }
         }
     }
 
+    .footer {
+        font-size: 0.5em !important;
+        color: lighten($body-color, 40%);
+        font-weight: 500;
+    }
+
     .progress {
-        color: $tol-purple !important;
+        height: 6px !important;
+        background: rgba(0, 0, 0, 0.05) !important;
+
+        span {
+            background: $tol-purple !important;
+            box-shadow: 0 0 10px rgba($tol-purple, 0.5);
+        }
     }
 
     .controls {
@@ -73,20 +115,43 @@ a {
     }
 
     blockquote {
-        border-left: 5px solid $tol-cyan;
-        background: #f9f9f9;
-        padding: 10px 20px;
-        color: lighten($body-color, 20%);
+        border-left: 6px solid $tol-cyan;
+        background: rgba($tol-cyan, 0.05);
+        padding: 20px 30px;
+        border-radius: 4px 12px 12px 4px;
+        color: $body-color;
+        font-style: italic;
+        box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.03);
     }
 }
 
-/* --- Blockquotes & Callouts --- */
-.callout {
-    border-left-color: $tol-purple !important;
+/* --- Glassmorphism Components --- */
+.glass-card {
+    background: rgba(255, 255, 255, 0.7) !important;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
+    padding: 2em;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
-.card {
-    border: 1px solid $border-color;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+/* Slide Background Overlays */
+.reveal .slide-background-content {
+    background-size: cover;
+    opacity: 0.05;
+}
+
+/* Specific Section Header Style */
+.reveal .slides section.title-slide {
+    h1 {
+        color: $tol-purple;
+        font-size: 2.2em;
+        text-shadow: 2px 2px 0 rgba($tol-cyan, 0.2);
+    }
+
+    .subtitle {
+        color: $tol-magenta;
+        font-weight: 500;
+        font-style: italic;
+    }
 }

@@ -2,73 +2,108 @@
 title: "Python for Scientific Development"
 subtitle: "Contorting a Terrible Language into a Research Powerhouse"
 author: "Research Team"
+footer: "Scientific Python | Modular. Reproducible. Professional."
 format: 
   revealjs:
     theme: [white, custom.scss]
     transition: slide
-    slide-number: true
+    background-transition: fade
+    slide-number: c/t
     preview-links: auto
     highlight-style: monokai
     chalkboard: true
+    logo: https://www.python.org/static/community_logos/python-logo-only.png
+    title-slide-attributes:
+      data-background-color: "#332288"
+      data-background-image: "https://www.transparenttextures.com/patterns/cubes.png"
+      data-background-opacity: "0.1"
 ---
 
-# The Hard Truth
+# The Hard Truth {background-color="#332288" background-image="https://www.transparenttextures.com/patterns/asfalt-dark.png"}
 
+::: {.fragment .fade-up}
 - Python is a **TERRIBLE** language for scientific computing.
+:::
+::: {.fragment .fade-up}
 - Nothing about the language is inherently good for science.
+:::
+::: {.fragment .fade-up}
 - Most tools were developed by researchers as a "side-hustle."
+:::
+::: {.fragment .fade-in-then-semi-out}
 - **The Goal**: How can we contort Python to be at least "okay"?
+:::
 
+# The Dirty Secret... {background-color="#ffffff"}
 
-# The Dirty Secret...
-
+::: {.incremental}
 - If you are a (non-bench) scientist in 2026: **YOU ARE A SOFTWARE DEVELOPER.**
 - Most of your time isn't in the lab; it's writing and running code.
 - **Fact**: Scientists are (mostly) bad software developers.
-
+:::
 
 ## The Overhead Trade-off
 
 The eternal struggle: Time spent to automate vs. overhead accumulated.
 
-![Automation (Source: XKCD)](https://imgs.xkcd.com/comics/automation_2x.png)
+::: {.r-stack}
+![Automation (Source: XKCD)](https://imgs.xkcd.com/comics/automation_2x.png){.fragment .fade-in-then-out}
 
-> "I have a tendency to over-engineer overcomplicated pipelines I will never use. Now I can do this guilt-free with LLMS!"
+::: {.glass-card .fragment .fade-up}
+### LLM ROI
+"I have a tendency to over-engineer pipelines I will never use. Now I can do this guilt-free with **LLMs!**"
+:::
+:::
 
+# The Good News {background-color="#AA4499"}
 
-# The Good News
-
+::: {.incremental}
 - **Fact**: Claude Code is a better developer than you will ever be.
 - **Fact**: LLMs change the ROI on automation.
 - **Fact**: **I basically never write code anymore.**
 - **Fact**: Most LLM failures are failures of **context**, not reasoning.
-
+:::
 
 ## The Vibe-Coder Thesis
 
 > "Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has **adequate context**."
 
+# Your Workflow {background-color="#ffffff"}
 
-# Your Workflow
+::: {.columns}
+::: {.column width="60%"}
+- You have data/simulation parameters.
+- You have a model (statistical/ML/physics).
+- You want to run sweeps with different inputs.
+- You want to collect & visualize efficiently.
+- You want to turn plots into a **publication**.
+:::
 
-- You have some data/simulation parameters
-- You have a model (statistical/ML model forward simulation)
-- You want to run your model with different sets of input parameters, which might require a lot of computation
-    - Different hyperparameters for Neural Network
-    - Different subsets of data 
-    - Different initial conditions for simulation
-- You want to collect the results of these sweeps and visualize the data efficiently
-- You want to eventually turn these plots into a publication
+::: {.column width="40%"}
+::: {.callout-tip}
+### Goal
+Automate the **plumbing** so you can focus on the **science**.
+:::
+:::
+:::
 
-# Tools of the Trade
+# Tools of the Trade {background-color="#332288"}
 
 ## 1. VSCode / Cursor
 
+::: {.columns}
+::: {.column width="50%"}
+### Modern IDE
 - You have **no excuse** not to use a modern IDE.
-- Unless you're an "old-head," VIM/EMACS are strictly worse for your velocity.
-- **Stop using Jupyter Notebooks for everything.**
-    - If you use them for source code, you are doing things wrong.
+- VIM/EMACS are strictly worse for total project velocity.
+:::
 
+::: {.column width="50%"}
+### Anti-Pattern
+- **Stop using Jupyter Notebooks for everything.**
+- Notebooks are for **exploration**, not **logic**.
+:::
+:::
 
 ## 2. Project Structure
 
@@ -76,9 +111,7 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 ::: {.column width="50%"}
 ### Modularity
 - Separate source code from sweeps.
-    - Make your source code a python module
-- Separate scripts from plotting.
-- Notebooks are for **plots**, not **logic**.
+- Make your source code a **python module**.
 - **Example**: [bert_adapter.py](../src/models/bert_adapter.py)
 :::
 
@@ -86,106 +119,99 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 ### Version Control
 - **Git early, git often.**
 - Collaborating? Use **Pull Requests**.
-- Working alone? **Use Branches.** 
-- **Example**: [README.md](../README.md) (Git Flow Intro)
+- **Example**: [README.md](../README.md)
 :::
 :::
-
 
 ## 3. UV: The New Standard
 
-UV is a major innovation over `pip` and `conda`.
-
+::: {.columns}
+::: {.column width="60%"}
 - **Speed**: Orders of magnitude faster than pip.
-- **Reproducibility**:
-    - `pyproject.toml` tracks everything.
-    - `uv.lock` ensures the **exact** environment every time.
+- **Reproducibility**: `uv.lock` is non-negotiable.
 - **Example**: [pyproject.toml](../pyproject.toml)
+:::
+
+::: {.column width="40%"}
+::: {.callout-important}
+### Reproducibility
+If it doesn't run on your collaborator's machine, it's not **Science**.
+:::
+:::
+:::
 
 ## UV vs. Conda
 
 ::: {.columns}
 ::: {.column width="45%"}
 ### The Problems
-- **Local vs. Cluster**: "I developed code locally, but the VACC environment is throwing version errors."
-- **Collaboration**: "A coworker cloned my repo, but it won't run due to their global NumPy version."
+- **Local vs. Cluster**: "I developed code locally, but the VACC env crashes."
+- **Collaboration**: "It works for me, but my coworker has global numpy issues."
 :::
 
 ::: {.column width="55%"}
 ### The Solutions
-- **Local Environments**: Envs live inside your project folder.
-- **Reproducibility**: The lockfile ensures byte-for-byte matching.
-- **Deep Performance**: Global cache using hard-linking.
+- **Local Envs**: Environments live in the project folder.
+- **Reproducibility**: Lockfile ensures byte-for-byte matching.
 - **Example**: [pyproject.toml](../pyproject.toml)
 :::
 :::
-
 
 ## Pydantic: Strong Typing
 
 ::: {.columns}
 ::: {.column width="45%"}
 ### The Problems
-- **Boilerplate**: Constant manual parsing and validation of dictionaries.
+- **Boilerplate**: Constant manual parsing of nested lists/dicts.
 - **Silent Bugs**: Passing $N \times M$ when $M \times N$ was expected.
-- **Interface Bloat**: Parameters passed through 5+ nested layers.
 :::
 
 ::: {.column width="55%"}
 ### The Solutions
-- **Pydantic Validation**: Catch errors at the boundary.
-- **LLM Context**: Gives LLMs the precise "slots" needed.
-- **Baked-in Logic**: Logic belongs in the data definition.
+- **Validation**: Catch errors at the boundary.
+- **LLM Context**: Gives models the precise "slots" needed.
 - **Example**: [schema.py](../src/core/schema.py)
 :::
 :::
 
-
-## Snakemake: Workflow Orchestration
+## Snakemake: Orchestration
 
 ::: {.columns}
 ::: {.column width="45%"}
 ### The Problems
 - **Amnesia**: "I changed code; what results are now invalid?"
-- **Lost parameters**: "How did I generate this figure 6 months ago?"
-- **Batch Hell**: VACC repo littered with 10M Slurm batch files.
+- **Lost parameters**: "How did I generate this 6 months ago?"
 :::
 
 ::: {.column width="55%"}
 ### The Solutions
-- **DAG Generation**: Snakemake knows exactly what needs to run.
+- **DAG Generation**: knows exactly what needs to run.
 - **Self-Documentation**: The Snakefile *is* the record.
-- **Registry**: High-level rules replace manual Slurm scripts.
 - **Example**: [Snakefile](../Snakefile)
 :::
 :::
-
 
 ## Testing
 
 ::: {.columns}
 ::: {.column width="45%"}
 ### The Problems
-- **Silent Regression**: "I only changed the colors; why are my results different?"
-- **Legacy Terror**: "My code changed so much I can't run old figures."
+- **Silent Regression**: Results changed, and you don't know why.
 - **Vibe Blindness**: Trusting LLM code without verification.
 :::
 
 ::: {.column width="55%"}
 ### The Solutions
-- **Unit Tests**: Shape checks & Analytical baselines.
-- **Integration Tests**: "The 1-Epoch Test" for pipeline sanity.
-- **Vibe Coding**: Use tests to verify LLM-generated logic.
-- **CI/CD**: Auto-run tests on every push to GitHub.
+- **Unit Tests**: Shape checks & Baselines.
+- **Vibe Coding**: Use tests to verify LLM logic.
 - **Example**: [test_nlp_logic.py](../tests/test_nlp_logic.py)
 :::
 :::
 
-
-# Summary
+# Summary {background-color="#332288"}
 
 1. Accept that you are a Developer.
-2. Provide Context to your LLM (Pydantic).
-3. Localize your Environments (UV).
-4. Automate your Pipeline (Snakemake).
+2. Provide Context to your LLM (**Pydantic**).
+3. Localize your Environments (**UV**).
+4. Automate your Pipeline (**Snakemake**).
 5. **Let the machine do the heavy lifting.**
