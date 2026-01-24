@@ -1,4 +1,5 @@
 import argparse
+import pandas as pd
 import yaml
 import json
 import torch
@@ -12,9 +13,9 @@ def main():
     parser = argparse.ArgumentParser(description="Train BERT Adapter Classifier")
     parser.add_argument("--config", type=str, required=True, help="Path to YAML config")
     parser.add_argument("--output", type=str, required=True, help="Path to save model weights")
-    parser.add_argument("--stats", type=str, required=True, help="Path to save training stats")
+    parser.add_argument("--stats", type=str, required=True, help="Path to save training stats (parquet)")
     
-    # Hyperparameter Overrides
+    # ... (parser arguments same as before)
     parser.add_argument("--adapter_dim", type=int, help="Override adapter dimension")
     parser.add_argument("--learning_rate", type=float, help="Override learning rate")
     args = parser.parse_args()
@@ -23,7 +24,7 @@ def main():
     with open(args.config, 'r') as f:
         config_data = yaml.safe_load(f)
     
-    # 2. Apply Overrides directly for validation
+    # 2. Apply Overrides
     if args.adapter_dim:
         if 'model' not in config_data: config_data['model'] = {}
         config_data['model']['adapter_dim'] = args.adapter_dim
@@ -59,16 +60,29 @@ def main():
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)
     torch.save(model.state_dict(), args.output)
     
-    with open(args.stats, 'w') as f:
-        json.dump({
-            "config": config.model_dump(),
-            "history": history
-        }, f, indent=2)
+    # Flatten config and merge with history for tabular Parquet
+    config_flat = config.model_dump()
+    # Flatten nested dicts for easier querying
+    flat_data = {
+        "exp_name": config_flat["name"],
+        "full_run_name": config_flat["full_run_name"],
+        "adapter_dim": config_flat["model"]["adapter_dim"],
+        "learning_rate": config_flat["training"]["learning_rate"],
+        "batch_size": config_flat["training"]["batch_size"],
+        "epochs": config_flat["training"]["epochs"],
+    }
+    
+    # Create DataFrame from history and add config columns
+    df = pd.DataFrame(history)
+    for k, v in flat_data.items():
+        df[k] = v
+        
+    df.to_parquet(args.stats)
 
     if config.wandb_enabled:
         wandb.finish()
 
-    print(f"Workflow Complete. Results saved to {args.output}")
+    print(f"Workflow Complete. Results saved to {args.stats}")
 
 if __name__ == "__main__":
     main()

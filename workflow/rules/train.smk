@@ -3,7 +3,7 @@
 rule train_bert_classifier:
     output:
         weights = "results/{cfg_name}/{params_path}/model.pt",
-        stats = "results/{cfg_name}/{params_path}/training_stats.json"
+        stats = "results/{cfg_name}/{params_path}/training_stats.parquet"
     wildcard_constraints:
         cfg_name="[^/]+",
         params_path=".+"
