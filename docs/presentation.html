@@ -28,13 +28,77 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2; background-color: #2e3440; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #75715e; } /* Annotation */
+    code span.at { color: #f92672; } /* Attribute */
+    code span.bn { color: #ae81ff; } /* BaseN */
+    code span.bu { color: #66d9ef; } /* BuiltIn */
+    code span.cf { color: #f92672; } /* ControlFlow */
+    code span.ch { color: #e6db74; } /* Char */
+    code span.cn { color: #ae81ff; } /* Constant */
+    code span.co { color: #75715e; } /* Comment */
+    code span.cv { color: #75715e; } /* CommentVar */
+    code span.do { color: #75715e; } /* Documentation */
+    code span.dt { color: #66d9ef; font-style: italic; } /* DataType */
+    code span.dv { color: #ae81ff; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #a6e22e; font-weight: bold; } /* Extension */
+    code span.fl { color: #ae81ff; } /* Float */
+    code span.fu { color: #a6e22e; } /* Function */
+    code span.im { color: #f92672; } /* Import */
+    code span.in { color: #f1fa8c; } /* Information */
+    code span.kw { color: #f92672; } /* Keyword */
+    code span.op { color: #f8f8f2; } /* Operator */
+    code span.ot { color: #a6e22e; } /* Other */
+    code span.pp { color: #f92672; } /* Preprocessor */
+    code span.re { color: #75715e; } /* RegionMarker */
+    code span.sc { color: #ae81ff; } /* SpecialChar */
+    code span.ss { color: #e6db74; } /* SpecialString */
+    code span.st { color: #e6db74; } /* String */
+    code span.va { color: #f8f8f2; } /* Variable */
+    code span.vs { color: #e6db74; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-6251cfcb9b8774a25af2fa090528a25a.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-076b6aec5b5ed5875d3ec689b18720d9.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="site_libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
-  <link href="site_libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
     .reveal div.sourceCode {
@@ -123,12 +187,14 @@
       margin-right: 0; 
     }
   </style>
+  <script type="module" src="site_libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="site_libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" data-background-color="#332288" data-background-image="https://www.transparenttextures.com/patterns/cubes.png" data-background-opacity="0.1" class="quarto-title-block center">
+<section id="title-slide" data-background-color="#861388" data-background-image="https://www.transparenttextures.com/patterns/cubes.png" data-background-opacity="0.1" class="quarto-title-block center">
   <h1 class="title">Python for Scientific Development</h1>
   <p class="subtitle">Contorting a Terrible Language into a Research Powerhouse</p>
 
@@ -142,43 +208,45 @@ Research Team
 
 </section>
 <section>
-<section id="the-hard-truth" class="title-slide slide level1 center" data-background-color="#332288" data-background-image="https://www.transparenttextures.com/patterns/asfalt-dark.png">
+<section id="the-hard-truth" class="title-slide slide level1 bg-dark-texture center">
 <h1>The Hard Truth</h1>
 
 </section>
 <section id="the-iron-rule-of-scientific-software-development" class="slide level2">
 <h2>The Iron Rule of Scientific Software Development</h2>
+<div class="glass-card fragment fade-up">
 <ul>
-<li><p>If you take the time to build out code the right way you will never use it</p></li>
-<li><p>If you write sloppy code it will bite you in the ass</p></li>
-<li><p>Damned if you do. Damned if you don’t.</p></li>
+<li>If you take the time to build out code the right way you will never use it</li>
 </ul>
+</div>
+<div class="glass-card fragment fade-up">
+<ul>
+<li>If you write sloppy code it will bite you in the ass</li>
+</ul>
+</div>
+<div class="glass-card fragment fade-up">
+<ul>
+<li><strong>Damned if you do. Damned if you don’t.</strong></li>
+</ul>
+</div>
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
-<div class="fragment fade-up">
+<section id="the-python-paradox" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">The Python Paradox</h2>
+<div class="glass-card fragment fade-up">
 <ul>
 <li>Python is a <strong>TERRIBLE</strong> language for scientific computing.</li>
-</ul>
-</div>
-<div class="fragment fade-up">
-<ul>
 <li>Nothing about the language is inherently good for science.</li>
-</ul>
-</div>
-<div class="fragment fade-up">
-<ul>
 <li>Most tools were developed by researchers as a “side-hustle.”</li>
 </ul>
 </div>
-<div class="fragment fade-in-then-semi-out">
+<div class="glass-card fragment fade-in-then-semi-out">
 <ul>
 <li><strong>The Goal</strong>: How can we contort Python to be at least “okay”?</li>
 </ul>
 </div>
 </section></section>
 <section>
-<section id="the-dirty-secret" class="title-slide slide level1 center" data-background-color="#ffffff">
+<section id="the-dirty-secret" class="title-slide slide level1 bg-accent-2 center">
 <h1>The Dirty Secret…</h1>
 <ul>
 <li class="fragment">If you are a (non-bench) scientist in 2026: <strong>YOU ARE A SOFTWARE DEVELOPER.</strong></li>
@@ -205,7 +273,7 @@ Research Team
 </div>
 </section></section>
 <section>
-<section id="the-good-news" class="title-slide slide level1 center" data-background-color="#AA4499">
+<section id="the-good-news" class="title-slide slide level1 bg-accent-1 center">
 <h1>The Good News</h1>
 <ul>
 <li class="fragment"><strong>Fact</strong>: Claude Code is a better developer than you will ever be.</li>
@@ -220,10 +288,14 @@ Research Team
 <p>“Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has <strong>adequate context</strong>.”</p>
 </blockquote>
 </section></section>
-<section id="your-workflow" class="title-slide slide level1 center" data-background-color="#ffffff">
+<section>
+<section id="your-workflow" class="title-slide slide level1 bg-accent-3 center">
 <h1>Your Workflow</h1>
+
+</section>
 <div class="columns">
 <div class="column" style="width:60%;">
+<div class="glass-card fragment">
 <ul>
 <li>You have data/simulation parameters.</li>
 <li>You have a model (statistical/ML/physics).</li>
@@ -231,190 +303,241 @@ Research Team
 <li>You want to collect &amp; visualize efficiently.</li>
 <li>You want to turn plots into a <strong>publication</strong>.</li>
 </ul>
+</div>
 </div><div class="column" style="width:40%;">
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Goal</strong></p>
-</div>
-<div class="callout-content">
+<div class="glass-card fragment">
+<h3 id="goal">Goal</h3>
 <p>Automate the <strong>plumbing</strong> so you can focus on the <strong>science</strong>.</p>
 </div>
 </div>
-</div>
-</div></div>
-</section>
-
+</div></section>
 <section>
-<section id="tools-of-the-trade" class="title-slide slide level1 center" data-background-color="#332288">
+<section id="tools-of-the-trade" class="title-slide slide level1 bg-primary center">
 <h1>Tools of the Trade</h1>
 
 </section>
-<section id="vscode-cursor" class="slide level2">
-<h2>1. VSCode / Cursor</h2>
+<section id="vscode-cursor" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">1. VSCode / Cursor</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div class="glass-card fragment">
 <h3 id="modern-ide">Modern IDE</h3>
 <ul>
 <li>You have <strong>no excuse</strong> not to use a modern IDE.</li>
 <li>VIM/EMACS are strictly worse for total project velocity.</li>
 </ul>
+</div>
 </div><div class="column" style="width:50%;">
+<div class="glass-card fragment">
 <h3 id="anti-pattern">Anti-Pattern</h3>
 <ul>
 <li><strong>Stop using Jupyter Notebooks for everything.</strong></li>
 <li>Notebooks are for <strong>exploration</strong>, not <strong>logic</strong>.</li>
 </ul>
+</div>
 </div></div>
 <div class="footer">
 <p>Doc: <a href="https://code.visualstudio.com">code.visualstudio.com</a> | <a href="https://www.cursor.com">cursor.com</a></p>
 </div>
 </section>
-<section id="project-structure" class="slide level2">
-<h2>2. Project Structure</h2>
+<section id="project-structure" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">2. Project Structure</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div class="glass-card fragment">
 <h3 id="modularity">Modularity</h3>
 <ul>
 <li>Separate source code from sweeps.</li>
 <li>Make your source code a <strong>python module</strong>.</li>
 <li><strong>Example</strong>: <a href="../src/models/bert_adapter.py">bert_adapter.py</a></li>
 </ul>
+</div>
 </div><div class="column" style="width:50%;">
+<div class="glass-card fragment">
 <h3 id="version-control">Version Control</h3>
 <ul>
 <li><strong>Git early, git often.</strong></li>
 <li>Collaborating? Use <strong>Pull Requests</strong>.</li>
 <li><strong>Example</strong>: <a href="../README.md">README.md</a></li>
 </ul>
+</div>
 </div></div>
 <div class="footer">
 <p>Doc: <a href="https://git-scm.com">git-scm.com</a></p>
 </div>
 </section>
-<section id="uv-the-new-standard" class="slide level2">
-<h2>3. UV: The New Standard</h2>
+<section id="uv-the-new-standard" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">3. UV: The New Standard</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
+<div class="glass-card fragment">
 <ul>
 <li><strong>Speed</strong>: Orders of magnitude faster than pip.</li>
 <li><strong>Reproducibility</strong>: <code>uv.lock</code> is non-negotiable.</li>
 <li><strong>Example</strong>: <a href="../pyproject.toml">pyproject.toml</a></li>
 </ul>
+</div>
 </div><div class="column" style="width:40%;">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Reproducibility</strong></p>
-</div>
-<div class="callout-content">
+<div class="glass-card fragment">
+<h3 id="reproducibility">Reproducibility</h3>
 <p>If it doesn’t run on your collaborator’s machine, it’s not <strong>Science</strong>.</p>
-</div>
-</div>
 </div>
 </div></div>
 <div class="footer">
 <p>Doc: <a href="https://docs.astral.sh/uv/">docs.astral.sh/uv</a></p>
 </div>
 </section>
-<section id="uv-vs.-conda" class="slide level2">
-<h2>UV vs.&nbsp;Conda</h2>
+<section id="uv-vs.-conda" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">UV vs.&nbsp;Conda</h2>
 <div class="columns">
 <div class="column" style="width:48%;">
+<div class="glass-card fragment">
 <h3 id="the-problems">The Problems</h3>
 <ul>
 <li><strong>Local vs.&nbsp;Cluster</strong>: “I developed code locally, but the VACC env crashes.”</li>
 <li><strong>Collaboration</strong>: “It works for me, but my coworker has global numpy issues.”</li>
 </ul>
+</div>
 </div><div class="column" style="width:48%;">
+<div class="glass-card fragment">
 <h3 id="the-solutions">The Solutions</h3>
 <ul>
 <li><strong>Local Envs</strong>: Environments live in the project folder.</li>
 <li><strong>Reproducibility</strong>: Lockfile ensures byte-for-byte matching.</li>
 <li><strong>Example</strong>: <a href="../pyproject.toml">pyproject.toml</a></li>
 </ul>
+</div>
 </div></div>
 <div class="footer">
 <p>Doc: <a href="https://docs.astral.sh/uv/">docs.astral.sh/uv</a></p>
 </div>
 </section>
-<section id="pydantic-strong-typing" class="slide level2">
-<h2>Pydantic: Strong Typing</h2>
+<section id="pydantic-strong-typing" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">4. Pydantic: Strong Typing</h2>
 <div class="columns">
 <div class="column" style="width:48%;">
+<div class="glass-card fragment">
 <h3 id="the-problems-1">The Problems</h3>
 <ul>
 <li><strong>Boilerplate</strong>: Constant manual parsing of nested lists/dicts.</li>
 <li><strong>Silent Bugs</strong>: Passing <span class="math inline">\(N \times M\)</span> when <span class="math inline">\(M \times N\)</span> was expected.</li>
 </ul>
+</div>
 </div><div class="column" style="width:48%;">
+<div class="glass-card fragment">
 <h3 id="the-solutions-1">The Solutions</h3>
 <ul>
 <li><strong>Validation</strong>: Catch errors at the boundary.</li>
 <li><strong>LLM Context</strong>: Gives models the precise “slots” needed.</li>
 <li><strong>Example</strong>: <a href="../src/core/schema.py">schema.py</a></li>
 </ul>
+</div>
 </div></div>
 <div class="footer">
 <p>Doc: <a href="https://docs.pydantic.dev/">docs.pydantic.dev</a></p>
 </div>
 </section>
-<section id="snakemake-orchestration" class="slide level2">
-<h2>Snakemake: Orchestration</h2>
+<section id="snakemake-orchestration" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">5. Snakemake: Orchestration</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
+<div class="glass-card fragment">
 <h3 id="the-problems-2">The Problems</h3>
 <ul>
 <li><strong>Amnesia</strong>: “I changed code; what results are now invalid?”</li>
 <li><strong>Lost parameters</strong>: “How did I generate this figure 6 months ago?”</li>
 </ul>
+</div>
 </div><div class="column" style="width:55%;">
+<div class="glass-card fragment">
 <h3 id="the-solutions-2">The Solutions</h3>
 <ul>
 <li><strong>DAG Generation</strong>: knows exactly what needs to run.</li>
 <li><strong>Self-Documentation</strong>: The Snakefile <em>is</em> the record.</li>
 <li><strong>Example</strong>: <a href="../Snakefile">Snakefile</a></li>
 </ul>
+</div>
 </div></div>
 <div class="footer">
 <p>Doc: <a href="https://snakemake.github.io/">snakemake.github.io</a></p>
 </div>
 </section>
-<section id="testing" class="slide level2">
-<h2>Testing</h2>
+<section id="testing" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">6. Testing</h2>
 <div class="columns">
 <div class="column" style="width:48%;">
+<div class="glass-card fragment">
 <h3 id="the-problems-3">The Problems</h3>
 <ul>
 <li><strong>Silent Regression</strong>: Results changed, and you don’t know why.</li>
 <li><strong>Vibe Blindness</strong>: Trusting LLM code without verification.</li>
 </ul>
+</div>
 </div><div class="column" style="width:48%;">
+<div class="glass-card fragment">
 <h3 id="the-solutions-3">The Solutions</h3>
 <ul>
 <li><strong>Unit Tests</strong>: Shape checks &amp; Baselines.</li>
 <li><strong>Vibe Coding</strong>: Use tests to verify LLM logic.</li>
 <li><strong>Example</strong>: <a href="../tests/test_nlp_logic.py">test_nlp_logic.py</a></li>
 </ul>
+</div>
 </div></div>
 <div class="footer">
 <p>Doc: <a href="https://docs.pytest.org/">docs.pytest.org</a> | <a href="https://docs.astral.sh/ruff/">ruff.rs</a></p>
 </div>
 </section></section>
-<section id="summary" class="title-slide slide level1 inverse center" data-background-color="#332288">
+<section>
+<section id="live-diagnostics" class="title-slide slide level1 bg-accent-1 center">
+<h1>Live Diagnostics</h1>
+
+</section>
+<section id="research-dashboard" class="slide level2">
+<h2>Research Dashboard</h2>
+<div class="glass-card">
+<p>We don’t just generate plots; we generate <strong>interactive insights</strong>.</p>
+</div>
+<div class="fragment fade-up">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="306" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 305;"><span id="cb1-306"><a></a><span class="im">import</span> { view } <span class="im">from</span> <span class="st">"@observablehq/inputs"</span></span>
+<span id="cb1-307"><a></a></span>
+<span id="cb1-308"><a></a><span class="co">// Placeholder for interactive OJS component demonstration</span></span>
+<span id="cb1-309"><a></a><span class="fu">md</span><span class="vs">`### 📊 [View Integrated Dashboard](dashboard.qmd)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section id="summary" class="title-slide slide level1 inverse bg-primary center">
 <h1>Summary</h1>
 <ol type="1">
-<li>Accept that you are a Developer.</li>
-<li>Provide Context to your LLM (<strong>Pydantic</strong>).</li>
-<li>Localize your Environments (<strong>UV</strong>).</li>
-<li>Automate your Pipeline (<strong>Snakemake</strong>).</li>
-<li><strong>Let the machine do the heavy lifting.</strong></li>
+<li><div class="glass-card fragment fade-up">
+<p>Accept that you are a Developer.</p>
+</div></li>
+<li><div class="glass-card fragment fade-up">
+<p>Provide Context to your LLM (<strong>Pydantic</strong>).</p>
+</div></li>
+<li><div class="glass-card fragment fade-up">
+<p>Localize your Environments (<strong>UV</strong>).</p>
+</div></li>
+<li><div class="glass-card fragment fade-up">
+<p>Automate your Pipeline (<strong>Snakemake</strong>).</p>
+</div></li>
+<li><div class="glass-card fragment fade-up">
+<p><strong>Let the machine do the heavy lifting.</strong></p>
+</div></li>
 </ol>
 
 
@@ -434,7 +557,6 @@ Research Team
   <script src="site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
   <script src="site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
   <script src="site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="site_libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
   <script src="site_libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
@@ -456,8 +578,7 @@ Research Team
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'chalkboard': {"buttons":true},
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'smaller': false,
  
         // Display controls in the bottom right corner
@@ -628,7 +749,7 @@ Research Team
         },
 
         // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
           RevealMath,
           RevealNotes,
@@ -636,6 +757,17 @@ Research Team
           RevealZoom
         ]
       });
+    </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImltcG9ydCB7IHZpZXcgfSBmcm9tIFwiQG9ic2VydmFibGVocS9pbnB1dHNcIlxuXG4vLyBQbGFjZWhvbGRlciBmb3IgaW50ZXJhY3RpdmUgT0pTIGNvbXBvbmVudCBkZW1vbnN0cmF0aW9uXG5tZGAjIyMg8J+TiiBbVmlldyBJbnRlZ3JhdGVkIERhc2hib2FyZF0oZGFzaGJvYXJkLnFtZClgXG4ifV19
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../..";
+    window._ojs.paths.runtimeToRoot = "../..";
+    window._ojs.paths.docToRoot = "";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
     </script>
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {

@@ -19,7 +19,7 @@ format:
       data-background-opacity: "0.1"
 ---
 
-# The Hard Truth {background-color="#861388" background-image="https://www.transparenttextures.com/patterns/asfalt-dark.png"}
+# The Hard Truth {class="bg-dark-texture"}
 
 ## The Iron Rule of Scientific Software Development
 
@@ -47,7 +47,7 @@ format:
 -   **The Goal**: How can we contort Python to be at least "okay"?
 :::
 
-# The Dirty Secret... {background-color="#2F6690"}
+# The Dirty Secret... {class="bg-accent-2"}
 
 ::: incremental
 -   If you are a (non-bench) scientist in 2026: **YOU ARE A SOFTWARE DEVELOPER.**
@@ -69,7 +69,7 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 :::
 ::::
 
-# The Good News {background-color="#E15A97"}
+# The Good News {class="bg-accent-1"}
 
 ::: incremental
 -   **Fact**: Claude Code is a better developer than you will ever be.
@@ -82,7 +82,7 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 
 > "Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has **adequate context**."
 
-# Your Workflow {background-color="#0CBABA" auto-animate=true}
+# Your Workflow {class="bg-accent-3"}
 
 :::::: columns
 ::: {.column width="60%"}
@@ -104,13 +104,13 @@ Automate the **plumbing** so you can focus on the **science**.
 ::::
 ::::::
 
-# Tools of the Trade {background-color="#861388"}
+# Tools of the Trade {class="bg-primary"}
 
 ## 1. VSCode / Cursor {auto-animate=true}
 
 ::::: columns
 ::: {.column width="50%"}
-::: {.card-magenta .fragment}
+::: {.glass-card .fragment}
 ### Modern IDE
 
 -   You have **no excuse** not to use a modern IDE.
@@ -119,7 +119,7 @@ Automate the **plumbing** so you can focus on the **science**.
 :::
 
 ::: {.column width="50%"}
-::: {.card-magenta .fragment}
+::: {.glass-card .fragment}
 ### Anti-Pattern
 
 -   **Stop using Jupyter Notebooks for everything.**
@@ -136,7 +136,7 @@ Doc: [code.visualstudio.com](https://code.visualstudio.com) | [cursor.com](https
 
 ::::: columns
 ::: {.column width="50%"}
-::: {.card-magenta .fragment}
+::: {.glass-card .fragment}
 ### Modularity
 
 -   Separate source code from sweeps.
@@ -188,7 +188,7 @@ Doc: [docs.astral.sh/uv](https://docs.astral.sh/uv/)
 
 ::::: columns
 ::: {.column width="48%"}
-::: {.card-pink .fragment}
+::: {.glass-card .fragment}
 ### The Problems
 
 -   **Local vs. Cluster**: "I developed code locally, but the VACC env crashes."
@@ -197,7 +197,7 @@ Doc: [docs.astral.sh/uv](https://docs.astral.sh/uv/)
 :::
 
 ::: {.column width="48%"}
-::: {.card-pink .fragment}
+::: {.glass-card .fragment}
 ### The Solutions
 
 -   **Local Envs**: Environments live in the project folder.
@@ -292,7 +292,7 @@ Doc: [snakemake.github.io](https://snakemake.github.io/)
 Doc: [docs.pytest.org](https://docs.pytest.org/) | [ruff.rs](https://docs.astral.sh/ruff/)
 :::
 
-# Live Diagnostics {background-color="#E15A97"}
+# Live Diagnostics {class="bg-accent-1"}
 
 ## Research Dashboard
 
@@ -310,18 +310,18 @@ md`### 📊 [View Integrated Dashboard](dashboard.qmd)`
 ```
 :::
 
-# Summary {.inverse background-color="#861388"}
+# Summary {.inverse class="bg-primary"}
 
-1.  ::: {.card-magenta .fragment .fade-up}
+1.  ::: {.glass-card .fragment .fade-up}
     Accept that you are a Developer.
     :::
-2.  ::: {.card-magenta .fragment .fade-up}
+2.  ::: {.glass-card .fragment .fade-up}
     Provide Context to your LLM (**Pydantic**).
     :::
-3.  ::: {.card-magenta .fragment .fade-up}
+3.  ::: {.glass-card .fragment .fade-up}
     Localize your Environments (**UV**).
     :::
-4.  ::: {.card-magenta .fragment .fade-up}
+4.  ::: {.glass-card .fragment .fade-up}
     Automate your Pipeline (**Snakemake**).
     :::
 5.  ::: {.glass-card .fragment .fade-up}
