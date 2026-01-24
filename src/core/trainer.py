@@ -37,7 +37,7 @@ class TextClassifierTrainer:
         total_loss = 0
         progress_bar = tqdm(self.train_loader, desc=f"Epoch {epoch} [Train]")
         
-        for batch in progress_bar:
+        for step, batch in enumerate(progress_bar):
             self.optimizer.zero_grad()
             
             input_ids = batch["input_ids"].to(self.device)
@@ -53,6 +53,15 @@ class TextClassifierTrainer:
             
             total_loss += loss.item()
             progress_bar.set_postfix({"loss": loss.item()})
+            
+            # Real-time step logging
+            if self.config.wandb_enabled and step % self.config.training.log_interval == 0:
+                import wandb
+                wandb.log({
+                    "train/step_loss": loss.item(),
+                    "train/learning_rate": self.optimizer.param_groups[0]["lr"],
+                    "train/global_step": epoch * len(self.train_loader) + step
+                })
             
         return total_loss / len(self.train_loader)
 

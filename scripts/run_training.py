@@ -42,6 +42,7 @@ def main():
         wandb.init(
             project="bert-news-classification",
             name=config.full_run_name,
+            group=config.name,  # Groups all runs from this sweep together
             config=config.model_dump()
         )
 
@@ -62,7 +63,6 @@ def main():
     
     # Flatten config and merge with history for tabular Parquet
     config_flat = config.model_dump()
-    # Flatten nested dicts for easier querying
     flat_data = {
         "exp_name": config_flat["name"],
         "full_run_name": config_flat["full_run_name"],
@@ -72,7 +72,6 @@ def main():
         "epochs": config_flat["training"]["epochs"],
     }
     
-    # Create DataFrame from history and add config columns
     df = pd.DataFrame(history)
     for k, v in flat_data.items():
         df[k] = v

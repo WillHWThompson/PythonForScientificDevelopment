@@ -22,6 +22,7 @@ class NLPTrainingConfig(BaseModel):
     epochs: int = Field(default=3, description="Number of training epochs.")
     max_length: int = Field(default=128, description="Maximum sequence length for tokenization.")
     seed: int = Field(default=42, description="Random seed.")
+    log_interval: int = Field(default=50, description="Steps between real-time log updates.")
 
     @field_validator('learning_rate')
     @classmethod
