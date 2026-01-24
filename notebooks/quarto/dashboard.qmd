@@ -36,9 +36,10 @@ if has_results:
                 m."test/auroc" as auroc
             FROM read_parquet('{parquet_pattern}') s
             LEFT JOIN (
-                SELECT full_run_name, "test/auroc" 
+                SELECT adapter_dim, learning_rate, "test/auroc" 
                 FROM read_parquet('{metrics_pattern}')
-            ) m ON s.full_run_name = m.full_run_name
+            ) m ON s.adapter_dim = m.adapter_dim 
+               AND s.learning_rate = m.learning_rate
         """
     else:
         query = f"""

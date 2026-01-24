@@ -25,11 +25,17 @@ def main():
 
     # 1. Load and Override Config
     with open(args.config, 'r') as f:
-        config_dict = yaml.safe_load(f)
+        config_data = yaml.safe_load(f)
     
-    config = NLPExperimentConfig(**config_dict)
-    if args.adapter_dim: config.model.adapter_dim = args.adapter_dim
-    if args.learning_rate: config.training.learning_rate = args.learning_rate
+    # Apply Overrides BEFORE initialization so full_run_name is correct
+    if args.adapter_dim:
+        if 'model' not in config_data: config_data['model'] = {}
+        config_data['model']['adapter_dim'] = args.adapter_dim
+    if args.learning_rate:
+        if 'training' not in config_data: config_data['training'] = {}
+        config_data['training']['learning_rate'] = args.learning_rate
+
+    config = NLPExperimentConfig(**config_data)
 
     print(f"--- Evaluating Run: {config.full_run_name} ---")
 
