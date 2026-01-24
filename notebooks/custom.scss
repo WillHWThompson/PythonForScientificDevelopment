@@ -39,7 +39,7 @@ a {
     transition: color 0.2s ease-in-out;
 
     &:hover {
-        color: $tol-teal;
+        color: $tol-cyan;
         text-decoration: underline;
     }
 }
@@ -68,7 +68,7 @@ a {
     }
 
     blockquote {
-        border-left: 5px solid $tol-teal;
+        border-left: 5px solid $tol-cyan;
         background: #f9f9f9;
         padding: 10px 20px;
         color: lighten($body-color, 20%);

@@ -12,7 +12,7 @@ format:
     chalkboard: true
 ---
 
-# The Hard Truth {background-color="#1a1a1a"}
+# The Hard Truth
 
 - Python is a **TERRIBLE** language for scientific computing.
 - Nothing about the language is inherently good for science.
@@ -39,7 +39,7 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 
 ---
 
-# The Good News {background-color="#002b36"}
+# The Good News
 
 - **Fact**: Claude Code is a better developer than you will ever be.
 - **Fact**: LLMs change the ROI on automation.
@@ -54,7 +54,7 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 
 ---
 
-# Tools of the Trade {background-color="#1a1a1a"}
+# Tools of the Trade
 
 ---
 
