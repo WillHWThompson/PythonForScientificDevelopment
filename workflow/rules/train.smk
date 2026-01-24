@@ -11,19 +11,14 @@ rule train_bert_classifier:
         mem_mb=16000,
         gpu=1,
         runtime="4h"
-    run:
-        # Use the config file provided on the CLI, or fallback to the one in configs/
-        cfg_path = workflow.configfiles[0] if workflow.configfiles else f"configs/{wildcards.cfg_name}.yaml"
-        
-        # Build command args by parsing the params_path
-        # format: param1~val1/param2~val2
-        cmd_args = f"--config {cfg_path} --output {output.weights} --stats {output.stats} "
-        
-        # Extract individual parameters from the path for CLI overrides
-        if wildcards.params_path != "base":
-            for part in wildcards.params_path.split("/"):
-                if "~" in part:
-                    k, v = part.split("~")
-                    cmd_args += f"--{k} {v} "
-        
-        shell("PYTHONPATH=. uv run python scripts/run_training.py {cmd_args}")
+    params:
+        # Resolve config logic in params to keep shell command clean
+        cfg = lambda w: workflow.configfiles[0] if workflow.configfiles else f"configs/{w.cfg_name}.yaml",
+        # Parse overrides from the params_path wildcard
+        overrides = lambda w: " ".join([f"--{p.split('~')[0]} {p.split('~')[1]}" for p in w.params_path.split("/") if "~" in p]) if w.params_path != "base" else ""
+    shell:
+        "PYTHONPATH=$(pwd) uv run python scripts/run_training.py "
+        "--config {params.cfg} "
+        "--output {output.weights} "
+        "--stats {output.stats} "
+        "{params.overrides}"
