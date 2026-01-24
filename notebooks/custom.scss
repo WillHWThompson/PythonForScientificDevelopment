@@ -1,18 +1,22 @@
 /*-- scss:defaults --*/
 
-/* --- Brand Variables (Matching fig_style.py) --- */
-$slate: #2d3436;
-$emerald: #00b894;
-$gold: #fdcb6e;
-$indigo: #6c5ce7;
-$coral: #ff7675;
-$ghost: #f1f2f6;
+/* --- Brand Variables (Modern Pastel Purple) --- */
+$body-bg: #ffffff;
+$body-color: #2d3436;
+$link-color: #6c5ce7;
+
+$purple: #6c5ce7;
+$mint: #26de81;
+$peach: #fed330;
+$lavender: #a29bfe;
+$border-color: #dfe6e9;
 
 /*-- scss:rules --*/
 
 /* --- General Typography --- */
 body {
-    color: $slate;
+    background-color: $body-bg;
+    color: $body-color;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
@@ -20,50 +24,58 @@ h1,
 h2,
 h3,
 h4 {
-    color: $slate;
+    color: $body-color;
     font-weight: 800 !important;
 }
 
 a {
-    color: $emerald;
-    text-decoration: none;
+    transition: color 0.2s ease-in-out;
 
     &:hover {
-        color: $indigo;
+        color: $mint;
         text-decoration: underline;
     }
 }
 
 /* --- RevealJS Specialization --- */
 .reveal {
+    background-color: $body-bg;
+
     .slides {
         section {
 
             h1,
             h2 {
-                color: $emerald;
-                /* Emerald headings on dark slides */
+                color: $purple;
+                /* Purple headings for the main brand */
                 text-transform: none;
             }
         }
     }
 
     .progress {
-        color: $emerald !important;
+        color: $purple !important;
     }
 
     .controls {
-        color: $emerald !important;
+        color: $purple !important;
+    }
+
+    blockquote {
+        border-left: 5px solid $mint;
+        background: #f9f9f9;
+        padding: 10px 20px;
+        color: lighten($body-color, 20%);
     }
 }
 
 /* --- Blockquotes & Callouts --- */
 .callout {
-    border-left-color: $emerald !important;
+    border-left-color: $purple !important;
 }
 
-blockquote {
-    border-left: 5px solid $gold;
-    color: lighten($slate, 20%);
-    font-style: italic;
+.card {
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
