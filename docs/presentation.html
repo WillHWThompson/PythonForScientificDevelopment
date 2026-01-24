@@ -247,12 +247,12 @@ Research Team
 <h3 id="phase-1-portability">Phase 1: Portability</h3>
 <ul>
 <li><strong>Problem</strong>: 5 collaborators on Mac, Linux, and Windows.</li>
-<li><strong>“Solution”</strong>: JSON configs + nested Shell/Python wrappers.</li>
+<li><strong>“Solution”</strong>: JSON configs + nested POSIX-compliant shell scripts/Python wrappers.</li>
 </ul>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="glass-card fragment fade-up">
-<h3 id="phase-2-the-hpc-vacc">Phase 2: The HPC (VACC)</h3>
+<h3 id="phase-2-the-hpc-vaccalt-text">Phase 2: The HPC (VACC)<img data-src="https://i.imgflip.com/ai9uul.jpg" alt="Alt text"></h3>
 <ul>
 <li><strong>Problem</strong>: Local prototyping vs.&nbsp;Cluster batch jobs.</li>
 <li><strong>“Solution”</strong>: J2 templating to auto-generate <code>.sh</code> scripts.</li>
@@ -289,11 +289,28 @@ Research Team
 </div></div>
 </section></section>
 <section>
+<section id="utopia" class="title-slide slide level1 bg-dark-texture center">
+<h1>Utopia</h1>
+
+</section>
+<section id="bad-scientific-software-development-is-a-sin" class="slide level2">
+<h2>Bad Scientific Software Development IS A SIN</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/world_if_meme.jpg" height="500"></p>
+<figcaption>You knew how to do</figcaption>
+</figure>
+</div>
+</section></section>
+<section>
 <section id="the-hard-truth" class="title-slide slide level1 bg-dark-texture center">
 <h1>The Hard Truth</h1>
 <ul>
 <li>This was all my fault.</li>
 </ul>
+<!-- 
+Make this centered
+# Thesis: SLURM is Why We Have Not Cured Cancer  -->
 </section>
 <section id="the-iron-rule-of-scientific-software-development" class="slide level2">
 <h2>The Iron Rule of Scientific Software Development</h2>
@@ -315,6 +332,8 @@ Research Team
 </section>
 <section id="the-python-paradox" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">The Python Paradox</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
 <div class="glass-card fragment fade-up">
 <ul>
 <li>Python is a <strong>TERRIBLE</strong> language for scientific computing.</li>
@@ -327,6 +346,16 @@ Research Team
 <li><strong>The Goal</strong>: How can we contort Python to be at least “okay”?</li>
 </ul>
 </div>
+</div><div class="column" style="width:40%;">
+<div class="fragment fade-right">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://imgs.xkcd.com/comics/dependency_2x.png" style="width:100.0%"></p>
+<figcaption>Dependency (Source: XKCD)</figcaption>
+</figure>
+</div>
+</div>
+</div></div>
 </section></section>
 <section>
 <section id="the-dirty-secret" class="title-slide slide level1 bg-accent-2 center">
@@ -387,179 +416,80 @@ Research Team
 </div>
 </div></section>
 <section>
-<section id="tools-of-the-trade" class="title-slide slide level1 bg-primary center">
-<h1>Tools of the Trade</h1>
+<section id="the-sanity-savers" class="title-slide slide level1 bg-primary center">
+<h1>The Sanity Savers</h1>
 
 </section>
-<section id="vscode-cursor" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">1. VSCode / Cursor</h2>
+<section id="the-environment" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">1. The Environment</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="glass-card fragment">
-<h3 id="modern-ide">Modern IDE</h3>
+<h3 id="reproducible-uv">Reproducible UV</h3>
 <ul>
-<li>You have <strong>no excuse</strong> not to use a modern IDE.</li>
-<li>VIM/EMACS are strictly worse for total project velocity.</li>
+<li><strong>Speed</strong>: Orders of magnitude faster than pip/conda.</li>
+<li><strong>Locking</strong>: <code>uv.lock</code> ensures your code runs <em>everywhere</em>.</li>
 </ul>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="glass-card fragment">
-<h3 id="anti-pattern">Anti-Pattern</h3>
+<h3 id="modular-source">Modular Source</h3>
 <ul>
-<li><strong>Stop using Jupyter Notebooks for everything.</strong></li>
-<li>Notebooks are for <strong>exploration</strong>, not <strong>logic</strong>.</li>
+<li><strong>No More Notebooks</strong>: Logic lives in <code>.py</code> modules.</li>
+<li><strong>Git Flow</strong>: Use Pull Requests to manage complexity.</li>
 </ul>
 </div>
 </div></div>
 <div class="footer">
-<p>Doc: <a href="https://code.visualstudio.com">code.visualstudio.com</a> | <a href="https://www.cursor.com">cursor.com</a></p>
+<p>Docs: <a href="https://docs.astral.sh/uv/">astral.sh/uv</a> | <a href="https://git-scm.com">git-scm.com</a></p>
 </div>
 </section>
-<section id="project-structure" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">2. Project Structure</h2>
+<section id="the-workflow" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">2. The Workflow</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="glass-card fragment">
-<h3 id="modularity">Modularity</h3>
+<h3 id="snakemake-dags">Snakemake DAGs</h3>
 <ul>
-<li>Separate source code from sweeps.</li>
-<li>Make your source code a <strong>python module</strong>.</li>
-<li><strong>Example</strong>: <a href="../src/models/bert_adapter.py">bert_adapter.py</a></li>
+<li><strong>Amnesia Proof</strong>: Automatically tracks what results are invalid.</li>
+<li><strong>Declarative</strong>: The code <em>is</em> the documentation.</li>
 </ul>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="glass-card fragment">
-<h3 id="version-control">Version Control</h3>
+<h3 id="hpc-scaling">HPC Scaling</h3>
 <ul>
-<li><strong>Git early, git often.</strong></li>
-<li>Collaborating? Use <strong>Pull Requests</strong>.</li>
-<li><strong>Example</strong>: <a href="../README.md">README.md</a></li>
+<li><strong>VACC Profiles</strong>: Zero-effort Slurm submission.</li>
+<li><strong>Scaling</strong>: Run 1 locally; run 1,000 on the cluster.</li>
 </ul>
 </div>
 </div></div>
 <div class="footer">
-<p>Doc: <a href="https://git-scm.com">git-scm.com</a></p>
+<p>Docs: <a href="https://snakemake.github.io/">snakemake.github.io</a> | <a href="https://www.uvm.edu/vacc/docs/">vacc.uvm.edu</a></p>
 </div>
 </section>
-<section id="uv-the-new-standard" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">3. UV: The New Standard</h2>
+<section id="the-data-lifecycle" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">3. The Data Lifecycle</h2>
 <div class="columns">
-<div class="column" style="width:60%;">
+<div class="column" style="width:50%;">
 <div class="glass-card fragment">
+<h3 id="validated-data">Validated Data</h3>
 <ul>
-<li><strong>Speed</strong>: Orders of magnitude faster than pip.</li>
-<li><strong>Reproducibility</strong>: <code>uv.lock</code> is non-negotiable.</li>
-<li><strong>Example</strong>: <a href="../pyproject.toml">pyproject.toml</a></li>
+<li><strong>Pydantic</strong>: Catch errors at the boundary.</li>
+<li><strong>LLM Context</strong>: Structured slots for model reasoning.</li>
 </ul>
 </div>
-</div><div class="column" style="width:40%;">
+</div><div class="column" style="width:50%;">
 <div class="glass-card fragment">
-<h3 id="reproducibility">Reproducibility</h3>
-<p>If it doesn’t run on your collaborator’s machine, it’s not <strong>Science</strong>.</p>
-</div>
-</div></div>
-<div class="footer">
-<p>Doc: <a href="https://docs.astral.sh/uv/">docs.astral.sh/uv</a></p>
-</div>
-</section>
-<section id="uv-vs.-conda" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">UV vs.&nbsp;Conda</h2>
-<div class="columns">
-<div class="column" style="width:48%;">
-<div class="glass-card fragment">
-<h3 id="the-problems">The Problems</h3>
+<h3 id="high-perf-analytics">High-Perf Analytics</h3>
 <ul>
-<li><strong>Local vs.&nbsp;Cluster</strong>: “I developed code locally, but the VACC env crashes.”</li>
-<li><strong>Collaboration</strong>: “It works for me, but my coworker has global numpy issues.”</li>
-</ul>
-</div>
-</div><div class="column" style="width:48%;">
-<div class="glass-card fragment">
-<h3 id="the-solutions">The Solutions</h3>
-<ul>
-<li><strong>Local Envs</strong>: Environments live in the project folder.</li>
-<li><strong>Reproducibility</strong>: Lockfile ensures byte-for-byte matching.</li>
-<li><strong>Example</strong>: <a href="../pyproject.toml">pyproject.toml</a></li>
+<li><strong>Parquet + DuckDB</strong>: SQL speed on flat files.</li>
+<li><strong>Testing</strong>: Shape checks to verify the “vibe.”</li>
 </ul>
 </div>
 </div></div>
 <div class="footer">
-<p>Doc: <a href="https://docs.astral.sh/uv/">docs.astral.sh/uv</a></p>
-</div>
-</section>
-<section id="pydantic-strong-typing" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">4. Pydantic: Strong Typing</h2>
-<div class="columns">
-<div class="column" style="width:48%;">
-<div class="glass-card fragment">
-<h3 id="the-problems-1">The Problems</h3>
-<ul>
-<li><strong>Boilerplate</strong>: Constant manual parsing of nested lists/dicts.</li>
-<li><strong>Silent Bugs</strong>: Passing <span class="math inline">\(N \times M\)</span> when <span class="math inline">\(M \times N\)</span> was expected.</li>
-</ul>
-</div>
-</div><div class="column" style="width:48%;">
-<div class="glass-card fragment">
-<h3 id="the-solutions-1">The Solutions</h3>
-<ul>
-<li><strong>Validation</strong>: Catch errors at the boundary.</li>
-<li><strong>LLM Context</strong>: Gives models the precise “slots” needed.</li>
-<li><strong>Example</strong>: <a href="../src/core/schema.py">schema.py</a></li>
-</ul>
-</div>
-</div></div>
-<div class="footer">
-<p>Doc: <a href="https://docs.pydantic.dev/">docs.pydantic.dev</a></p>
-</div>
-</section>
-<section id="snakemake-orchestration" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">5. Snakemake: Orchestration</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<div class="glass-card fragment">
-<h3 id="the-problems-2">The Problems</h3>
-<ul>
-<li><strong>Amnesia</strong>: “I changed code; what results are now invalid?”</li>
-<li><strong>Lost parameters</strong>: “How did I generate this figure 6 months ago?”</li>
-</ul>
-</div>
-</div><div class="column" style="width:55%;">
-<div class="glass-card fragment">
-<h3 id="the-solutions-2">The Solutions</h3>
-<ul>
-<li><strong>DAG Generation</strong>: knows exactly what needs to run.</li>
-<li><strong>Self-Documentation</strong>: The Snakefile <em>is</em> the record.</li>
-<li><strong>Example</strong>: <a href="../Snakefile">Snakefile</a></li>
-</ul>
-</div>
-</div></div>
-<div class="footer">
-<p>Doc: <a href="https://snakemake.github.io/">snakemake.github.io</a></p>
-</div>
-</section>
-<section id="testing" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">6. Testing</h2>
-<div class="columns">
-<div class="column" style="width:48%;">
-<div class="glass-card fragment">
-<h3 id="the-problems-3">The Problems</h3>
-<ul>
-<li><strong>Silent Regression</strong>: Results changed, and you don’t know why.</li>
-<li><strong>Vibe Blindness</strong>: Trusting LLM code without verification.</li>
-</ul>
-</div>
-</div><div class="column" style="width:48%;">
-<div class="glass-card fragment">
-<h3 id="the-solutions-3">The Solutions</h3>
-<ul>
-<li><strong>Unit Tests</strong>: Shape checks &amp; Baselines.</li>
-<li><strong>Vibe Coding</strong>: Use tests to verify LLM logic.</li>
-<li><strong>Example</strong>: <a href="../tests/test_nlp_logic.py">test_nlp_logic.py</a></li>
-</ul>
-</div>
-</div></div>
-<div class="footer">
-<p>Doc: <a href="https://docs.pytest.org/">docs.pytest.org</a> | <a href="https://docs.astral.sh/ruff/">ruff.rs</a></p>
+<p>Docs: <a href="https://duckdb.org/">duckdb.org</a> | <a href="https://docs.pydantic.dev/">pydantic.dev</a></p>
 </div>
 </section></section>
 <section>
@@ -574,10 +504,10 @@ Research Team
 </div>
 <div class="fragment fade-up">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="375" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 374;"><span id="cb1-375"><a></a><span class="im">import</span> { view } <span class="im">from</span> <span class="st">"@observablehq/inputs"</span></span>
-<span id="cb1-376"><a></a></span>
-<span id="cb1-377"><a></a><span class="co">// Placeholder for interactive OJS component demonstration</span></span>
-<span id="cb1-378"><a></a><span class="fu">md</span><span class="vs">`### 📊 [View Integrated Dashboard](dashboard.qmd)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="279" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 278;"><span id="cb1-279"><a></a><span class="im">import</span> { view } <span class="im">from</span> <span class="st">"@observablehq/inputs"</span></span>
+<span id="cb1-280"><a></a></span>
+<span id="cb1-281"><a></a><span class="co">// Placeholder for interactive OJS component demonstration</span></span>
+<span id="cb1-282"><a></a><span class="fu">md</span><span class="vs">`### 📊 [View Integrated Dashboard](dashboard.qmd)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
@@ -602,16 +532,16 @@ Research Team
 <p>Accept that you are a Developer.</p>
 </div></li>
 <li><div class="glass-card fragment fade-up">
-<p>Provide Context to your LLM (<strong>Pydantic</strong>).</p>
+<p>Standardize Environments (<strong>UV</strong>).</p>
 </div></li>
 <li><div class="glass-card fragment fade-up">
-<p>Localize your Environments (<strong>UV</strong>).</p>
+<p>Automate Workflows (<strong>Snakemake</strong>).</p>
 </div></li>
 <li><div class="glass-card fragment fade-up">
-<p>Automate your Pipeline (<strong>Snakemake</strong>).</p>
+<p>Verify and Aggregate (<strong>DuckDB/Pytest</strong>).</p>
 </div></li>
 <li><div class="glass-card fragment fade-up">
-<p><strong>Let the machine do the heavy lifting.</strong></p>
+<p><strong>Let Claude Code handle the heavy lifting.</strong></p>
 </div></li>
 </ol>
 
@@ -621,7 +551,7 @@ Research Team
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="https://www.python.org/static/community_logos/python-logo-only.png" class="slide-logo"></p>
 <div class="footer footer-default">
-<p>Scientific Python | Modular. Reproducible. Professional.</p>
+<p>Scientific Python S | Modular. Reproducible. Professional.</p>
 </div>
 </div></div>
 

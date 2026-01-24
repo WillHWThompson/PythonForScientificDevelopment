@@ -2,7 +2,7 @@
 title: "I Suck At Coding "
 subtitle: "How I learned to stop worrying and feel the vibecoding"
 author: "Research Team"
-footer: "Scientific Python | Modular. Reproducible. Professional."
+footer: "Scientific Python S | Modular. Reproducible. Professional."
 format: 
   revealjs:
     theme: [white, custom.scss]
@@ -54,13 +54,13 @@ format:
 ::: {.glass-card .fragment .fade-up}
 ### Phase 1: Portability
 - **Problem**: 5 collaborators on Mac, Linux, and Windows.
-- **"Solution"**: JSON configs + nested Shell/Python wrappers.
+- **"Solution"**: JSON configs + nested POSIX-compliant shell scripts/Python wrappers.
 :::
 :::
 
 ::: {.column width="50%"}
 ::: {.glass-card .fragment .fade-up}
-### Phase 2: The HPC (VACC)
+### Phase 2: The HPC (VACC)![Alt text](https://i.imgflip.com/ai9uul.jpg)
 - **Problem**: Local prototyping vs. Cluster batch jobs.
 - **"Solution"**: J2 templating to auto-generate `.sh` scripts.
 :::
@@ -91,11 +91,19 @@ format:
 :::
 :::::
 
+# Utopia {class="bg-dark-texture"}
+
+## Bad Scientific Software Development IS A SIN
+
+![You knew how to do ](assets/world_if_meme.jpg){fig-align="center" height="500px"}
+
 # The Hard Truth {class="bg-dark-texture"}
 
 - This was all my fault. 
 
-
+<!-- 
+Make this centered
+# Thesis: SLURM is Why We Have Not Cured Cancer  -->
 
 
 ## The Iron Rule of Scientific Software Development
@@ -114,6 +122,8 @@ format:
 
 ## The Python Paradox {auto-animate=true}
 
+:::: columns
+::: {.column width="60%"}
 ::: {.glass-card .fragment .fade-up}
 -   Python is a **TERRIBLE** language for scientific computing.
 -   Nothing about the language is inherently good for science.
@@ -123,6 +133,14 @@ format:
 ::: {.glass-card .fragment .fade-in-then-semi-out}
 -   **The Goal**: How can we contort Python to be at least "okay"?
 :::
+:::
+
+::: {.column width="40%"}
+::: {.fragment .fade-right}
+![Dependency (Source: XKCD)](https://imgs.xkcd.com/comics/dependency_2x.png){fig-align="center" width="100%"}
+:::
+:::
+::::
 
 # The Dirty Secret... {class="bg-accent-2"}
 
@@ -173,192 +191,78 @@ Automate the **plumbing** so you can focus on the **science**.
 ::::
 ::::::
 
-# Tools of the Trade {class="bg-primary"}
+# The Sanity Savers {class="bg-primary"}
 
-## 1. VSCode / Cursor {auto-animate=true}
-
-::::: columns
-::: {.column width="50%"}
-::: {.glass-card .fragment}
-### Modern IDE
-
--   You have **no excuse** not to use a modern IDE.
--   VIM/EMACS are strictly worse for total project velocity.
-:::
-:::
-
-::: {.column width="50%"}
-::: {.glass-card .fragment}
-### Anti-Pattern
-
--   **Stop using Jupyter Notebooks for everything.**
--   Notebooks are for **exploration**, not **logic**.
-:::
-:::
-:::::
-
-::: footer
-Doc: [code.visualstudio.com](https://code.visualstudio.com) | [cursor.com](https://www.cursor.com)
-:::
-
-## 2. Project Structure {auto-animate=true}
+## 1. The Environment {auto-animate=true}
 
 ::::: columns
 ::: {.column width="50%"}
 ::: {.glass-card .fragment}
-### Modularity
-
--   Separate source code from sweeps.
--   Make your source code a **python module**.
--   **Example**: [bert_adapter.py](../src/models/bert_adapter.py)
+### Reproducible UV
+- **Speed**: Orders of magnitude faster than pip/conda.
+- **Locking**: `uv.lock` ensures your code runs *everywhere*.
 :::
 :::
 
 ::: {.column width="50%"}
 ::: {.glass-card .fragment}
-### Version Control
-
--   **Git early, git often.**
--   Collaborating? Use **Pull Requests**.
--   **Example**: [README.md](../README.md)
+### Modular Source
+- **No More Notebooks**: Logic lives in `.py` modules.
+- **Git Flow**: Use Pull Requests to manage complexity.
 :::
 :::
 :::::
 
 ::: footer
-Doc: [git-scm.com](https://git-scm.com)
+Docs: [astral.sh/uv](https://docs.astral.sh/uv/) | [git-scm.com](https://git-scm.com)
 :::
 
-## 3. UV: The New Standard {auto-animate=true}
-
-:::::: columns
-::: {.column width="60%"}
-::: {.glass-card .fragment}
--   **Speed**: Orders of magnitude faster than pip.
--   **Reproducibility**: `uv.lock` is non-negotiable.
--   **Example**: [pyproject.toml](../pyproject.toml)
-:::
-:::
-
-:::: {.column width="40%"}
-::: {.glass-card .fragment}
-### Reproducibility
-
-If it doesn't run on your collaborator's machine, it's not **Science**.
-:::
-::::
-::::::
-
-::: footer
-Doc: [docs.astral.sh/uv](https://docs.astral.sh/uv/)
-:::
-
-## UV vs. Conda {auto-animate=true}
+## 2. The Workflow {auto-animate=true}
 
 ::::: columns
-::: {.column width="48%"}
+::: {.column width="50%"}
 ::: {.glass-card .fragment}
-### The Problems
-
--   **Local vs. Cluster**: "I developed code locally, but the VACC env crashes."
--   **Collaboration**: "It works for me, but my coworker has global numpy issues."
+### Snakemake DAGs
+- **Amnesia Proof**: Automatically tracks what results are invalid.
+- **Declarative**: The code *is* the documentation.
 :::
 :::
 
-::: {.column width="48%"}
+::: {.column width="50%"}
 ::: {.glass-card .fragment}
-### The Solutions
-
--   **Local Envs**: Environments live in the project folder.
--   **Reproducibility**: Lockfile ensures byte-for-byte matching.
--   **Example**: [pyproject.toml](../pyproject.toml)
+### HPC Scaling
+- **VACC Profiles**: Zero-effort Slurm submission.
+- **Scaling**: Run 1 locally; run 1,000 on the cluster.
 :::
 :::
 :::::
 
 ::: footer
-Doc: [docs.astral.sh/uv](https://docs.astral.sh/uv/)
+Docs: [snakemake.github.io](https://snakemake.github.io/) | [vacc.uvm.edu](https://www.uvm.edu/vacc/docs/)
 :::
 
-## 4. Pydantic: Strong Typing {auto-animate=true}
+## 3. The Data Lifecycle {auto-animate=true}
 
 ::::: columns
-::: {.column width="48%"}
+::: {.column width="50%"}
 ::: {.glass-card .fragment}
-### The Problems
-
--   **Boilerplate**: Constant manual parsing of nested lists/dicts.
--   **Silent Bugs**: Passing $N \times M$ when $M \times N$ was expected.
+### Validated Data
+- **Pydantic**: Catch errors at the boundary.
+- **LLM Context**: Structured slots for model reasoning.
 :::
 :::
 
-::: {.column width="48%"}
+::: {.column width="50%"}
 ::: {.glass-card .fragment}
-### The Solutions
-
--   **Validation**: Catch errors at the boundary.
--   **LLM Context**: Gives models the precise "slots" needed.
--   **Example**: [schema.py](../src/core/schema.py)
+### High-Perf Analytics
+- **Parquet + DuckDB**: SQL speed on flat files.
+- **Testing**: Shape checks to verify the "vibe."
 :::
 :::
 :::::
 
 ::: footer
-Doc: [docs.pydantic.dev](https://docs.pydantic.dev/)
-:::
-
-## 5. Snakemake: Orchestration {auto-animate=true}
-
-::::: columns
-::: {.column width="45%"}
-::: {.glass-card .fragment}
-### The Problems
-
--   **Amnesia**: "I changed code; what results are now invalid?"
--   **Lost parameters**: "How did I generate this figure 6 months ago?"
-:::
-:::
-
-::: {.column width="55%"}
-::: {.glass-card .fragment}
-### The Solutions
-
--   **DAG Generation**: knows exactly what needs to run.
--   **Self-Documentation**: The Snakefile *is* the record.
--   **Example**: [Snakefile](../Snakefile)
-:::
-:::
-:::::
-
-::: footer
-Doc: [snakemake.github.io](https://snakemake.github.io/)
-:::
-
-## 6. Testing {auto-animate=true}
-
-::::: columns
-::: {.column width="48%"}
-::: {.glass-card .fragment}
-### The Problems
-
--   **Silent Regression**: Results changed, and you don't know why.
--   **Vibe Blindness**: Trusting LLM code without verification.
-:::
-:::
-
-::: {.column width="48%"}
-::: {.glass-card .fragment}
-### The Solutions
-
--   **Unit Tests**: Shape checks & Baselines.
--   **Vibe Coding**: Use tests to verify LLM logic.
--   **Example**: [test_nlp_logic.py](../tests/test_nlp_logic.py)
-:::
-:::
-:::::
-
-::: footer
-Doc: [docs.pytest.org](https://docs.pytest.org/) | [ruff.rs](https://docs.astral.sh/ruff/)
+Docs: [duckdb.org](https://duckdb.org/) | [pydantic.dev](https://docs.pydantic.dev/)
 :::
 
 # Live Diagnostics {class="bg-accent-1"}
@@ -385,14 +289,14 @@ md`### 📊 [View Integrated Dashboard](dashboard.qmd)`
     Accept that you are a Developer.
     :::
 2.  ::: {.glass-card .fragment .fade-up}
-    Provide Context to your LLM (**Pydantic**).
+    Standardize Environments (**UV**).
     :::
 3.  ::: {.glass-card .fragment .fade-up}
-    Localize your Environments (**UV**).
+    Automate Workflows (**Snakemake**).
     :::
 4.  ::: {.glass-card .fragment .fade-up}
-    Automate your Pipeline (**Snakemake**).
+    Verify and Aggregate (**DuckDB/Pytest**).
     :::
 5.  ::: {.glass-card .fragment .fade-up}
-    **Let the machine do the heavy lifting.**
+    **Let Claude Code handle the heavy lifting.**
     :::

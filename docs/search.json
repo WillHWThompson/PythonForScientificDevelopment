@@ -101,8 +101,8 @@
     "objectID": "presentation.html#testing",
     "href": "presentation.html#testing",
     "title": "I Suck At Coding",
-    "section": "6. Testing",
-    "text": "6. Testing\n\n\n\nThe Problems\n\nSilent Regression: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py\n\n\n\n\nDoc: docs.pytest.org | ruff.rs",
+    "section": "7. Testing",
+    "text": "7. Testing\n\n\n\nThe Problems\n\nSilent Regression: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py\n\n\n\n\nDoc: docs.pytest.org | ruff.rs",
     "crumbs": [
       "I Suck At Coding"
     ]
@@ -316,7 +316,7 @@
     "href": "presentation.html#the-python-paradox",
     "title": "I Suck At Coding",
     "section": "The Python Paradox",
-    "text": "The Python Paradox\n\n\nPython is a TERRIBLE language for scientific computing.\nNothing about the language is inherently good for science.\nMost tools were developed by researchers as a “side-hustle.”\n\n\n\n\nThe Goal: How can we contort Python to be at least “okay”?",
+    "text": "The Python Paradox\n\n\n\n\nPython is a TERRIBLE language for scientific computing.\nNothing about the language is inherently good for science.\nMost tools were developed by researchers as a “side-hustle.”\n\n\n\n\nThe Goal: How can we contort Python to be at least “okay”?\n\n\n\n\n\n\n\nDependency (Source: XKCD)",
     "crumbs": [
       "I Suck At Coding"
     ]
@@ -346,7 +346,7 @@
     "href": "presentation.html#feature-creep-portability",
     "title": "I Suck At Coding",
     "section": "Feature Creep & Portability",
-    "text": "Feature Creep & Portability\n\n\n\nPhase 1: Portability\n\nProblem: 5 collaborators on Mac, Linux, and Windows.\n“Solution”: JSON configs + nested Shell/Python wrappers.\n\n\n\n\nPhase 2: The HPC (VACC)\n\nProblem: Local prototyping vs. Cluster batch jobs.\n“Solution”: J2 templating to auto-generate .sh scripts.",
+    "text": "Feature Creep & Portability\n\n\n\nPhase 1: Portability\n\nProblem: 5 collaborators on Mac, Linux, and Windows.\n“Solution”: JSON configs + nested POSIX-compliant shell scripts/Python wrappers.\n\n\n\n\nPhase 2: The HPC (VACC)\n\nProblem: Local prototyping vs. Cluster batch jobs.\n“Solution”: J2 templating to auto-generate .sh scripts.",
     "crumbs": [
       "I Suck At Coding"
     ]
@@ -367,6 +367,106 @@
     "title": "I Suck At Coding",
     "section": "Logic of my Life",
     "text": "Logic of my Life\nThe eternal struggle: Time spent to automate vs. overhead accumulated.\n\n\n\nIs it worth the time? (Source: XKCD)",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#the-world-if",
+    "href": "presentation.html#the-world-if",
+    "title": "I Suck At Coding",
+    "section": "The World If…",
+    "text": "The World If…\n\n\n\n…researchers used Claude Code and Snakemake",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#hpc-scaling-vacc",
+    "href": "presentation.html#hpc-scaling-vacc",
+    "title": "I Suck At Coding",
+    "section": "6. HPC Scaling: VACC",
+    "text": "6. HPC Scaling: VACC\n\n\n\nThe Descent\n\nThe Struggle: Writing batch scripts by hand.\nThe Chaos: Managing environment vars across nodes.\n\n\n\n\nThe Solution\n\nProfiles: Decouple logic from infrastructure.\nResource Management: Auto-submit 100s of jobs.\nExample: config.yaml\n\n\n\n\nDoc: VACC Guide",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#duckdb-result-aggregation",
+    "href": "presentation.html#duckdb-result-aggregation",
+    "title": "I Suck At Coding",
+    "section": "8. DuckDB: Result Aggregation",
+    "text": "8. DuckDB: Result Aggregation\n\n\n\nThe Breaking Point\n\nScaling: Filename char limits & SQLite locking.\nComplexity: Writing polymorphic IO for every DB.\n\n\n\n\nThe Solution\n\nParquet: Binary, columnar, and lightning fast.\nDuckDB: SQL analytics on top of flat files.\nExample: dashboard.qmd\n\n\n\n\nDoc: duckdb.org",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#duckdb-result-aggregation-1",
+    "href": "presentation.html#duckdb-result-aggregation-1",
+    "title": "I Suck At Coding",
+    "section": "8. DuckDB: Result Aggregation",
+    "text": "8. DuckDB: Result Aggregation\n\n\n\nThe Breaking Point\n\nScaling: Filename char limits & SQLite locking.\nComplexity: Writing polymorphic IO for every DB.\n\n\n\n\nThe Solution\n\nParquet: Binary, columnar, and lightning fast.\nDuckDB: SQL analytics on top of flat files.\nExample: dashboard.qmd\n\n\n\n\nDoc: duckdb.org",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#bad-scientific-software-d",
+    "href": "presentation.html#bad-scientific-software-d",
+    "title": "I Suck At Coding",
+    "section": "Bad Scientific Software d",
+    "text": "Bad Scientific Software d\n\n\n\n…researchers used Claude Code and Snakemake",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#bad-scientific-software",
+    "href": "presentation.html#bad-scientific-software",
+    "title": "I Suck At Coding",
+    "section": "Bad Scientific Software",
+    "text": "Bad Scientific Software\n\n\n\n…researchers used Claude Code and Snakemake",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#bad-scientific-software-development-is-a-sin",
+    "href": "presentation.html#bad-scientific-software-development-is-a-sin",
+    "title": "I Suck At Coding",
+    "section": "Bad Scientific Software Development IS A SIN",
+    "text": "Bad Scientific Software Development IS A SIN\n\n\n\nYou knew how to do",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#the-environment",
+    "href": "presentation.html#the-environment",
+    "title": "I Suck At Coding",
+    "section": "1. The Environment",
+    "text": "1. The Environment\n\n\n\nReproducible UV\n\nSpeed: Orders of magnitude faster than pip/conda.\nLocking: uv.lock ensures your code runs everywhere.\n\n\n\n\nModular Source\n\nNo More Notebooks: Logic lives in .py modules.\nGit Flow: Use Pull Requests to manage complexity.\n\n\n\n\nDocs: astral.sh/uv | git-scm.com",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#the-workflow",
+    "href": "presentation.html#the-workflow",
+    "title": "I Suck At Coding",
+    "section": "2. The Workflow",
+    "text": "2. The Workflow\n\n\n\nSnakemake DAGs\n\nAmnesia Proof: Automatically tracks what results are invalid.\nDeclarative: The code is the documentation.\n\n\n\n\nHPC Scaling\n\nVACC Profiles: Zero-effort Slurm submission.\nScaling: Run 1 locally; run 1,000 on the cluster.\n\n\n\n\nDocs: snakemake.github.io | vacc.uvm.edu",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#the-data-lifecycle",
+    "href": "presentation.html#the-data-lifecycle",
+    "title": "I Suck At Coding",
+    "section": "3. The Data Lifecycle",
+    "text": "3. The Data Lifecycle\n\n\n\nValidated Data\n\nPydantic: Catch errors at the boundary.\nLLM Context: Structured slots for model reasoning.\n\n\n\n\nHigh-Perf Analytics\n\nParquet + DuckDB: SQL speed on flat files.\nTesting: Shape checks to verify the “vibe.”\n\n\n\n\nDocs: duckdb.org | pydantic.dev",
     "crumbs": [
       "I Suck At Coding"
     ]
