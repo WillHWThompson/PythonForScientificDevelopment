@@ -17,6 +17,10 @@ test config=config:
 sync:
     ./tools/sync_vacc.sh
 
+## Unlock snakemake directory if a process crashed
+unlock:
+    uv run snakemake --unlock
+
 ## Run local Quarto preview
 preview:
     cd notebooks/quarto && quarto preview . --no-browser
