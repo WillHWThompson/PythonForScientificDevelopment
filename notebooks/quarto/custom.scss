@@ -1,8 +1,13 @@
 /* custom.scss */
 /*-- scss:defaults --*/
 $body-bg: #ffffff;
-$presentation-title-color: #332288;
-$presentation-heading-color: #332288;
+$brand-primary: #861388; // Anchor Magenta
+$brand-pink: #E15A97;
+$brand-blue: #2F6690;
+$brand-teal: #0CBABA;
+
+$presentation-title-color: $brand-primary;
+$presentation-heading-color: $brand-primary;
 
 /*-- scss:rules --*/
 
@@ -21,6 +26,7 @@ $presentation-heading-color: #332288;
     border: 1px solid rgba(255, 255, 255, 0.5);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-left: 6px solid #dfe6e9; // Default soft border
 
     &:hover {
         transform: translateY(-5px);
@@ -28,6 +34,39 @@ $presentation-heading-color: #332288;
     }
 }
 
+// Color-themed card variants
+.card-magenta {
+    @extend .glass-card;
+    border-left-color: $brand-primary;
+    background: rgba($brand-primary, 0.02);
+}
+
+.card-pink {
+    @extend .glass-card;
+    border-left-color: $brand-pink;
+    background: rgba($brand-pink, 0.02);
+}
+
+.card-blue {
+    @extend .glass-card;
+    border-left-color: $brand-blue;
+    background: rgba($brand-blue, 0.02);
+}
+
+.card-teal {
+    @extend .glass-card;
+    border-left-color: $brand-teal;
+    background: rgba($brand-teal, 0.02);
+}
+
 .inverse {
     color: white !important;
+}
+
+.smaller {
+    font-size: 0.8em;
+}
+
+.reveal section img {
+    border-radius: 12px;
 }
