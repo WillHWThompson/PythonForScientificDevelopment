@@ -29,7 +29,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-5253f860046b1c99d95d25eb53b884e3.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-c2eda7419f752cd2dd745688991687d5.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -189,10 +189,23 @@ Research Team
 <blockquote>
 <p>“Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has <strong>adequate context</strong>.”</p>
 </blockquote>
-</section>
-<section class="slide level2">
-
 </section></section>
+<section id="your-workflow" class="title-slide slide level1 center">
+<h1>Your Workflow</h1>
+<ul>
+<li>You have some data/simulation paramters</li>
+<li>You have a model(statistical/ML model forward simulation)</li>
+<li>You want to run your model with different sets of input paramters, which might require a lot of computation
+<ul>
+<li>Different hyperparmaters for Neural Network</li>
+<li>Different subsets of data</li>
+<li>Different initial conditions for simulation</li>
+</ul></li>
+<li>You want to collect the results of these sweeps and vizualize the data efficently</li>
+<li>You want to eventually turns these plots into a publicatoin</li>
+</ul>
+</section>
+
 <section>
 <section id="tools-of-the-trade" class="title-slide slide level1 center">
 <h1>Tools of the Trade</h1>
@@ -215,7 +228,10 @@ Research Team
 <div class="column" style="width:50%;">
 <h3 id="modularity">Modularity</h3>
 <ul>
-<li>Separate source code from sweeps.</li>
+<li>Separate source code from sweeps.
+<ul>
+<li>Make your source code a python module</li>
+</ul></li>
 <li>Separate scripts from plotting.</li>
 <li>Notebooks are for <strong>plots</strong>, not <strong>logic</strong>.</li>
 </ul>
@@ -236,27 +252,38 @@ Research Team
 <li><strong>Reproducibility</strong>:
 <ul>
 <li><code>pyproject.toml</code> tracks everything.</li>
-<li><code>uv.lock</code> ensures the <strong>exact</strong> environment every time.</li>
+<li><h2 id="uv.lock-ensures-the-exact-environment-every-time."><code>uv.lock</code> ensures the <strong>exact</strong> environment every time.</h2></li>
 </ul></li>
-<li><strong>The Cache</strong>: Uses hard-linking. You won’t have 50 redundant versions of PyTorch on your disk.</li>
 </ul>
 </section>
 <section id="uv-vs.-conda" class="slide level2">
 <h2>UV vs.&nbsp;Conda</h2>
 <ul>
-<li><strong>Conda</strong>: Global environments are a “psychotic choice.”</li>
+<li><strong>Conda</strong>: Global environments are a <strong>psychotic choice</strong></li>
 <li><strong>UV</strong>: Local environments live inside your project.</li>
-<li><strong>Clean Disk</strong>: Global cache means half your hard drive isn’t taken up by redundant environments.</li>
+<li><h2 id="the-cache-uses-hard-linking.-you-wont-have-50-redundant-versions-of-pytorch-on-your-disk."><strong>The Cache</strong>: Uses hard-linking. You won’t have 50 redundant versions of PyTorch on your disk.</h2></li>
 </ul>
 </section>
 <section id="pydantic-strong-typing" class="slide level2">
 <h2>4. Pydantic: Strong Typing</h2>
-<p>Python’s biggest weakness is its lack of strong typing.</p>
 <ul>
-<li><strong>The Solution</strong>: Use Pydantic for input validation.</li>
-<li>If you are clear about inputs/outputs, it is <strong>much harder</strong> to make a mistake.</li>
-<li><strong>LLM Context</strong>: Pydantic models give LLMs the precise “slots” needed to write correct code.</li>
-<li><strong>Goodbye Boilerplate</strong>: No more manual dictionary parsing.</li>
+<li><p><strong>Problem 1</strong>: I feel like I spend so much of my time writing boilerplate code to read data in/parse it/save it and instiate the same models over and over again</p></li>
+<li><p><strong>Problem 2</strong>: I spend a week debugging because I passed in an NxM matrix that should have been a MxN matrix.</p></li>
+<li><p><strong>Problem 3</strong>: I pass paramters through nested layers of functions, if I want to add or change something I have to change it across ALL THE layers</p></li>
+<li><p><strong>The Solution</strong>: Use Pydantic for input validation.</p></li>
+<li><p>If you are clear about inputs/outputs, it is <strong>much harder</strong> to make a mistake.</p></li>
+<li><p><strong>LLM Context</strong>: Pydantic models give LLMs the precise “slots” needed to write correct code.</p></li>
+<li><p><strong>No Boilerplate</strong>: Bake in preprocessing into the definition of data structure:</p></li>
+</ul>
+</section>
+<section id="snakemake" class="slide level2">
+<h2>Snakemake</h2>
+<ul>
+<li><strong>Problem 1</strong>: Advisor wants you to regenerate a figure from 6 months ago—what was the script? What were the parameters?</li>
+<li><strong>Problem 2</strong>: You changed <code>src/core/utils.py</code> and now you need to know which of your 500 simulation results are now invalid.</li>
+<li><strong>The Solution</strong>: Directed Acyclic Graphs (DAGs).</li>
+<li><strong>Automation</strong>: One command (<code>snakemake</code>) to run everything in the correct order.</li>
+<li><strong>Reproducibility</strong>: The Snakefile <em>is</em> the documentation.</li>
 </ul>
 </section>
 <section class="slide level2">

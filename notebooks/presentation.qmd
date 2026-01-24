@@ -52,11 +52,19 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 
 > "Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has **adequate context**."
 
----
+
+# Your Workflow
+
+- You have some data/simulation parameters
+- You have a model (statistical/ML model forward simulation)
+- You want to run your model with different sets of input parameters, which might require a lot of computation
+    - Different hyperparameters for Neural Network
+    - Different subsets of data 
+    - Different initial conditions for simulation
+- You want to collect the results of these sweeps and visualize the data efficiently
+- You want to eventually turn these plots into a publication
 
 # Tools of the Trade
-
----
 
 ## 1. VSCode / Cursor
 
@@ -73,6 +81,7 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 ::: {.column width="50%"}
 ### Modularity
 - Separate source code from sweeps.
+    - Make your source code a python module
 - Separate scripts from plotting.
 - Notebooks are for **plots**, not **logic**.
 :::
@@ -95,31 +104,35 @@ UV is a major innovation over `pip` and `conda`.
 - **Reproducibility**:
     - `pyproject.toml` tracks everything.
     - `uv.lock` ensures the **exact** environment every time.
-- **The Cache**: Uses hard-linking. You won't have 50 redundant versions of PyTorch on your disk.
-
 ---
-
 ## UV vs. Conda
-
-- **Conda**: Global environments are a "psychotic choice."
+- **Conda**: Global environments are a **psychotic choice**
 - **UV**: Local environments live inside your project.
-- **Clean Disk**: Global cache means half your hard drive isn't taken up by redundant environments.
-
+- **The Cache**: Uses hard-linking. You won't have 50 redundant versions of PyTorch on your disk.
 ---
 
 ## 4. Pydantic: Strong Typing
 
-Python's biggest weakness is its lack of strong typing.
+- **Problem 1**: I feel like I spend so much of my time writing boilerplate code to read data in/parse it/save it and instiate the same models over and over again 
+- **Problem 2**: I spend a week debugging because I passed in an NxM matrix that should have been a MxN matrix.
+- **Problem 3**: I pass paramters through nested layers of functions, if I want to add or change something I have to change it across ALL THE layers
 
 - **The Solution**: Use Pydantic for input validation.
 - If you are clear about inputs/outputs, it is **much harder** to make a mistake.
 - **LLM Context**: Pydantic models give LLMs the precise "slots" needed to write correct code.
-- **Goodbye Boilerplate**: No more manual dictionary parsing.
+- **No Boilerplate**: Bake in preprocessing into the definition of data structure: 
+
+## Snakemake
+
+- **Problem 1**: Advisor wants you to regenerate a figure from 6 months ago—what was the script? What were the parameters?
+- **Problem 2**: You changed `src/core/utils.py` and now you need to know which of your 500 simulation results are now invalid.
+- **The Solution**: Directed Acyclic Graphs (DAGs).
+- **Automation**: One command (`snakemake`) to run everything in the correct order.
+- **Reproducibility**: The Snakefile *is* the documentation.
 
 ---
 
 # Summary
-
 1. Accept that you are a Developer.
 2. Provide Context to your LLM.
 3. Use UV for Environments.

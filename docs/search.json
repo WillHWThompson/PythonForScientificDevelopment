@@ -25,27 +25,41 @@
     "href": "presentation.html#project-structure",
     "title": "Python for Scientific Development",
     "section": "2. Project Structure",
-    "text": "2. Project Structure\n\n\nModularity\n\nSeparate source code from sweeps.\nSeparate scripts from plotting.\nNotebooks are for plots, not logic.\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nWorking alone? Use Branches."
+    "text": "2. Project Structure\n\n\nModularity\n\nSeparate source code from sweeps.\n\nMake your source code a python module\n\nSeparate scripts from plotting.\nNotebooks are for plots, not logic.\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nWorking alone? Use Branches."
   },
   {
     "objectID": "presentation.html#uv-the-new-standard",
     "href": "presentation.html#uv-the-new-standard",
     "title": "Python for Scientific Development",
     "section": "3. UV: The New Standard",
-    "text": "3. UV: The New Standard\nUV is a major innovation over pip and conda.\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility:\n\npyproject.toml tracks everything.\nuv.lock ensures the exact environment every time.\n\nThe Cache: Uses hard-linking. You won’t have 50 redundant versions of PyTorch on your disk."
+    "text": "3. UV: The New Standard\nUV is a major innovation over pip and conda.\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility:\n\npyproject.toml tracks everything.\nuv.lock ensures the exact environment every time."
   },
   {
     "objectID": "presentation.html#uv-vs.-conda",
     "href": "presentation.html#uv-vs.-conda",
     "title": "Python for Scientific Development",
     "section": "UV vs. Conda",
-    "text": "UV vs. Conda\n\nConda: Global environments are a “psychotic choice.”\nUV: Local environments live inside your project.\nClean Disk: Global cache means half your hard drive isn’t taken up by redundant environments."
+    "text": "UV vs. Conda\n\nConda: Global environments are a psychotic choice\nUV: Local environments live inside your project.\nThe Cache: Uses hard-linking. You won’t have 50 redundant versions of PyTorch on your disk."
   },
   {
     "objectID": "presentation.html#pydantic-strong-typing",
     "href": "presentation.html#pydantic-strong-typing",
     "title": "Python for Scientific Development",
     "section": "4. Pydantic: Strong Typing",
-    "text": "4. Pydantic: Strong Typing\nPython’s biggest weakness is its lack of strong typing.\n\nThe Solution: Use Pydantic for input validation.\nIf you are clear about inputs/outputs, it is much harder to make a mistake.\nLLM Context: Pydantic models give LLMs the precise “slots” needed to write correct code.\nGoodbye Boilerplate: No more manual dictionary parsing."
+    "text": "4. Pydantic: Strong Typing\n\nProblem 1: I feel like I spend so much of my time writing boilerplate code to read data in/parse it/save it and instiate the same models over and over again\nProblem 2: I spend a week debugging because I passed in an NxM matrix that should have been a MxN matrix.\nProblem 3: I pass paramters through nested layers of functions, if I want to add or change something I have to change it across ALL THE layers\nThe Solution: Use Pydantic for input validation.\nIf you are clear about inputs/outputs, it is much harder to make a mistake.\nLLM Context: Pydantic models give LLMs the precise “slots” needed to write correct code.\nNo Boilerplate: Bake in preprocessing into the definition of data structure:"
+  },
+  {
+    "objectID": "presentation.html#tools-of-the-trade",
+    "href": "presentation.html#tools-of-the-trade",
+    "title": "Python for Scientific Development",
+    "section": "# Tools of the Trade",
+    "text": "# Tools of the Trade"
+  },
+  {
+    "objectID": "presentation.html#snakemake",
+    "href": "presentation.html#snakemake",
+    "title": "Python for Scientific Development",
+    "section": "Snakemake",
+    "text": "Snakemake\n\nProblem 1: Advisor wants you to regenerate a figure from 6 months ago—what was the script? What were the parameters?\nProblem 2: You changed src/core/utils.py and now you need to know which of your 500 simulation results are now invalid.\nThe Solution: Directed Acyclic Graphs (DAGs).\nAutomation: One command (snakemake) to run everything in the correct order.\nReproducibility: The Snakefile is the documentation."
   }
 ]
