@@ -22,24 +22,23 @@ def main():
     # 1. Load Config
     with open(args.config, 'r') as f:
         config_data = yaml.safe_load(f)
+        
+    # 2. Integrate Overrides directly into the ingestion
+    if args.adapter_dim:
+        config_data['model']['adapter_dim'] = args.adapter_dim
+    if args.learning_rate:
+        config_data['training']['learning_rate'] = args.learning_rate
+        
     config = NLPExperimentConfig(**config_data)
     
-    # 2. Apply Overrides
-    if args.adapter_dim:
-        config.model.adapter_dim = args.adapter_dim
-        config.name += f"_dim_{args.adapter_dim}"
-    if args.learning_rate:
-        config.training.learning_rate = args.learning_rate
-        config.name += f"_lr_{args.learning_rate}"
-
-    print(f"Starting NLP Experiment: {config.name}")
+    print(f"Starting NLP Experiment: {config.full_run_name}")
 
     # 3. Setup WandB
     if config.wandb_enabled:
         import wandb
         wandb.init(
             project="bert-news-classification",
-            name=config.name,
+            name=config.full_run_name,
             config=config.model_dump()
         )
 
