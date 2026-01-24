@@ -1,0 +1,9 @@
+# workflow/profiles/local/config.yaml
+
+executor: local
+jobs: 4
+printshellcmds: true
+
+default-resources:
+  runtime: "1h"
+  mem_mb: 2000

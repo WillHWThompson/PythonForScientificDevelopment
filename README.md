@@ -34,22 +34,31 @@ To visualize your training live:
 2.  **Update Config**: Open `config.yaml` and set `enabled: true` and your `entity` (username).
 
 ### 4. Run the Pipeline
-The workflow is orchestrated via Snakemake. It handles data download, conversion to Parquet, and model training.
+The workflow is orchestrated via **Snakemake**. To run an experiment, you point to a specific configuration file using the `--configfile` flag.
 
-**Dry Run:**
+**Example: Run a Sweep**
 ```bash
-uv run snakemake -n
+uv run snakemake --workflow-profile workflow/profiles/local --configfile configs/default.yaml
 ```
 
-**Local Execution:**
+**Example: Run a Narrow Search**
 ```bash
-uv run snakemake --executor local --cores 4
+uv run snakemake --workflow-profile workflow/profiles/local --configfile configs/narrow_sweep.yaml
 ```
 
-**HPC (Slurm) Execution:**
-```bash
-uv run snakemake --executor slurm --jobs 10
-```
+## 🚀 Key Features
+Profiles are the professional way to handle cluster portability:
+- **Separation of Concerns**: Your `Snakefile` defines the science; your `Profile` defines the hardware.
+- **No Batch Scripts**: Snakemake handles the `sbatch` submission for you.
+- **Default Resources**: You can set global timeouts and memory limits in the profile, which rules can then override.
+
+## 🔄 Modular Workflows
+
+As projects grow, `Snakefiles` can become cluttered. We use **Snakemake Rules Modules** to keep things organized:
+- `workflow/rules/data.smk`: Handles ingestion and preprocessing.
+- `workflow/rules/train.smk`: Handles JAX model training.
+
+The main `Snakefile` simply pulls these together using `include:`. This pattern allows you to share rules across different projects or workflows easily.
 
 ## 📊 Research Website & Dashboard
 

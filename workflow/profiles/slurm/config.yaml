@@ -1,0 +1,22 @@
+# workflow/profiles/slurm/config.yaml
+
+executor: slurm
+jobs: 10
+latency-wait: 60
+keep-going: true
+printshellcmds: true
+
+# Default resources for ALL jobs unless overridden in the Snakefile
+default-resources:
+  slurm_account: "my_lab_account"
+  slurm_partition: "standard"
+  runtime: "4h"
+  mem_mb: 4000
+
+# Map Slurm-specific flags for the plugin
+set-resources:
+  train_higgs_model:
+    partition: "gpu"
+    gpu: 1
+    mem_mb: 16000
+    runtime: "12h"

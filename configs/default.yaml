@@ -13,4 +13,12 @@ data:
 wandb:
   enabled: true
   project: "higgs-classification"
-  entity: "YOUR_WANDB_USERNAME" # Update this with your WandB username
+  entity: "wthomps3@uvm.edu"
+
+# Parameters to sweep over
+sweep:
+  hidden_dims:
+    - [128, 64]
+    - [256, 128, 64]
+    - [512, 256, 128, 64]
+  learning_rate: [0.001, 0.0005]

@@ -14,6 +14,7 @@ from src.scientific_dev.data_manager import HiggsDataManager
 def main():
     parser = argparse.ArgumentParser(description="Train Higgs Model")
     parser.add_argument("--config", type=str, required=True, help="Path to YAML config")
+    parser.add_argument("--exp_name", type=str, help="Experiment name to override config")
     parser.add_argument("--output", type=str, required=True, help="Path to save params")
     parser.add_argument("--stats", type=str, required=True, help="Path to save stats")
     args = parser.parse_args()
@@ -22,6 +23,18 @@ def main():
     with open(args.config, 'r') as f:
         config_data = yaml.safe_load(f)
     config = ExperimentConfig(**config_data)
+
+    # If we are in a sweep, parse the exp_name to override params
+    if args.exp_name and "mlp_" in args.exp_name:
+        parts = args.exp_name.split("_")
+        # Structure: mlp_64_32_lr_0.001
+        lr_idx = parts.index("lr")
+        h_dims = [int(p) for p in parts[1:lr_idx]]
+        lr = float(parts[lr_idx + 1])
+        
+        config.name = args.exp_name
+        config.model.hidden_dims = h_dims
+        config.training.learning_rate = lr
 
     # Initialize Environment
     key = jax.random.PRNGKey(config.training.seed)
