@@ -1,31 +1,19 @@
-# Defaults
+# Default Paths
 config := "configs/nlp_baseline.yaml"
-local_profile := "workflow/profiles/local"
-slurm_profile := "workflow/profiles/slurm"
+local := "workflow/profiles/local"
+slurm := "workflow/profiles/slurm"
 
-## Run the full pipeline (Train + Test)
-all config=config:
-    uv run snakemake --workflow-profile {{local_profile}} --configfile {{config}}
+## Run full pipeline. Usage: just all [config] [profile]
+all c=config p=local:
+    uv run snakemake --workflow-profile {{p}} --configfile {{c}}
 
-## [HPC] Run the full pipeline on cluster
-all-hpc config=config:
-    uv run snakemake --workflow-profile {{slurm_profile}} --configfile {{config}}
+## Run training. Usage: just train [config] [profile]
+train c=config p=local:
+    uv run snakemake --workflow-profile {{p}} --configfile {{c}} --allowed-rules train_bert_classifier
 
-## Run ONLY training locally
-train config=config:
-    uv run snakemake --workflow-profile {{local_profile}} --configfile {{config}} --allowed-rules train_bert_classifier
-
-## [HPC] Run ONLY training on cluster
-train-hpc config=config:
-    uv run snakemake --workflow-profile {{slurm_profile}} --configfile {{config}} --allowed-rules train_bert_classifier
-
-## Run ONLY evaluation locally
-test config=config:
-    uv run snakemake test_all --workflow-profile {{local_profile}} --configfile {{config}}
-
-## [HPC] Run ONLY evaluation on cluster
-test-hpc config=config:
-    uv run snakemake test_all --workflow-profile {{slurm_profile}} --configfile {{config}}
+## Run evaluation. Usage: just test [config] [profile]
+test c=config p=local:
+    uv run snakemake test_all --workflow-profile {{p}} --configfile {{c}}
 
 ## Sync training results from VACC cluster
 sync:
