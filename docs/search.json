@@ -356,7 +356,17 @@
     "href": "presentation.html#architecture-overkill",
     "title": "I Suck At Coding",
     "section": "Architecture Overkill",
-    "text": "Architecture Overkill\n\n\n\nData & Concurrency\n\nFilename char limits? Build an ORM.\nSQLite locking? Move to MySQL.\nMySQL behind firewall? Polymorphic IO.\n\n\n\n\nTotal Collapse\n\nAgnostic formatters for every possible output.\nAgnostic inputs for polymorphic data classes.\nThe End: Collaborators force-pushing to main because they hate the code.",
+    "text": "Architecture Overkill\n\n\n\nData & Concurrency\n\nFilename char limits? Build an ORM.\nSQLite locking? Move to MySQL.\nMySQL behind firewall? Polymorphic IO.\n\n\n\n\nTotal Collapse\n\nAgnostic formatters for every possible output.\nAgnostic inputs for polymorphic data classes.\nThe End: 2026, no publication, the framework is now so convoluted my collaborators just start writing their own code from scratch in Jupter notebooks and force-pushing to main because they hate the code.",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#logic-of-my-life",
+    "href": "presentation.html#logic-of-my-life",
+    "title": "I Suck At Coding",
+    "section": "Logic of my Life",
+    "text": "Logic of my Life\nThe eternal struggle: Time spent to automate vs. overhead accumulated.\n\n\n\nIs it worth the time? (Source: XKCD)",
     "crumbs": [
       "I Suck At Coding"
     ]

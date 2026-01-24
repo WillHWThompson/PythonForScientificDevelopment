@@ -23,7 +23,7 @@ format:
 
 ---
 
-# The Origin Story {class="bg-dark-texture"}
+# My Scientific Albratorss: Kernel Inference {class="bg-dark-texture"}
 
 ## Summer School Optimism
 
@@ -86,12 +86,17 @@ format:
 ### Total Collapse
 - Agnostic formatters for every possible output.
 - Agnostic inputs for polymorphic data classes.
-- **The End**: Collaborators force-pushing to `main` because they hate the code.
+- **The End**: 2026, no publication, the framework is now so convoluted my collaborators just start writing their own code from scratch in Jupter notebooks and force-pushing to `main` because they hate the code.
 :::
 :::
 :::::
 
 # The Hard Truth {class="bg-dark-texture"}
+
+- This was all my fault. 
+
+
+
 
 ## The Iron Rule of Scientific Software Development
 
@@ -127,19 +132,11 @@ format:
 -   **Fact**: Scientists are (mostly) bad software developers.
 :::
 
-## The Overhead Trade-off
+## Logic of my Life
 
 The eternal struggle: Time spent to automate vs. overhead accumulated.
 
-:::: r-stack
-![Automation (Source: XKCD)](https://imgs.xkcd.com/comics/automation_2x.png){.fragment .fade-in-then-out}
-
-::: {.glass-card .fragment .fade-up}
-### LLM ROI
-
-"I have a tendency to over-engineer pipelines I will never use. Now I can do this guilt-free with **LLMs!**"
-:::
-::::
+![Is it worth the time? (Source: XKCD)](https://imgs.xkcd.com/comics/is_it_worth_the_time_2x.png){fig-align="center" height="450px"}
 
 # The Good News {class="bg-accent-1"}
 
