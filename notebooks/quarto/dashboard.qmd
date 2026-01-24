@@ -17,20 +17,43 @@ has_results = results_dir.exists() and any(results_dir.glob("**/*.parquet"))
 if has_results:
     con = duckdb.connect()
     parquet_pattern = str(results_dir / "**" / "training_stats.parquet")
+    metrics_pattern = str(results_dir / "**" / "test_metrics.parquet")
     
-    # Load all steps for smooth interactive curves
-    query = f"""
-        SELECT 
-            exp_name,
-            full_run_name as full_name,
-            adapter_dim,
-            learning_rate,
-            epoch,
-            train_loss,
-            val_loss,
-            accuracy
-        FROM read_parquet('{parquet_pattern}')
-    """
+    # Check if test metrics exist to join AUROC
+    test_metrics_exist = any(results_dir.glob("**/test_metrics.parquet"))
+    
+    if test_metrics_exist:
+        query = f"""
+            SELECT 
+                s.exp_name,
+                s.full_run_name as full_name,
+                s.adapter_dim,
+                s.learning_rate,
+                s.epoch,
+                s.train_loss,
+                s.val_loss,
+                s.accuracy,
+                m."test/auroc" as auroc
+            FROM read_parquet('{parquet_pattern}') s
+            LEFT JOIN (
+                SELECT full_run_name, "test/auroc" 
+                FROM read_parquet('{metrics_pattern}')
+            ) m ON s.full_run_name = m.full_run_name
+        """
+    else:
+        query = f"""
+            SELECT 
+                exp_name,
+                full_run_name as full_name,
+                adapter_dim,
+                learning_rate,
+                epoch,
+                train_loss,
+                val_loss,
+                accuracy,
+                0.0 as auroc
+            FROM read_parquet('{parquet_pattern}')
+        """
     all_data = con.execute(query).df()
 else:
     # Dummy data for the preview
@@ -60,8 +83,11 @@ except:
 
 # Load ROC curve data
 try:
-    roc_pattern = str(results_dir / "**" / "roc_curves.parquet")
+    roc_pattern = str(results_dir / "**" / "test_roc_curves.parquet")
     roc_all = con.execute(f"SELECT * FROM read_parquet('{roc_pattern}')").df()
+    # Ensure field name consistency for filtering
+    if 'full_run_name' in roc_all.columns:
+        roc_all = roc_all.rename(columns={'full_run_name': 'full_name'})
 except:
     # Dummy ROC data
     roc_all = pd.DataFrame([
@@ -180,8 +206,8 @@ Detailed analysis of model confidence and class-wise discrimination.
 filtered_roc = {
   const data = transpose(roc_curves);
   // We match by the first run in the current filter for simplicity
-  const run_name = filtered_data.length > 0 ? filtered_data[0].full_run_name : "";
-  return data.filter(d => d.full_run_name === run_name);
+  const run_name = filtered_data.length > 0 ? filtered_data[0].full_name : "";
+  return data.filter(d => d.full_name === run_name);
 }
 
 Plot.plot({
