@@ -12,7 +12,8 @@ with open(config_file_path, 'r') as f:
     config_data = yaml.safe_load(f)
 cfg_name = Path(config_file_path).stem
 
-ALL_OUTPUTS = []
+TRAIN_OUTPUTS = []
+TEST_OUTPUTS = []
 
 def get_instance_dir(row_dict):
     """Helper to convert a parameter dict into a directory path: param1~val1/param2~val2"""
@@ -31,21 +32,27 @@ if "sweep" in config_data:
     # Build output paths
     for row in grid:
         instance_path = get_instance_dir(row)
-        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/training_stats.parquet")
-        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/test_metrics.parquet")
-        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/roc_curves.parquet")
-        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/test_roc_curves.parquet")
-        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/model.pt")
+        TRAIN_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/training_stats.parquet")
+        TRAIN_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/roc_curves.parquet")
+        TRAIN_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/model.pt")
+        
+        TEST_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/test_metrics.parquet")
+        TEST_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/test_roc_curves.parquet")
 else:
-    ALL_OUTPUTS.append(f"results/{cfg_name}/base/training_stats.parquet")
-    ALL_OUTPUTS.append(f"results/{cfg_name}/base/test_metrics.parquet")
-    ALL_OUTPUTS.append(f"results/{cfg_name}/base/roc_curves.parquet")
-    ALL_OUTPUTS.append(f"results/{cfg_name}/base/test_roc_curves.parquet")
-    ALL_OUTPUTS.append(f"results/{cfg_name}/base/model.pt")
+    TRAIN_OUTPUTS.append(f"results/{cfg_name}/base/training_stats.parquet")
+    TRAIN_OUTPUTS.append(f"results/{cfg_name}/base/roc_curves.parquet")
+    TRAIN_OUTPUTS.append(f"results/{cfg_name}/base/model.pt")
+    
+    TEST_OUTPUTS.append(f"results/{cfg_name}/base/test_metrics.parquet")
+    TEST_OUTPUTS.append(f"results/{cfg_name}/base/test_roc_curves.parquet")
 
 rule all:
     input:
-        ALL_OUTPUTS
+        TRAIN_OUTPUTS + TEST_OUTPUTS
+
+rule test_all:
+    input:
+        TEST_OUTPUTS
 
 # 2. Include Modular Rules
 include: "workflow/rules/train.smk"
