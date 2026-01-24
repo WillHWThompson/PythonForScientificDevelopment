@@ -16,11 +16,13 @@ rule train_bert_classifier:
         # Resolve config logic in params to keep shell command clean
         cfg = lambda w: workflow.configfiles[0] if workflow.configfiles else f"configs/{w.cfg_name}.yaml",
         # Parse overrides from the params_path wildcard
-        overrides = lambda w: " ".join([f"--{p.split('~')[0]} {p.split('~')[1]}" for p in w.params_path.split("/") if "~" in p]) if w.params_path != "base" else ""
+        overrides = lambda w: " ".join([f"--{p.split('~')[0]} {p.split('~')[1]}" for p in w.params_path.split("/") if "~" in p]) if w.params_path != "base" else "",
+        group_id = RUN_GROUP_ID
     shell:
         "PYTHONPATH=$(pwd):$(pwd)/src ./.venv/bin/python scripts/run_training.py "
         "--config {params.cfg} "
         "--output {output.weights} "
         "--stats {output.stats} "
         "--roc {output.roc} "
+        "--group {params.group_id} "
         "{params.overrides}"

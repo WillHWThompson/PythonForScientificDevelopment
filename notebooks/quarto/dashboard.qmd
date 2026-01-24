@@ -202,8 +202,10 @@ Plot.plot({
 })
 ```
 :::
+
 ::: g-col-4
 ### Performance Summary
+
 Analyze the class-wise separation. High TPR at low FPR indicates a high-fidelity classifier for that news category.
 :::
 :::::

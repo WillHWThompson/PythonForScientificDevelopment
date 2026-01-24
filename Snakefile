@@ -1,8 +1,8 @@
-# Snakefile
 import yaml
 import pandas as pd
 from itertools import product
 from pathlib import Path
+from datetime import datetime
 
 # 1. Determine Workflow Mode and Build Experiment Grid
 config_file_path = workflow.configfiles[0] if workflow.configfiles else "configs/nlp_baseline.yaml"
@@ -11,6 +11,9 @@ config_file_path = workflow.configfiles[0] if workflow.configfiles else "configs
 with open(config_file_path, 'r') as f:
     config_data = yaml.safe_load(f)
 cfg_name = Path(config_file_path).stem
+
+# Create a unique group ID for WandB grouping
+RUN_GROUP_ID = f"{cfg_name}_{datetime.now().strftime('%Y%m%d_%H%M')}"
 
 TRAIN_OUTPUTS = []
 TEST_OUTPUTS = []

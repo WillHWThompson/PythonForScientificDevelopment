@@ -19,6 +19,7 @@ def main():
     # Allow hyperparameter overrides similar to run_training.py
     parser.add_argument("--adapter_dim", type=int, help="Override adapter dimension.")
     parser.add_argument("--learning_rate", type=float, help="Override learning rate.")
+    parser.add_argument("--group", type=str, help="WandB group identifier for clustering runs")
     
     args = parser.parse_args()
 
@@ -31,6 +32,17 @@ def main():
     if args.learning_rate: config.training.learning_rate = args.learning_rate
 
     print(f"--- Evaluating Run: {config.full_run_name} ---")
+
+    # Initialize WandB for Test-set reporting if enabled
+    if config.wandb_enabled:
+        import wandb
+        wandb.init(
+            project="bert-news-classification",
+            name=f"test_{config.full_run_name}",
+            group=args.group if args.group else config.name,
+            config=config.model_dump(),
+            job_type="testing"
+        )
 
     # 2. Initialize Model and Load Weights
     model = BertAdapterClassifier(config.model)

@@ -15,11 +15,13 @@ rule test_bert_classifier:
         runtime="1h"
     params:
         cfg = lambda w: workflow.configfiles[0] if workflow.configfiles else f"configs/{w.cfg_name}.yaml",
-        overrides = lambda w: " ".join([f"--{p.split('~')[0]} {p.split('~')[1]}" for p in w.params_path.split("/") if "~" in p]) if w.params_path != "base" else ""
+        overrides = lambda w: " ".join([f"--{p.split('~')[0]} {p.split('~')[1]}" for p in w.params_path.split("/") if "~" in p]) if w.params_path != "base" else "",
+        group_id = RUN_GROUP_ID
     shell:
         "PYTHONPATH=$(pwd):$(pwd)/src ./.venv/bin/python scripts/run_testing.py "
         "--config {params.cfg} "
         "--weights {input.weights} "
         "--output {output.test_stats} "
         "--roc {output.roc} "
+        "--group {params.group_id} "
         "{params.overrides}"

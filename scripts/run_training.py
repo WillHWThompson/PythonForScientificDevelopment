@@ -18,6 +18,7 @@ def main():
     # ... (parser arguments same as before)
     parser.add_argument("--adapter_dim", type=int, help="Override adapter dimension")
     parser.add_argument("--learning_rate", type=float, help="Override learning rate")
+    parser.add_argument("--group", type=str, help="WandB group identifier for clustering runs")
     args = parser.parse_args()
 
     # 1. Load Config
@@ -42,7 +43,7 @@ def main():
         wandb.init(
             project="bert-news-classification",
             name=config.full_run_name,
-            group=config.name,  # Groups all runs from this sweep together
+            group=args.group if args.group else config.name,
             config=config.model_dump()
         )
 
