@@ -5,7 +5,11 @@ from itertools import product
 from pathlib import Path
 
 # 1. Determine Workflow Mode and Build Experiment Grid
-config_file_path = workflow.configfiles[0] if workflow.configfiles else "configs/default.yaml"
+config_file_path = workflow.configfiles[0] if workflow.configfiles else "configs/nlp_baseline.yaml"
+
+# Load config to get the name and sweep info
+with open(config_file_path, 'r') as f:
+    config_data = yaml.safe_load(f)
 cfg_name = Path(config_file_path).stem
 
 ALL_OUTPUTS = []
@@ -19,9 +23,9 @@ def get_instance_dir(row_dict):
         parts.append(f"{k}~{val}")
     return "/".join(parts)
 
-if "sweep" in config:
-    keys = config["sweep"].keys()
-    values = config["sweep"].values()
+if "sweep" in config_data:
+    keys = config_data["sweep"].keys()
+    values = config_data["sweep"].values()
     
     # Generate all combinations
     grid = [dict(zip(keys, v)) for v in product(*values)]
@@ -30,15 +34,14 @@ if "sweep" in config:
     for row in grid:
         instance_path = get_instance_dir(row)
         ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/training_stats.json")
-        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/trained_model.params")
+        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/model.pt")
 else:
     ALL_OUTPUTS.append(f"results/{cfg_name}/base/training_stats.json")
-    ALL_OUTPUTS.append(f"results/{cfg_name}/base/trained_model.params")
+    ALL_OUTPUTS.append(f"results/{cfg_name}/base/model.pt")
 
 rule all:
     input:
         ALL_OUTPUTS
 
 # 2. Include Modular Rules
-include: "workflow/rules/data.smk"
-include: "workflow/rules/train.smk"
+include: "workflow/rules/nlp_train.smk"

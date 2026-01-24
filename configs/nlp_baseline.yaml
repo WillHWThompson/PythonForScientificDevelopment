@@ -1,0 +1,21 @@
+name: "bert_topic_baseline"
+model:
+  model_name: "distilbert-base-uncased"
+  adapter_dim: 256
+  num_classes: 4
+  dropout: 0.1
+training:
+  learning_rate: 0.00005
+  batch_size: 32
+  epochs: 3
+  max_length: 128
+data:
+  dataset_name: "ag_news"
+  train_split: "train"
+  val_split: "test"
+wandb_enabled: true
+
+# Parameters to sweep over (example)
+sweep:
+  adapter_dim: [128, 256, 512]
+  learning_rate: [0.00005, 0.0001]

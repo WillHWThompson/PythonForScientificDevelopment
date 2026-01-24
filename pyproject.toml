@@ -28,6 +28,11 @@ dependencies = [
     "flax>=0.10.2",
     "tqdm>=4.67.1",
     "wandb>=0.19.4",
+    "torch>=2.10.0",
+    "transformers>=4.57.6",
+    "datasets>=4.5.0",
+    "evaluate>=0.4.6",
+    "scikit-learn>=1.8.0",
 ]
 
 [dependency-groups]
