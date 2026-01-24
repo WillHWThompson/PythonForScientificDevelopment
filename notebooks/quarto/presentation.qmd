@@ -23,17 +23,17 @@ format:
 
 ---
 
-# My Scientific Albratorss: Kernel Inference {class="bg-dark-texture"}
+# My Scientific Albatross {class="bg-dark-texture" auto-animate=true}
 
-## Summer School Optimism
+## The Summer School Trap
 
 :::: columns
 ::: {.column width="60%"}
 ::: {.glass-card .fragment .fade-up}
 ### The Project
-- **Goal**: Fit opinion spreading models to real-world network data.
+- **Goal**: Fit opinion spreading models to network data.
 - **Start**: First year of grad school workshop.
-- **Initial Code**: Quick & dirty PyTorch implementation.
+- **Initial Code**: Quick & dirty PyTorch.
 :::
 :::
 
@@ -45,65 +45,59 @@ format:
 :::
 ::::
 
-# The Descent {class="bg-dark-texture"}
-
-## Feature Creep & Portability
+## The Descent: Feature Creep {auto-animate=true}
 
 :::: columns
 ::: {.column width="50%"}
 ::: {.glass-card .fragment .fade-up}
 ### Phase 1: Portability
-- **Problem**: 5 collaborators on Mac, Linux, and Windows.
-- **"Solution"**: JSON configs + nested POSIX-compliant shell scripts/Python wrappers.
+- **Problem**: 5 collaborators on every OS.
+- **"Solution"**: JSON configs + nested Shell wrappers.
 :::
 :::
 
 ::: {.column width="50%"}
 ::: {.glass-card .fragment .fade-up}
-### Phase 2: The HPC (VACC)![Alt text](https://i.imgflip.com/ai9uul.jpg)
-- **Problem**: Local prototyping vs. Cluster batch jobs.
-- **"Solution"**: J2 templating to auto-generate `.sh` scripts.
+### Phase 2: HPC (VACC)
+- **Problem**: Local vs. Cluster batch jobs.
+- **"Solution"**: Custom J2 templating system.
 :::
 :::
 ::::
 
-# The Breaking Point {class="bg-dark-texture"}
-
-## Architecture Overkill
+## The Final Collapse {auto-animate=true}
 
 ::::: columns
 ::: {.column width="50%"}
 ::: {.glass-card .fragment .fade-right}
-### Data & Concurrency
-- Filename char limits? **Build an ORM.**
+### Over-Engineering
 - SQLite locking? **Move to MySQL.**
-- MySQL behind firewall? **Polymorphic IO.**
+- UVM Firewall? **Polymorphic IO.**
+- Filename limits? **Build an ORM.**
 :::
 :::
 
 ::: {.column width="50%"}
 ::: {.glass-card .fragment .fade-left}
-### Total Collapse
-- Agnostic formatters for every possible output.
-- Agnostic inputs for polymorphic data classes.
-- **The End**: 2026, no publication, the framework is now so convoluted my collaborators just start writing their own code from scratch in Jupter notebooks and force-pushing to `main` because they hate the code.
+### The End
+- 2026: No publication.
+- Framework is too convoluted to use.
+- Collaborators keep force-pushing to `main` because they hate the code.
 :::
 :::
 :::::
 
 # Utopia {class="bg-dark-texture"}
 
-## Bad Scientific Software Development IS A SIN
+## A Moral Failure
 
-![You knew how to do ](assets/world_if_meme.jpg){fig-align="center" height="500px"}
+![Bad development is a sin.](assets/world_if_meme.jpg){fig-align="center" height="500px"}
 
 # The Hard Truth {class="bg-dark-texture"}
 
-- This was all my fault. 
-
-<!-- 
-Make this centered
-# Thesis: SLURM is Why We Have Not Cured Cancer  -->
+::: r-fit-text
+"This was all my fault."
+:::
 
 
 ## The Iron Rule of Scientific Software Development

@@ -470,5 +470,45 @@
     "crumbs": [
       "I Suck At Coding"
     ]
+  },
+  {
+    "objectID": "presentation.html#the-summer-school-trap",
+    "href": "presentation.html#the-summer-school-trap",
+    "title": "I Suck At Coding",
+    "section": "The Summer School Trap",
+    "text": "The Summer School Trap\n\n\n\nThe Project\n\nGoal: Fit opinion spreading models to network data.\nStart: First year of grad school workshop.\nInitial Code: Quick & dirty PyTorch.\n\n\n\n\nThe Vibe\n“It’ll be 6 months, tops, to a publication.” 🤡",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#the-descent-feature-creep",
+    "href": "presentation.html#the-descent-feature-creep",
+    "title": "I Suck At Coding",
+    "section": "The Descent: Feature Creep",
+    "text": "The Descent: Feature Creep\n\n\n\nPhase 1: Portability\n\nProblem: 5 collaborators on every OS.\n“Solution”: JSON configs + nested Shell wrappers.\n\n\n\n\nPhase 2: HPC (VACC)\n\nProblem: Local vs. Cluster batch jobs.\n“Solution”: Custom J2 templating system.",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#the-final-collapse",
+    "href": "presentation.html#the-final-collapse",
+    "title": "I Suck At Coding",
+    "section": "The Final Collapse",
+    "text": "The Final Collapse\n\n\n\nOver-Engineering\n\nSQLite locking? Move to MySQL.\nUVM Firewall? Polymorphic IO.\nFilename limits? Build an ORM.\n\n\n\n\nThe End\n\n2026: No publication.\nFramework is too convoluted to use.\nCollaborators keep force-pushing to main because they hate the code.",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#a-moral-failure",
+    "href": "presentation.html#a-moral-failure",
+    "title": "I Suck At Coding",
+    "section": "A Moral Failure",
+    "text": "A Moral Failure\n\n\n\nBad development is a sin.",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
   }
 ]
