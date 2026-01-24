@@ -49,17 +49,23 @@ format:
 
 ## Feature Creep & Portability
 
+:::: columns
+::: {.column width="50%"}
 ::: {.glass-card .fragment .fade-up}
-### Phase 1: The "Portable" Pipeline
+### Phase 1: Portability
 - **Problem**: 5 collaborators on Mac, Linux, and Windows.
 - **"Solution"**: JSON configs + nested Shell/Python wrappers.
 :::
-
-::: {.glass-card .fragment .fade-up}
-### Phase 2: Scaling to the HPC (VACC)
-- **Problem**: Local prototyping vs. Cluster batch jobs.
-- **"Solution"**: Custom J2 templating system to auto-generate `.sh` scripts from JSON.
 :::
+
+::: {.column width="50%"}
+::: {.glass-card .fragment .fade-up}
+### Phase 2: The HPC (VACC)
+- **Problem**: Local prototyping vs. Cluster batch jobs.
+- **"Solution"**: J2 templating to auto-generate `.sh` scripts.
+:::
+:::
+::::
 
 # The Breaking Point {class="bg-dark-texture"}
 

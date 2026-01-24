@@ -346,7 +346,7 @@
     "href": "presentation.html#feature-creep-portability",
     "title": "I Suck At Coding",
     "section": "Feature Creep & Portability",
-    "text": "Feature Creep & Portability\n\nPhase 1: The “Portable” Pipeline\n\nProblem: 5 collaborators on Mac, Linux, and Windows.\n“Solution”: JSON configs + nested Shell/Python wrappers.\n\n\n\nPhase 2: Scaling to the HPC (VACC)\n\nProblem: Local prototyping vs. Cluster batch jobs.\n“Solution”: Custom J2 templating system to auto-generate .sh scripts from JSON.",
+    "text": "Feature Creep & Portability\n\n\n\nPhase 1: Portability\n\nProblem: 5 collaborators on Mac, Linux, and Windows.\n“Solution”: JSON configs + nested Shell/Python wrappers.\n\n\n\n\nPhase 2: The HPC (VACC)\n\nProblem: Local prototyping vs. Cluster batch jobs.\n“Solution”: J2 templating to auto-generate .sh scripts.",
     "crumbs": [
       "I Suck At Coding"
     ]
