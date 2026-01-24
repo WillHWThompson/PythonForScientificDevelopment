@@ -44,8 +44,8 @@ class NLPExperimentConfig(BaseModel):
     data: NLPDataConfig = Field(default_factory=NLPDataConfig)
     wandb_enabled: bool = Field(default=True, description="Enable WandB tracking.")
     
-    # This field will be automatically updated by the validator
-    full_run_name: str = Field(default="", description="Automatically generated name including hyperparameters.")
+    # Automatically generated run name
+    full_run_name: str = Field(default="", description="Auto-generated name with hyperparameters")
 
     @model_validator(mode='after')
     def generate_full_name(self) -> 'NLPExperimentConfig':

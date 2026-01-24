@@ -6,7 +6,7 @@ from tqdm import tqdm
 import evaluate
 import json
 from pathlib import Path
-from .schema import NLPExperimentConfig
+from ..core.schema import NLPExperimentConfig
 
 class TextClassifierTrainer:
     def __init__(self, config: NLPExperimentConfig, model: nn.Module, train_loader, val_loader):
@@ -59,8 +59,6 @@ class TextClassifierTrainer:
     def evaluate(self, epoch=None):
         self.model.eval()
         total_loss = 0
-        all_preds = []
-        all_labels = []
         
         with torch.no_grad():
             for batch in tqdm(self.val_loader, desc=f"Epoch {epoch if epoch is not None else ''} [Eval]"):
@@ -86,10 +84,6 @@ class TextClassifierTrainer:
     def train(self):
         history = []
         
-        if self.config.wandb_enabled:
-            import wandb
-            # WandB init would be handled in the main script
-            
         for epoch in range(self.config.training.epochs):
             train_loss = self.train_epoch(epoch)
             metrics = self.evaluate(epoch)

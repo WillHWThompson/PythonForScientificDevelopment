@@ -1,4 +1,4 @@
-# workflow/rules/nlp_train.smk
+# workflow/rules/train.smk
 
 rule train_bert_classifier:
     output:
@@ -19,11 +19,11 @@ rule train_bert_classifier:
         # format: param1~val1/param2~val2
         cmd_args = f"--config {cfg_path} --output {output.weights} --stats {output.stats} "
         
-        # Extract individual parameters from the path
+        # Extract individual parameters from the path for CLI overrides
         if wildcards.params_path != "base":
             for part in wildcards.params_path.split("/"):
                 if "~" in part:
                     k, v = part.split("~")
                     cmd_args += f"--{k} {v} "
         
-        shell(f"python scripts/run_nlp_training.py {cmd_args}")
+        shell(f"python scripts/run_training.py {cmd_args}")

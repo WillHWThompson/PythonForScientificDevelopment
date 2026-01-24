@@ -1,15 +1,14 @@
-# Scientific Python Development: Higgs Boson Classification
-# BERT Text Classification with Adapters
+# BERT Text Classification with Modular Adapters
 
 A professional scientific research template for NLP, demonstrating **Parameter-Efficient Fine-Tuning (PEFT)** using DistilBERT and Linear Adapters. This project uses the **AG News** dataset (120,000 headlines) to classify news into four categories: World, Sports, Business, and Sci/Tech.
 
 ## 🚀 Key Features
 
-- **Parameter Efficiency**: Uses a Linear Bottleneck Adapter head over a frozen DistilBERT backbone. Only ~1% of parameters are trainable.
-- **Dynamic Hyperparameter Sweeps**: A robust Snakemake orchestration layer that automatically handles experiment grids (learning rate, adapter dimension, etc.).
-- **Professional NLP Stack**: Built with PyTorch, Hugging Face `transformers`, `datasets`, and `evaluate`.
-- **DuckDB Results Aggregation**: High-performance results analysis using DuckDB to scan experiment JSONs directly into a research dashboard.
-- **Quarto Dashboards**: Interactive research website to visualize experiment metrics and model performance.
+- **Functional Architecture**: Modular codebase organized into `models/`, `data/`, and `core/` for high maintainability.
+- **Parameter Efficiency**: Uses a Linear Bottleneck Adapter (our MLP head) over a frozen DistilBERT backbone. Only ~1% of parameters are trainable.
+- **Dynamic Hyperparameter Sweeps**: A robust Snakemake orchestration layer that automatically handles experiment grids.
+- **Self-Validating Schemas**: Advanced Pydantic schemas with automatic experiment name generation and scientific parameter validation.
+- **DuckDB Results Aggregation**: High-performance analysis using DuckDB to scan experiment JSONs directly into a research dashboard.
 
 ## 📁 Project Structure
 
@@ -17,7 +16,9 @@ A professional scientific research template for NLP, demonstrating **Parameter-E
 ├── configs/            # YAML experiment configurations
 ├── scripts/            # Training entry points
 ├── src/
-│   └── text_classifier/ # Core model, data, and trainer logic
+│   ├── models/         # BERT architectures and Adapter heads
+│   ├── data/           # Hugging Face data loaders and tokenizers
+│   └── core/           # Schemas, Trainers, and core logic
 ├── workflow/
 │   ├── rules/          # Modular Snakemake rules
 │   └── profiles/       # Site-specific executor settings (Slurm, Local)
@@ -51,34 +52,9 @@ uv run snakemake --workflow-profile workflow/profiles/slurm --configfile configs
 
 ## 📊 Research Dashboard
 
-View your results in an interactive dashboard:
+View your results aggregated via DuckDB in an interactive dashboard:
 
 ```bash
 cd notebooks
 quarto preview dashboard.qmd
-```
-
-The dashboard uses DuckDB to aggregate stats from all experiment subfolders in `results/`, providing a unified view of your research progress.
-
-## 🧪 Testing and CI
-
-Run unit tests locally:
-```bash
-uv run pytest tests/
-```
-
-This project uses **GitHub Actions** to automatically run linting (`ruff`) and tests on every pull request.
-
-## 📂 Project Structure
-
-```text
-.
-├── .github/workflows/   # CI/CD (GitHub Actions)
-├── data/                # Data storage (Large files excluded from Git)
-├── notebooks/           # Quarto research website (index, daily-notes, writeup, dashboard)
-├── scripts/             # Training and experiment entry points
-├── src/scientific_dev/  # Core logic (JAX models, DuckDB managers, Pydantic schemas)
-├── tests/               # Unit tests for core components
-├── pyproject.toml       # Optimized dependency definitions with uv
-└── Snakefile            # Snakemake workflow orchestration
 ```

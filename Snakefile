@@ -18,9 +18,7 @@ def get_instance_dir(row_dict):
     """Helper to convert a parameter dict into a directory path: param1~val1/param2~val2"""
     parts = []
     for k, v in row_dict.items():
-        # Handle list serialization (hyphenated)
-        val = "-".join(map(str, v)) if isinstance(v, list) else v
-        parts.append(f"{k}~{val}")
+        parts.append(f"{k}~{v}")
     return "/".join(parts)
 
 if "sweep" in config_data:
@@ -44,4 +42,4 @@ rule all:
         ALL_OUTPUTS
 
 # 2. Include Modular Rules
-include: "workflow/rules/nlp_train.smk"
+include: "workflow/rules/train.smk"

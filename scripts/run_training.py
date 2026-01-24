@@ -1,20 +1,20 @@
 import argparse
+import yaml
 import json
 import torch
-import yaml
 from pathlib import Path
-from src.text_classifier.schema import NLPExperimentConfig
-from src.text_classifier.data_loader import TextClassifierDataLoader
-from src.text_classifier.model import BertAdapterClassifier
-from src.text_classifier.trainer import TextClassifierTrainer
+from src.core.schema import NLPExperimentConfig
+from src.data.loader import TextClassifierDataLoader
+from src.models.bert_adapter import BertAdapterClassifier
+from src.core.trainer import TextClassifierTrainer
 
 def main():
-    parser = argparse.ArgumentParser(description="Train BERT Text Classifier")
+    parser = argparse.ArgumentParser(description="Train BERT Adapter Classifier")
     parser.add_argument("--config", type=str, required=True, help="Path to YAML config")
     parser.add_argument("--output", type=str, required=True, help="Path to save model weights")
     parser.add_argument("--stats", type=str, required=True, help="Path to save training stats")
     
-    # Sweep Overrides
+    # Hyperparameter Overrides
     parser.add_argument("--adapter_dim", type=int, help="Override adapter dimension")
     parser.add_argument("--learning_rate", type=float, help="Override learning rate")
     args = parser.parse_args()
@@ -22,15 +22,17 @@ def main():
     # 1. Load Config
     with open(args.config, 'r') as f:
         config_data = yaml.safe_load(f)
-        
-    # 2. Integrate Overrides directly into the ingestion
+    
+    # 2. Apply Overrides directly for validation
     if args.adapter_dim:
+        if 'model' not in config_data: config_data['model'] = {}
         config_data['model']['adapter_dim'] = args.adapter_dim
     if args.learning_rate:
+        if 'training' not in config_data: config_data['training'] = {}
         config_data['training']['learning_rate'] = args.learning_rate
         
     config = NLPExperimentConfig(**config_data)
-    
+
     print(f"Starting NLP Experiment: {config.full_run_name}")
 
     # 3. Setup WandB
@@ -55,9 +57,6 @@ def main():
 
     # 7. Save Results
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)
-    
-    # We'll just save the adapter weights to be "Parameter Efficient"
-    # Actually for simplicity in this demo, let's just save the state dict
     torch.save(model.state_dict(), args.output)
     
     with open(args.stats, 'w') as f:
@@ -69,7 +68,7 @@ def main():
     if config.wandb_enabled:
         wandb.finish()
 
-    print(f"Workflow Complete. Model saved to {args.output}")
+    print(f"Workflow Complete. Results saved to {args.output}")
 
 if __name__ == "__main__":
     main()
