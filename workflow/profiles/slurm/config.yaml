@@ -25,3 +25,8 @@ set-resources:
     gpu: 1
     mem_mb: 16000
     runtime: "12h"
+  test_bert_classifier:
+    slurm_partition: "nvgpu"
+    gpu: 1
+    mem_mb: 8000
+    runtime: "1h"
