@@ -1,17 +1,18 @@
-# Default to baseline if no config is provided
+# Defaults
 config := "configs/nlp_baseline.yaml"
+profile := "workflow/profiles/local"
 
 ## Run the full pipeline (Train + Test)
-all config=config:
-    uv run snakemake --workflow-profile workflow/profiles/local --configfile {{config}}
+all config=config profile=profile:
+    uv run snakemake --workflow-profile {{profile}} --configfile {{config}}
 
 ## Run ONLY training for a specific config
-train config=config:
-    uv run snakemake --workflow-profile workflow/profiles/local --configfile {{config}} --allowed-rules train_bert_classifier
+train config=config profile=profile:
+    uv run snakemake --workflow-profile {{profile}} --configfile {{config}} --allowed-rules train_bert_classifier
 
 ## Run ONLY evaluation for a specific config
-test config=config:
-    uv run snakemake test_all --workflow-profile workflow/profiles/local --configfile {{config}}
+test config=config profile=profile:
+    uv run snakemake test_all --workflow-profile {{profile}} --configfile {{config}}
 
 ## Sync training results from VACC cluster
 sync:
