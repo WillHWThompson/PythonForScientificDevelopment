@@ -14,7 +14,7 @@ printshellcmds: true
 # 3. id -gn (Your primary group is often your account)
 default-resources:
   slurm_account: "pi-cdanfort"
-  slurm_partition: "bluemoon"
+  slurm_partition: "general"
   runtime: "4h"
   mem_mb: 4000
 

@@ -1,0 +1,22 @@
+/* Custom styles for Neural Adapter Research */
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.quarto-title-block .quarto-title-banner {
+    background: linear-gradient(135deg, #2c3e50, #4ca1af);
+}
+
+#title-block-header {
+    margin-bottom: 2rem;
+}
+
+/* Add some spacing for equations and code */
+.math {
+    margin: 1.5rem 0;
+}
+
+.cell {
+    margin-top: 1.5rem;
+}

@@ -1,0 +1,14 @@
+# Neural Adapter Research
+
+Welcome to the central hub for the NLP Adapter Research project. This site documents our progress in training bottleneck adapters for the AG News classification task.
+
+## Key Sections
+
+-   [**Paper Draft**](paper_draft.qmd): Current manuscript state.
+-   [**Supplementary Materials**](supplementary.qmd): Technical details and algorithm examples.
+-   [**Daily Notes**](notes/01-24-26.qmd): Real-time research tracking.
+
+## Interactive Tools
+
+-   [**Training Dashboard**](notebooks/dashboard.qmd): Live Parquet-backed data visualization.
+-   [**Latest Presentation**](notebooks/presentation.qmd): High-level overview of our architecture.

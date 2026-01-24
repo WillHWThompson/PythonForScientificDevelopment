@@ -55,33 +55,27 @@ def main():
 
     # 6. Train
     trainer = TextClassifierTrainer(config, model, train_loader, val_loader)
-    history = trainer.train()
+    history, roc_data = trainer.train()
 
     # 7. Save Results
     Path(args.output).parent.mkdir(parents=True, exist_ok=True)
     torch.save(model.state_dict(), args.output)
     
-    # Flatten config and merge with history for tabular Parquet
-    config_flat = config.model_dump()
-    flat_data = {
-        "exp_name": config_flat["name"],
-        "full_run_name": config_flat["full_run_name"],
-        "adapter_dim": config_flat["model"]["adapter_dim"],
-        "learning_rate": config_flat["training"]["learning_rate"],
-        "batch_size": config_flat["training"]["batch_size"],
-        "epochs": config_flat["training"]["epochs"],
-    }
-    
-    df = pd.DataFrame(history)
-    for k, v in flat_data.items():
-        df[k] = v
-        
-    df.to_parquet(args.stats)
+    # Save training history
+    df_history = pd.DataFrame(history)
+    for k, v in {"exp_name": config.name, "full_run_name": config.full_run_name}.items():
+        df_history[k] = v
+    df_history.to_parquet(args.stats)
+
+    # Save ROC curve data
+    df_roc = pd.DataFrame(roc_data)
+    df_roc["full_run_name"] = config.full_run_name
+    df_roc.to_parquet(args.roc)
 
     if config.wandb_enabled:
         wandb.finish()
 
-    print(f"Workflow Complete. Results saved to {args.stats}")
+    print(f"Workflow Complete. Results saved to {args.stats} and {args.roc}")
 
 if __name__ == "__main__":
     main()

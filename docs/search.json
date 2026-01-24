@@ -4,49 +4,70 @@
     "href": "presentation.html#the-overhead-trade-off",
     "title": "Python for Scientific Development",
     "section": "The Overhead Trade-off",
-    "text": "The Overhead Trade-off\nThe eternal struggle: Time spent to automate vs. overhead accumulated.\n\n\n\n\n\nAutomation (Source: XKCD)\n\n\n\n\nLLM ROI\n“I have a tendency to over-engineer pipelines I will never use. Now I can do this guilt-free with LLMs!”"
+    "text": "The Overhead Trade-off\nThe eternal struggle: Time spent to automate vs. overhead accumulated.\n\n\n\n\n\nAutomation (Source: XKCD)\n\n\n\n\n\nLLM ROI\n“I have a tendency to over-engineer pipelines I will never use. Now I can do this guilt-free with LLMs!”",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
   },
   {
     "objectID": "presentation.html#the-vibe-coder-thesis",
     "href": "presentation.html#the-vibe-coder-thesis",
     "title": "Python for Scientific Development",
     "section": "The Vibe-Coder Thesis",
-    "text": "The Vibe-Coder Thesis\n\n“Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has adequate context.”"
+    "text": "The Vibe-Coder Thesis\n\n“Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has adequate context.”",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
   },
   {
     "objectID": "presentation.html#vscode-cursor",
     "href": "presentation.html#vscode-cursor",
     "title": "Python for Scientific Development",
     "section": "1. VSCode / Cursor",
-    "text": "1. VSCode / Cursor\n\n\nModern IDE\n\nYou have no excuse not to use a modern IDE.\nVIM/EMACS are strictly worse for total project velocity.\n\n\nAnti-Pattern\n\nStop using Jupyter Notebooks for everything.\nNotebooks are for exploration, not logic.\n\n\n\nDoc: code.visualstudio.com | cursor.com"
+    "text": "1. VSCode / Cursor\n\n\n\nModern IDE\n\nYou have no excuse not to use a modern IDE.\nVIM/EMACS are strictly worse for total project velocity.\n\n\n\n\nAnti-Pattern\n\nStop using Jupyter Notebooks for everything.\nNotebooks are for exploration, not logic.\n\n\n\n\n\nDoc: code.visualstudio.com | cursor.com",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
   },
   {
     "objectID": "presentation.html#project-structure",
     "href": "presentation.html#project-structure",
     "title": "Python for Scientific Development",
     "section": "2. Project Structure",
-    "text": "2. Project Structure\n\n\nModularity\n\nSeparate source code from sweeps.\nMake your source code a python module.\nExample: bert_adapter.py\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nExample: README.md\n\n\n\nDoc: git-scm.com"
+    "text": "2. Project Structure\n\n\n\nModularity\n\nSeparate source code from sweeps.\nMake your source code a python module.\nExample: bert_adapter.py\n\n\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nExample: README.md\n\n\n\n\n\nDoc: git-scm.com",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
   },
   {
     "objectID": "presentation.html#uv-the-new-standard",
     "href": "presentation.html#uv-the-new-standard",
     "title": "Python for Scientific Development",
     "section": "3. UV: The New Standard",
-    "text": "3. UV: The New Standard\n\n\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility: uv.lock is non-negotiable.\nExample: pyproject.toml\n\n\n\n\n\n\n\n\nReproducibility\n\n\nIf it doesn’t run on your collaborator’s machine, it’s not Science.\n\n\n\n\n\nDoc: docs.astral.sh/uv"
+    "text": "3. UV: The New Standard\n\n\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility: uv.lock is non-negotiable.\nExample: pyproject.toml\n\n\n\n\n\n\n\n\nImportantReproducibility\n\n\n\nIf it doesn’t run on your collaborator’s machine, it’s not Science.\n\n\n\n\n\nDoc: docs.astral.sh/uv",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
   },
   {
     "objectID": "presentation.html#uv-vs.-conda",
     "href": "presentation.html#uv-vs.-conda",
     "title": "Python for Scientific Development",
     "section": "UV vs. Conda",
-    "text": "UV vs. Conda\n\n\nThe Problems\n\nLocal vs. Cluster: “I developed code locally, but the VACC env crashes.”\nCollaboration: “It works for me, but my coworker has global numpy issues.”\n\n\nThe Solutions\n\nLocal Envs: Environments live in the project folder.\nReproducibility: Lockfile ensures byte-for-byte matching.\nExample: pyproject.toml\n\n\n\nDoc: docs.astral.sh/uv"
+    "text": "UV vs. Conda\n\n\n\nThe Problems\n\nLocal vs. Cluster: “I developed code locally, but the VACC env crashes.”\nCollaboration: “It works for me, but my coworker has global numpy issues.”\n\n\n\n\nThe Solutions\n\nLocal Envs: Environments live in the project folder.\nReproducibility: Lockfile ensures byte-for-byte matching.\nExample: pyproject.toml\n\n\n\n\n\nDoc: docs.astral.sh/uv",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
   },
   {
     "objectID": "presentation.html#pydantic-strong-typing",
     "href": "presentation.html#pydantic-strong-typing",
     "title": "Python for Scientific Development",
     "section": "Pydantic: Strong Typing",
-    "text": "Pydantic: Strong Typing\n\n\nThe Problems\n\nBoilerplate: Constant manual parsing of nested lists/dicts.\nSilent Bugs: Passing \\(N \\times M\\) when \\(M \\times N\\) was expected.\n\n\nThe Solutions\n\nValidation: Catch errors at the boundary.\nLLM Context: Gives models the precise “slots” needed.\nExample: schema.py\n\n\n\nDoc: docs.pydantic.dev"
+    "text": "Pydantic: Strong Typing\n\n\n\nThe Problems\n\nBoilerplate: Constant manual parsing of nested lists/dicts.\nSilent Bugs: Passing \\(N \\times M\\) when \\(M \\times N\\) was expected.\n\n\n\n\nThe Solutions\n\nValidation: Catch errors at the boundary.\nLLM Context: Gives models the precise “slots” needed.\nExample: schema.py\n\n\n\n\n\nDoc: docs.pydantic.dev",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
   },
   {
     "objectID": "presentation.html#tools-of-the-trade",
@@ -81,13 +102,183 @@
     "href": "presentation.html#testing",
     "title": "Python for Scientific Development",
     "section": "Testing",
-    "text": "Testing\n\n\nThe Problems\n\nSilent Regression: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py\n\n\n\nDoc: docs.pytest.org | ruff.rs"
+    "text": "Testing\n\n\n\nThe Problems\n\nSilent Regression: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py\n\n\n\n\n\nDoc: docs.pytest.org | ruff.rs",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
   },
   {
     "objectID": "presentation.html#snakemake-orchestration",
     "href": "presentation.html#snakemake-orchestration",
     "title": "Python for Scientific Development",
     "section": "Snakemake: Orchestration",
-    "text": "Snakemake: Orchestration\n\n\nThe Problems\n\nAmnesia: “I changed code; what results are now invalid?”\nLost parameters: “How did I generate this figure 6 months ago?”\n\n\nThe Solutions\n\nDAG Generation: knows exactly what needs to run.\nSelf-Documentation: The Snakefile is the record.\nExample: Snakefile\n\n\n\nDoc: snakemake.github.io"
+    "text": "Snakemake: Orchestration\n\n\n\nThe Problems\n\nAmnesia: “I changed code; what results are now invalid?”\nLost parameters: “How did I generate this figure 6 months ago?”\n\n\n\n\nThe Solutions\n\nDAG Generation: knows exactly what needs to run.\nSelf-Documentation: The Snakefile is the record.\nExample: Snakefile\n\n\n\n\n\nDoc: snakemake.github.io",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Neural Adapter Research",
+    "section": "",
+    "text": "Welcome to the central hub for the NLP Adapter Research project. This site documents our progress in training bottleneck adapters for the AG News classification task.\n\n\n\nPaper Draft: Current manuscript state.\nSupplementary Materials: Technical details and algorithm examples.\nDaily Notes: Real-time research tracking.\n\n\n\n\n\nTraining Dashboard: Live Parquet-backed data visualization.\nLatest Presentation: High-level overview of our architecture."
+  },
+  {
+    "objectID": "index.html#key-sections",
+    "href": "index.html#key-sections",
+    "title": "Neural Adapter Research",
+    "section": "",
+    "text": "Paper Draft: Current manuscript state.\nSupplementary Materials: Technical details and algorithm examples.\nDaily Notes: Real-time research tracking."
+  },
+  {
+    "objectID": "index.html#interactive-tools",
+    "href": "index.html#interactive-tools",
+    "title": "Neural Adapter Research",
+    "section": "",
+    "text": "Training Dashboard: Live Parquet-backed data visualization.\nLatest Presentation: High-level overview of our architecture."
+  },
+  {
+    "objectID": "notes/01-24-26.html",
+    "href": "notes/01-24-26.html",
+    "title": "Research Notes: Jan 24, 2026",
+    "section": "",
+    "text": "Establish the Quarto website structure and resolve VACC environment issues.\n\n\n\n\nSuccessfully refactored Snakemake rules to use independent .venv environments.\nImplemented real-time WandB logging with run grouping.\nEstablished the Quarto website architecture.\n\n\n\n\n\nMonitor VACC GPU runs.\nIntegrate WandB live dashboard into dashboard.qmd.",
+    "crumbs": [
+      "January 2026",
+      "Research Notes: Jan 24, 2026"
+    ]
+  },
+  {
+    "objectID": "notes/01-24-26.html#objective",
+    "href": "notes/01-24-26.html#objective",
+    "title": "Research Notes: Jan 24, 2026",
+    "section": "",
+    "text": "Establish the Quarto website structure and resolve VACC environment issues.",
+    "crumbs": [
+      "January 2026",
+      "Research Notes: Jan 24, 2026"
+    ]
+  },
+  {
+    "objectID": "notes/01-24-26.html#progress",
+    "href": "notes/01-24-26.html#progress",
+    "title": "Research Notes: Jan 24, 2026",
+    "section": "",
+    "text": "Successfully refactored Snakemake rules to use independent .venv environments.\nImplemented real-time WandB logging with run grouping.\nEstablished the Quarto website architecture.",
+    "crumbs": [
+      "January 2026",
+      "Research Notes: Jan 24, 2026"
+    ]
+  },
+  {
+    "objectID": "notes/01-24-26.html#next-steps",
+    "href": "notes/01-24-26.html#next-steps",
+    "title": "Research Notes: Jan 24, 2026",
+    "section": "",
+    "text": "Monitor VACC GPU runs.\nIntegrate WandB live dashboard into dashboard.qmd.",
+    "crumbs": [
+      "January 2026",
+      "Research Notes: Jan 24, 2026"
+    ]
+  },
+  {
+    "objectID": "supplementary.html",
+    "href": "supplementary.html",
+    "title": "Supplementary Materials",
+    "section": "",
+    "text": "The folgenden pseudocode describes the bottleneck adapter initialization used in our BERT model:\nimport torch.nn as nn\n\nclass Adapter(nn.Module):\n    def __init__(self, input_dim, adapter_dim):\n        super().__init__()\n        self.down_project = nn.Linear(input_dim, adapter_dim)\n        self.act = nn.GELU()\n        self.up_project = nn.Linear(adapter_dim, input_dim)\n        \n    def forward(self, x):\n        # Bottleneck architecture\n        residual = x\n        x = self.down_project(x)\n        x = self.act(x)\n        x = self.up_project(x)\n        return x + residual"
+  },
+  {
+    "objectID": "supplementary.html#adapter-algorithm-example",
+    "href": "supplementary.html#adapter-algorithm-example",
+    "title": "Supplementary Materials",
+    "section": "",
+    "text": "The folgenden pseudocode describes the bottleneck adapter initialization used in our BERT model:\nimport torch.nn as nn\n\nclass Adapter(nn.Module):\n    def __init__(self, input_dim, adapter_dim):\n        super().__init__()\n        self.down_project = nn.Linear(input_dim, adapter_dim)\n        self.act = nn.GELU()\n        self.up_project = nn.Linear(adapter_dim, input_dim)\n        \n    def forward(self, x):\n        # Bottleneck architecture\n        residual = x\n        x = self.down_project(x)\n        x = self.act(x)\n        x = self.up_project(x)\n        return x + residual"
+  },
+  {
+    "objectID": "paper_draft.html",
+    "href": "paper_draft.html",
+    "title": "Paper Draft: Efficient Fine-Tuning with BERT Adapters",
+    "section": "",
+    "text": "This document outlines our findings on using bottleneck adapters for topic classification.\n\n\n\nAs mentioned in Devlin et al. (2018), large-scale language models…\n\n\n\nWe utilize the architecture described in Houlsby et al. (2019).\n\n\n\n\n\nDevlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2018. “BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding.” arXiv Preprint arXiv:1810.04805.\n\n\nHoulsby, Neil, Andrei Giurgiu, Stanislaw Jastrzebski, Brando Morrone, Quentin Larsson, Mansi Sharma, and Dmitry Kalenichenko. 2019. “Parameter-Efficient Transfer Learning for NLP.” In International Conference on Machine Learning, 2790–99. PMLR."
+  },
+  {
+    "objectID": "paper_draft.html#abstract",
+    "href": "paper_draft.html#abstract",
+    "title": "Paper Draft: Efficient Fine-Tuning with BERT Adapters",
+    "section": "",
+    "text": "This document outlines our findings on using bottleneck adapters for topic classification."
+  },
+  {
+    "objectID": "paper_draft.html#introduction",
+    "href": "paper_draft.html#introduction",
+    "title": "Paper Draft: Efficient Fine-Tuning with BERT Adapters",
+    "section": "",
+    "text": "As mentioned in Devlin et al. (2018), large-scale language models…"
+  },
+  {
+    "objectID": "paper_draft.html#methodology",
+    "href": "paper_draft.html#methodology",
+    "title": "Paper Draft: Efficient Fine-Tuning with BERT Adapters",
+    "section": "",
+    "text": "We utilize the architecture described in Houlsby et al. (2019)."
+  },
+  {
+    "objectID": "paper_draft.html#references",
+    "href": "paper_draft.html#references",
+    "title": "Paper Draft: Efficient Fine-Tuning with BERT Adapters",
+    "section": "",
+    "text": "Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2018. “BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding.” arXiv Preprint arXiv:1810.04805.\n\n\nHoulsby, Neil, Andrei Giurgiu, Stanislaw Jastrzebski, Brando Morrone, Quentin Larsson, Mansi Sharma, and Dmitry Kalenichenko. 2019. “Parameter-Efficient Transfer Learning for NLP.” In International Conference on Machine Learning, 2790–99. PMLR."
+  },
+  {
+    "objectID": "dashboard.html#interactive-explorer",
+    "href": "dashboard.html#interactive-explorer",
+    "title": "BERT News Classification Dashboard",
+    "section": "Interactive Explorer",
+    "text": "Interactive Explorer\nUse the controls below to filter and compare different training runs in real-time.\n\n\n\nCode\nviewof selected_exp = Inputs.select(\n  [...new Set(research_data.exp_name)], \n  {label: \"Experiment\", value: research_data.exp_name[0]}\n)\n\nviewof selected_dim = Inputs.select(\n  [null, ...new Set(research_data.adapter_dim)], \n  {label: \"Adapter Dim\", format: d =&gt; d === null ? \"All\" : d}\n)\n\nviewof selected_lr = Inputs.select(\n  [null, ...new Set(research_data.learning_rate)], \n  {label: \"Learning Rate\", format: d =&gt; d === null ? \"All\" : d}\n)\n\nviewof min_acc = Inputs.range(\n  [0, 1], \n  {label: \"Min Accuracy\", step: 0.01, value: 0.5}\n)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTraining Dynamics\n\n\nCode\nfiltered_data = {\n  const data = transpose(research_data);\n  return data.filter(d =&gt; \n    d.exp_name === selected_exp && \n    (selected_dim === null || d.adapter_dim === selected_dim) &&\n    (selected_lr === null || d.learning_rate === selected_lr) &&\n    d.accuracy &gt;= min_acc\n  );\n}\n\n// Interactive Plot using Observable Plot\nPlot.plot({\n  grid: true,\n  color: {legend: true},\n  y: {label: \"Value\"},\n  marks: [\n    Plot.line(filtered_data, {\n      x: \"epoch\", \n      y: \"train_loss\", \n      stroke: \"full_name\", \n      strokeDasharray: \"4,4\",\n      tip: true\n    }),\n    Plot.line(filtered_data, {\n      x: \"epoch\", \n      y: \"val_loss\", \n      stroke: \"full_name\",\n      tip: true\n    }),\n    Plot.dot(filtered_data, {\n      x: \"epoch\", \n      y: \"val_loss\", \n      fill: \"full_name\"\n    })\n  ]\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRun Metadata\n\n\nCode\nInputs.table(filtered_data, {\n  columns: [\"full_name\", \"adapter_dim\", \"learning_rate\", \"accuracy\"],\n  header: {\n    full_name: \"Run ID\",\n    adapter_dim: \"Dim\",\n    learning_rate: \"LR\",\n    accuracy: \"Acc\"\n  }\n})",
+    "crumbs": [
+      "BERT News Classification Dashboard"
+    ]
+  },
+  {
+    "objectID": "dashboard.html#scientific-insights",
+    "href": "dashboard.html#scientific-insights",
+    "title": "BERT News Classification Dashboard",
+    "section": "🚀 Scientific Insights",
+    "text": "🚀 Scientific Insights\n\nReal-time Interactivity: Observable JS allows us to query the aggregated Parquet results instantly without server-side re-renders.\nPEFT Monitoring: High-granularity step logging (integrated in trainer.py) reveals exactly where models begin to plateau.\nArchitectural Trade-offs: Compare how different adapter_dim values impact convergence speed vs. final accuracy across the sidebar sections.",
+    "crumbs": [
+      "BERT News Classification Dashboard"
+    ]
+  },
+  {
+    "objectID": "dashboard.html",
+    "href": "dashboard.html",
+    "title": "BERT News Classification Dashboard",
+    "section": "",
+    "text": "/Users/willthompson/Documents/CSDS/side_projects/PythonForScientificDevelopment/.venv/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html\n  from .autonotebook import tqdm as notebook_tqdm",
+    "crumbs": [
+      "BERT News Classification Dashboard"
+    ]
+  },
+  {
+    "objectID": "presentation.html",
+    "href": "presentation.html",
+    "title": "Python for Scientific Development",
+    "section": "",
+    "text": "Python is a TERRIBLE language for scientific computing.\n\n\n\n\nNothing about the language is inherently good for science.\n\n\n\n\nMost tools were developed by researchers as a “side-hustle.”\n\n\n\n\nThe Goal: How can we contort Python to be at least “okay”?",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
+  },
+  {
+    "objectID": "dashboard.html#data-explorer",
+    "href": "dashboard.html#data-explorer",
+    "title": "BERT News Classification Dashboard",
+    "section": "🔍 Data Explorer",
+    "text": "🔍 Data Explorer\nBrowse the raw research inputs to understand the linguistic complexity of the AG News dataset.\n\nSample BrowserCategory Balance\n\n\n\n\nCode\nInputs.table(transpose(dataset_samples), {\n  columns: [\"label\", \"text\"],\n  rows: 15,\n  layout: \"fixed\"\n})\n\n\n\n\n\n\n\n\n\n\n\nCode\nPlot.plot({\n  y: {grid: true},\n  marks: [\n    Plot.barY(transpose(dataset_samples), Plot.groupX({y: \"count\"}, {x: \"label\", fill: \"#4ca1af\"}))\n  ]\n})",
+    "crumbs": [
+      "BERT News Classification Dashboard"
+    ]
   }
 ]

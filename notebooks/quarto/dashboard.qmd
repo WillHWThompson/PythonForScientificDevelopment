@@ -1,0 +1,242 @@
+---
+title: "BERT News Classification Dashboard"
+execute:
+  echo: false
+---
+
+```{python}
+import pandas as pd
+import duckdb
+from pathlib import Path
+
+# Result discovery - look up from notebooks/quarto/
+results_dir = Path("../../results")
+has_results = results_dir.exists() and any(results_dir.glob("**/*.parquet"))
+
+if has_results:
+    con = duckdb.connect()
+    parquet_pattern = str(results_dir / "**" / "training_stats.parquet")
+    
+    # Load all steps for smooth interactive curves
+    query = f"""
+        SELECT 
+            exp_name,
+            full_run_name as full_name,
+            adapter_dim,
+            learning_rate,
+            epoch,
+            train_loss,
+            val_loss,
+            accuracy
+        FROM read_parquet('{parquet_pattern}')
+    """
+    all_data = con.execute(query).df()
+else:
+    # Dummy data for the preview
+    import numpy as np
+    epochs = np.arange(10)
+    all_data = pd.DataFrame({
+        'exp_name': 'Prototype',
+        'full_name': 'Proto_Run',
+        'adapter_dim': 128,
+        'learning_rate': 0.0001,
+        'epoch': epochs,
+        'train_loss': np.exp(-epochs/2) + np.random.normal(0, 0.05, 10),
+        'val_loss': np.exp(-epochs/2.5) + np.random.normal(0, 0.05, 10),
+        'accuracy': 0.5 + 0.4 * (1 - np.exp(-epochs/3))
+    })
+
+# Load Data Samples for Exploration
+from datasets import load_dataset
+try:
+    ds = load_dataset("ag_news", split="train").select(range(100))
+    label_map = {0: "World", 1: "Sports", 2: "Business", 3: "Sci/Tech"}
+    data_samples = pd.DataFrame({
+        "text": ds["text"],
+        "label": [label_map[l] for l in ds["label"]]
+    })
+except:
+    data_samples = pd.DataFrame({"text": ["Sample news content..."], "label": ["World"]})
+
+# Load ROC curve data
+try:
+    roc_pattern = str(results_dir / "**" / "roc_curves.parquet")
+    roc_all = con.execute(f"SELECT * FROM read_parquet('{roc_pattern}')").df()
+except:
+    # Dummy ROC data
+    roc_all = pd.DataFrame([
+        {"class": c, "fpr": x, "tpr": x**0.5, "full_run_name": "Prototype"} 
+        for c in ["World", "Sports", "Business", "Sci/Tech"] for x in np.linspace(0, 1, 20)
+    ])
+
+# Pass data to Observable JS
+ojs_define(research_data = all_data)
+ojs_define(dataset_samples = data_samples)
+ojs_define(roc_curves = roc_all)
+```
+
+## Interactive Explorer
+
+Use the controls below to filter and compare different training runs in real-time.
+
+```{ojs}
+//| panel: sidebar
+viewof selected_exp = Inputs.select(
+  [...new Set(research_data.exp_name)], 
+  {label: "Experiment", value: research_data.exp_name[0]}
+)
+
+viewof selected_dim = Inputs.select(
+  [null, ...new Set(research_data.adapter_dim)], 
+  {label: "Adapter Dim", format: d => d === null ? "All" : d}
+)
+
+viewof selected_lr = Inputs.select(
+  [null, ...new Set(research_data.learning_rate)], 
+  {label: "Learning Rate", format: d => d === null ? "All" : d}
+)
+
+viewof min_acc = Inputs.range(
+  [0, 1], 
+  {label: "Min Accuracy", step: 0.01, value: 0.5}
+)
+```
+
+::::: grid
+::: g-col-8
+### Training Dynamics
+
+```{ojs}
+// Filter data reactively
+filtered_data = {
+  const data = transpose(research_data);
+  return data.filter(d => 
+    d.exp_name === selected_exp && 
+    (selected_dim === null || d.adapter_dim === selected_dim) &&
+    (selected_lr === null || d.learning_rate === selected_lr) &&
+    d.accuracy >= min_acc
+  );
+}
+
+// Interactive Plot using Observable Plot
+Plot.plot({
+  grid: true,
+  color: {legend: true},
+  y: {label: "Value"},
+  marks: [
+    Plot.line(filtered_data, {
+      x: "epoch", 
+      y: "train_loss", 
+      stroke: "full_name", 
+      strokeDasharray: "4,4",
+      tip: true
+    }),
+    Plot.line(filtered_data, {
+      x: "epoch", 
+      y: "val_loss", 
+      stroke: "full_name",
+      tip: true
+    }),
+    Plot.dot(filtered_data, {
+      x: "epoch", 
+      y: "val_loss", 
+      fill: "full_name"
+    }),
+    // Baseline for the plot
+    Plot.ruleY([0])
+  ]
+})
+```
+:::
+
+::: g-col-4
+### Run Metadata
+
+```{ojs}
+Inputs.table(filtered_data, {
+  columns: ["full_name", "adapter_dim", "learning_rate", "accuracy", "auroc"],
+  header: {
+    full_name: "Run ID",
+    adapter_dim: "Dim",
+    learning_rate: "LR",
+    accuracy: "Acc",
+    auroc: "AUROC"
+  }
+})
+```
+:::
+:::::
+
+## 📈 Model Diagnostics
+
+Detailed analysis of model confidence and class-wise discrimination.
+
+::::: grid
+::: g-col-8
+### ROC Curves (One-vs-Rest)
+
+```{ojs}
+// Filter ROC data for selected run
+filtered_roc = {
+  const data = transpose(roc_curves);
+  // We match by the first run in the current filter for simplicity
+  const run_name = filtered_data.length > 0 ? filtered_data[0].full_run_name : "";
+  return data.filter(d => d.full_run_name === run_name);
+}
+
+Plot.plot({
+  grid: true,
+  aspectRatio: 1,
+  x: {label: "False Positive Rate (FPR)", domain: [0, 1]},
+  y: {label: "True Positive Rate (TPR)", domain: [0, 1]},
+  color: {legend: true},
+  marks: [
+    Plot.line([0, 1], {x: d => d, y: d => d, stroke: "#ccc", strokeDasharray: "4,4"}), // Random chance line
+    Plot.line(filtered_roc, {
+      x: "fpr", 
+      y: "tpr", 
+      stroke: "class",
+      tip: true
+    })
+  ]
+})
+```
+:::
+::: g-col-4
+### Performance Summary
+Analyze the class-wise separation. High TPR at low FPR indicates a high-fidelity classifier for that news category.
+:::
+:::::
+
+## 🔍 Data Explorer
+
+Browse the raw research inputs to understand the linguistic complexity of the AG News dataset.
+
+::: panel-tabset
+### Sample Browser
+
+```{ojs}
+Inputs.table(transpose(dataset_samples), {
+  columns: ["label", "text"],
+  rows: 15,
+  layout: "fixed"
+})
+```
+
+### Category Balance
+
+```{ojs}
+Plot.plot({
+  y: {grid: true},
+  marks: [
+    Plot.barY(transpose(dataset_samples), Plot.groupX({y: "count"}, {x: "label", fill: "#4ca1af"}))
+  ]
+})
+```
+:::
+
+## 🚀 Scientific Insights
+
+-   **Real-time Interactivity**: Observable JS allows us to query the aggregated Parquet results instantly without server-side re-renders.
+-   **PEFT Monitoring**: High-granularity step logging (integrated in `trainer.py`) reveals exactly where models begin to plateau.
+-   **Architectural Trade-offs**: Compare how different `adapter_dim` values impact convergence speed vs. final accuracy across the sidebar sections.

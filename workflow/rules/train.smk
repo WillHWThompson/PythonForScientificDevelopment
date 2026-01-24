@@ -3,7 +3,8 @@
 rule train_bert_classifier:
     output:
         weights = "results/{cfg_name}/{params_path}/model.pt",
-        stats = "results/{cfg_name}/{params_path}/training_stats.parquet"
+        stats = "results/{cfg_name}/{params_path}/training_stats.parquet",
+        roc = "results/{cfg_name}/{params_path}/roc_curves.parquet"
     wildcard_constraints:
         cfg_name="[^/]+",
         params_path=".+"
@@ -21,4 +22,5 @@ rule train_bert_classifier:
         "--config {params.cfg} "
         "--output {output.weights} "
         "--stats {output.stats} "
+        "--roc {output.roc} "
         "{params.overrides}"

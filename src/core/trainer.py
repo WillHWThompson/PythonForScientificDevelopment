@@ -65,12 +65,16 @@ class TextClassifierTrainer:
             
         return total_loss / len(self.train_loader)
 
-    def evaluate(self, epoch=None):
+    def evaluate(self, loader=None, name="Eval", epoch=None):
         self.model.eval()
         total_loss = 0
+        eval_loader = loader if loader is not None else self.val_loader
+        
+        all_logits = []
+        all_labels = []
         
         with torch.no_grad():
-            for batch in tqdm(self.val_loader, desc=f"Epoch {epoch if epoch is not None else ''} [Eval]"):
+            for batch in tqdm(eval_loader, desc=f"{'Epoch ' + str(epoch) if epoch is not None else ''} [{name}]"):
                 input_ids = batch["input_ids"].to(self.device)
                 attention_mask = batch["attention_mask"].to(self.device)
                 labels = batch["labels"].to(self.device)
@@ -83,19 +87,72 @@ class TextClassifierTrainer:
                 self.acc_metric.add_batch(predictions=preds, references=labels)
                 self.f1_metric.add_batch(predictions=preds, references=labels)
                 
+                all_logits.append(logits.cpu())
+                all_labels.append(labels.cpu())
+                
         metrics = self.acc_metric.compute()
         f1_metrics = self.f1_metric.compute(average="weighted")
         metrics.update(f1_metrics)
-        metrics["avg_loss"] = total_loss / len(self.val_loader)
+        metrics["avg_loss"] = total_loss / len(eval_loader)
+
+        # Advanced Metrics: AUROC & ROC Curves
+        import numpy as np
+        from sklearn.metrics import roc_auc_score, roc_curve
+        from torch.nn.functional import softmax
         
-        return metrics
+        all_logits = torch.cat(all_logits)
+        all_labels = torch.cat(all_labels).numpy()
+        probs = softmax(all_logits, dim=1).numpy()
+        
+        roc_data = [] # For plotting curves
+        try:
+            metrics["auroc"] = roc_auc_score(all_labels, probs, multi_class="ovr", average="weighted")
+            
+            # Generate ROC curves for each class (OVR)
+            label_names = {0: "World", 1: "Sports", 2: "Business", 3: "Sci/Tech"}
+            for i in range(4):
+                fpr, tpr, _ = roc_curve(all_labels == i, probs[:, i])
+                # Downsample curve for efficient storage and plotting
+                indices = np.linspace(0, len(fpr) - 1, min(50, len(fpr)), dtype=int)
+                for idx in indices:
+                    roc_data.append({
+                        "class": label_names[i],
+                        "fpr": float(fpr[idx]),
+                        "tpr": float(tpr[idx])
+                    })
+        except Exception as e:
+            print(f"Warning: ROC computation failed: {e}")
+            metrics["auroc"] = 0.0
+        
+        return metrics, roc_data
+
+    def test(self, test_loader):
+        """Final independent model testing with full diagnostics."""
+        print(f"--- Running Final Test Evaluation ---")
+        metrics, roc_data = self.evaluate(loader=test_loader, name="Test")
+        
+        test_data = {
+            "test/loss": metrics["avg_loss"],
+            "test/accuracy": metrics["accuracy"],
+            "test/f1_weighted": metrics["f1"],
+            "test/auroc": metrics["auroc"]
+        }
+        
+        print(f"Test Loss: {metrics['avg_loss']:.4f} | Test Acc: {metrics['accuracy']:.4f} | AUROC: {metrics['auroc']:.4f}")
+        
+        if self.config.wandb_enabled:
+            import wandb
+            wandb.log(test_data)
+            
+        return test_data, roc_data
 
     def train(self):
         history = []
         
+        last_roc_data = []
         for epoch in range(self.config.training.epochs):
             train_loss = self.train_epoch(epoch)
-            metrics = self.evaluate(epoch)
+            metrics, last_roc_data = self.evaluate(epoch=epoch)
             
             epoch_data = {
                 "epoch": epoch,
@@ -114,4 +171,4 @@ class TextClassifierTrainer:
                 import wandb
                 wandb.log(epoch_data)
                 
-        return history
+        return history, last_roc_data

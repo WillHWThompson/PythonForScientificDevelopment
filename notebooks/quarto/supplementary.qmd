@@ -1,0 +1,24 @@
+# Supplementary Materials
+
+## Adapter Algorithm Example
+
+The folgenden pseudocode describes the bottleneck adapter initialization used in our BERT model:
+
+```python
+import torch.nn as nn
+
+class Adapter(nn.Module):
+    def __init__(self, input_dim, adapter_dim):
+        super().__init__()
+        self.down_project = nn.Linear(input_dim, adapter_dim)
+        self.act = nn.GELU()
+        self.up_project = nn.Linear(adapter_dim, input_dim)
+        
+    def forward(self, x):
+        # Bottleneck architecture
+        residual = x
+        x = self.down_project(x)
+        x = self.act(x)
+        x = self.up_project(x)
+        return x + residual
+```

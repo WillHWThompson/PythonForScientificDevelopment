@@ -1,0 +1,13 @@
+# Research Notes: Jan 24, 2026
+
+## Objective
+Establish the Quarto website structure and resolve VACC environment issues.
+
+## Progress
+- Successfully refactored Snakemake rules to use independent `.venv` environments.
+- Implemented real-time WandB logging with run grouping.
+- Established the Quarto website architecture.
+
+## Next Steps
+- [ ] Monitor VACC GPU runs.
+- [ ] Integrate WandB live dashboard into `dashboard.qmd`.

@@ -1,0 +1,41 @@
+project:
+  type: website
+  output-dir: ../../docs
+
+project-render:
+  - "!**/.git"
+  - "!**/.venv"
+  - "!**/.snakemake"
+  - "!**/.quarto"
+
+website:
+  title: "Neural Adapter Research"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: paper_draft.qmd
+        text: Paper Draft
+      - href: supplementary.qmd
+        text: Supplement
+  sidebar:
+    - title: "Daily Notes"
+      style: "docked"
+      contents:
+        - section: "January 2026"
+          contents:
+            - notes/01-24-26.qmd
+    - title: "Interactions"
+      contents:
+        - dashboard.qmd
+        - presentation.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    code-fold: true
+    bibliography: references.bib
+
+editor: visual

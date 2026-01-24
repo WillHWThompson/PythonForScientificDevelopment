@@ -35,7 +35,8 @@ class NLPDataConfig(BaseModel):
     """Configuration for data handling using datasets."""
     dataset_name: str = Field(default="ag_news", description="Hugging Face dataset identifier.")
     train_split: str = Field(default="train", description="Name of the training split.")
-    val_split: str = Field(default="test", description="Name of the validation split.")
+    eval_split: str = Field(default="test", description="Name of the evaluation (validation) split used during training.")
+    test_split: str = Field(default="test", description="Name of the final held-out test split.")
     max_samples: Optional[int] = Field(default=None, description="Max samples for quick training.")
 
 class NLPExperimentConfig(BaseModel):

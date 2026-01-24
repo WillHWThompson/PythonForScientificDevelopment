@@ -39,7 +39,7 @@ class TextClassifierDataLoader:
         return tokenized_datasets
 
     def get_dataloaders(self):
-        """Returns training and validation DataLoaders."""
+        """Returns training and evaluation (validation) DataLoaders."""
         datasets = self.prepare_datasets()
         
         train_loader = DataLoader(
@@ -47,9 +47,18 @@ class TextClassifierDataLoader:
             batch_size=self.train_config.batch_size, 
             shuffle=True
         )
-        val_loader = DataLoader(
-            datasets[self.data_config.val_split], 
+        eval_loader = DataLoader(
+            datasets[self.data_config.eval_split], 
             batch_size=self.train_config.batch_size
         )
         
-        return train_loader, val_loader
+        return train_loader, eval_loader
+
+    def get_test_loader(self):
+        """Returns the final test DataLoader."""
+        datasets = self.prepare_datasets()
+        test_loader = DataLoader(
+            datasets[self.data_config.test_split],
+            batch_size=self.train_config.batch_size
+        )
+        return test_loader

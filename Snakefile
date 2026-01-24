@@ -32,9 +32,15 @@ if "sweep" in config_data:
     for row in grid:
         instance_path = get_instance_dir(row)
         ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/training_stats.parquet")
+        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/test_metrics.parquet")
+        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/roc_curves.parquet")
+        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/test_roc_curves.parquet")
         ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/model.pt")
 else:
     ALL_OUTPUTS.append(f"results/{cfg_name}/base/training_stats.parquet")
+    ALL_OUTPUTS.append(f"results/{cfg_name}/base/test_metrics.parquet")
+    ALL_OUTPUTS.append(f"results/{cfg_name}/base/roc_curves.parquet")
+    ALL_OUTPUTS.append(f"results/{cfg_name}/base/test_roc_curves.parquet")
     ALL_OUTPUTS.append(f"results/{cfg_name}/base/model.pt")
 
 rule all:
@@ -43,3 +49,4 @@ rule all:
 
 # 2. Include Modular Rules
 include: "workflow/rules/train.smk"
+include: "workflow/rules/test.smk"

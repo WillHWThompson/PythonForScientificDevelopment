@@ -1,0 +1,18 @@
+# Paper Draft: Efficient Fine-Tuning with BERT Adapters
+
+## Abstract
+
+This document outlines our findings on using bottleneck adapters for topic classification.
+
+## Introduction
+
+As mentioned in @bert2019, large-scale language models...
+
+## Methodology
+
+We utilize the architecture described in @houlsby2019.
+
+## References
+
+::: {#refs}
+:::
