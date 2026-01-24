@@ -5,7 +5,7 @@ import torch
 from pathlib import Path
 
 from src.core.schema import NLPExperimentConfig
-from src.models.bert_adapter import BERTWithAdapter
+from src.models.bert_adapter import BertAdapterClassifier
 from src.data.loader import TextClassifierDataLoader
 from src.core.trainer import TextClassifierTrainer
 
