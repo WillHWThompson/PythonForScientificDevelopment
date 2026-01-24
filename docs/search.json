@@ -18,35 +18,35 @@
     "href": "presentation.html#vscode-cursor",
     "title": "Python for Scientific Development",
     "section": "1. VSCode / Cursor",
-    "text": "1. VSCode / Cursor\n\n\nModern IDE\n\nYou have no excuse not to use a modern IDE.\nVIM/EMACS are strictly worse for total project velocity.\n\n\nAnti-Pattern\n\nStop using Jupyter Notebooks for everything.\nNotebooks are for exploration, not logic."
+    "text": "1. VSCode / Cursor\n\n\nModern IDE\n\nYou have no excuse not to use a modern IDE.\nVIM/EMACS are strictly worse for total project velocity.\n\n\nAnti-Pattern\n\nStop using Jupyter Notebooks for everything.\nNotebooks are for exploration, not logic.\n\n\n\nDoc: code.visualstudio.com | cursor.com"
   },
   {
     "objectID": "presentation.html#project-structure",
     "href": "presentation.html#project-structure",
     "title": "Python for Scientific Development",
     "section": "2. Project Structure",
-    "text": "2. Project Structure\n\n\nModularity\n\nSeparate source code from sweeps.\nMake your source code a python module.\nExample: bert_adapter.py\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nExample: README.md"
+    "text": "2. Project Structure\n\n\nModularity\n\nSeparate source code from sweeps.\nMake your source code a python module.\nExample: bert_adapter.py\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nExample: README.md\n\n\n\nDoc: git-scm.com"
   },
   {
     "objectID": "presentation.html#uv-the-new-standard",
     "href": "presentation.html#uv-the-new-standard",
     "title": "Python for Scientific Development",
     "section": "3. UV: The New Standard",
-    "text": "3. UV: The New Standard\n\n\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility: uv.lock is non-negotiable.\nExample: pyproject.toml\n\n\n\n\n\n\n\n\nReproducibility\n\n\nIf it doesn’t run on your collaborator’s machine, it’s not Science."
+    "text": "3. UV: The New Standard\n\n\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility: uv.lock is non-negotiable.\nExample: pyproject.toml\n\n\n\n\n\n\n\n\nReproducibility\n\n\nIf it doesn’t run on your collaborator’s machine, it’s not Science.\n\n\n\n\n\nDoc: docs.astral.sh/uv"
   },
   {
     "objectID": "presentation.html#uv-vs.-conda",
     "href": "presentation.html#uv-vs.-conda",
     "title": "Python for Scientific Development",
     "section": "UV vs. Conda",
-    "text": "UV vs. Conda\n\n\nThe Problems\n\nLocal vs. Cluster: “I developed code locally, but the VACC env crashes.”\nCollaboration: “It works for me, but my coworker has global numpy issues.”\n\n\nThe Solutions\n\nLocal Envs: Environments live in the project folder.\nReproducibility: Lockfile ensures byte-for-byte matching.\nExample: pyproject.toml"
+    "text": "UV vs. Conda\n\n\nThe Problems\n\nLocal vs. Cluster: “I developed code locally, but the VACC env crashes.”\nCollaboration: “It works for me, but my coworker has global numpy issues.”\n\n\nThe Solutions\n\nLocal Envs: Environments live in the project folder.\nReproducibility: Lockfile ensures byte-for-byte matching.\nExample: pyproject.toml\n\n\n\nDoc: docs.astral.sh/uv"
   },
   {
     "objectID": "presentation.html#pydantic-strong-typing",
     "href": "presentation.html#pydantic-strong-typing",
     "title": "Python for Scientific Development",
     "section": "Pydantic: Strong Typing",
-    "text": "Pydantic: Strong Typing\n\n\nThe Problems\n\nBoilerplate: Constant manual parsing of nested lists/dicts.\nSilent Bugs: Passing \\(N \\times M\\) when \\(M \\times N\\) was expected.\n\n\nThe Solutions\n\nValidation: Catch errors at the boundary.\nLLM Context: Gives models the precise “slots” needed.\nExample: schema.py"
+    "text": "Pydantic: Strong Typing\n\n\nThe Problems\n\nBoilerplate: Constant manual parsing of nested lists/dicts.\nSilent Bugs: Passing \\(N \\times M\\) when \\(M \\times N\\) was expected.\n\n\nThe Solutions\n\nValidation: Catch errors at the boundary.\nLLM Context: Gives models the precise “slots” needed.\nExample: schema.py\n\n\n\nDoc: docs.pydantic.dev"
   },
   {
     "objectID": "presentation.html#tools-of-the-trade",
@@ -81,13 +81,13 @@
     "href": "presentation.html#testing",
     "title": "Python for Scientific Development",
     "section": "Testing",
-    "text": "Testing\n\n\nThe Problems\n\nSilent Regression: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py"
+    "text": "Testing\n\n\nThe Problems\n\nSilent Regression: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py\n\n\n\nDoc: docs.pytest.org | ruff.rs"
   },
   {
     "objectID": "presentation.html#snakemake-orchestration",
     "href": "presentation.html#snakemake-orchestration",
     "title": "Python for Scientific Development",
     "section": "Snakemake: Orchestration",
-    "text": "Snakemake: Orchestration\n\n\nThe Problems\n\nAmnesia: “I changed code; what results are now invalid?”\nLost parameters: “How did I generate this figure 6 months ago?”\n\n\nThe Solutions\n\nDAG Generation: knows exactly what needs to run.\nSelf-Documentation: The Snakefile is the record.\nExample: Snakefile"
+    "text": "Snakemake: Orchestration\n\n\nThe Problems\n\nAmnesia: “I changed code; what results are now invalid?”\nLost parameters: “How did I generate this figure 6 months ago?”\n\n\nThe Solutions\n\nDAG Generation: knows exactly what needs to run.\nSelf-Documentation: The Snakefile is the record.\nExample: Snakefile\n\n\n\nDoc: snakemake.github.io"
   }
 ]

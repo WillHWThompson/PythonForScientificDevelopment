@@ -105,6 +105,10 @@ Automate the **plumbing** so you can focus on the **science**.
 :::
 :::
 
+::: {.footer}
+Doc: [code.visualstudio.com](https://code.visualstudio.com) | [cursor.com](https://www.cursor.com)
+:::
+
 ## 2. Project Structure
 
 ::: {.columns}
@@ -121,6 +125,10 @@ Automate the **plumbing** so you can focus on the **science**.
 - Collaborating? Use **Pull Requests**.
 - **Example**: [README.md](../README.md)
 :::
+:::
+
+::: {.footer}
+Doc: [git-scm.com](https://git-scm.com)
 :::
 
 ## 3. UV: The New Standard
@@ -140,6 +148,10 @@ If it doesn't run on your collaborator's machine, it's not **Science**.
 :::
 :::
 
+::: {.footer}
+Doc: [docs.astral.sh/uv](https://docs.astral.sh/uv/)
+:::
+
 ## UV vs. Conda
 
 ::: {.columns}
@@ -155,6 +167,10 @@ If it doesn't run on your collaborator's machine, it's not **Science**.
 - **Reproducibility**: Lockfile ensures byte-for-byte matching.
 - **Example**: [pyproject.toml](../pyproject.toml)
 :::
+:::
+
+::: {.footer}
+Doc: [docs.astral.sh/uv](https://docs.astral.sh/uv/)
 :::
 
 ## Pydantic: Strong Typing
@@ -174,6 +190,10 @@ If it doesn't run on your collaborator's machine, it's not **Science**.
 :::
 :::
 
+::: {.footer}
+Doc: [docs.pydantic.dev](https://docs.pydantic.dev/)
+:::
+
 ## Snakemake: Orchestration
 
 ::: {.columns}
@@ -191,6 +211,10 @@ If it doesn't run on your collaborator's machine, it's not **Science**.
 :::
 :::
 
+::: {.footer}
+Doc: [snakemake.github.io](https://snakemake.github.io/)
+:::
+
 ## Testing
 
 ::: {.columns}
@@ -206,6 +230,10 @@ If it doesn't run on your collaborator's machine, it's not **Science**.
 - **Vibe Coding**: Use tests to verify LLM logic.
 - **Example**: [test_nlp_logic.py](../tests/test_nlp_logic.py)
 :::
+:::
+
+::: {.footer}
+Doc: [docs.pytest.org](https://docs.pytest.org/) | [ruff.rs](https://docs.astral.sh/ruff/)
 :::
 
 # Summary {background-color="#332288"}
