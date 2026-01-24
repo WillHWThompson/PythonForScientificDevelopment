@@ -33,10 +33,11 @@ if has_results:
                 s.train_loss,
                 s.val_loss,
                 s.accuracy,
-                m."test/auroc" as auroc
+                m."test/auroc" as auroc,
+                m."test/f1_weighted" as f1_score
             FROM read_parquet('{parquet_pattern}') s
             LEFT JOIN (
-                SELECT adapter_dim, learning_rate, "test/auroc" 
+                SELECT adapter_dim, learning_rate, "test/auroc", "test/f1_weighted" 
                 FROM read_parquet('{metrics_pattern}')
             ) m ON s.adapter_dim = m.adapter_dim 
                AND s.learning_rate = m.learning_rate
@@ -52,7 +53,8 @@ if has_results:
                 train_loss,
                 val_loss,
                 accuracy,
-                0.0 as auroc
+                0.0 as auroc,
+                0.0 as f1_score
             FROM read_parquet('{parquet_pattern}')
         """
     all_data = con.execute(query).df()
@@ -190,20 +192,59 @@ Plot.plot({
 ::: g-col-4
 ### Run Metadata
 
-```{ojs}
+```ojs
 Inputs.table(filtered_data, {
-  columns: ["full_name", "adapter_dim", "learning_rate", "accuracy", "auroc"],
+  columns: ["full_name", "adapter_dim", "learning_rate", "accuracy", "f1_score", "auroc"],
   header: {
     full_name: "Run ID",
     adapter_dim: "Dim",
     learning_rate: "LR",
     accuracy: "Acc",
+    f1_score: "F1",
     auroc: "AUROC"
   }
 })
 ```
 :::
 :::::
+
+### 🏆 Performance Ranking
+
+```{ojs}
+viewof sort_metric = Inputs.select(
+  ["accuracy", "f1_score", "auroc"], 
+  {label: "Sort By", value: "f1_score"}
+)
+
+// Aggregate to final stats per run (latest epoch)
+final_stats = {
+  const data = transpose(research_data);
+  // Filter for only the last epoch available for each run
+  const runs = [...new Set(data.map(d => d.full_name))];
+  const last_points = runs.map(name => {
+    const run_points = data.filter(d => d.full_name === name);
+    return run_points.sort((a, b) => b.epoch - a.epoch)[0];
+  });
+  // Apply bar plot sorting
+  return d3.sort(last_points, (a, b) => d3.descending(a[sort_metric], b[sort_metric]));
+}
+
+Plot.plot({
+  marginRight: 120,
+  x: {grid: true, label: "Score"},
+  y: {label: "Run Name", padding: 0.2},
+  color: {scheme: "viridis", label: "Value"},
+  marks: [
+    Plot.barX(final_stats, {
+      y: "full_name", 
+      x: sort_metric, 
+      fill: sort_metric,
+      tip: true
+    }),
+    Plot.ruleX([0])
+  ]
+})
+```
 
 ## 📈 Model Diagnostics
 
