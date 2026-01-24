@@ -330,5 +330,35 @@
     "crumbs": [
       "I Suck At Coding"
     ]
+  },
+  {
+    "objectID": "presentation.html#summer-school-optimism",
+    "href": "presentation.html#summer-school-optimism",
+    "title": "I Suck At Coding",
+    "section": "Summer School Optimism",
+    "text": "Summer School Optimism\n\n\n\nThe Project\n\nGoal: Fit opinion spreading models to real-world network data.\nStart: First year of grad school workshop.\nInitial Code: Quick & dirty PyTorch implementation.\n\n\n\n\nThe Vibe\n“It’ll be 6 months, tops, to a publication.” 🤡",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#feature-creep-portability",
+    "href": "presentation.html#feature-creep-portability",
+    "title": "I Suck At Coding",
+    "section": "Feature Creep & Portability",
+    "text": "Feature Creep & Portability\n\nPhase 1: The “Portable” Pipeline\n\nProblem: 5 collaborators on Mac, Linux, and Windows.\n“Solution”: JSON configs + nested Shell/Python wrappers.\n\n\n\nPhase 2: Scaling to the HPC (VACC)\n\nProblem: Local prototyping vs. Cluster batch jobs.\n“Solution”: Custom J2 templating system to auto-generate .sh scripts from JSON.",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#architecture-overkill",
+    "href": "presentation.html#architecture-overkill",
+    "title": "I Suck At Coding",
+    "section": "Architecture Overkill",
+    "text": "Architecture Overkill\n\n\n\nData & Concurrency\n\nFilename char limits? Build an ORM.\nSQLite locking? Move to MySQL.\nMySQL behind firewall? Polymorphic IO.\n\n\n\n\nTotal Collapse\n\nAgnostic formatters for every possible output.\nAgnostic inputs for polymorphic data classes.\nThe End: Collaborators force-pushing to main because they hate the code.",
+    "crumbs": [
+      "I Suck At Coding"
+    ]
   }
 ]

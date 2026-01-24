@@ -6,7 +6,7 @@ footer: "Scientific Python | Modular. Reproducible. Professional."
 format: 
   revealjs:
     theme: [white, custom.scss]
-    transition: slide
+    transition: slide 
     background-transition: fade
     slide-number: c/t
     preview-links: auto
@@ -18,6 +18,72 @@ format:
       data-background-image: "https://www.transparenttextures.com/patterns/cubes.png"
       data-background-opacity: "0.1"
 ---
+
+
+
+---
+
+# The Origin Story {class="bg-dark-texture"}
+
+## Summer School Optimism
+
+:::: columns
+::: {.column width="60%"}
+::: {.glass-card .fragment .fade-up}
+### The Project
+- **Goal**: Fit opinion spreading models to real-world network data.
+- **Start**: First year of grad school workshop.
+- **Initial Code**: Quick & dirty PyTorch implementation.
+:::
+:::
+
+::: {.column width="40%"}
+::: {.glass-card .fragment .fade-left}
+### The Vibe
+"It'll be 6 months, tops, to a publication." 🤡
+:::
+:::
+::::
+
+# The Descent {class="bg-dark-texture"}
+
+## Feature Creep & Portability
+
+::: {.glass-card .fragment .fade-up}
+### Phase 1: The "Portable" Pipeline
+- **Problem**: 5 collaborators on Mac, Linux, and Windows.
+- **"Solution"**: JSON configs + nested Shell/Python wrappers.
+:::
+
+::: {.glass-card .fragment .fade-up}
+### Phase 2: Scaling to the HPC (VACC)
+- **Problem**: Local prototyping vs. Cluster batch jobs.
+- **"Solution"**: Custom J2 templating system to auto-generate `.sh` scripts from JSON.
+:::
+
+# The Breaking Point {class="bg-dark-texture"}
+
+## Architecture Overkill
+
+::::: columns
+::: {.column width="50%"}
+::: {.glass-card .fragment .fade-right}
+### Data & Concurrency
+- Filename char limits? **Build an ORM.**
+- SQLite locking? **Move to MySQL.**
+- MySQL behind firewall? **Polymorphic IO.**
+:::
+:::
+
+::: {.column width="50%"}
+::: {.glass-card .fragment .fade-left}
+### Total Collapse
+- Agnostic formatters for every possible output.
+- Agnostic inputs for polymorphic data classes.
+- **The End**: Collaborators force-pushing to `main` because they hate the code.
+:::
+:::
+:::::
 
 # The Hard Truth {class="bg-dark-texture"}
 
