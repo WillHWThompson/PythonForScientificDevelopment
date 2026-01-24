@@ -11,5 +11,6 @@ data:
   parquet_path: "data/higgs.parquet"
   use_high_level_features: true
 wandb:
-  enabled: false
+  enabled: true
   project: "higgs-classification"
+  entity: "YOUR_WANDB_USERNAME" # Update this with your WandB username

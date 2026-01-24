@@ -25,7 +25,15 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 uv sync
 ```
 
-### 3. Run the Pipeline
+### 3. Setup Experiment Tracking (WandB)
+To visualize your training live:
+1.  **Login to WandB**:
+    ```bash
+    uv run wandb login
+    ```
+2.  **Update Config**: Open `config.yaml` and set `enabled: true` and your `entity` (username).
+
+### 4. Run the Pipeline
 The workflow is orchestrated via Snakemake. It handles data download, conversion to Parquet, and model training.
 
 **Dry Run:**
