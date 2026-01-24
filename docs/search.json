@@ -14,7 +14,7 @@
     "href": "presentation.html#the-vibe-coder-thesis",
     "title": "Python for Scientific Development",
     "section": "The Vibe-Coder Thesis",
-    "text": "The Vibe-Coder Thesis\n\n“Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has adequate context.”",
+    "text": "The Vibe-Coder Thesis\n\n\n“Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has adequate context.”",
     "crumbs": [
       "Python for Scientific Development"
     ]
@@ -24,7 +24,7 @@
     "href": "presentation.html#vscode-cursor",
     "title": "Python for Scientific Development",
     "section": "1. VSCode / Cursor",
-    "text": "1. VSCode / Cursor\n\n\nModern IDE\n\nYou have no excuse not to use a modern IDE.\nVIM/EMACS are strictly worse for total project velocity.\n\n\nAnti-Pattern\n\nStop using Jupyter Notebooks for everything.\nNotebooks are for exploration, not logic.\n\n\n\nDoc: code.visualstudio.com | cursor.com",
+    "text": "1. VSCode / Cursor\n\n\n\nAnti-Pattern\nStop using Jupyter Notebooks for everything. Notebooks are for exploration, not logic.\n\n\n\nModern IDE\nLocalize your logic. Use Cursor for AI-native pair programming to move 10x faster.\n\n\n\nDoc: code.visualstudio.com | cursor.com",
     "crumbs": [
       "Python for Scientific Development"
     ]
@@ -34,7 +34,7 @@
     "href": "presentation.html#project-structure",
     "title": "Python for Scientific Development",
     "section": "2. Project Structure",
-    "text": "2. Project Structure\n\n\nModularity\n\nSeparate source code from sweeps.\nMake your source code a python module.\nExample: bert_adapter.py\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nExample: README.md\n\n\n\nDoc: git-scm.com",
+    "text": "2. Project Structure\n\n\n\nThe Mess\nSeparate source code from sweeps. Don’t drown in a directory of .ipynb files.\n\n\n\nModularity\nMake your code a module. Modular code is testable code.\n\n\n\nDoc: git-scm.com",
     "crumbs": [
       "Python for Scientific Development"
     ]
@@ -44,7 +44,7 @@
     "href": "presentation.html#uv-the-new-standard",
     "title": "Python for Scientific Development",
     "section": "3. UV: The New Standard",
-    "text": "3. UV: The New Standard\n\n\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility: uv.lock is non-negotiable.\nExample: pyproject.toml\n\n\n\n\n\n\n\n\nReproducibility\n\n\nIf it doesn’t run on your collaborator’s machine, it’s not Science.\n\n\n\n\n\nDoc: docs.astral.sh/uv",
+    "text": "3. UV: The New Standard\n\n\n\nEnvironment Hell\n“It works on my machine, but the cluster environment is broken.”\n\n\n\nThe Solution\nUV: Reproducible environments with uv.lock. Byte-for-byte consistency across all machines.\n\n\n\nDoc: docs.astral.sh/uv",
     "crumbs": [
       "Python for Scientific Development"
     ]
@@ -63,8 +63,8 @@
     "objectID": "presentation.html#pydantic-strong-typing",
     "href": "presentation.html#pydantic-strong-typing",
     "title": "Python for Scientific Development",
-    "section": "Pydantic: Strong Typing",
-    "text": "Pydantic: Strong Typing\n\n\nThe Problems\n\nBoilerplate: Constant manual parsing of nested lists/dicts.\nSilent Bugs: Passing \\(N \\times M\\) when \\(M \\times N\\) was expected.\n\n\nThe Solutions\n\nValidation: Catch errors at the boundary.\nLLM Context: Gives models the precise “slots” needed.\nExample: schema.py\n\n\n\nDoc: docs.pydantic.dev",
+    "section": "4. Pydantic: Strong Typing",
+    "text": "4. Pydantic: Strong Typing\n\n\n\nLoose Data\nConstantly parsing nested lists/dicts and hitting silent runtime bugs.\n\n\n\nThe Solution\nValidation: Catch errors at the boundary. Give your LLM a precise schema to work with.\n\n\n\nDoc: docs.pydantic.dev",
     "crumbs": [
       "Python for Scientific Development"
     ]
@@ -102,7 +102,7 @@
     "href": "presentation.html#testing",
     "title": "Python for Scientific Development",
     "section": "Testing",
-    "text": "Testing\n\n\nThe Problems\n\nSilent Regression: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py\n\n\n\nDoc: docs.pytest.org | ruff.rs",
+    "text": "Testing\n\n\nThe Problems\n\nSilent Regression: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py",
     "crumbs": [
       "Python for Scientific Development"
     ]
@@ -111,8 +111,8 @@
     "objectID": "presentation.html#snakemake-orchestration",
     "href": "presentation.html#snakemake-orchestration",
     "title": "Python for Scientific Development",
-    "section": "Snakemake: Orchestration",
-    "text": "Snakemake: Orchestration\n\n\nThe Problems\n\nAmnesia: “I changed code; what results are now invalid?”\nLost parameters: “How did I generate this figure 6 months ago?”\n\n\nThe Solutions\n\nDAG Generation: knows exactly what needs to run.\nSelf-Documentation: The Snakefile is the record.\nExample: Snakefile\n\n\n\nDoc: snakemake.github.io",
+    "section": "5. Snakemake: Orchestration",
+    "text": "5. Snakemake: Orchestration\n\n\n\nPipeline Amnesia\n“How did I generate this figure? What results are stale?”\n\n\n\nThe Solution\nDAG Generation: Snakemake knows exactly what needs to run. The script is the record.\n\n\n\nDoc: snakemake.github.io",
     "crumbs": [
       "Python for Scientific Development"
     ]
@@ -296,7 +296,7 @@
     "href": "presentation.html#the-iron-rule-of-scientific-software-development",
     "title": "Python for Scientific Development",
     "section": "The Iron Rule of Scientific Software Development",
-    "text": "The Iron Rule of Scientific Software Development\n\nIf you take the time to build out code the right way you will never use it\nIf you write sloppy code it will bite you in the ass\nDamned if you do. Damned if you don’t.",
+    "text": "The Iron Rule of Scientific Software Development\n\nThe Efficiency Trap\n“If you take the time to build out code the right way, you will never use it.”\n\n\nThe Technical Debt\n“If you write sloppy code, it will bite you in the ass.”\n\n\nThe Equilibrium\nDamned if you do. Damned if you don’t. Unless you automate the structure itself.",
     "crumbs": [
       "Python for Scientific Development"
     ]
@@ -306,7 +306,47 @@
     "href": "presentation.html#section",
     "title": "Python for Scientific Development",
     "section": "",
-    "text": "Python is a TERRIBLE language for scientific computing.\n\n\n\n\nNothing about the language is inherently good for science.\n\n\n\n\nMost tools were developed by researchers as a “side-hustle.”\n\n\n\n\nThe Goal: How can we contort Python to be at least “okay”?",
+    "text": "Python is a TERRIBLE language for scientific computing.\n\n\n\n\nNothing about the language is inherently good for science.\n\n\n\n\nMost tools were developed by researchers as a “side-hustle.” #| echo: false #| fig-align: center import matplotlib.pyplot as plt\n\nwith plt.xkcd(): fig, ax = plt.subplots(figsize=(10, 6))\n# Venn circles - no color\nc1 = plt.Circle((0.4, 0.5), 0.35, fc='none', ec='black', lw=2)\nc2 = plt.Circle((0.6, 0.5), 0.35, fc='none', ec='black', lw=2)\nax.add_patch(c1)\nax.add_patch(c2)\n\n# Annotations - arrows further from\nax.annotate(\"THINGS I HATE WITH\\nA VISCERAL PASSION\", \n            xy=(0.25, 0.5), xytext=(0.05, 0.85),\n            arrowprops=dict(arrowstyle='-&gt;', connectionstyle=\"arc3,rad=.2\"))\n\nax.annotate(\"STANDARD SCIENTIFIC\\nCOMPUTING WORKFLOWS\", \n            xy=(0.75, 0.5), xytext=(0.95, 0.85),\n            ha='right', arrowprops=dict(arrowstyle='-&gt;', connectionstyle=\"arc3,rad=-.2\"))\n\n# The intersection items\nitems = [\"JUPYTER\", \"SLURM\", \"CONDA\", \"MATPLOTLIB\"]\nax.text(0.5, 0.5, \"\\n\".join(items), ha='center', va='center', \n        fontsize=14, fontweight='bold')\n\nax.set_xlim(0, 1)\nax.set_ylim(0, 1)\nax.axis('off')\nplt.show()\n\nThe Good News\n\nFact: Claude Code is a better developer than you will ever be.\nFact: LLMs change the ROI on automation.\nFact: I basically never write code anymore.\nFact: Most LLM failures are failures of context, not reasoning.\n\n\n\nThe Vibe-Coder Thesis\n\n“Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has adequate context.”\n\n\n\n\nYour Workflow\n\n\n\nYou have data/simulation parameters.\nYou have a model (statistical/ML/physics).\nYou want to run sweeps with different inputs.\nYou want to collect & visualize efficiently.\nYou want to turn plots into a publication.\n\n\n\n\n\n\n\n\nGoal\n\n\nAutomate the plumbing so you can focus on the science.\n\n\n\n\n\n\n\nTools of the Trade\n\n\n\n1. VSCode / Cursor\n\n\nModern IDE\n\nYou have no excuse not to use a modern IDE.\nVIM/EMACS are strictly worse for total project velocity.\n\n\nAnti-Pattern\n\nStop using Jupyter Notebooks for everything.\nNotebooks are for exploration, not logic.\n\n\n\nDoc: code.visualstudio.com | cursor.com\n\n\n\n2. Project Structure\n\n\nModularity\n\nSeparate source code from sweeps.\nMake your source code a python module.\nExample: bert_adapter.py\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nExample: README.md\n\n\n\nDoc: git-scm.com\n\n\n\n3. UV: The New Standard\n\n\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility: uv.lock is non-negotiable.\nExample: pyproject.toml\n\n\n\n\n\n\n\n\nReproducibility\n\n\nIf it doesn’t run on your collaborator’s machine, it’s not Science.\n\n\n\n\n\nDoc: docs.astral.sh/uv\n\n\n\nUV vs. Conda\n\n\nThe Problems\n\nLocal vs. Cluster: “I developed code locally, but the VACC env crashes.”\nCollaboration: “It works for me, but my coworker has global numpy issues.”\n\n\nThe Solutions\n\nLocal Envs: Environments live in the project folder.\nReproducibility: Lockfile ensures byte-for-byte matching.\nExample: pyproject.toml\n\n\n\nDoc: docs.astral.sh/uv\n\n\n\nPydantic: Strong Typing\n\n\nThe Problems\n\nBoilerplate: Constant manual parsing of nested lists/dicts.\nSilent Bugs: Passing \\(N \\times M\\) when \\(M \\times N\\) was expected.\n\n\nThe Solutions\n\nValidation: Catch errors at the boundary.\nLLM Context: Gives models the precise “slots” needed.\nExample: schema.py\n\n\n\nDoc: docs.pydantic.dev\n\n\n\nSnakemake: Orchestration\n\n\nThe Problems\n\nAmnesia: “I changed code; what results are now invalid?”\nLost parameters: “How did I generate this figure 6 months ago?”\n\n\nThe Solutions\n\nDAG Generation: knows exactly what needs to run.\nSelf-Documentation: The Snakefile is the record.\nExample: Snakefile\n\n\n\nDoc: snakemake.github.io\n\n\n\nTesting\n\n\nThe Problems\n\nSilent Regression: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py\n\n\n\n\n\nAnalysis and Vizualization\n\n\n\nQuarto\n\n\nThe Problems\n\nJupyter Notebooks: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py\n\n\n\nDoc: docs.pytest.org | ruff.rs\n\n\n\n\nSummary\n\nAccept that you are a Developer.\nProvide Context to your LLM (Pydantic).\nLocalize your Environments (UV).\nAutomate your Pipeline (Snakemake).\nLet the machine do the heavy lifting.",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
+  },
+  {
+    "objectID": "presentation.html#a-venn-diagram-of-misery",
+    "href": "presentation.html#a-venn-diagram-of-misery",
+    "title": "Python for Scientific Development",
+    "section": "A Venn Diagram of Misery",
+    "text": "A Venn Diagram of Misery\nLLM ROI\n“I have a tendency to over-engineer pipelines I will never use. Now I can do this guilt-free with LLMs!” ::: ::::",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
+  },
+  {
+    "objectID": "presentation.html#quarto",
+    "href": "presentation.html#quarto",
+    "title": "Python for Scientific Development",
+    "section": "Quarto",
+    "text": "Quarto\n\n\nThe Problems\n\nJupyter Notebooks: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py\n\n\n\nDoc: docs.pytest.org | ruff.rs",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
+  },
+  {
+    "objectID": "presentation.html#the-python-paradox",
+    "href": "presentation.html#the-python-paradox",
+    "title": "Python for Scientific Development",
+    "section": "The Python Paradox",
+    "text": "The Python Paradox\n\n\nPython is a TERRIBLE language for scientific computing.\nNothing about the language is inherently good for science.\nMost tools were developed by researchers as a “side-hustle.”",
+    "crumbs": [
+      "Python for Scientific Development"
+    ]
+  },
+  {
+    "objectID": "presentation.html#interactive-dashboard",
+    "href": "presentation.html#interactive-dashboard",
+    "title": "Python for Scientific Development",
+    "section": "Interactive Dashboard",
+    "text": "Interactive Dashboard\n\nOur pipeline doesn’t just run code; it generates Insights.\n\n\n\n\n\n\n\nInteractive Visualization\n\n\nAccess the Live Dashboard to explore the BERT training stats and class-wise ROC curves.",
     "crumbs": [
       "Python for Scientific Development"
     ]

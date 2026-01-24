@@ -29,7 +29,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-6251cfcb9b8774a25af2fa090528a25a.css">
+  <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto-2a0d87a48a7c96c3877751dd956e6845.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -148,62 +148,42 @@ Research Team
 </section>
 <section id="the-iron-rule-of-scientific-software-development" class="slide level2">
 <h2>The Iron Rule of Scientific Software Development</h2>
-<ul>
-<li><p>If you take the time to build out code the right way you will never use it</p></li>
-<li><p>If you write sloppy code it will bite you in the ass</p></li>
-<li><p>Damned if you do. Damned if you don’t.</p></li>
-</ul>
+<div class="problem-card fragment">
+<h3 id="the-efficiency-trap">The Efficiency Trap</h3>
+<p>“If you take the time to build out code the right way, you will never use it.”</p>
+</div>
+<div class="problem-card fragment">
+<h3 id="the-technical-debt">The Technical Debt</h3>
+<p>“If you write sloppy code, it will bite you in the ass.”</p>
+</div>
+<div class="solution-card fragment">
+<h3 id="the-equilibrium">The Equilibrium</h3>
+<p><strong>Damned if you do. Damned if you don’t.</strong> Unless you automate the structure itself.</p>
+</div>
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
-<div class="fragment fade-up">
+<section id="the-python-paradox" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">The Python Paradox</h2>
+<div class="problem-card fragment">
 <ul>
 <li>Python is a <strong>TERRIBLE</strong> language for scientific computing.</li>
-</ul>
-</div>
-<div class="fragment fade-up">
-<ul>
 <li>Nothing about the language is inherently good for science.</li>
-</ul>
-</div>
-<div class="fragment fade-up">
-<ul>
 <li>Most tools were developed by researchers as a “side-hustle.”</li>
 </ul>
 </div>
-<div class="fragment fade-in-then-semi-out">
-<ul>
-<li><strong>The Goal</strong>: How can we contort Python to be at least “okay”?</li>
-</ul>
-</div>
 </section></section>
-<section>
-<section id="the-dirty-secret" class="title-slide slide level1 center" data-background-color="#ffffff">
-<h1>The Dirty Secret…</h1>
-<ul>
-<li class="fragment">If you are a (non-bench) scientist in 2026: <strong>YOU ARE A SOFTWARE DEVELOPER.</strong></li>
-<li class="fragment">Most of your time isn’t in the lab; it’s writing and running code.</li>
-<li class="fragment"><strong>Fact</strong>: Scientists are (mostly) bad software developers.</li>
-</ul>
-</section>
-<section id="the-overhead-trade-off" class="slide level2">
-<h2>The Overhead Trade-off</h2>
-<p>The eternal struggle: Time spent to automate vs.&nbsp;overhead accumulated.</p>
-<div class="r-stack">
-<div class="fragment">
+<section id="the-circle" class="title-slide slide level1 center">
+<h1>The Circle</h1>
+<div id="6f38f3ed" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://imgs.xkcd.com/comics/automation_2x.png" class="fade-in-then-out"></p>
-<figcaption>Automation (Source: XKCD)</figcaption>
+<p><img data-src="presentation_files/figure-revealjs/cell-2-output-1.png" class="quarto-figure quarto-figure-center" width="763" height="463"></p>
 </figure>
 </div>
 </div>
-<div class="glass-card fragment fade-up">
-<h3 id="llm-roi">LLM ROI</h3>
-<p>“I have a tendency to over-engineer pipelines I will never use. Now I can do this guilt-free with <strong>LLMs!</strong>”</p>
 </div>
-</div>
-</section></section>
+</section>
+
 <section>
 <section id="the-good-news" class="title-slide slide level1 center" data-background-color="#AA4499">
 <h1>The Good News</h1>
@@ -216,207 +196,168 @@ Research Team
 </section>
 <section id="the-vibe-coder-thesis" class="slide level2">
 <h2>The Vibe-Coder Thesis</h2>
+<div class="glass-card">
 <blockquote>
 <p>“Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has <strong>adequate context</strong>.”</p>
 </blockquote>
+</div>
 </section></section>
+<section>
 <section id="your-workflow" class="title-slide slide level1 center" data-background-color="#ffffff">
 <h1>Your Workflow</h1>
+
+</section>
 <div class="columns">
 <div class="column" style="width:60%;">
+<div class="glass-card">
 <ul>
 <li>You have data/simulation parameters.</li>
 <li>You have a model (statistical/ML/physics).</li>
 <li>You want to run sweeps with different inputs.</li>
 <li>You want to collect &amp; visualize efficiently.</li>
-<li>You want to turn plots into a <strong>publication</strong>.</li>
 </ul>
+</div>
 </div><div class="column" style="width:40%;">
+<section id="goal" class="solution-card">
+<h3>Goal</h3>
+<p>Automate the <strong>plumbing</strong> so you can focus on the <strong>science</strong>.</p>
+</section>
+</div>
+</div></section>
+<section>
+<section id="tools-of-the-trade" class="title-slide slide level1 center" data-background-color="#332288">
+<h1>Tools of the Trade</h1>
+
+</section>
+<section id="vscode-cursor" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">1. VSCode / Cursor</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="problem-card fragment">
+<h3 id="anti-pattern">Anti-Pattern</h3>
+<p><strong>Stop using Jupyter Notebooks for everything.</strong> Notebooks are for <strong>exploration</strong>, not <strong>logic</strong>.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="solution-card fragment">
+<h3 id="modern-ide">Modern IDE</h3>
+<p>Localize your logic. Use <strong>Cursor</strong> for AI-native pair programming to move 10x faster.</p>
+</div>
+</div></div>
+<div class="footer">
+<p>Doc: <a href="https://code.visualstudio.com">code.visualstudio.com</a> | <a href="https://www.cursor.com">cursor.com</a></p>
+</div>
+</section>
+<section id="project-structure" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">2. Project Structure</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="problem-card fragment">
+<h3 id="the-mess">The Mess</h3>
+<p>Separate source code from sweeps. Don’t drown in a directory of <code>.ipynb</code> files.</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="solution-card fragment">
+<h3 id="modularity">Modularity</h3>
+<p>Make your code a <strong>module</strong>. Modular code is <strong>testable</strong> code.</p>
+</div>
+</div></div>
+<div class="footer">
+<p>Doc: <a href="https://git-scm.com">git-scm.com</a></p>
+</div>
+</section>
+<section id="uv-the-new-standard" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">3. UV: The New Standard</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="problem-card fragment">
+<h3 id="environment-hell">Environment Hell</h3>
+<p>“It works on my machine, but the cluster environment is broken.”</p>
+</div>
+</div><div class="column" style="width:48%;">
+<div class="solution-card fragment">
+<h3 id="the-solution">The Solution</h3>
+<p><strong>UV</strong>: Reproducible environments with <code>uv.lock</code>. Byte-for-byte consistency across all machines.</p>
+</div>
+</div></div>
+<div class="footer">
+<p>Doc: <a href="https://docs.astral.sh/uv/">docs.astral.sh/uv</a></p>
+</div>
+</section>
+<section id="pydantic-strong-typing" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">4. Pydantic: Strong Typing</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="problem-card fragment">
+<h3 id="loose-data">Loose Data</h3>
+<p>Constantly parsing nested lists/dicts and hitting silent runtime bugs.</p>
+</div>
+</div><div class="column" style="width:48%;">
+<div class="solution-card fragment">
+<h3 id="the-solution-1">The Solution</h3>
+<p><strong>Validation</strong>: Catch errors at the boundary. Give your LLM a precise schema to work with.</p>
+</div>
+</div></div>
+<div class="footer">
+<p>Doc: <a href="https://docs.pydantic.dev/">docs.pydantic.dev</a></p>
+</div>
+</section>
+<section id="snakemake-orchestration" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">5. Snakemake: Orchestration</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<div class="problem-card fragment">
+<h3 id="pipeline-amnesia">Pipeline Amnesia</h3>
+<p>“How did I generate this figure? What results are stale?”</p>
+</div>
+</div><div class="column" style="width:48%;">
+<div class="solution-card fragment">
+<h3 id="the-solution-2">The Solution</h3>
+<p><strong>DAG Generation</strong>: Snakemake knows exactly what needs to run. The script <em>is</em> the record.</p>
+</div>
+</div></div>
+<div class="footer">
+<p>Doc: <a href="https://snakemake.github.io/">snakemake.github.io</a></p>
+</div>
+</section></section>
+<section>
+<section id="results-diagnostics" class="title-slide slide level1 center" data-background-color="#ffffff">
+<h1>Results &amp; Diagnostics</h1>
+
+</section>
+<section id="interactive-dashboard" class="slide level2">
+<h2>Interactive Dashboard</h2>
+<div class="glass-card">
+<p>Our pipeline doesn’t just run code; it generates <strong>Insights</strong>.</p>
+</div>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Goal</strong></p>
+<p><strong>Interactive Visualization</strong></p>
 </div>
 <div class="callout-content">
-<p>Automate the <strong>plumbing</strong> so you can focus on the <strong>science</strong>.</p>
+<p>Access the <a href="./dashboard.html">Live Dashboard</a> to explore the BERT training stats and class-wise ROC curves.</p>
 </div>
 </div>
-</div>
-</div></div>
-</section>
-
-<section>
-<section id="tools-of-the-trade" class="title-slide slide level1 center" data-background-color="#332288">
-<h1>Tools of the Trade</h1>
-
-</section>
-<section id="vscode-cursor" class="slide level2">
-<h2>1. VSCode / Cursor</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h3 id="modern-ide">Modern IDE</h3>
-<ul>
-<li>You have <strong>no excuse</strong> not to use a modern IDE.</li>
-<li>VIM/EMACS are strictly worse for total project velocity.</li>
-</ul>
-</div><div class="column" style="width:50%;">
-<h3 id="anti-pattern">Anti-Pattern</h3>
-<ul>
-<li><strong>Stop using Jupyter Notebooks for everything.</strong></li>
-<li>Notebooks are for <strong>exploration</strong>, not <strong>logic</strong>.</li>
-</ul>
-</div></div>
-<div class="footer">
-<p>Doc: <a href="https://code.visualstudio.com">code.visualstudio.com</a> | <a href="https://www.cursor.com">cursor.com</a></p>
-</div>
-</section>
-<section id="project-structure" class="slide level2">
-<h2>2. Project Structure</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h3 id="modularity">Modularity</h3>
-<ul>
-<li>Separate source code from sweeps.</li>
-<li>Make your source code a <strong>python module</strong>.</li>
-<li><strong>Example</strong>: <a href="../src/models/bert_adapter.py">bert_adapter.py</a></li>
-</ul>
-</div><div class="column" style="width:50%;">
-<h3 id="version-control">Version Control</h3>
-<ul>
-<li><strong>Git early, git often.</strong></li>
-<li>Collaborating? Use <strong>Pull Requests</strong>.</li>
-<li><strong>Example</strong>: <a href="../README.md">README.md</a></li>
-</ul>
-</div></div>
-<div class="footer">
-<p>Doc: <a href="https://git-scm.com">git-scm.com</a></p>
-</div>
-</section>
-<section id="uv-the-new-standard" class="slide level2">
-<h2>3. UV: The New Standard</h2>
-<div class="columns">
-<div class="column" style="width:60%;">
-<ul>
-<li><strong>Speed</strong>: Orders of magnitude faster than pip.</li>
-<li><strong>Reproducibility</strong>: <code>uv.lock</code> is non-negotiable.</li>
-<li><strong>Example</strong>: <a href="../pyproject.toml">pyproject.toml</a></li>
-</ul>
-</div><div class="column" style="width:40%;">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Reproducibility</strong></p>
-</div>
-<div class="callout-content">
-<p>If it doesn’t run on your collaborator’s machine, it’s not <strong>Science</strong>.</p>
-</div>
-</div>
-</div>
-</div></div>
-<div class="footer">
-<p>Doc: <a href="https://docs.astral.sh/uv/">docs.astral.sh/uv</a></p>
-</div>
-</section>
-<section id="uv-vs.-conda" class="slide level2">
-<h2>UV vs.&nbsp;Conda</h2>
-<div class="columns">
-<div class="column" style="width:48%;">
-<h3 id="the-problems">The Problems</h3>
-<ul>
-<li><strong>Local vs.&nbsp;Cluster</strong>: “I developed code locally, but the VACC env crashes.”</li>
-<li><strong>Collaboration</strong>: “It works for me, but my coworker has global numpy issues.”</li>
-</ul>
-</div><div class="column" style="width:48%;">
-<h3 id="the-solutions">The Solutions</h3>
-<ul>
-<li><strong>Local Envs</strong>: Environments live in the project folder.</li>
-<li><strong>Reproducibility</strong>: Lockfile ensures byte-for-byte matching.</li>
-<li><strong>Example</strong>: <a href="../pyproject.toml">pyproject.toml</a></li>
-</ul>
-</div></div>
-<div class="footer">
-<p>Doc: <a href="https://docs.astral.sh/uv/">docs.astral.sh/uv</a></p>
-</div>
-</section>
-<section id="pydantic-strong-typing" class="slide level2">
-<h2>Pydantic: Strong Typing</h2>
-<div class="columns">
-<div class="column" style="width:48%;">
-<h3 id="the-problems-1">The Problems</h3>
-<ul>
-<li><strong>Boilerplate</strong>: Constant manual parsing of nested lists/dicts.</li>
-<li><strong>Silent Bugs</strong>: Passing <span class="math inline">\(N \times M\)</span> when <span class="math inline">\(M \times N\)</span> was expected.</li>
-</ul>
-</div><div class="column" style="width:48%;">
-<h3 id="the-solutions-1">The Solutions</h3>
-<ul>
-<li><strong>Validation</strong>: Catch errors at the boundary.</li>
-<li><strong>LLM Context</strong>: Gives models the precise “slots” needed.</li>
-<li><strong>Example</strong>: <a href="../src/core/schema.py">schema.py</a></li>
-</ul>
-</div></div>
-<div class="footer">
-<p>Doc: <a href="https://docs.pydantic.dev/">docs.pydantic.dev</a></p>
-</div>
-</section>
-<section id="snakemake-orchestration" class="slide level2">
-<h2>Snakemake: Orchestration</h2>
-<div class="columns">
-<div class="column" style="width:45%;">
-<h3 id="the-problems-2">The Problems</h3>
-<ul>
-<li><strong>Amnesia</strong>: “I changed code; what results are now invalid?”</li>
-<li><strong>Lost parameters</strong>: “How did I generate this figure 6 months ago?”</li>
-</ul>
-</div><div class="column" style="width:55%;">
-<h3 id="the-solutions-2">The Solutions</h3>
-<ul>
-<li><strong>DAG Generation</strong>: knows exactly what needs to run.</li>
-<li><strong>Self-Documentation</strong>: The Snakefile <em>is</em> the record.</li>
-<li><strong>Example</strong>: <a href="../Snakefile">Snakefile</a></li>
-</ul>
-</div></div>
-<div class="footer">
-<p>Doc: <a href="https://snakemake.github.io/">snakemake.github.io</a></p>
-</div>
-</section>
-<section id="testing" class="slide level2">
-<h2>Testing</h2>
-<div class="columns">
-<div class="column" style="width:48%;">
-<h3 id="the-problems-3">The Problems</h3>
-<ul>
-<li><strong>Silent Regression</strong>: Results changed, and you don’t know why.</li>
-<li><strong>Vibe Blindness</strong>: Trusting LLM code without verification.</li>
-</ul>
-</div><div class="column" style="width:48%;">
-<h3 id="the-solutions-3">The Solutions</h3>
-<ul>
-<li><strong>Unit Tests</strong>: Shape checks &amp; Baselines.</li>
-<li><strong>Vibe Coding</strong>: Use tests to verify LLM logic.</li>
-<li><strong>Example</strong>: <a href="../tests/test_nlp_logic.py">test_nlp_logic.py</a></li>
-</ul>
-</div></div>
-<div class="footer">
-<p>Doc: <a href="https://docs.pytest.org/">docs.pytest.org</a> | <a href="https://docs.astral.sh/ruff/">ruff.rs</a></p>
 </div>
 </section></section>
+<section>
 <section id="summary" class="title-slide slide level1 inverse center" data-background-color="#332288">
 <h1>Summary</h1>
 <ol type="1">
-<li>Accept that you are a Developer.</li>
-<li>Provide Context to your LLM (<strong>Pydantic</strong>).</li>
-<li>Localize your Environments (<strong>UV</strong>).</li>
-<li>Automate your Pipeline (<strong>Snakemake</strong>).</li>
-<li><strong>Let the machine do the heavy lifting.</strong></li>
+<li class="fragment">Accept that you are a Developer.</li>
+<li class="fragment">Provide Context to your LLM (<strong>Pydantic</strong>).</li>
+<li class="fragment">Localize your Environments (<strong>UV</strong>).</li>
+<li class="fragment">Automate your Pipeline (<strong>Snakemake</strong>).</li>
+<li class="fragment"><strong>Let the machine do the heavy lifting.</strong></li>
 </ol>
-
+</section>
+<div class="solution-card fragment">
+<h3 id="start-today">Start Today</h3>
+<p>Clone the baseline repo and run <code>just all</code>.</p>
+</div>
 
 </section>
     </div>

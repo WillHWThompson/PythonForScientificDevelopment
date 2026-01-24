@@ -12,6 +12,7 @@ format:
     preview-links: auto
     highlight-style: monokai
     chalkboard: true
+    auto-animate: true
     logo: https://www.python.org/static/community_logos/python-logo-only.png
     title-slide-attributes:
       data-background-color: "#332288"
@@ -23,80 +24,95 @@ format:
 
 ## The Iron Rule of Scientific Software Development
 
--   If you take the time to build out code the right way you will never use it
-
--   If you write sloppy code it will bite you in the ass
-
--   Damned if you do. Damned if you don't.
-
-## 
-
-::: {.fragment .fade-up}
--   Python is a **TERRIBLE** language for scientific computing.
+::: {.problem-card .fragment}
+### The Efficiency Trap
+"If you take the time to build out code the right way, you will never use it."
 :::
 
-::: {.fragment .fade-up}
--   Nothing about the language is inherently good for science.
+::: {.problem-card .fragment}
+### The Technical Debt
+"If you write sloppy code, it will bite you in the ass."
 :::
 
-::: {.fragment .fade-up}
--   Most tools were developed by researchers as a "side-hustle."
+::: {.solution-card .fragment}
+### The Equilibrium
+**Damned if you do. Damned if you don't.** Unless you automate the structure itself.
 :::
 
-::: {.fragment .fade-in-then-semi-out}
--   **The Goal**: How can we contort Python to be at least "okay"?
+## The Python Paradox {auto-animate=true}
+
+::: {.problem-card .fragment}
+- Python is a **TERRIBLE** language for scientific computing.
+- Nothing about the language is inherently good for science.
+- Most tools were developed by researchers as a "side-hustle."
 :::
 
-# The Dirty Secret... {background-color="#ffffff"}
+# The Circle
 
-::: incremental
--   If you are a (non-bench) scientist in 2026: **YOU ARE A SOFTWARE DEVELOPER.**
--   Most of your time isn't in the lab; it's writing and running code.
--   **Fact**: Scientists are (mostly) bad software developers.
-:::
+```{python}
+#| echo: false
+#| fig-align: center
+import matplotlib.pyplot as plt
 
-## The Overhead Trade-off
+with plt.xkcd():
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    # Venn circles
+    c1 = plt.Circle((0.4, 0.5), 0.35, fc='none', ec='black', lw=2)
+    c2 = plt.Circle((0.6, 0.5), 0.35, fc='none', ec='black', lw=2)
+    ax.add_patch(c1)
+    ax.add_patch(c2)
 
-The eternal struggle: Time spent to automate vs. overhead accumulated.
+    # Annotations
+    ax.annotate("THINGS I HATE WITH\nA VISCERAL PASSION", 
+                xy=(0.25, 0.5), xytext=(0.05, 0.85),
+                arrowprops=dict(arrowstyle='->', connectionstyle="arc3,rad=.2"))
+    
+    ax.annotate("STANDARD SCIENTIFIC\nCOMPUTING WORKFLOWS", 
+                xy=(0.75, 0.5), xytext=(0.95, 0.85),
+                ha='right', arrowprops=dict(arrowstyle='->', connectionstyle="arc3,rad=-.2"))
 
-:::: r-stack
-![Automation (Source: XKCD)](https://imgs.xkcd.com/comics/automation_2x.png){.fragment .fade-in-then-out}
+    # The intersection items
+    items = ["JUPYTER", "SLURM", "CONDA", "MATPLOTLIB"]
+    ax.text(0.5, 0.5, "\n".join(items), ha='center', va='center', 
+            fontsize=14, fontweight='bold')
 
-::: {.glass-card .fragment .fade-up}
-### LLM ROI
-
-"I have a tendency to over-engineer pipelines I will never use. Now I can do this guilt-free with **LLMs!**"
-:::
-::::
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis('off')
+    plt.show()
+```
 
 # The Good News {background-color="#AA4499"}
 
 ::: incremental
--   **Fact**: Claude Code is a better developer than you will ever be.
--   **Fact**: LLMs change the ROI on automation.
--   **Fact**: **I basically never write code anymore.**
--   **Fact**: Most LLM failures are failures of **context**, not reasoning.
+- **Fact**: Claude Code is a better developer than you will ever be.
+- **Fact**: LLMs change the ROI on automation.
+- **Fact**: **I basically never write code anymore.**
+- **Fact**: Most LLM failures are failures of **context**, not reasoning.
 :::
 
 ## The Vibe-Coder Thesis
 
+::: {.glass-card}
 > "Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has **adequate context**."
+:::
 
 # Your Workflow {background-color="#ffffff"}
 
 :::::: columns
 ::: {.column width="60%"}
--   You have data/simulation parameters.
--   You have a model (statistical/ML/physics).
--   You want to run sweeps with different inputs.
--   You want to collect & visualize efficiently.
--   You want to turn plots into a **publication**.
+::: {.glass-card}
+- You have data/simulation parameters.
+- You have a model (statistical/ML/physics).
+- You want to run sweeps with different inputs.
+- You want to collect & visualize efficiently.
+:::
 :::
 
 :::: {.column width="40%"}
-::: callout-tip
+::: {.solution-card}
 ### Goal
-
 Automate the **plumbing** so you can focus on the **science**.
 :::
 ::::
@@ -104,21 +120,21 @@ Automate the **plumbing** so you can focus on the **science**.
 
 # Tools of the Trade {background-color="#332288"}
 
-## 1. VSCode / Cursor
+## 1. VSCode / Cursor {auto-animate=true}
 
 ::::: columns
 ::: {.column width="50%"}
-### Modern IDE
-
--   You have **no excuse** not to use a modern IDE.
--   VIM/EMACS are strictly worse for total project velocity.
+::: {.problem-card .fragment}
+### Anti-Pattern
+**Stop using Jupyter Notebooks for everything.** Notebooks are for **exploration**, not **logic**.
+:::
 :::
 
 ::: {.column width="50%"}
-### Anti-Pattern
-
--   **Stop using Jupyter Notebooks for everything.**
--   Notebooks are for **exploration**, not **logic**.
+::: {.solution-card .fragment}
+### Modern IDE
+Localize your logic. Use **Cursor** for AI-native pair programming to move 10x faster.
+:::
 :::
 :::::
 
@@ -126,23 +142,21 @@ Automate the **plumbing** so you can focus on the **science**.
 Doc: [code.visualstudio.com](https://code.visualstudio.com) \| [cursor.com](https://www.cursor.com)
 :::
 
-## 2. Project Structure
+## 2. Project Structure {auto-animate=true}
 
 ::::: columns
 ::: {.column width="50%"}
-### Modularity
-
--   Separate source code from sweeps.
--   Make your source code a **python module**.
--   **Example**: [bert_adapter.py](../src/models/bert_adapter.py)
+::: {.problem-card .fragment}
+### The Mess
+Separate source code from sweeps. Don't drown in a directory of `.ipynb` files.
+:::
 :::
 
 ::: {.column width="50%"}
-### Version Control
-
--   **Git early, git often.**
--   Collaborating? Use **Pull Requests**.
--   **Example**: [README.md](../README.md)
+::: {.solution-card .fragment}
+### Modularity
+Make your code a **module**. Modular code is **testable** code.
+:::
 :::
 :::::
 
@@ -150,44 +164,21 @@ Doc: [code.visualstudio.com](https://code.visualstudio.com) \| [cursor.com](http
 Doc: [git-scm.com](https://git-scm.com)
 :::
 
-## 3. UV: The New Standard
-
-:::::: columns
-::: {.column width="60%"}
--   **Speed**: Orders of magnitude faster than pip.
--   **Reproducibility**: `uv.lock` is non-negotiable.
--   **Example**: [pyproject.toml](../pyproject.toml)
-:::
-
-:::: {.column width="40%"}
-::: callout-important
-### Reproducibility
-
-If it doesn't run on your collaborator's machine, it's not **Science**.
-:::
-::::
-::::::
-
-::: footer
-Doc: [docs.astral.sh/uv](https://docs.astral.sh/uv/)
-:::
-
-## UV vs. Conda
+## 3. UV: The New Standard {auto-animate=true}
 
 ::::: columns
 ::: {.column width="48%"}
-### The Problems
-
--   **Local vs. Cluster**: "I developed code locally, but the VACC env crashes."
--   **Collaboration**: "It works for me, but my coworker has global numpy issues."
+::: {.problem-card .fragment}
+### Environment Hell
+"It works on my machine, but the cluster environment is broken."
+:::
 :::
 
 ::: {.column width="48%"}
-### The Solutions
-
--   **Local Envs**: Environments live in the project folder.
--   **Reproducibility**: Lockfile ensures byte-for-byte matching.
--   **Example**: [pyproject.toml](../pyproject.toml)
+::: {.solution-card .fragment}
+### The Solution
+**UV**: Reproducible environments with `uv.lock`. Byte-for-byte consistency across all machines.
+:::
 :::
 :::::
 
@@ -195,22 +186,21 @@ Doc: [docs.astral.sh/uv](https://docs.astral.sh/uv/)
 Doc: [docs.astral.sh/uv](https://docs.astral.sh/uv/)
 :::
 
-## Pydantic: Strong Typing
+## 4. Pydantic: Strong Typing {auto-animate=true}
 
 ::::: columns
 ::: {.column width="48%"}
-### The Problems
-
--   **Boilerplate**: Constant manual parsing of nested lists/dicts.
--   **Silent Bugs**: Passing $N \times M$ when $M \times N$ was expected.
+::: {.problem-card .fragment}
+### Loose Data
+Constantly parsing nested lists/dicts and hitting silent runtime bugs.
+:::
 :::
 
 ::: {.column width="48%"}
-### The Solutions
-
--   **Validation**: Catch errors at the boundary.
--   **LLM Context**: Gives models the precise "slots" needed.
--   **Example**: [schema.py](../src/core/schema.py)
+::: {.solution-card .fragment}
+### The Solution
+**Validation**: Catch errors at the boundary. Give your LLM a precise schema to work with.
+:::
 :::
 :::::
 
@@ -218,22 +208,21 @@ Doc: [docs.astral.sh/uv](https://docs.astral.sh/uv/)
 Doc: [docs.pydantic.dev](https://docs.pydantic.dev/)
 :::
 
-## Snakemake: Orchestration
+## 5. Snakemake: Orchestration {auto-animate=true}
 
 ::::: columns
-::: {.column width="45%"}
-### The Problems
-
--   **Amnesia**: "I changed code; what results are now invalid?"
--   **Lost parameters**: "How did I generate this figure 6 months ago?"
+::: {.column width="48%"}
+::: {.problem-card .fragment}
+### Pipeline Amnesia
+"How did I generate this figure? What results are stale?"
+:::
 :::
 
-::: {.column width="55%"}
-### The Solutions
-
--   **DAG Generation**: knows exactly what needs to run.
--   **Self-Documentation**: The Snakefile *is* the record.
--   **Example**: [Snakefile](../Snakefile)
+::: {.column width="48%"}
+::: {.solution-card .fragment}
+### The Solution
+**DAG Generation**: Snakemake knows exactly what needs to run. The script *is* the record.
+:::
 :::
 :::::
 
@@ -241,33 +230,30 @@ Doc: [docs.pydantic.dev](https://docs.pydantic.dev/)
 Doc: [snakemake.github.io](https://snakemake.github.io/)
 :::
 
-## Testing
+# Results & Diagnostics {background-color="#ffffff"}
 
-::::: columns
-::: {.column width="48%"}
-### The Problems
+## Interactive Dashboard
 
--   **Silent Regression**: Results changed, and you don't know why.
--   **Vibe Blindness**: Trusting LLM code without verification.
+::: {.glass-card}
+Our pipeline doesn't just run code; it generates **Insights**.
 :::
 
-::: {.column width="48%"}
-### The Solutions
-
--   **Unit Tests**: Shape checks & Baselines.
--   **Vibe Coding**: Use tests to verify LLM logic.
--   **Example**: [test_nlp_logic.py](../tests/test_nlp_logic.py)
-:::
-:::::
-
-::: footer
-Doc: [docs.pytest.org](https://docs.pytest.org/) \| [ruff.rs](https://docs.astral.sh/ruff/)
+::: callout-tip
+### Interactive Visualization
+Access the [Live Dashboard](dashboard.qmd) to explore the BERT training stats and class-wise ROC curves.
 :::
 
 # Summary {.inverse background-color="#332288"}
 
-1.  Accept that you are a Developer.
-2.  Provide Context to your LLM (**Pydantic**).
-3.  Localize your Environments (**UV**).
-4.  Automate your Pipeline (**Snakemake**).
-5.  **Let the machine do the heavy lifting.**
+::: {.incremental}
+1. Accept that you are a Developer.
+2. Provide Context to your LLM (**Pydantic**).
+3. Localize your Environments (**UV**).
+4. Automate your Pipeline (**Snakemake**).
+5. **Let the machine do the heavy lifting.**
+:::
+
+::: {.solution-card .fragment}
+### Start Today
+Clone the baseline repo and run `just all`.
+:::
