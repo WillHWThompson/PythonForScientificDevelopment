@@ -1,0 +1,127 @@
+---
+title: "Python for Scientific Development"
+subtitle: "Contorting a Terrible Language into a Research Powerhouse"
+author: "Research Team"
+format: 
+  revealjs:
+    theme: [night, custom.scss]
+    transition: slide
+    slide-number: true
+    preview-links: auto
+    highlight-style: monokai
+    chalkboard: true
+---
+
+# The Hard Truth {background-color="#1a1a1a"}
+
+- Python is a **TERRIBLE** language for scientific computing.
+- Nothing about the language is inherently good for science.
+- Most tools were developed by researchers as a "side-hustle."
+- **The Goal**: How can we contort Python to be at least "okay"?
+
+---
+
+# The Dirty Secret...
+
+- If you are a (non-bench) scientist in 2026: **YOU ARE A SOFTWARE DEVELOPER.**
+- Most of your time isn't in the lab; it's writing and running code.
+- **Fact**: Scientists are (mostly) bad software developers.
+
+---
+
+## The Overhead Trade-off
+
+The eternal struggle: Time spent to automate vs. overhead accumulated.
+
+![Automation (Source: XKCD)](https://imgs.xkcd.com/comics/automation_2x.png)
+
+> "I have a tendency to over-engineer overcomplicated pipelines I will never use. Now I can do this guilt-free with LLMS!"
+
+---
+
+# The Good News {background-color="#002b36"}
+
+- **Fact**: Claude Code is a better developer than you will ever be.
+- **Fact**: LLMs change the ROI on automation.
+- **Fact**: **I basically never write code anymore.**
+- **Fact**: Most LLM failures are failures of **context**, not reasoning.
+
+---
+
+## The Vibe-Coder Thesis
+
+> "Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has **adequate context**."
+
+---
+
+# Tools of the Trade {background-color="#1a1a1a"}
+
+---
+
+## 1. VSCode / Cursor
+
+- You have **no excuse** not to use a modern IDE.
+- Unless you're an "old-head," VIM/EMACS are strictly worse for your velocity.
+- **Stop using Jupyter Notebooks for everything.**
+    - If you use them for source code, you are doing things wrong.
+
+---
+
+## 2. Project Structure
+
+::: {.columns}
+::: {.column width="50%"}
+### Modularity
+- Separate source code from sweeps.
+- Separate scripts from plotting.
+- Notebooks are for **plots**, not **logic**.
+:::
+
+::: {.column width="50%"}
+### Version Control
+- **Git early, git often.**
+- Collaborating? Use **Pull Requests**.
+- Working alone? **Use Branches.** 
+:::
+:::
+
+---
+
+## 3. UV: The New Standard
+
+UV is a major innovation over `pip` and `conda`.
+
+- **Speed**: Orders of magnitude faster than pip.
+- **Reproducibility**:
+    - `pyproject.toml` tracks everything.
+    - `uv.lock` ensures the **exact** environment every time.
+- **The Cache**: Uses hard-linking. You won't have 50 redundant versions of PyTorch on your disk.
+
+---
+
+## UV vs. Conda
+
+- **Conda**: Global environments are a "psychotic choice."
+- **UV**: Local environments live inside your project.
+- **Clean Disk**: Global cache means half your hard drive isn't taken up by redundant environments.
+
+---
+
+## 4. Pydantic: Strong Typing
+
+Python's biggest weakness is its lack of strong typing.
+
+- **The Solution**: Use Pydantic for input validation.
+- If you are clear about inputs/outputs, it is **much harder** to make a mistake.
+- **LLM Context**: Pydantic models give LLMs the precise "slots" needed to write correct code.
+- **Goodbye Boilerplate**: No more manual dictionary parsing.
+
+---
+
+# Summary
+
+1. Accept that you are a Developer.
+2. Provide Context to your LLM.
+3. Use UV for Environments.
+4. Use Pydantic for Safety.
+5. **Let the machine do the heavy lifting.**

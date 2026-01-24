@@ -1,0 +1,69 @@
+/*-- scss:defaults --*/
+
+/* --- Brand Variables (Matching fig_style.py) --- */
+$slate: #2d3436;
+$emerald: #00b894;
+$gold: #fdcb6e;
+$indigo: #6c5ce7;
+$coral: #ff7675;
+$ghost: #f1f2f6;
+
+/*-- scss:rules --*/
+
+/* --- General Typography --- */
+body {
+    color: $slate;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    color: $slate;
+    font-weight: 800 !important;
+}
+
+a {
+    color: $emerald;
+    text-decoration: none;
+
+    &:hover {
+        color: $indigo;
+        text-decoration: underline;
+    }
+}
+
+/* --- RevealJS Specialization --- */
+.reveal {
+    .slides {
+        section {
+
+            h1,
+            h2 {
+                color: $emerald;
+                /* Emerald headings on dark slides */
+                text-transform: none;
+            }
+        }
+    }
+
+    .progress {
+        color: $emerald !important;
+    }
+
+    .controls {
+        color: $emerald !important;
+    }
+}
+
+/* --- Blockquotes & Callouts --- */
+.callout {
+    border-left-color: $emerald !important;
+}
+
+blockquote {
+    border-left: 5px solid $gold;
+    color: lighten($slate, 20%);
+    font-style: italic;
+}

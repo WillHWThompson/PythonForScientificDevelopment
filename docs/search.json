@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "presentation.html#the-overhead-trade-off",
+    "href": "presentation.html#the-overhead-trade-off",
+    "title": "Python for Scientific Development",
+    "section": "The Overhead Trade-off",
+    "text": "The Overhead Trade-off\nThe eternal struggle: Time spent to automate vs. overhead accumulated.\n\nAutomation (Source: XKCD)\n“I have a tendency to over-engineer overcomplicated pipelines I will never use. Now I can do this guilt-free with LLMS!”"
+  },
+  {
+    "objectID": "presentation.html#the-vibe-coder-thesis",
+    "href": "presentation.html#the-vibe-coder-thesis",
+    "title": "Python for Scientific Development",
+    "section": "The Vibe-Coder Thesis",
+    "text": "The Vibe-Coder Thesis\n\n“Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has adequate context.”"
+  },
+  {
+    "objectID": "presentation.html#vscode-cursor",
+    "href": "presentation.html#vscode-cursor",
+    "title": "Python for Scientific Development",
+    "section": "1. VSCode / Cursor",
+    "text": "1. VSCode / Cursor\n\nYou have no excuse not to use a modern IDE.\nUnless you’re an “old-head,” VIM/EMACS are strictly worse for your velocity.\nStop using Jupyter Notebooks for everything.\n\nIf you use them for source code, you are doing things wrong."
+  },
+  {
+    "objectID": "presentation.html#project-structure",
+    "href": "presentation.html#project-structure",
+    "title": "Python for Scientific Development",
+    "section": "2. Project Structure",
+    "text": "2. Project Structure\n\n\nModularity\n\nSeparate source code from sweeps.\nSeparate scripts from plotting.\nNotebooks are for plots, not logic.\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nWorking alone? Use Branches."
+  },
+  {
+    "objectID": "presentation.html#uv-the-new-standard",
+    "href": "presentation.html#uv-the-new-standard",
+    "title": "Python for Scientific Development",
+    "section": "3. UV: The New Standard",
+    "text": "3. UV: The New Standard\nUV is a major innovation over pip and conda.\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility:\n\npyproject.toml tracks everything.\nuv.lock ensures the exact environment every time.\n\nThe Cache: Uses hard-linking. You won’t have 50 redundant versions of PyTorch on your disk."
+  },
+  {
+    "objectID": "presentation.html#uv-vs.-conda",
+    "href": "presentation.html#uv-vs.-conda",
+    "title": "Python for Scientific Development",
+    "section": "UV vs. Conda",
+    "text": "UV vs. Conda\n\nConda: Global environments are a “psychotic choice.”\nUV: Local environments live inside your project.\nClean Disk: Global cache means half your hard drive isn’t taken up by redundant environments."
+  },
+  {
+    "objectID": "presentation.html#pydantic-strong-typing",
+    "href": "presentation.html#pydantic-strong-typing",
+    "title": "Python for Scientific Development",
+    "section": "4. Pydantic: Strong Typing",
+    "text": "4. Pydantic: Strong Typing\nPython’s biggest weakness is its lack of strong typing.\n\nThe Solution: Use Pydantic for input validation.\nIf you are clear about inputs/outputs, it is much harder to make a mistake.\nLLM Context: Pydantic models give LLMs the precise “slots” needed to write correct code.\nGoodbye Boilerplate: No more manual dictionary parsing."
+  }
+]

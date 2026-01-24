@@ -12,7 +12,8 @@ import seaborn as sns
 from pathlib import Path
 import duckdb
 
-sns.set_theme(style="whitegrid", palette="muted")
+from src.core.fig_style import set_scientific_style
+set_scientific_style()
 
 # Result discovery and aggregation
 results_dir = Path("../results")

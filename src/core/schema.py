@@ -35,6 +35,7 @@ class NLPDataConfig(BaseModel):
     dataset_name: str = Field(default="ag_news", description="Hugging Face dataset identifier.")
     train_split: str = Field(default="train", description="Name of the training split.")
     val_split: str = Field(default="test", description="Name of the validation split.")
+    max_samples: Optional[int] = Field(default=None, description="Max samples for quick training.")
 
 class NLPExperimentConfig(BaseModel):
     """Top-level configuration for a BERT classification experiment."""
