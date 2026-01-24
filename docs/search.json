@@ -2,71 +2,71 @@
   {
     "objectID": "presentation.html#the-overhead-trade-off",
     "href": "presentation.html#the-overhead-trade-off",
-    "title": "Python for Scientific Development",
+    "title": "I Suck At Coding",
     "section": "The Overhead Trade-off",
     "text": "The Overhead Trade-off\nThe eternal struggle: Time spent to automate vs. overhead accumulated.\n\n\n\n\n\nAutomation (Source: XKCD)\n\n\n\n\nLLM ROI\n“I have a tendency to over-engineer pipelines I will never use. Now I can do this guilt-free with LLMs!”",
     "crumbs": [
-      "Python for Scientific Development"
+      "I Suck At Coding"
     ]
   },
   {
     "objectID": "presentation.html#the-vibe-coder-thesis",
     "href": "presentation.html#the-vibe-coder-thesis",
-    "title": "Python for Scientific Development",
+    "title": "I Suck At Coding",
     "section": "The Vibe-Coder Thesis",
     "text": "The Vibe-Coder Thesis\n\n“Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has adequate context.”",
     "crumbs": [
-      "Python for Scientific Development"
+      "I Suck At Coding"
     ]
   },
   {
     "objectID": "presentation.html#vscode-cursor",
     "href": "presentation.html#vscode-cursor",
-    "title": "Python for Scientific Development",
+    "title": "I Suck At Coding",
     "section": "1. VSCode / Cursor",
     "text": "1. VSCode / Cursor\n\n\n\nModern IDE\n\nYou have no excuse not to use a modern IDE.\nVIM/EMACS are strictly worse for total project velocity.\n\n\n\n\nAnti-Pattern\n\nStop using Jupyter Notebooks for everything.\nNotebooks are for exploration, not logic.\n\n\n\n\nDoc: code.visualstudio.com | cursor.com",
     "crumbs": [
-      "Python for Scientific Development"
+      "I Suck At Coding"
     ]
   },
   {
     "objectID": "presentation.html#project-structure",
     "href": "presentation.html#project-structure",
-    "title": "Python for Scientific Development",
+    "title": "I Suck At Coding",
     "section": "2. Project Structure",
     "text": "2. Project Structure\n\n\n\nModularity\n\nSeparate source code from sweeps.\nMake your source code a python module.\nExample: bert_adapter.py\n\n\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nExample: README.md\n\n\n\n\nDoc: git-scm.com",
     "crumbs": [
-      "Python for Scientific Development"
+      "I Suck At Coding"
     ]
   },
   {
     "objectID": "presentation.html#uv-the-new-standard",
     "href": "presentation.html#uv-the-new-standard",
-    "title": "Python for Scientific Development",
+    "title": "I Suck At Coding",
     "section": "3. UV: The New Standard",
     "text": "3. UV: The New Standard\n\n\n\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility: uv.lock is non-negotiable.\nExample: pyproject.toml\n\n\n\n\nReproducibility\nIf it doesn’t run on your collaborator’s machine, it’s not Science.\n\n\n\nDoc: docs.astral.sh/uv",
     "crumbs": [
-      "Python for Scientific Development"
+      "I Suck At Coding"
     ]
   },
   {
     "objectID": "presentation.html#uv-vs.-conda",
     "href": "presentation.html#uv-vs.-conda",
-    "title": "Python for Scientific Development",
+    "title": "I Suck At Coding",
     "section": "UV vs. Conda",
     "text": "UV vs. Conda\n\n\n\nThe Problems\n\nLocal vs. Cluster: “I developed code locally, but the VACC env crashes.”\nCollaboration: “It works for me, but my coworker has global numpy issues.”\n\n\n\n\nThe Solutions\n\nLocal Envs: Environments live in the project folder.\nReproducibility: Lockfile ensures byte-for-byte matching.\nExample: pyproject.toml\n\n\n\n\nDoc: docs.astral.sh/uv",
     "crumbs": [
-      "Python for Scientific Development"
+      "I Suck At Coding"
     ]
   },
   {
     "objectID": "presentation.html#pydantic-strong-typing",
     "href": "presentation.html#pydantic-strong-typing",
-    "title": "Python for Scientific Development",
+    "title": "I Suck At Coding",
     "section": "4. Pydantic: Strong Typing",
     "text": "4. Pydantic: Strong Typing\n\n\n\nThe Problems\n\nBoilerplate: Constant manual parsing of nested lists/dicts.\nSilent Bugs: Passing \\(N \\times M\\) when \\(M \\times N\\) was expected.\n\n\n\n\nThe Solutions\n\nValidation: Catch errors at the boundary.\nLLM Context: Gives models the precise “slots” needed.\nExample: schema.py\n\n\n\n\nDoc: docs.pydantic.dev",
     "crumbs": [
-      "Python for Scientific Development"
+      "I Suck At Coding"
     ]
   },
   {
@@ -100,21 +100,21 @@
   {
     "objectID": "presentation.html#testing",
     "href": "presentation.html#testing",
-    "title": "Python for Scientific Development",
+    "title": "I Suck At Coding",
     "section": "6. Testing",
     "text": "6. Testing\n\n\n\nThe Problems\n\nSilent Regression: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py\n\n\n\n\nDoc: docs.pytest.org | ruff.rs",
     "crumbs": [
-      "Python for Scientific Development"
+      "I Suck At Coding"
     ]
   },
   {
     "objectID": "presentation.html#snakemake-orchestration",
     "href": "presentation.html#snakemake-orchestration",
-    "title": "Python for Scientific Development",
+    "title": "I Suck At Coding",
     "section": "5. Snakemake: Orchestration",
     "text": "5. Snakemake: Orchestration\n\n\n\nThe Problems\n\nAmnesia: “I changed code; what results are now invalid?”\nLost parameters: “How did I generate this figure 6 months ago?”\n\n\n\n\nThe Solutions\n\nDAG Generation: knows exactly what needs to run.\nSelf-Documentation: The Snakefile is the record.\nExample: Snakefile\n\n\n\n\nDoc: snakemake.github.io",
     "crumbs": [
-      "Python for Scientific Development"
+      "I Suck At Coding"
     ]
   },
   {
@@ -294,11 +294,11 @@
   {
     "objectID": "presentation.html#the-iron-rule-of-scientific-software-development",
     "href": "presentation.html#the-iron-rule-of-scientific-software-development",
-    "title": "Python for Scientific Development",
+    "title": "I Suck At Coding",
     "section": "The Iron Rule of Scientific Software Development",
     "text": "The Iron Rule of Scientific Software Development\n\n\nIf you take the time to build out code the right way you will never use it\n\n\n\n\nIf you write sloppy code it will bite you in the ass\n\n\n\n\nDamned if you do. Damned if you don’t.",
     "crumbs": [
-      "Python for Scientific Development"
+      "I Suck At Coding"
     ]
   },
   {
@@ -314,21 +314,21 @@
   {
     "objectID": "presentation.html#the-python-paradox",
     "href": "presentation.html#the-python-paradox",
-    "title": "Python for Scientific Development",
+    "title": "I Suck At Coding",
     "section": "The Python Paradox",
     "text": "The Python Paradox\n\n\nPython is a TERRIBLE language for scientific computing.\nNothing about the language is inherently good for science.\nMost tools were developed by researchers as a “side-hustle.”\n\n\n\n\nThe Goal: How can we contort Python to be at least “okay”?",
     "crumbs": [
-      "Python for Scientific Development"
+      "I Suck At Coding"
     ]
   },
   {
     "objectID": "presentation.html#research-dashboard",
     "href": "presentation.html#research-dashboard",
-    "title": "Python for Scientific Development",
+    "title": "I Suck At Coding",
     "section": "Research Dashboard",
     "text": "Research Dashboard\n\nWe don’t just generate plots; we generate interactive insights.\n\n\n\nimport { view } from \"@observablehq/inputs\"\n\n// Placeholder for interactive OJS component demonstration\nmd`### 📊 [View Integrated Dashboard](dashboard.qmd)`",
     "crumbs": [
-      "Python for Scientific Development"
+      "I Suck At Coding"
     ]
   }
 ]

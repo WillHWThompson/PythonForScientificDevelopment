@@ -1,6 +1,6 @@
 ---
-title: "Python for Scientific Development"
-subtitle: "Contorting a Terrible Language into a Research Powerhouse"
+title: "I Suck At Coding "
+subtitle: "How I learned to stop worrying and feel the vibecoding"
 author: "Research Team"
 footer: "Scientific Python | Modular. Reproducible. Professional."
 format: 

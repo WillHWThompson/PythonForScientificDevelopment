@@ -73,7 +73,8 @@ else:
 # Load Data Samples for Exploration
 from datasets import load_dataset
 try:
-    ds = load_dataset("ag_news", split="train").select(range(100))
+    # Increased sample size for better exploration variety
+    ds = load_dataset("ag_news", split="train").select(range(500))
     label_map = {0: "World", 1: "Sports", 2: "Business", 3: "Sci/Tech"}
     data_samples = pd.DataFrame({
         "text": ds["text"],
@@ -85,14 +86,24 @@ except:
 # Load ROC curve data
 try:
     roc_pattern = str(results_dir / "**" / "test_roc_curves.parquet")
-    roc_all = con.execute(f"SELECT * FROM read_parquet('{roc_pattern}')").df()
-    # Ensure field name consistency for filtering
-    if 'full_run_name' in roc_all.columns:
-        roc_all = roc_all.rename(columns={'full_run_name': 'full_name'})
-except:
-    # Dummy ROC data
+    stats_p = str(results_dir / "**" / "training_stats.parquet")
+    
+    # Query to join ROC points with run hyperparameters
+    query_roc = f"""
+        SELECT 
+            r."class", r.fpr, r.tpr, r.full_run_name as full_name,
+            s.adapter_dim, s.learning_rate
+        FROM read_parquet('{roc_pattern}') r
+        JOIN (
+            SELECT DISTINCT full_run_name, adapter_dim, learning_rate 
+            FROM read_parquet('{stats_p}')
+        ) s ON r.full_run_name = s.full_run_name
+    """
+    roc_all = con.execute(query_roc).df()
+except Exception as e:
+    # Dummy ROC data if sync hasn't happened
     roc_all = pd.DataFrame([
-        {"class": c, "fpr": x, "tpr": x**0.5, "full_run_name": "Prototype"} 
+        {"class": c, "fpr": x, "tpr": x**0.5, "full_name": "Prototype", "adapter_dim": 256, "learning_rate": 0.0001} 
         for c in ["World", "Sports", "Business", "Sci/Tech"] for x in np.linspace(0, 1, 20)
     ])
 
@@ -203,12 +214,24 @@ Detailed analysis of model confidence and class-wise discrimination.
 ### ROC Curves (One-vs-Rest)
 
 ```{ojs}
-// Filter ROC data for selected run
+// Independent controls for comparing MODELS without affecting the main sweep filter
+viewof roc_dim = Inputs.select(
+  [...new Set(research_data.adapter_dim)], 
+  {label: "Model Dim", value: 256}
+)
+
+viewof roc_lr = Inputs.select(
+  [...new Set(research_data.learning_rate)], 
+  {label: "Model LR", value: 0.0001}
+)
+
+// Filter ROC data for specific hyperparameter pair
 filtered_roc = {
   const data = transpose(roc_curves);
-  // We match by the first run in the current filter for simplicity
-  const run_name = filtered_data.length > 0 ? filtered_data[0].full_name : "";
-  return data.filter(d => d.full_name === run_name);
+  return data.filter(d => 
+    d.adapter_dim === roc_dim && 
+    d.learning_rate === roc_lr
+  );
 }
 
 Plot.plot({
@@ -245,9 +268,20 @@ Browse the raw research inputs to understand the linguistic complexity of the AG
 ### Sample Browser
 
 ```{ojs}
-Inputs.table(transpose(dataset_samples), {
+//| panel: sidebar
+viewof selected_cat = Inputs.radio(
+  ["All", ...new Set(dataset_samples.label)], 
+  {label: "News Category", value: "All"}
+)
+
+filtered_samples = {
+  const data = transpose(dataset_samples);
+  return selected_cat === "All" ? data : data.filter(d => d.label === selected_cat);
+}
+
+Inputs.table(filtered_samples, {
   columns: ["label", "text"],
-  rows: 15,
+  rows: 20,
   layout: "fixed"
 })
 ```
