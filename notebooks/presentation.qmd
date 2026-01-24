@@ -236,7 +236,7 @@ Doc: [snakemake.github.io](https://snakemake.github.io/)
 Doc: [docs.pytest.org](https://docs.pytest.org/) | [ruff.rs](https://docs.astral.sh/ruff/)
 :::
 
-# Summary {background-color="#332288"}
+# Summary {.inverse background-color="#332288"}
 
 1. Accept that you are a Developer.
 2. Provide Context to your LLM (**Pydantic**).

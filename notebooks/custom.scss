@@ -42,6 +42,24 @@ b {
     font-weight: 700;
 }
 
+.inverse {
+    color: white !important;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    strong,
+    b {
+        color: white !important;
+    }
+
+    strong,
+    b {
+        color: $tol-cyan !important;
+    }
+}
+
 a {
     transition: all 0.2s ease-in-out;
     color: $tol-purple;
@@ -149,6 +167,36 @@ a {
 .reveal .slide-background-content {
     background-size: cover;
     opacity: 0.05;
+}
+
+.reveal .slides section[data-background-color="#332288"],
+.reveal .slides section[data-background-color="#AA4499"],
+.reveal .slides section.title-slide {
+    color: white !important;
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        color: white !important;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    strong,
+    b {
+        color: $tol-cyan !important;
+    }
+
+    li,
+    p {
+        color: rgba(255, 255, 255, 0.9) !important;
+    }
+
+    .subtitle {
+        color: $tol-rose;
+        font-weight: 500;
+        font-style: italic;
+    }
 }
 
 /* Specific Section Header Style */
