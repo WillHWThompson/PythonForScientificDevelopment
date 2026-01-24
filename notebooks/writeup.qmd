@@ -1,28 +1,27 @@
 ---
-title: "Large-scale Classification of Higgs Boson Signals using JAX"
+title: "Parameter-Efficient Text Classification with BERT Adapters"
 author: "Research Team"
 bibliography: references.bib
 ---
 
 # Introduction
 
-The search for the Higgs Boson represents a milestone in modern particle physics. Using deep learning to distinguish between signal and background processes has become an essential technique for improving discovery potential [@baldi2014searching].
+The classification of large-scale text datasets like **AG News** is a foundational task in modern NLP. While fine-tuning every parameter of a Transformer model like **BERT** is powerful, it is often computationally expensive. We explore **Parameter-Efficient Fine-Tuning (PEFT)** to achieve high accuracy with minimal resource overhead.
 
 # Methodology
 
-We leverage the JAX ecosystem for its high-performance automatic differentiation and XLA-accelerated linear algebra [@jax2018github]. To handle the 11 million samples efficiently without straining systems with limited RAM, we utilize DuckDB [@duckdb2019] to stream data directly from Parquet files.
+We leverage the **Hugging Face Transformers** ecosystem for its robust implementation of DistilBERT [@huggingface2019distilbert]. Instead of traditional fine-tuning, we fix the backbone weights and train a custom **Linear Adapter** head.
 
-## The Model
+## Architecture
 
-We employ a 3-layer Multi-Layer Perceptron (MLP) with the following architecture:
-- Layer 1: 256 units (ReLU)
-- Layer 2: 128 units (ReLU)
-- Layer 3: 64 units (ReLU)
-- Output: 1 unit (Sigmoid)
+Our approach uses:
+- **Base**: `distilbert-base-uncased` (Frozen)
+- **Adapter**: A 2-layer bottleneck MLP (Linear -> ReLU -> Dropout -> Linear)
+- **Classification**: A final linear layer mapping the adapted `[CLS]` token to the 4 news categories.
 
 # Preliminary Results
 
-Initial training runs on the 21 low-level kinematic features show performance gains as the model depth increases. Full results are available on the [Dashboard](dashboard.qmd).
+Initial sweeps across the `adapter_dim` and `learning_rate` space indicate that we can achieve competitive performance (~90% accuracy) while only updating approximately 1% of the total model parameters. Full results are available on the [Dashboard](dashboard.qmd).
 
 ## References
 ::: {#refs}

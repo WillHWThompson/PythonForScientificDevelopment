@@ -1,78 +1,64 @@
 # Scientific Python Development: Higgs Boson Classification
+# BERT Text Classification with Adapters
 
-This repository demonstrates a professional, high-performance scientific development workflow in Python. It uses the **Higgs Boson Dataset** (11 Million samples) to showcase modern tools for orchestration, hardware acceleration, and data management.
+A professional scientific research template for NLP, demonstrating **Parameter-Efficient Fine-Tuning (PEFT)** using DistilBERT and Linear Adapters. This project uses the **AG News** dataset (120,000 headlines) to classify news into four categories: World, Sports, Business, and Sci/Tech.
 
-## 🛠️ Technology Stack
+## 🚀 Key Features
 
-- **[uv](https://github.com/astral-sh/uv)**: Extremely fast Python package and project manager.
-- **[JAX](https://github.com/google/jax)**: Composable transformations of Python+NumPy (Autograd, XLA) for hardware-accelerated deep learning.
-- **[Snakemake](https://snakemake.github.io/)**: Workflow management for reproducible and scalable data pipelines.
-- **[DuckDB](https://duckdb.org/)**: High-performance analytical database for streaming large Parquet files.
-- **[Weights & Biases (WandB)](https://wandb.ai/)**: Real-time experiment tracking and training visualization.
-- **[Quarto](https://quarto.org/)**: Scientific and technical publishing system for research websites and interactive dashboards.
-- **[Pydantic](https://docs.pydantic.dev/)**: Robust configuration and data validation.
+- **Parameter Efficiency**: Uses a Linear Bottleneck Adapter head over a frozen DistilBERT backbone. Only ~1% of parameters are trainable.
+- **Dynamic Hyperparameter Sweeps**: A robust Snakemake orchestration layer that automatically handles experiment grids (learning rate, adapter dimension, etc.).
+- **Professional NLP Stack**: Built with PyTorch, Hugging Face `transformers`, `datasets`, and `evaluate`.
+- **DuckDB Results Aggregation**: High-performance results analysis using DuckDB to scan experiment JSONs directly into a research dashboard.
+- **Quarto Dashboards**: Interactive research website to visualize experiment metrics and model performance.
 
-## 🚀 Getting Started
+## 📁 Project Structure
 
-### 1. Prerequisites
-Install `uv` if you haven't already:
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
+```text
+├── configs/            # YAML experiment configurations
+├── scripts/            # Training entry points
+├── src/
+│   └── text_classifier/ # Core model, data, and trainer logic
+├── workflow/
+│   ├── rules/          # Modular Snakemake rules
+│   └── profiles/       # Site-specific executor settings (Slurm, Local)
+├── notebooks/          # Quarto analysis and dashboard
+└── Snakefile           # Main workflow orchestrator
 ```
 
-### 2. Setup the Environment
+## 🛠 Setup & Installation
+
+This project uses `uv` for lightning-fast dependency management.
+
 ```bash
+# Install dependencies
 uv sync
 ```
 
-### 3. Setup Experiment Tracking (WandB)
-To visualize your training live:
-1.  **Login to WandB**:
-    ```bash
-    uv run wandb login
-    ```
-2.  **Update Config**: Open `config.yaml` and set `enabled: true` and your `entity` (username).
+## 📈 Running Experiments
 
-### 4. Run the Pipeline
-The workflow is orchestrated via **Snakemake**. To run an experiment, you point to a specific configuration file using the `--configfile` flag.
+We use **Snakemake Profiles** found in `workflow/profiles/` to manage execution across different environments.
 
-**Example: Run a Sweep**
+### 1. Basic Experiment
 ```bash
-uv run snakemake --workflow-profile workflow/profiles/local --configfile configs/default.yaml
+uv run snakemake --workflow-profile workflow/profiles/local --configfile configs/nlp_baseline.yaml
 ```
 
-**Example: Run a Narrow Search**
+### 2. High-Performance Sweeps (Slurm)
+The pipeline automatically detects the `sweep` section in your YAML and parallelizes the jobs.
 ```bash
-uv run snakemake --workflow-profile workflow/profiles/local --configfile configs/narrow_sweep.yaml
+uv run snakemake --workflow-profile workflow/profiles/slurm --configfile configs/nlp_baseline.yaml
 ```
 
-## 🚀 Key Features
-Profiles are the professional way to handle cluster portability:
-- **Separation of Concerns**: Your `Snakefile` defines the science; your `Profile` defines the hardware.
-- **No Batch Scripts**: Snakemake handles the `sbatch` submission for you.
-- **Default Resources**: You can set global timeouts and memory limits in the profile, which rules can then override.
+## 📊 Research Dashboard
 
-## 🔄 Modular Workflows
-
-As projects grow, `Snakefiles` can become cluttered. We use **Snakemake Rules Modules** to keep things organized:
-- `workflow/rules/data.smk`: Handles ingestion and preprocessing.
-- `workflow/rules/train.smk`: Handles JAX model training.
-
-The main `Snakefile` simply pulls these together using `include:`. This pattern allows you to share rules across different projects or workflows easily.
-
-## 📊 Research Website & Dashboard
-
-We use Quarto to render a cohesive research website from our notebooks.
+View your results in an interactive dashboard:
 
 ```bash
 cd notebooks
-quarto preview
+quarto preview dashboard.qmd
 ```
 
-The website includes:
-- **Daily Research Notes**: A chronological record of development.
-- **Scientific Write-up**: A formal report with BibTeX citations.
-- **Results Dashboard**: Interactive visualization of model performance and feature analysis.
+The dashboard uses DuckDB to aggregate stats from all experiment subfolders in `results/`, providing a unified view of your research progress.
 
 ## 🧪 Testing and CI
 
