@@ -31,10 +31,10 @@ if "sweep" in config_data:
     # Build output paths
     for row in grid:
         instance_path = get_instance_dir(row)
-        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/training_stats.json")
+        ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/training_stats.parquet")
         ALL_OUTPUTS.append(f"results/{cfg_name}/{instance_path}/model.pt")
 else:
-    ALL_OUTPUTS.append(f"results/{cfg_name}/base/training_stats.json")
+    ALL_OUTPUTS.append(f"results/{cfg_name}/base/training_stats.parquet")
     ALL_OUTPUTS.append(f"results/{cfg_name}/base/model.pt")
 
 rule all:
