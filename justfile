@@ -11,7 +11,7 @@ train config=config:
 
 ## Run ONLY evaluation for a specific config
 test config=config:
-    uv run snakemake --workflow-profile workflow/profiles/local --configfile {{config}} test_all
+    uv run snakemake test_all --workflow-profile workflow/profiles/local --configfile {{config}}
 
 ## Sync training results from VACC cluster
 sync:
