@@ -12,11 +12,11 @@
   {
     "objectID": "presentation.html#the-vibe-coder-thesis",
     "href": "presentation.html#the-vibe-coder-thesis",
-    "title": "I Suck At Coding",
+    "title": "I Suck At Coding: A Manifesto",
     "section": "The Vibe-Coder Thesis",
-    "text": "The Vibe-Coder Thesis\n\n“Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has adequate context.”",
+    "text": "The Vibe-Coder Thesis\n\n“Being an effective vibe-coder is NOT the Kabbalah. It is not knowing about the esoteric secret prompt\n\nit is about ensuring the model has adequate context.”",
     "crumbs": [
-      "I Suck At Coding"
+      "I Suck At Coding: A Manifesto"
     ]
   },
   {
@@ -294,11 +294,11 @@
   {
     "objectID": "presentation.html#the-iron-rule-of-scientific-software-development",
     "href": "presentation.html#the-iron-rule-of-scientific-software-development",
-    "title": "I Suck At Coding",
+    "title": "I Suck At Coding: A Manifesto",
     "section": "The Iron Rule of Scientific Software Development",
     "text": "The Iron Rule of Scientific Software Development\n\n\nIf you take the time to build out code the right way you will never use it\n\n\n\n\nIf you write sloppy code it will bite you in the ass\n\n\n\n\nDamned if you do. Damned if you don’t.",
     "crumbs": [
-      "I Suck At Coding"
+      "I Suck At Coding: A Manifesto"
     ]
   },
   {
@@ -314,21 +314,21 @@
   {
     "objectID": "presentation.html#the-python-paradox",
     "href": "presentation.html#the-python-paradox",
-    "title": "I Suck At Coding",
+    "title": "I Suck At Coding: A Manifesto",
     "section": "The Python Paradox",
     "text": "The Python Paradox\n\n\n\n\nPython is a TERRIBLE language for scientific computing.\nNothing about the language is inherently good for science.\nMost tools were developed by researchers as a “side-hustle.”\n\n\n\n\nThe Goal: How can we contort Python to be at least “okay”?\n\n\n\n\n\n\n\nDependency (Source: XKCD)",
     "crumbs": [
-      "I Suck At Coding"
+      "I Suck At Coding: A Manifesto"
     ]
   },
   {
     "objectID": "presentation.html#research-dashboard",
     "href": "presentation.html#research-dashboard",
-    "title": "I Suck At Coding",
+    "title": "I Suck At Coding: A Manifesto",
     "section": "Research Dashboard",
     "text": "Research Dashboard\n\nWe don’t just generate plots; we generate interactive insights.\n\n\n\nimport { view } from \"@observablehq/inputs\"\n\n// Placeholder for interactive OJS component demonstration\nmd`### 📊 [View Integrated Dashboard](dashboard.qmd)`",
     "crumbs": [
-      "I Suck At Coding"
+      "I Suck At Coding: A Manifesto"
     ]
   },
   {
@@ -364,11 +364,11 @@
   {
     "objectID": "presentation.html#logic-of-my-life",
     "href": "presentation.html#logic-of-my-life",
-    "title": "I Suck At Coding",
+    "title": "I Suck At Coding: A Manifesto",
     "section": "Logic of my Life",
     "text": "Logic of my Life\nThe eternal struggle: Time spent to automate vs. overhead accumulated.\n\n\n\nIs it worth the time? (Source: XKCD)",
     "crumbs": [
-      "I Suck At Coding"
+      "I Suck At Coding: A Manifesto"
     ]
   },
   {
@@ -444,71 +444,71 @@
   {
     "objectID": "presentation.html#the-environment",
     "href": "presentation.html#the-environment",
-    "title": "I Suck At Coding",
+    "title": "I Suck At Coding: A Manifesto",
     "section": "1. The Environment",
     "text": "1. The Environment\n\n\n\nReproducible UV\n\nSpeed: Orders of magnitude faster than pip/conda.\nLocking: uv.lock ensures your code runs everywhere.\n\n\n\n\nModular Source\n\nNo More Notebooks: Logic lives in .py modules.\nGit Flow: Use Pull Requests to manage complexity.\n\n\n\n\nDocs: astral.sh/uv | git-scm.com",
     "crumbs": [
-      "I Suck At Coding"
+      "I Suck At Coding: A Manifesto"
     ]
   },
   {
     "objectID": "presentation.html#the-workflow",
     "href": "presentation.html#the-workflow",
-    "title": "I Suck At Coding",
+    "title": "I Suck At Coding: A Manifesto",
     "section": "2. The Workflow",
     "text": "2. The Workflow\n\n\n\nSnakemake DAGs\n\nAmnesia Proof: Automatically tracks what results are invalid.\nDeclarative: The code is the documentation.\n\n\n\n\nHPC Scaling\n\nVACC Profiles: Zero-effort Slurm submission.\nScaling: Run 1 locally; run 1,000 on the cluster.\n\n\n\n\nDocs: snakemake.github.io | vacc.uvm.edu",
     "crumbs": [
-      "I Suck At Coding"
+      "I Suck At Coding: A Manifesto"
     ]
   },
   {
     "objectID": "presentation.html#the-data-lifecycle",
     "href": "presentation.html#the-data-lifecycle",
-    "title": "I Suck At Coding",
+    "title": "I Suck At Coding: A Manifesto",
     "section": "3. The Data Lifecycle",
     "text": "3. The Data Lifecycle\n\n\n\nValidated Data\n\nPydantic: Catch errors at the boundary.\nLLM Context: Structured slots for model reasoning.\n\n\n\n\nHigh-Perf Analytics\n\nParquet + DuckDB: SQL speed on flat files.\nTesting: Shape checks to verify the “vibe.”\n\n\n\n\nDocs: duckdb.org | pydantic.dev",
     "crumbs": [
-      "I Suck At Coding"
+      "I Suck At Coding: A Manifesto"
     ]
   },
   {
     "objectID": "presentation.html#the-summer-school-trap",
     "href": "presentation.html#the-summer-school-trap",
-    "title": "I Suck At Coding",
+    "title": "I Suck At Coding: A Manifesto",
     "section": "The Summer School Trap",
     "text": "The Summer School Trap\n\n\n\nThe Project\n\nGoal: Fit opinion spreading models to network data.\nStart: First year of grad school workshop.\nInitial Code: Quick & dirty PyTorch.\n\n\n\n\nThe Vibe\n“It’ll be 6 months, tops, to a publication.” 🤡",
     "crumbs": [
-      "I Suck At Coding"
+      "I Suck At Coding: A Manifesto"
     ]
   },
   {
     "objectID": "presentation.html#the-descent-feature-creep",
     "href": "presentation.html#the-descent-feature-creep",
-    "title": "I Suck At Coding",
+    "title": "I Suck At Coding: A Manifesto",
     "section": "The Descent: Feature Creep",
     "text": "The Descent: Feature Creep\n\n\n\nPhase 1: Portability\n\nProblem: 5 collaborators on every OS.\n“Solution”: JSON configs + nested Shell wrappers.\n\n\n\n\nPhase 2: HPC (VACC)\n\nProblem: Local vs. Cluster batch jobs.\n“Solution”: Custom J2 templating system.",
     "crumbs": [
-      "I Suck At Coding"
+      "I Suck At Coding: A Manifesto"
     ]
   },
   {
     "objectID": "presentation.html#the-final-collapse",
     "href": "presentation.html#the-final-collapse",
-    "title": "I Suck At Coding",
+    "title": "I Suck At Coding: A Manifesto",
     "section": "The Final Collapse",
     "text": "The Final Collapse\n\n\n\nOver-Engineering\n\nSQLite locking? Move to MySQL.\nUVM Firewall? Polymorphic IO.\nFilename limits? Build an ORM.\n\n\n\n\nThe End\n\n2026: No publication.\nFramework is too convoluted to use.\nCollaborators keep force-pushing to main because they hate the code.",
     "crumbs": [
-      "I Suck At Coding"
+      "I Suck At Coding: A Manifesto"
     ]
   },
   {
     "objectID": "presentation.html#a-moral-failure",
     "href": "presentation.html#a-moral-failure",
-    "title": "I Suck At Coding",
+    "title": "I Suck At Coding: A Manifesto",
     "section": "A Moral Failure",
     "text": "A Moral Failure\n\n\n\nBad development is a sin.",
     "crumbs": [
-      "I Suck At Coding"
+      "I Suck At Coding: A Manifesto"
     ]
   }
 ]

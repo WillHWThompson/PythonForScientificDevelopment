@@ -1,8 +1,8 @@
 ---
-title: "I Suck At Coding "
+title: "I Suck At Coding: A Manifesto"
 subtitle: "How I learned to stop worrying and feel the vibecoding"
-author: "Research Team"
-footer: "Scientific Python S | Modular. Reproducible. Professional."
+author: "W. H. W. Thompson"
+footer: "I Suck at Coding: A Manifesto"
 format: 
   revealjs:
     theme: [white, custom.scss]
@@ -87,7 +87,6 @@ format:
 :::
 :::::
 
-# Utopia {class="bg-dark-texture"}
 
 ## A Moral Failure
 
@@ -98,6 +97,8 @@ format:
 ::: r-fit-text
 "This was all my fault."
 :::
+
+# Without SLURM We Would Have Cured Cancer By Now {class="bg-dark-texture"}
 
 
 ## The Iron Rule of Scientific Software Development
@@ -153,37 +154,32 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 # The Good News {class="bg-accent-1"}
 
 ::: incremental
--   **Fact**: Claude Code is a better developer than you will ever be.
 -   **Fact**: LLMs change the ROI on automation.
--   **Fact**: **I basically never write code anymore.**
--   **Fact**: Most LLM failures are failures of **context**, not reasoning.
+-   **Fact**: Being an effective vibe coder means **BEING AN EFFECTIVE CODER**.
 :::
 
-## The Vibe-Coder Thesis
-
-> "Being an effective vibe-coder is NOT about writing some super secret prompt; it is about ensuring the model has **adequate context**."
 
 # Your Workflow {class="bg-accent-3"}
 
-:::::: columns
+:::: columns
 ::: {.column width="60%"}
 ::: {.glass-card .fragment}
--   You have data/simulation parameters.
--   You have a model (statistical/ML/physics).
--   You want to run sweeps with different inputs.
--   You want to collect & visualize efficiently.
--   You want to turn plots into a **publication**.
+### The Process
+- You have data & simulation parameters.
+- You have a model (statistical/ML/physics).
+- You want to run sweeps with fixed logic.
+- You want to collect & visualize results.
+- You want to turn plots into a **publication**.
 :::
 :::
 
-:::: {.column width="40%"}
+::: {.column width="40%"}
 ::: {.glass-card .fragment}
-### Goal
-
-Automate the **plumbing** so you can focus on the **science**.
+### The Goal
+**Automate the plumbing** so you can focus on the **science**.
+:::
 :::
 ::::
-::::::
 
 # The Sanity Savers {class="bg-primary"}
 
@@ -277,20 +273,24 @@ md`### 📊 [View Integrated Dashboard](dashboard.qmd)`
 ```
 :::
 
-# Summary {.inverse class="bg-primary"}
+# Summary {class="bg-primary"}
 
-1.  ::: {.glass-card .fragment .fade-up}
-    Accept that you are a Developer.
-    :::
-2.  ::: {.glass-card .fragment .fade-up}
-    Standardize Environments (**UV**).
-    :::
-3.  ::: {.glass-card .fragment .fade-up}
-    Automate Workflows (**Snakemake**).
-    :::
-4.  ::: {.glass-card .fragment .fade-up}
-    Verify and Aggregate (**DuckDB/Pytest**).
-    :::
-5.  ::: {.glass-card .fragment .fade-up}
-    **Let Claude Code handle the heavy lifting.**
-    :::
+::: {.glass-card .fragment .fade-up}
+1. **Accept that you are a Developer.** We are all software engineers now.
+:::
+
+::: {.glass-card .fragment .fade-up}
+2. **Standardize Environments.** Use **UV** and lockfiles.
+:::
+
+::: {.glass-card .fragment .fade-up}
+3. **Automate Workflows.** Let **Snakemake** handle the graph.
+:::
+
+::: {.glass-card .fragment .fade-up}
+4. **Verify and Aggregate.** Use **DuckDB** for insane speed.
+:::
+
+::: {.glass-card .fragment .fade-up}
+5. **Focus on the Science.** Let automation handle the heavy lifting.
+:::
