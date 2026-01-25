@@ -19,87 +19,89 @@ format:
       data-background-opacity: "0.1"
 ---
 
+------------------------------------------------------------------------
 
-
----
-
-# My Scientific Albatross {class="bg-dark-texture" auto-animate=true}
+# My Scientific Albatross {.bg-dark-texture auto-animate="true"}
 
 ## The Summer School Trap
 
-:::: columns
-::: {.column width="60%"}
+::::::: columns
+:::: {.column width="60%"}
 ::: {.glass-card .fragment .fade-up}
 ### The Project
-- **Goal**: Fit opinion spreading models to network data.
-- **Start**: First year of grad school workshop.
-- **Initial Code**: Quick & dirty PyTorch.
-:::
-:::
 
-::: {.column width="40%"}
+-   **Goal**: Fit opinion spreading models to network data.
+-   **Start**: First year of grad school workshop.
+-   **Initial Code**: Quick & dirty PyTorch.
+:::
+::::
+
+:::: {.column width="40%"}
 ::: {.glass-card .fragment .fade-left}
 ### The Vibe
+
 "It'll be 6 months, tops, to a publication." 🤡
 :::
-:::
 ::::
+:::::::
 
-## The Descent: Feature Creep {auto-animate=true}
+## The Descent: Feature Creep {auto-animate="true"}
 
-:::: columns
-::: {.column width="50%"}
+::::::: columns
+:::: {.column width="50%"}
 ::: {.glass-card .fragment .fade-up}
 ### Phase 1: Portability
-- **Problem**: 5 collaborators on every OS.
-- **"Solution"**: JSON configs + nested Shell wrappers.
-:::
-:::
 
-::: {.column width="50%"}
-::: {.glass-card .fragment .fade-up}
-### Phase 2: HPC (VACC)
-- **Problem**: Local vs. Cluster batch jobs.
-- **"Solution"**: Custom J2 templating system.
-:::
+-   **Problem**: 5 collaborators on every OS.
+-   **"Solution"**: JSON configs + nested Shell wrappers.
 :::
 ::::
 
-## The Final Collapse {auto-animate=true}
+:::: {.column width="50%"}
+::: {.glass-card .fragment .fade-up}
+### Phase 2: HPC (VACC)
 
-::::: columns
-::: {.column width="50%"}
+-   **Problem**: Local vs. Cluster batch jobs.
+-   **"Solution"**: Custom J2 templating system.
+:::
+::::
+:::::::
+
+## The Final Collapse {auto-animate="true"}
+
+::::::: columns
+:::: {.column width="50%"}
 ::: {.glass-card .fragment .fade-right}
 ### Over-Engineering
-- SQLite locking? **Move to MySQL.**
-- UVM Firewall? **Polymorphic IO.**
-- Filename limits? **Build an ORM.**
-:::
-:::
 
-::: {.column width="50%"}
+-   SQLite locking? **Move to MySQL.**
+-   UVM Firewall? **Polymorphic IO.**
+-   Filename limits? **Build an ORM.**
+:::
+::::
+
+:::: {.column width="50%"}
 ::: {.glass-card .fragment .fade-left}
 ### The End
-- 2026: No publication.
-- Framework is too convoluted to use.
-- Collaborators keep force-pushing to `main` because they hate the code.
-:::
-:::
-:::::
 
+-   2026: No publication.
+-   Framework is too convoluted to use.
+-   Collaborators keep force-pushing to `main` because they hate the code.
+:::
+::::
+:::::::
 
 ## A Moral Failure
 
 ![Bad development is a sin.](assets/world_if_meme.jpg){fig-align="center" height="500px"}
 
-# The Hard Truth {class="bg-dark-texture"}
+# The Hard Truth {.bg-dark-texture}
 
 ::: r-fit-text
 "This was all my fault."
 :::
 
-# Without SLURM We Would Have Cured Cancer By Now {class="bg-dark-texture"}
-
+# Without SLURM We Would Have Cured Cancer By Now {.bg-dark-texture}
 
 ## The Iron Rule of Scientific Software Development
 
@@ -115,10 +117,10 @@ format:
 -   **Damned if you do. Damned if you don't.**
 :::
 
-## The Python Paradox {auto-animate=true}
+## The Python Paradox {auto-animate="true"}
 
-:::: columns
-::: {.column width="60%"}
+:::::::: columns
+::::: {.column width="60%"}
 ::: {.glass-card .fragment .fade-up}
 -   Python is a **TERRIBLE** language for scientific computing.
 -   Nothing about the language is inherently good for science.
@@ -128,16 +130,16 @@ format:
 ::: {.glass-card .fragment .fade-in-then-semi-out}
 -   **The Goal**: How can we contort Python to be at least "okay"?
 :::
-:::
+:::::
 
-::: {.column width="40%"}
+:::: {.column width="40%"}
 ::: {.fragment .fade-right}
 ![Dependency (Source: XKCD)](https://imgs.xkcd.com/comics/dependency_2x.png){fig-align="center" width="100%"}
 :::
-:::
+::::
 ::::
 
-# The Dirty Secret... {class="bg-accent-2"}
+# The Dirty Secret... {.bg-accent-2}
 
 ::: incremental
 -   If you are a (non-bench) scientist in 2026: **YOU ARE A SOFTWARE DEVELOPER.**
@@ -151,115 +153,122 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 
 ![Is it worth the time? (Source: XKCD)](https://imgs.xkcd.com/comics/is_it_worth_the_time_2x.png){fig-align="center" height="450px"}
 
-# The Good News {class="bg-accent-1"}
+# The Good News {.bg-accent-1}
 
 ::: incremental
 -   **Fact**: LLMs change the ROI on automation.
 -   **Fact**: Being an effective vibe coder means **BEING AN EFFECTIVE CODER**.
 :::
 
-
-# Your Workflow {class="bg-accent-3"}
+## Your Workflow {.bg-accent-3}
 
 :::: columns
 ::: {.column width="60%"}
 ::: {.glass-card .fragment}
 ### The Process
-- You have data & simulation parameters.
-- You have a model (statistical/ML/physics).
-- You want to run sweeps with fixed logic.
-- You want to collect & visualize results.
-- You want to turn plots into a **publication**.
+
+-   You have data & simulation parameters.
+-   You have a model (statistical/ML/physics).
+-   You want to run sweeps with fixed logic.
+-   You want to collect & visualize results.
+-   You want to turn plots into a **publication**.
 :::
 :::
 
 ::: {.column width="40%"}
 ::: {.glass-card .fragment}
 ### The Goal
+
 **Automate the plumbing** so you can focus on the **science**.
 :::
 :::
 ::::
 
-# The Sanity Savers {class="bg-primary"}
+# The Sanity Savers {.bg-primary}
 
-## 1. The Environment {auto-animate=true}
+## 1. The Environment {auto-animate="true"}
 
-::::: columns
+:::: columns
 ::: {.column width="50%"}
 ::: {.glass-card .fragment}
 ### Reproducible UV
-- **Speed**: Orders of magnitude faster than pip/conda.
-- **Locking**: `uv.lock` ensures your code runs *everywhere*.
+
+-   **Speed**: Orders of magnitude faster than pip/conda.
+-   **Locking**: `uv.lock` ensures your code runs *everywhere*.
 :::
 :::
 
 ::: {.column width="50%"}
 ::: {.glass-card .fragment}
 ### Modular Source
-- **No More Notebooks**: Logic lives in `.py` modules.
-- **Git Flow**: Use Pull Requests to manage complexity.
+
+-   **No More Notebooks**: Logic lives in `.py` modules.
+-   **Git Flow**: Use Pull Requests to manage complexity.
 :::
 :::
-:::::
+::::
 
 ::: footer
-Docs: [astral.sh/uv](https://docs.astral.sh/uv/) | [git-scm.com](https://git-scm.com)
+Docs: [astral.sh/uv](https://docs.astral.sh/uv/) \| [git-scm.com](https://git-scm.com)
 :::
 
-## 2. The Workflow {auto-animate=true}
+## 2. The Workflow {auto-animate="true"}
 
-::::: columns
+:::: columns
 ::: {.column width="50%"}
 ::: {.glass-card .fragment}
 ### Snakemake DAGs
-- **Amnesia Proof**: Automatically tracks what results are invalid.
-- **Declarative**: The code *is* the documentation.
+
+-   **Amnesia Proof**: Automatically tracks what results are invalid.
+-   **Declarative**: The code *is* the documentation.
 :::
 :::
 
 ::: {.column width="50%"}
 ::: {.glass-card .fragment}
 ### HPC Scaling
-- **VACC Profiles**: Zero-effort Slurm submission.
-- **Scaling**: Run 1 locally; run 1,000 on the cluster.
+
+-   **VACC Profiles**: Zero-effort Slurm submission.
+-   **Scaling**: Run 1 locally; run 1,000 on the cluster.
 :::
 :::
-:::::
+::::
 
 ::: footer
-Docs: [snakemake.github.io](https://snakemake.github.io/) | [vacc.uvm.edu](https://www.uvm.edu/vacc/docs/)
+Docs: [snakemake.github.io](https://snakemake.github.io/) \| [vacc.uvm.edu](https://www.uvm.edu/vacc/docs/)
 :::
 
-## 3. The Data Lifecycle {auto-animate=true}
+## 3. The Data Lifecycle {auto-animate="true"}
 
-::::: columns
+:::: columns
 ::: {.column width="50%"}
 ::: {.glass-card .fragment}
 ### Validated Data
-- **Pydantic**: Catch errors at the boundary.
-- **LLM Context**: Structured slots for model reasoning.
+
+-   **Pydantic**: Catch errors at the boundary.
+-   **LLM Context**: Structured slots for model reasoning.
 :::
 :::
 
 ::: {.column width="50%"}
 ::: {.glass-card .fragment}
 ### High-Perf Analytics
-- **Parquet + DuckDB**: SQL speed on flat files.
-- **Testing**: Shape checks to verify the "vibe."
+
+-   **Parquet + DuckDB**: SQL speed on flat files.
+-   **Testing**: Shape checks to verify the "vibe."
 :::
 :::
-:::::
+::::
 
 ::: footer
-Docs: [duckdb.org](https://duckdb.org/) | [pydantic.dev](https://docs.pydantic.dev/)
+Docs: [duckdb.org](https://duckdb.org/) \| [pydantic.dev](https://docs.pydantic.dev/)
 :::
 
-# Live Diagnostics {class="bg-accent-1"}
+# Live Diagnostics {.bg-accent-1}
 
 ## Research Dashboard
 
-::: {.glass-card}
+::: glass-card
 We don't just generate plots; we generate **interactive insights**.
 :::
 
@@ -273,24 +282,24 @@ md`### 📊 [View Integrated Dashboard](dashboard.qmd)`
 ```
 :::
 
-# Summary {class="bg-primary"}
+# Summary {.bg-primary}
 
 ::: {.glass-card .fragment .fade-up}
-1. **Accept that you are a Developer.** We are all software engineers now.
+1.  **Accept that you are a Developer.** We are all software engineers now.
 :::
 
 ::: {.glass-card .fragment .fade-up}
-2. **Standardize Environments.** Use **UV** and lockfiles.
+2.  **Standardize Environments.** Use **UV** and lockfiles.
 :::
 
 ::: {.glass-card .fragment .fade-up}
-3. **Automate Workflows.** Let **Snakemake** handle the graph.
+3.  **Automate Workflows.** Let **Snakemake** handle the graph.
 :::
 
 ::: {.glass-card .fragment .fade-up}
-4. **Verify and Aggregate.** Use **DuckDB** for insane speed.
+4.  **Verify and Aggregate.** Use **DuckDB** for insane speed.
 :::
 
 ::: {.glass-card .fragment .fade-up}
-5. **Focus on the Science.** Let automation handle the heavy lifting.
+5.  **Focus on the Science.** Let automation handle the heavy lifting.
 :::
