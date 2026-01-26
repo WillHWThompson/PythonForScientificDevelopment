@@ -14,6 +14,7 @@ def main():
     parser.add_argument("--config", type=str, required=True, help="Path to YAML config")
     parser.add_argument("--output", type=str, required=True, help="Path to save model weights")
     parser.add_argument("--stats", type=str, required=True, help="Path to save training stats (parquet)")
+    parser.add_argument("--roc", type=str, required=True, help="Path to save ROC curve data (parquet)")
     
     # ... (parser arguments same as before)
     parser.add_argument("--adapter_dim", type=int, help="Override adapter dimension")
@@ -48,7 +49,11 @@ def main():
         )
 
     # 4. Prepare Data
-    data_manager = TextClassifierDataLoader(config.data, config.training, config.model.model_name)
+    data_manager = TextClassifierDataLoader(
+        data_config=config.data, 
+        train_config=config.training, 
+        model_name=config.model.model_name
+    )
     train_loader, val_loader = data_manager.get_dataloaders()
 
     # 5. Initialize Model

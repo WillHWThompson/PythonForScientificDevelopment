@@ -55,7 +55,11 @@ def main():
     model.load_state_dict(torch.load(args.weights, map_location="cpu"))
     
     # 3. Prepare Test Data
-    data_loader = TextClassifierDataLoader(config.data, config.training, config.model.model_name)
+    data_loader = TextClassifierDataLoader(
+        data_config=config.data, 
+        train_config=config.training, 
+        model_name=config.model.model_name
+    )
     test_loader = data_loader.get_test_loader()
     
     # 4. Initialize Trainer (only for metrics logic)

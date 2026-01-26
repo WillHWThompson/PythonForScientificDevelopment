@@ -5,11 +5,11 @@ config := "configs/nlp_baseline.yaml"
 all p="local" c=config:
     uv run snakemake --workflow-profile workflow/profiles/{{p}} --configfile {{c}}
 
-## Run training. Usage: just train [profile] [config]
+## Run training. Usage: just train [profile] [config]  (e.g., just train local configs/nlp_baseline.yaml)
 train p="local" c=config:
-    uv run snakemake --workflow-profile workflow/profiles/{{p}} --configfile {{c}} --allowed-rules train_bert_classifier
+    uv run snakemake train_all --workflow-profile workflow/profiles/{{p}} --configfile {{c}}
 
-## Run evaluation. Usage: just test [profile] [config]
+## Run evaluation. Usage: just test [profile] [config]  (e.g., just test local configs/nlp_baseline.yaml)
 test p="local" c=config:
     uv run snakemake test_all --workflow-profile workflow/profiles/{{p}} --configfile {{c}}
 
@@ -17,9 +17,18 @@ test p="local" c=config:
 sync:
     ./tools/sync_vacc.sh
 
+## Regenerate figures locally using synced data
+plot:
+    uv run snakemake plots/fig1_roc_sweep.png -j1
+
 ## Unlock snakemake directory if a process crashed
 unlock:
     uv run snakemake --unlock
+
+## Print the command to activate the environment
+activate:
+    @echo "Run this command to activate your environment:"
+    @echo "source .venv/bin/activate"
 
 ## Run local Quarto preview
 preview:

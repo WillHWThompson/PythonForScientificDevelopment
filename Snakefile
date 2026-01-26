@@ -12,8 +12,8 @@ with open(config_file_path, 'r') as f:
     config_data = yaml.safe_load(f)
 cfg_name = Path(config_file_path).stem
 
-# Create a unique group ID for WandB grouping
-RUN_GROUP_ID = f"{cfg_name}_{datetime.now().strftime('%Y%m%d_%H%M')}"
+# Create a stable group ID for WandB grouping (avoid timestamps to prevent re-runs)
+RUN_GROUP_ID = cfg_name
 
 TRAIN_OUTPUTS = []
 TEST_OUTPUTS = []
@@ -51,12 +51,28 @@ else:
 
 rule all:
     input:
-        TRAIN_OUTPUTS + TEST_OUTPUTS
+        TRAIN_OUTPUTS + TEST_OUTPUTS,
+        "plots/fig1_roc_sweep.png"
+
+rule train_all:
+    input:
+        TRAIN_OUTPUTS
 
 rule test_all:
     input:
         TEST_OUTPUTS
 
-# 2. Include Modular Rules
+# 2. Aggregated Figure Rules
+rule plot_fig1:
+    input:
+        # Use ancient() to tell Snakemake: "Use these if they exist, but don't try to re-run 
+        # the training machines if they are missing weights locally."
+        [f for f in TEST_OUTPUTS if "test_roc_curves.parquet" in f]
+    output:
+        "plots/fig1_roc_sweep.png"
+    shell:
+        "python scripts/plot_fig1_roc.py --inputs {input} --output {output}"
+
+# 3. Include Modular Rules
 include: "workflow/rules/train.smk"
 include: "workflow/rules/test.smk"

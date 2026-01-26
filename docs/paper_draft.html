@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="W. H. W. Thompson">
+<meta name="keywords" content="BERT, Adapters, Fine-Tuning, Computational Social Science, Network Science">
 
-<title>paper_draft – Neural Adapter Research</title>
+<title>Efficient Fine-Tuning with BERT Adapters: A Network Science Perspective – Neural Adapter Research</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +117,7 @@ div.csl-indent {
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./paper_draft.html" aria-current="page"> 
+    <a class="nav-link" href="./paper_draft.icml"> 
 <span class="menu-text">Paper Draft</span></a>
   </li>  
   <li class="nav-item">
@@ -138,38 +140,79 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#paper-draft-efficient-fine-tuning-with-bert-adapters" id="toc-paper-draft-efficient-fine-tuning-with-bert-adapters" class="nav-link active" data-scroll-target="#paper-draft-efficient-fine-tuning-with-bert-adapters">Paper Draft: Efficient Fine-Tuning with BERT Adapters</a>
-  <ul class="collapse">
-  <li><a href="#abstract" id="toc-abstract" class="nav-link" data-scroll-target="#abstract">Abstract</a></li>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
   <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
+  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="paper_draft.icml"><i class="bi bi-file"></i>InDesign</a></li><li><a href="paper_draft.icml"><i class="bi bi-file"></i>InDesign</a></li></ul></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Efficient Fine-Tuning with BERT Adapters: A Network Science Perspective</h1>
+</div>
 
 
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Author</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
+  
+    <div class="quarto-title-meta-contents">
+    <p class="author">W. H. W. Thompson <a href="mailto:will.thompson@uvm.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            University of Vermont
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="block-title">Abstract</div>
+    <p>As language models continue to scale, full parameter fine-tuning becomes increasingly computationally expensive. Bottleneck adapters offer a parameter-efficient alternative by inserting small, trainable modules within the layers of a pre-trained model. In this paper, we investigate the effectiveness of BERT adapters for topic classification in network science research. We characterize the performance-compute trade-off and demonstrate that adapters can achieve competitive results while training less than 1% of the original model parameters.</p>
+  </div>
+</div>
+
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>BERT, Adapters, Fine-Tuning, Computational Social Science, Network Science</p>
+  </div>
+</div>
+
+</header>
 
 
-<section id="paper-draft-efficient-fine-tuning-with-bert-adapters" class="level1">
-<h1>Paper Draft: Efficient Fine-Tuning with BERT Adapters</h1>
-<section id="abstract" class="level2">
-<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
-<p>This document outlines our findings on using bottleneck adapters for topic classification.</p>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>Large-scale language models (LLMs) have revolutionized natural language processing (NLP). However, as mentioned in <span class="citation" data-cites="bert2019">Devlin et al. (<a href="#ref-bert2019" role="doc-biblioref">2018</a>)</span>, full parameter fine-tuning requires significant computational resources, especially when dealing with domain-specific datasets in fields like Network Science.</p>
 </section>
-<section id="introduction" class="level2">
-<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>As mentioned in <span class="citation" data-cites="bert2019">Devlin et al. (<a href="#ref-bert2019" role="doc-biblioref">2018</a>)</span>, large-scale language models…</p>
+<section id="methodology" class="level1">
+<h1>Methodology</h1>
+<p>We utilize the bottleneck architecture described in <span class="citation" data-cites="houlsby2019">Houlsby et al. (<a href="#ref-houlsby2019" role="doc-biblioref">2019</a>)</span>. This approach inserts two modules per transformer layer: one after the multi-head attention and one after the feed-forward layer. Each module consists of a down-projection, a non-linear activation, and an up-projection, effectively reducing the number of trainable parameters while maintaining representation quality.</p>
 </section>
-<section id="methodology" class="level2">
-<h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
-<p>We utilize the architecture described in <span class="citation" data-cites="houlsby2019">Houlsby et al. (<a href="#ref-houlsby2019" role="doc-biblioref">2019</a>)</span>.</p>
+<section id="results-and-discussion" class="level1">
+<h1>Results and Discussion</h1>
+<p>Our experiments on the CSDS research dataset indicate that BERT adapters converge faster than full fine-tuning. We find that the structural properties of the attention weights in adapted models exhibit higher modularity compared to their fully fine-tuned counterparts, suggesting that adapters preserve the original model’s “backbone” more effectively.</p>
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
+<section id="conclusion" class="level1">
+<h1>Conclusion</h1>
+<p>We have demonstrated that BERT adapters are a highly efficient tool for scientific development in NLP. By minimizing the trainable parameter count, we enable more rapid iteration and experimentation on academic-scale hardware.</p>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-bert2019" class="csl-entry" role="listitem">
 Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2018. <span>“BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding.”</span> <em>arXiv Preprint arXiv:1810.04805</em>.
@@ -180,7 +223,6 @@ Houlsby, Neil, Andrei Giurgiu, Stanislaw Jastrzebski, Brando Morrone, Quentin La
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

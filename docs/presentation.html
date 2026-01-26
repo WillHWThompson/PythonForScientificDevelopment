@@ -277,23 +277,22 @@ W. H. W. Thompson
 </ul>
 </div>
 </div></div>
-</section>
-<section id="a-moral-failure" class="slide level2">
-<h2>A Moral Failure</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="assets/world_if_meme.jpg" height="500"></p>
-<figcaption>Bad development is a sin.</figcaption>
-</figure>
-</div>
 </section></section>
+<section>
 <section id="the-hard-truth" class="title-slide slide level1 bg-dark-texture center">
 <h1>The Hard Truth</h1>
 <div class="r-fit-text">
 <p>“This was all my fault.”</p>
 </div>
 </section>
-
+<section id="a-moral-failure" class="slide level2">
+<h2>A Moral Failure</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/world_if_meme.jpg" class="quarto-figure quarto-figure-center" height="500"></p>
+</figure>
+</div>
+</section></section>
 <section>
 <section id="without-slurm-we-would-have-cured-cancer-by-now" class="title-slide slide level1 bg-dark-texture center">
 <h1>Without SLURM We Would Have Cured Cancer By Now</h1>
@@ -363,6 +362,7 @@ W. H. W. Thompson
 </figure>
 </div>
 </section></section>
+<section>
 <section id="the-good-news" class="title-slide slide level1 bg-accent-1 center">
 <h1>The Good News</h1>
 <ul>
@@ -370,12 +370,8 @@ W. H. W. Thompson
 <li class="fragment"><strong>Fact</strong>: Being an effective vibe coder means <strong>BEING AN EFFECTIVE CODER</strong>.</li>
 </ul>
 </section>
-
-<section>
-<section id="your-workflow" class="title-slide slide level1 bg-accent-3 center">
-<h1>Your Workflow</h1>
-
-</section>
+<section id="your-workflow" class="slide level2 bg-accent-3">
+<h2>Your Workflow</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <div class="glass-card fragment">
@@ -390,15 +386,32 @@ W. H. W. Thompson
 </div>
 </div><div class="column" style="width:40%;">
 <div class="glass-card fragment">
-<h3 id="goal">Goal</h3>
-<p>Automate the <strong>plumbing</strong> so you can focus on the <strong>science</strong>.</p>
+<h3 id="the-goal">The Goal</h3>
+<p><strong>Automate the plumbing</strong> so you can focus on the <strong>science</strong>.</p>
 </div>
-</div>
-</div></section>
-<section>
-<section id="the-sanity-savers" class="title-slide slide level1 bg-primary center">
-<h1>The Sanity Savers</h1>
+</div></div>
+</section></section>
+<section id="example-project" class="title-slide slide level1 center">
+<h1>Example Project</h1>
+<ul>
+<li>Train a BERT to correctly classifer thhe AG news dataset
+<ul>
+<li>4 classes: Buisness, Sci/Tech, Sports/World</li>
+</ul></li>
+<li>Train an MLP classifier on BERT embeddings</li>
+</ul>
+</section>
 
+<section>
+<section id="the-tools" class="title-slide slide level1 bg-primary center">
+<h1>The Tools</h1>
+
+</section>
+<section id="modularity" class="slide level2">
+<h2>1. Modularity</h2>
+<ul>
+<li><hr></li>
+</ul>
 </section>
 <section id="the-environment" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">1. The Environment</h2>
@@ -421,31 +434,7 @@ W. H. W. Thompson
 </div>
 </div></div>
 <div class="footer">
-<p>Docs: <a href="https://docs.astral.sh/uv/">astral.sh/uv</a> | <a href="https://git-scm.com">git-scm.com</a></p>
-</div>
-</section>
-<section id="the-workflow" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">2. The Workflow</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="glass-card fragment">
-<h3 id="snakemake-dags">Snakemake DAGs</h3>
-<ul>
-<li><strong>Amnesia Proof</strong>: Automatically tracks what results are invalid.</li>
-<li><strong>Declarative</strong>: The code <em>is</em> the documentation.</li>
-</ul>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="glass-card fragment">
-<h3 id="hpc-scaling">HPC Scaling</h3>
-<ul>
-<li><strong>VACC Profiles</strong>: Zero-effort Slurm submission.</li>
-<li><strong>Scaling</strong>: Run 1 locally; run 1,000 on the cluster.</li>
-</ul>
-</div>
-</div></div>
-<div class="footer">
-<p>Docs: <a href="https://snakemake.github.io/">snakemake.github.io</a> | <a href="https://www.uvm.edu/vacc/docs/">vacc.uvm.edu</a></p>
+<p>Docs: <a href="https://docs.astral.sh/uv/">astral.sh/uv</a> | <a href="https://git-scm.com">git-scm.com</a>https://github.com/WillHWThompson/PythonForScientificDevelopment</p>
 </div>
 </section>
 <section id="the-data-lifecycle" class="slide level2" data-auto-animate="true">
@@ -461,11 +450,45 @@ W. H. W. Thompson
 </div>
 </div><div class="column" style="width:50%;">
 <div class="glass-card fragment">
+<section id="the-workflow" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">2. The Workflow</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="glass-card fragment">
+<h3 id="the-automation">The Automation</h3>
+<ul>
+<li><strong>Snakemake</strong>: Declarative workflow that tracks results and dependencies.</li>
+<li><strong>SLURM Compatible</strong>: Zero-effort submission to the VACC cluster.</li>
+<li><strong>Amnesia Proof</strong>: Automatically identifies stale results.</li>
+</ul>
+</div>
+<div class="glass-card fragment">
+<h3 id="hpc-scaling">HPC Scaling</h3>
+<ul>
+<li><strong>VACC Profiles</strong>: Integrated Slurm profiles.</li>
+<li><strong>Scaling</strong>: Run 1 locally; run 1,000 on the cluster.</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="glass-card fragment">
+<h3 id="workflow-dag">Workflow DAG</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="assets/snakemake_dag.svg" style="width:100.0%"></p>
+<figcaption>Example Snakemake DAG</figcaption>
+</figure>
+</div>
+</div>
+</div></div>
+<div class="footer">
+<p>Docs: <a href="https://snakemake.github.io/">snakemake.github.io</a> | <a href="https://www.uvm.edu/vacc/docs/">vacc.uvm.edu</a></p>
+</div>
 <h3 id="high-perf-analytics">High-Perf Analytics</h3>
 <ul>
 <li><strong>Parquet + DuckDB</strong>: SQL speed on flat files.</li>
 <li><strong>Testing</strong>: Shape checks to verify the “vibe.”</li>
 </ul>
+</section>
 </div>
 </div></div>
 <div class="footer">
@@ -484,10 +507,10 @@ W. H. W. Thompson
 </div>
 <div class="fragment fade-up">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="270" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 269;"><span id="cb1-270"><a></a><span class="im">import</span> { view } <span class="im">from</span> <span class="st">"@observablehq/inputs"</span></span>
-<span id="cb1-271"><a></a></span>
-<span id="cb1-272"><a></a><span class="co">// Placeholder for interactive OJS component demonstration</span></span>
-<span id="cb1-273"><a></a><span class="fu">md</span><span class="vs">`### 📊 [View Integrated Dashboard](dashboard.qmd)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="299" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 298;"><span id="cb1-299"><a></a><span class="im">import</span> { view } <span class="im">from</span> <span class="st">"@observablehq/inputs"</span></span>
+<span id="cb1-300"><a></a></span>
+<span id="cb1-301"><a></a><span class="co">// Placeholder for interactive OJS component demonstration</span></span>
+<span id="cb1-302"><a></a><span class="fu">md</span><span class="vs">`### 📊 [View Integrated Dashboard](dashboard.qmd)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
@@ -505,25 +528,33 @@ W. H. W. Thompson
 </div>
 </div>
 </section></section>
-<section id="summary" class="title-slide slide level1 inverse bg-primary center">
+<section id="summary" class="title-slide slide level1 bg-primary center">
 <h1>Summary</h1>
+<div class="glass-card fragment fade-up">
 <ol type="1">
-<li><div class="glass-card fragment fade-up">
-<p>Accept that you are a Developer.</p>
-</div></li>
-<li><div class="glass-card fragment fade-up">
-<p>Standardize Environments (<strong>UV</strong>).</p>
-</div></li>
-<li><div class="glass-card fragment fade-up">
-<p>Automate Workflows (<strong>Snakemake</strong>).</p>
-</div></li>
-<li><div class="glass-card fragment fade-up">
-<p>Verify and Aggregate (<strong>DuckDB/Pytest</strong>).</p>
-</div></li>
-<li><div class="glass-card fragment fade-up">
-<p><strong>Let Claude Code handle the heavy lifting.</strong></p>
-</div></li>
+<li><strong>Accept that you are a Developer.</strong> We are all software engineers now.</li>
 </ol>
+</div>
+<div class="glass-card fragment fade-up">
+<ol start="2" type="1">
+<li><strong>Standardize Environments.</strong> Use <strong>UV</strong> and lockfiles.</li>
+</ol>
+</div>
+<div class="glass-card fragment fade-up">
+<ol start="3" type="1">
+<li><strong>Automate Workflows.</strong> Let <strong>Snakemake</strong> handle the graph.</li>
+</ol>
+</div>
+<div class="glass-card fragment fade-up">
+<ol start="4" type="1">
+<li><strong>Verify and Aggregate.</strong> Use <strong>DuckDB</strong> for insane speed.</li>
+</ol>
+</div>
+<div class="glass-card fragment fade-up">
+<ol start="5" type="1">
+<li><strong>Focus on the Science.</strong> Let automation handle the heavy lifting.</li>
+</ol>
+</div>
 
 
 </section>

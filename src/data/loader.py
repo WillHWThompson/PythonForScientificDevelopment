@@ -2,13 +2,28 @@ import torch
 from datasets import load_dataset
 from transformers import AutoTokenizer
 from torch.utils.data import DataLoader
+from pydantic import BaseModel, ConfigDict, Field, PrivateAttr
+from typing import Any
+
 from ..core.schema import NLPDataConfig, NLPTrainingConfig
 
-class TextClassifierDataLoader:
-    def __init__(self, data_config: NLPDataConfig, train_config: NLPTrainingConfig, model_name: str):
-        self.data_config = data_config
-        self.train_config = train_config
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+class TextClassifierDataLoader(BaseModel):
+    """
+    Pydantic-validated data loader for text classification.
+    Manages dataset loading, tokenization, and PyTorch DataLoader creation.
+    """
+    model_config = ConfigDict(arbitrary_types_allowed=True)
+
+    data_config: NLPDataConfig = Field(..., description="Configuration for dataset splits and limits.")
+    train_config: NLPTrainingConfig = Field(..., description="Configuration for batching and sequence length.")
+    model_name: str = Field(..., description="Hugging Face model checkpoint for the tokenizer.")
+    
+    # Use PrivateAttr for external objects that shouldn't be part of the schema
+    _tokenizer: Any = PrivateAttr()
+
+    def model_post_init(self, __context: Any) -> None:
+        """Initialize the tokenizer after the model is validated."""
+        self._tokenizer = AutoTokenizer.from_pretrained(self.model_name)
 
     def prepare_datasets(self):
         """Loads and tokenizes the dataset."""
@@ -22,7 +37,7 @@ class TextClassifierDataLoader:
                 dataset[split] = dataset[split].select(range(actual_limit))
 
         def tokenize_function(examples):
-            return self.tokenizer(
+            return self._tokenizer(
                 examples["text"], 
                 padding="max_length", 
                 truncation=True, 

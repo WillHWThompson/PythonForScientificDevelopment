@@ -221,8 +221,26 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 :::::::
 
 ::: footer
-Docs: [astral.sh/uv](https://docs.astral.sh/uv/) \| [git-scm.com](https://git-scm.com)
+Docs: [astral.sh/uv](https://docs.astral.sh/uv/) \| [git-scm.com](https://git-scm.com)https://github.com/WillHWThompson/PythonForScientificDevelopment
 :::
+
+
+## 3. The Data Lifecycle {auto-animate="true"}
+
+::::::: columns
+:::: {.column width="50%"}
+::: {.glass-card .fragment}
+### Validated Data
+
+-   **Pydantic**: Catch errors at the boundary.
+-   **LLM Context**: Structured slots for model reasoning.
+:::
+::::
+
+:::: {.column width="50%"}
+::: {.glass-card .fragment}
+
+
 
 ## 2. The Workflow {auto-animate="true"}
 
@@ -254,20 +272,7 @@ Docs: [astral.sh/uv](https://docs.astral.sh/uv/) \| [git-scm.com](https://git-sc
 Docs: [snakemake.github.io](https://snakemake.github.io/) \| [vacc.uvm.edu](https://www.uvm.edu/vacc/docs/)
 :::
 
-## 3. The Data Lifecycle {auto-animate="true"}
 
-::::::: columns
-:::: {.column width="50%"}
-::: {.glass-card .fragment}
-### Validated Data
-
--   **Pydantic**: Catch errors at the boundary.
--   **LLM Context**: Structured slots for model reasoning.
-:::
-::::
-
-:::: {.column width="50%"}
-::: {.glass-card .fragment}
 ### High-Perf Analytics
 
 -   **Parquet + DuckDB**: SQL speed on flat files.
