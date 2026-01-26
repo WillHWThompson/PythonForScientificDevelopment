@@ -456,7 +456,7 @@
     "href": "presentation.html#the-workflow",
     "title": "I Suck At Coding: A Manifesto",
     "section": "2. The Workflow",
-    "text": "2. The Workflow\n\n\n\nThe Automation\n\nSnakemake: Declarative workflow that tracks results and dependencies.\nSLURM Compatible: Zero-effort submission to the VACC cluster.\nAmnesia Proof: Automatically identifies stale results.\n\n\n\nHPC Scaling\n\nVACC Profiles: Integrated Slurm profiles.\nScaling: Run 1 locally; run 1,000 on the cluster.\n\n\n\n\nWorkflow DAG\n\n\n\nExample Snakemake DAG\n\n\n\n\n\nDocs: snakemake.github.io | vacc.uvm.edu\n\nHigh-Perf Analytics\n\nParquet + DuckDB: SQL speed on flat files.\nTesting: Shape checks to verify the “vibe.”",
+    "text": "2. The Workflow\n\n\n\nWorkflow Management\n\nAutomation: Snakemake tracks results and dependencies.\nVACC Scaling: Integrated Slurm profiles for zero-effort submission.\nAmnesia Proof: Automatically identifies stale results.\nLocal vs Cloud: Run 1 locally; run 1,000 on the cluster.\n\n\n\n\nWorkflow DAG\n\n\n\nExample Snakemake DAG\n\n\n\n\n\nDocs: snakemake.github.io | vacc.uvm.edu",
     "crumbs": [
       "I Suck At Coding: A Manifesto"
     ]
@@ -466,7 +466,7 @@
     "href": "presentation.html#the-data-lifecycle",
     "title": "I Suck At Coding: A Manifesto",
     "section": "3. The Data Lifecycle",
-    "text": "3. The Data Lifecycle\n\n\n\nValidated Data\n\nPydantic: Catch errors at the boundary.\nLLM Context: Structured slots for model reasoning.\n\n\n\n\n\n2. The Workflow\n\n\n\nThe Automation\n\nSnakemake: Declarative workflow that tracks results and dependencies.\nSLURM Compatible: Zero-effort submission to the VACC cluster.\nAmnesia Proof: Automatically identifies stale results.\n\n\n\nHPC Scaling\n\nVACC Profiles: Integrated Slurm profiles.\nScaling: Run 1 locally; run 1,000 on the cluster.\n\n\n\n\nWorkflow DAG\n\n\n\nExample Snakemake DAG\n\n\n\n\n\nDocs: snakemake.github.io | vacc.uvm.edu\n\nHigh-Perf Analytics\n\nParquet + DuckDB: SQL speed on flat files.\nTesting: Shape checks to verify the “vibe.”\n\n\n\n\n\nDocs: duckdb.org | pydantic.dev",
+    "text": "3. The Data Lifecycle\n\n\n\nValidated Data\n\nPydantic: Catch errors at the boundary.\nLLM Context: Structured slots for model reasoning.\n\n\n\n\nHigh-Perf Analytics\n\nParquet + DuckDB: SQL speed on flat files.\nTesting: Shape checks to verify the “vibe.”\n\n\n\n\nDocs: duckdb.org | pydantic.dev",
     "crumbs": [
       "I Suck At Coding: A Manifesto"
     ]
@@ -527,6 +527,36 @@
     "title": "I Suck At Coding: A Manifesto",
     "section": "1. Modularity",
     "text": "1. Modularity",
+    "crumbs": [
+      "I Suck At Coding: A Manifesto"
+    ]
+  },
+  {
+    "objectID": "presentation.html#unit-testing",
+    "href": "presentation.html#unit-testing",
+    "title": "I Suck At Coding: A Manifesto",
+    "section": "4. Unit Testing",
+    "text": "4. Unit Testing\n\n\n\nPytest Rigor\n\nLogic Checks: Validate each part of your research code.\nIntegration: Ensure the whole system plays together nicely.\n\n\n\n\nGitHub Actions\n\nAutomation: Run tests on every push.\nTrust: Know your “vibe” is actually correct.\n\n\n\n\nDocs: pytest.org | github.com/features/actions",
+    "crumbs": [
+      "I Suck At Coding: A Manifesto"
+    ]
+  },
+  {
+    "objectID": "presentation.html#the-data-lifecycle-1",
+    "href": "presentation.html#the-data-lifecycle-1",
+    "title": "I Suck At Coding: A Manifesto",
+    "section": "3. The Data Lifecycle",
+    "text": "3. The Data Lifecycle\n\n\n\nValidated Data\n\nPydantic: Catch errors at the boundary.\nLLM Context: Structured slots for model reasoning.\n\n\n\n\n\n2. The Workflow\n\n\n\nThe Automation\n\nSnakemake: Declarative workflow that tracks results and dependencies.\nSLURM Compatible: Zero-effort submission to the VACC cluster.\nAmnesia Proof: Automatically identifies stale results.\n\n\n\nHPC Scaling\n\nVACC Profiles: Integrated Slurm profiles.\nScaling: Run 1 locally; run 1,000 on the cluster.\n\n\n\n\nWorkflow DAG\n\n\n\nExample Snakemake DAG\n\n\n\n\n\nDocs: snakemake.github.io | vacc.uvm.edu\n\nHigh-Perf Data Storage\n\nParquet + DuckDB: SQL speed on flat files.\n\n\n\n\n\nDocs: duckdb.org | pydantic.dev",
+    "crumbs": [
+      "I Suck At Coding: A Manifesto"
+    ]
+  },
+  {
+    "objectID": "presentation.html#the-workflow-1",
+    "href": "presentation.html#the-workflow-1",
+    "title": "I Suck At Coding: A Manifesto",
+    "section": "2. The Workflow",
+    "text": "2. The Workflow\n\n\n\nThe Automation\n\nSnakemake: Declarative workflow that tracks results and dependencies.\nSLURM Compatible: Zero-effort submission to the VACC cluster.\nAmnesia Proof: Automatically identifies stale results.\n\n\n\nHPC Scaling\n\nVACC Profiles: Integrated Slurm profiles.\nScaling: Run 1 locally; run 1,000 on the cluster.\n\n\n\n\nWorkflow DAG\n\n\n\nExample Snakemake DAG\n\n\n\n\n\nDocs: snakemake.github.io | vacc.uvm.edu\n\nHigh-Perf Data Storage\n\nParquet + DuckDB: SQL speed on flat files.",
     "crumbs": [
       "I Suck At Coding: A Manifesto"
     ]

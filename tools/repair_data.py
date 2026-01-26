@@ -22,11 +22,13 @@ def repair():
         
         # Build fresh config with overrides
         cfg_data = base_cfg_data.copy()
-        if 'model' not in cfg_data: cfg_data['model'] = {}
+        if 'model' not in cfg_data:
+            cfg_data['model'] = {}
         if 'adapter_dim' in overrides:
             cfg_data['model']['adapter_dim'] = int(overrides['adapter_dim'])
             
-        if 'training' not in cfg_data: cfg_data['training'] = {}
+        if 'training' not in cfg_data:
+            cfg_data['training'] = {}
         if 'learning_rate' in overrides:
             cfg_data['training']['learning_rate'] = float(overrides['learning_rate'])
             

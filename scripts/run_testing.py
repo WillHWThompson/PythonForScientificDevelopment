@@ -2,7 +2,6 @@ import argparse
 import yaml
 import pandas as pd
 import torch
-from pathlib import Path
 
 from src.core.schema import NLPExperimentConfig
 from src.models.bert_adapter import BertAdapterClassifier
@@ -29,10 +28,12 @@ def main():
     
     # Apply Overrides BEFORE initialization so full_run_name is correct
     if args.adapter_dim:
-        if 'model' not in config_data: config_data['model'] = {}
+        if 'model' not in config_data:
+            config_data['model'] = {}
         config_data['model']['adapter_dim'] = args.adapter_dim
     if args.learning_rate:
-        if 'training' not in config_data: config_data['training'] = {}
+        if 'training' not in config_data:
+            config_data['training'] = {}
         config_data['training']['learning_rate'] = args.learning_rate
 
     config = NLPExperimentConfig(**config_data)

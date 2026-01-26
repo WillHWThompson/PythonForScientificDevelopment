@@ -1,5 +1,4 @@
 import pytest
-import torch
 from src.core.schema import NLPModelConfig, NLPExperimentConfig
 from src.data.loader import TextClassifierDataLoader
 

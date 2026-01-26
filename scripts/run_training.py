@@ -1,7 +1,6 @@
 import argparse
 import pandas as pd
 import yaml
-import json
 import torch
 from pathlib import Path
 from src.core.schema import NLPExperimentConfig
@@ -28,10 +27,12 @@ def main():
     
     # 2. Apply Overrides
     if args.adapter_dim:
-        if 'model' not in config_data: config_data['model'] = {}
+        if 'model' not in config_data:
+            config_data['model'] = {}
         config_data['model']['adapter_dim'] = args.adapter_dim
     if args.learning_rate:
-        if 'training' not in config_data: config_data['training'] = {}
+        if 'training' not in config_data:
+            config_data['training'] = {}
         config_data['training']['learning_rate'] = args.learning_rate
         
     config = NLPExperimentConfig(**config_data)

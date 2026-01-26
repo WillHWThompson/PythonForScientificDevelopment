@@ -4,8 +4,6 @@ from torch.optim import AdamW
 from transformers import get_linear_schedule_with_warmup
 from tqdm import tqdm
 import evaluate
-import json
-from pathlib import Path
 from ..core.schema import NLPExperimentConfig
 
 class TextClassifierTrainer:
@@ -134,7 +132,7 @@ class TextClassifierTrainer:
 
     def test(self, test_loader):
         """Final independent model testing with full diagnostics."""
-        print(f"--- Running Final Test Evaluation ---")
+        print("--- Running Final Test Evaluation ---")
         metrics, roc_data = self.evaluate(loader=test_loader, name="Test")
         
         test_data = {

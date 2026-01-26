@@ -224,39 +224,16 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 Docs: [astral.sh/uv](https://docs.astral.sh/uv/) \| [git-scm.com](https://git-scm.com)https://github.com/WillHWThompson/PythonForScientificDevelopment
 :::
 
-
-## 3. The Data Lifecycle {auto-animate="true"}
-
-::::::: columns
-:::: {.column width="50%"}
-::: {.glass-card .fragment}
-### Validated Data
-
--   **Pydantic**: Catch errors at the boundary.
--   **LLM Context**: Structured slots for model reasoning.
-:::
-::::
-
-:::: {.column width="50%"}
-::: {.glass-card .fragment}
-
-
-
 ## 2. The Workflow {auto-animate="true"}
 
 ::::::: columns
 :::: {.column width="50%"}
 ::: {.glass-card .fragment}
-### The Automation
--   **Snakemake**: Declarative workflow that tracks results and dependencies.
--   **SLURM Compatible**: Zero-effort submission to the VACC cluster.
+### Workflow Management
+-   **Automation**: Snakemake tracks results and dependencies.
+-   **VACC Scaling**: Integrated Slurm profiles for zero-effort submission.
 -   **Amnesia Proof**: Automatically identifies stale results.
-:::
-
-::: {.glass-card .fragment}
-### HPC Scaling
--   **VACC Profiles**: Integrated Slurm profiles.
--   **Scaling**: Run 1 locally; run 1,000 on the cluster.
+-   **Local vs Cloud**: Run 1 locally; run 1,000 on the cluster.
 :::
 ::::
 
@@ -272,9 +249,20 @@ Docs: [astral.sh/uv](https://docs.astral.sh/uv/) \| [git-scm.com](https://git-sc
 Docs: [snakemake.github.io](https://snakemake.github.io/) \| [vacc.uvm.edu](https://www.uvm.edu/vacc/docs/)
 :::
 
+## 3. The Data Lifecycle {auto-animate="true"}
 
+::::::: columns
+:::: {.column width="50%"}
+::: {.glass-card .fragment}
+### Validated Data
+-   **Pydantic**: Catch errors at the boundary.
+-   **LLM Context**: Structured slots for model reasoning.
+:::
+::::
+
+:::: {.column width="50%"}
+::: {.glass-card .fragment}
 ### High-Perf Analytics
-
 -   **Parquet + DuckDB**: SQL speed on flat files.
 -   **Testing**: Shape checks to verify the "vibe."
 :::
@@ -284,6 +272,34 @@ Docs: [snakemake.github.io](https://snakemake.github.io/) \| [vacc.uvm.edu](http
 ::: footer
 Docs: [duckdb.org](https://duckdb.org/) \| [pydantic.dev](https://docs.pydantic.dev/)
 :::
+
+## 4. Unit Testing {auto-animate="true"}
+
+::::::: columns
+:::: {.column width="50%"}
+::: {.glass-card .fragment}
+### Pytest Rigor
+-   **Logic Checks**: Validate each part of your research code.
+-   **Integration**: Ensure the whole system plays together nicely.
+:::
+::::
+
+:::: {.column width="50%"}
+::: {.glass-card .fragment}
+### GitHub Actions
+-   **Automation**: Run tests on every push.
+-   **Trust**: Know your "vibe" is actually correct.
+:::
+::::
+:::::::
+
+::: footer
+Docs: [pytest.org](https://docs.pytest.org/) \| [github.com/features/actions](https://github.com/features/actions)
+:::
+
+
+
+
 
 # Live Diagnostics {.bg-accent-1}
 

@@ -437,36 +437,17 @@ W. H. W. Thompson
 <p>Docs: <a href="https://docs.astral.sh/uv/">astral.sh/uv</a> | <a href="https://git-scm.com">git-scm.com</a>https://github.com/WillHWThompson/PythonForScientificDevelopment</p>
 </div>
 </section>
-<section id="the-data-lifecycle" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">3. The Data Lifecycle</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div class="glass-card fragment">
-<h3 id="validated-data">Validated Data</h3>
-<ul>
-<li><strong>Pydantic</strong>: Catch errors at the boundary.</li>
-<li><strong>LLM Context</strong>: Structured slots for model reasoning.</li>
-</ul>
-</div>
-</div><div class="column" style="width:50%;">
-<div class="glass-card fragment">
 <section id="the-workflow" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">2. The Workflow</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="glass-card fragment">
-<h3 id="the-automation">The Automation</h3>
+<h3 id="workflow-management">Workflow Management</h3>
 <ul>
-<li><strong>Snakemake</strong>: Declarative workflow that tracks results and dependencies.</li>
-<li><strong>SLURM Compatible</strong>: Zero-effort submission to the VACC cluster.</li>
+<li><strong>Automation</strong>: Snakemake tracks results and dependencies.</li>
+<li><strong>VACC Scaling</strong>: Integrated Slurm profiles for zero-effort submission.</li>
 <li><strong>Amnesia Proof</strong>: Automatically identifies stale results.</li>
-</ul>
-</div>
-<div class="glass-card fragment">
-<h3 id="hpc-scaling">HPC Scaling</h3>
-<ul>
-<li><strong>VACC Profiles</strong>: Integrated Slurm profiles.</li>
-<li><strong>Scaling</strong>: Run 1 locally; run 1,000 on the cluster.</li>
+<li><strong>Local vs Cloud</strong>: Run 1 locally; run 1,000 on the cluster.</li>
 </ul>
 </div>
 </div><div class="column" style="width:50%;">
@@ -483,16 +464,53 @@ W. H. W. Thompson
 <div class="footer">
 <p>Docs: <a href="https://snakemake.github.io/">snakemake.github.io</a> | <a href="https://www.uvm.edu/vacc/docs/">vacc.uvm.edu</a></p>
 </div>
+</section>
+<section id="the-data-lifecycle" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">3. The Data Lifecycle</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="glass-card fragment">
+<h3 id="validated-data">Validated Data</h3>
+<ul>
+<li><strong>Pydantic</strong>: Catch errors at the boundary.</li>
+<li><strong>LLM Context</strong>: Structured slots for model reasoning.</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="glass-card fragment">
 <h3 id="high-perf-analytics">High-Perf Analytics</h3>
 <ul>
 <li><strong>Parquet + DuckDB</strong>: SQL speed on flat files.</li>
 <li><strong>Testing</strong>: Shape checks to verify the “vibe.”</li>
 </ul>
-</section>
 </div>
 </div></div>
 <div class="footer">
 <p>Docs: <a href="https://duckdb.org/">duckdb.org</a> | <a href="https://docs.pydantic.dev/">pydantic.dev</a></p>
+</div>
+</section>
+<section id="unit-testing" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">4. Unit Testing</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="glass-card fragment">
+<h3 id="pytest-rigor">Pytest Rigor</h3>
+<ul>
+<li><strong>Logic Checks</strong>: Validate each part of your research code.</li>
+<li><strong>Integration</strong>: Ensure the whole system plays together nicely.</li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="glass-card fragment">
+<h3 id="github-actions">GitHub Actions</h3>
+<ul>
+<li><strong>Automation</strong>: Run tests on every push.</li>
+<li><strong>Trust</strong>: Know your “vibe” is actually correct.</li>
+</ul>
+</div>
+</div></div>
+<div class="footer">
+<p>Docs: <a href="https://docs.pytest.org/">pytest.org</a> | <a href="https://github.com/features/actions">github.com/features/actions</a></p>
 </div>
 </section></section>
 <section>
@@ -507,10 +525,10 @@ W. H. W. Thompson
 </div>
 <div class="fragment fade-up">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="299" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 298;"><span id="cb1-299"><a></a><span class="im">import</span> { view } <span class="im">from</span> <span class="st">"@observablehq/inputs"</span></span>
-<span id="cb1-300"><a></a></span>
-<span id="cb1-301"><a></a><span class="co">// Placeholder for interactive OJS component demonstration</span></span>
-<span id="cb1-302"><a></a><span class="fu">md</span><span class="vs">`### 📊 [View Integrated Dashboard](dashboard.qmd)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="315" data-source-offset="-0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 314;"><span id="cb1-315"><a></a><span class="im">import</span> { view } <span class="im">from</span> <span class="st">"@observablehq/inputs"</span></span>
+<span id="cb1-316"><a></a></span>
+<span id="cb1-317"><a></a><span class="co">// Placeholder for interactive OJS component demonstration</span></span>
+<span id="cb1-318"><a></a><span class="fu">md</span><span class="vs">`### 📊 [View Integrated Dashboard](dashboard.qmd)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
