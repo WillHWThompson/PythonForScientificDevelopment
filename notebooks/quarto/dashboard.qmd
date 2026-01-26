@@ -192,7 +192,7 @@ Plot.plot({
 ::: g-col-4
 ### Run Metadata
 
-```ojs
+``` ojs
 Inputs.table(filtered_data, {
   columns: ["full_name", "adapter_dim", "learning_rate", "accuracy", "f1_score", "auroc"],
   header: {

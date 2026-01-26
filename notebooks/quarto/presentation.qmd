@@ -91,15 +91,17 @@ format:
 ::::
 :::::::
 
-## A Moral Failure
-
-![Bad development is a sin.](assets/world_if_meme.jpg){fig-align="center" height="500px"}
-
 # The Hard Truth {.bg-dark-texture}
 
 ::: r-fit-text
 "This was all my fault."
 :::
+
+
+## A Moral Failure
+
+![](assets/world_if_meme.jpg){fig-align="center" height="500px"}
+
 
 # Without SLURM We Would Have Cured Cancer By Now {.bg-dark-texture}
 
@@ -137,7 +139,7 @@ format:
 ![Dependency (Source: XKCD)](https://imgs.xkcd.com/comics/dependency_2x.png){fig-align="center" width="100%"}
 :::
 ::::
-::::
+::::::::
 
 # The Dirty Secret... {.bg-accent-2}
 
@@ -162,51 +164,61 @@ The eternal struggle: Time spent to automate vs. overhead accumulated.
 
 ## Your Workflow {.bg-accent-3}
 
-:::: columns
-::: {.column width="60%"}
+::::::: columns
+:::: {.column width="60%"}
 ::: {.glass-card .fragment}
 ### The Process
-
 -   You have data & simulation parameters.
 -   You have a model (statistical/ML/physics).
 -   You want to run sweeps with fixed logic.
 -   You want to collect & visualize results.
 -   You want to turn plots into a **publication**.
 :::
-:::
-
-::: {.column width="40%"}
-::: {.glass-card .fragment}
-### The Goal
-
-**Automate the plumbing** so you can focus on the **science**.
-:::
-:::
 ::::
 
-# The Sanity Savers {.bg-primary}
+:::: {.column width="40%"}
+::: {.glass-card .fragment}
+### The Goal
+**Automate the plumbing** so you can focus on the **science**.
+:::
+::::
+:::::::
+
+
+# Example Project
+
+- Train a BERT to correctly classifer thhe AG news dataset
+  - 4 classes: Buisness, Sci/Tech, Sports/World
+- Train an MLP classifier on BERT embeddings
+
+# The Tools {.bg-primary}
+
+## 1. Modularity
+
+- ****
+
 
 ## 1. The Environment {auto-animate="true"}
 
-:::: columns
-::: {.column width="50%"}
+::::::: columns
+:::: {.column width="50%"}
 ::: {.glass-card .fragment}
 ### Reproducible UV
 
 -   **Speed**: Orders of magnitude faster than pip/conda.
 -   **Locking**: `uv.lock` ensures your code runs *everywhere*.
 :::
-:::
+::::
 
-::: {.column width="50%"}
+:::: {.column width="50%"}
 ::: {.glass-card .fragment}
 ### Modular Source
 
 -   **No More Notebooks**: Logic lives in `.py` modules.
 -   **Git Flow**: Use Pull Requests to manage complexity.
 :::
-:::
 ::::
+:::::::
 
 ::: footer
 Docs: [astral.sh/uv](https://docs.astral.sh/uv/) \| [git-scm.com](https://git-scm.com)
@@ -214,25 +226,29 @@ Docs: [astral.sh/uv](https://docs.astral.sh/uv/) \| [git-scm.com](https://git-sc
 
 ## 2. The Workflow {auto-animate="true"}
 
-:::: columns
-::: {.column width="50%"}
+::::::: columns
+:::: {.column width="50%"}
 ::: {.glass-card .fragment}
-### Snakemake DAGs
-
--   **Amnesia Proof**: Automatically tracks what results are invalid.
--   **Declarative**: The code *is* the documentation.
+### The Automation
+-   **Snakemake**: Declarative workflow that tracks results and dependencies.
+-   **SLURM Compatible**: Zero-effort submission to the VACC cluster.
+-   **Amnesia Proof**: Automatically identifies stale results.
 :::
-:::
 
-::: {.column width="50%"}
 ::: {.glass-card .fragment}
 ### HPC Scaling
-
--   **VACC Profiles**: Zero-effort Slurm submission.
+-   **VACC Profiles**: Integrated Slurm profiles.
 -   **Scaling**: Run 1 locally; run 1,000 on the cluster.
 :::
+::::
+
+:::: {.column width="50%"}
+::: {.glass-card .fragment}
+### Workflow DAG
+![Example Snakemake DAG](assets/snakemake_dag.svg){fig-align="center" width="100%"}
 :::
 ::::
+:::::::
 
 ::: footer
 Docs: [snakemake.github.io](https://snakemake.github.io/) \| [vacc.uvm.edu](https://www.uvm.edu/vacc/docs/)
@@ -240,25 +256,25 @@ Docs: [snakemake.github.io](https://snakemake.github.io/) \| [vacc.uvm.edu](http
 
 ## 3. The Data Lifecycle {auto-animate="true"}
 
-:::: columns
-::: {.column width="50%"}
+::::::: columns
+:::: {.column width="50%"}
 ::: {.glass-card .fragment}
 ### Validated Data
 
 -   **Pydantic**: Catch errors at the boundary.
 -   **LLM Context**: Structured slots for model reasoning.
 :::
-:::
+::::
 
-::: {.column width="50%"}
+:::: {.column width="50%"}
 ::: {.glass-card .fragment}
 ### High-Perf Analytics
 
 -   **Parquet + DuckDB**: SQL speed on flat files.
 -   **Testing**: Shape checks to verify the "vibe."
 :::
-:::
 ::::
+:::::::
 
 ::: footer
 Docs: [duckdb.org](https://duckdb.org/) \| [pydantic.dev](https://docs.pydantic.dev/)

@@ -31,6 +31,8 @@ We utilize the bottleneck architecture described in @houlsby2019. This approach 
 
 Our experiments on the CSDS research dataset indicate that BERT adapters converge faster than full fine-tuning. We find that the structural properties of the attention weights in adapted models exhibit higher modularity compared to their fully fine-tuned counterparts, suggesting that adapters preserve the original model's "backbone" more effectively.
 
+![**Figure 1: ROC Curves Across Hyperparameter Sweep.** The curves demonstrate the robustness of BERT adapters across different bottleneck dimensions and learning rates. All configurations achieve an AUC \> 0.92, with the $d=512$ configuration showing the fastest convergence.](plots/fig1_roc_sweep.png){#fig-roc fig-align="center" width="80%"}
+
 # Conclusion
 
 We have demonstrated that BERT adapters are a highly efficient tool for scientific development in NLP. By minimizing the trainable parameter count, we enable more rapid iteration and experimentation on academic-scale hardware.
