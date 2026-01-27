@@ -2,7 +2,6 @@
 title: "There is Plenty of Room in Latent Space"
 subtitle: "Scientific Workflows on the Eve of the Butlerian Jihad"
 author: "W. H. W. Thompson"
-footer: "Scientific Software Development Practices in the Era of Vibecoding"
 format: 
   revealjs:
     theme: [white, custom.scss]
@@ -12,10 +11,13 @@ format:
     preview-links: false
     hash: false
     history: false
-    controls: true
+    controls: false
     progress: true
+    click-navigation: false
+    touch: true
+    keyboard: true
     highlight-style: monokai
-    auto-animate: true
+    auto-animate: false
     title-slide-attributes:
       data-background-color: "#861388"
       data-background-image: "https://www.transparenttextures.com/patterns/cubes.png"
