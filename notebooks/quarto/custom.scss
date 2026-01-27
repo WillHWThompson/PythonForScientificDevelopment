@@ -63,40 +63,7 @@ $presentation-heading-color: $brand-primary;
     }
 }
 
-// Pop-up Card for bottom overlay
-.pop-up-card {
-    position: absolute;
-    bottom: 60px;
-    left: 10%;
-    right: 10%;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 1.5rem;
-    border: 2px solid $brand-teal;
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-    text-align: center;
-    border-bottom: none;
-    color: #2d3436 !important;
-    z-index: 1000;
-    text-align: center;
 
-    h3 {
-        color: $brand-teal !important;
-        margin-top: 0;
-        margin-bottom: 0.5rem;
-    }
-
-    p,
-    span,
-    div,
-    strong,
-    em {
-        color: #2d3436 !important;
-        font-size: 1.1em;
-        line-height: 1.4;
-    }
-}
 
 // Background Utilities
 .bg-primary {
