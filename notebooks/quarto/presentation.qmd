@@ -443,7 +443,7 @@ def simulate_trajectories(
 -   **Linked Dependencies**: Dependency linking prevents identical redundant binaries across environments
 
 ``` toml
-# pyproject.toml
+# [pyproject.toml](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/pyproject.toml)
 [project]
 name = "scientific_dev"
 requires-python = ">=3.12"
@@ -483,7 +483,7 @@ scores = batch_score(large_input_matrix)
 -   **Auto-IDs**: Generate run names from hyperparameters.
 
 ``` python
-# src/core/schema.py
+# [src/core/schema.py](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/schema.py)
 class NLPModelConfig(BaseModel):
     model_name: str = Field(default="distilbert-base-uncased")
     adapter_dim: int = Field(default=256)
@@ -523,7 +523,7 @@ preview:
 -   **Amnesia Proof**: Only runs what has changed.
 
 ``` python
-# workflow/rules/train.smk
+# [workflow/rules/train.smk](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/workflow/rules/train.smk)
 rule train_bert_classifier:
     output:
         weights = "results/{cfg_name}/{params_path}/model.pt",
@@ -544,14 +544,14 @@ rule train_bert_classifier:
 -   **Actions**: Run everything on every push to ensure trust.
 
 ``` python
-# tests/test_nlp_logic.py
+# [tests/test_nlp_logic.py](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/tests/test_nlp_logic.py)
 def test_validation():
     with pytest.raises(ValueError):
         NLPModelConfig(adapter_dim=-1)
 ```
 
 ``` yaml
-# .github/workflows/ci.yml
+# [.github/workflows/ci.yml](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/.github/workflows/ci.yml)
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -568,7 +568,7 @@ jobs:
 -   **Reproducible**: Every run is versioned and tagged.
 
 ``` python
-# src/core/trainer.py
+# [src/core/trainer.py](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/trainer.py)
 def init_logger(self):
     wandb.init(
         project="neural-adapter-research",
@@ -702,41 +702,41 @@ sns.lineplot(data=df, x='epoch', y='loss')
 
 ## AI Tools for Students {.smaller}
 
-
-::::: columns
-::: {.column width="45%" .fragment}
+:::::::: columns
+:::: {.column .fragment width="45%"}
 ::: glass-card
 ### IDEs
+
 *No excuse not to use Cursor/VSCode*
 
-- [**VSCode**](https://code.visualstudio.com) (Standard)
-- [**Cursor**](https://cursor.com/students) (Student Free)
-- [**Antigravity**](https://antigravity.google/) (Agent Labs)
+-   [**VSCode**](https://code.visualstudio.com) (Standard)
+-   [**Cursor**](https://cursor.com/students) (Student Free)
+-   [**Antigravity**](https://antigravity.google/) (Agent Labs)
 :::
-:::
+::::
 
 ::: {.column width="5%"}
 <!-- spacer -->
 :::
 
-::: {.column width="45%" .fragment}
+:::: {.column .fragment width="45%"}
 ::: glass-card
 ### LLMs
+
 *High-Context Research Partners*
 
-- [**Gemini Pro**](https://gemini.google/students/) (2M Tokens)
-- [**GitHub Copilot**](https://github.com/education) (Free)
-- [**Claude Campus**](https://claude.com/programs/campus) (Credits)
+-   [**Gemini Pro**](https://gemini.google/students/) (2M Tokens)
+-   [**GitHub Copilot**](https://github.com/education) (Free)
+-   [**Claude Campus**](https://claude.com/programs/campus) (Credits)
 :::
-:::
-:::::
-
+::::
+::::::::
 
 ::: {.solid-card .fragment}
 ### 💡 Workflow Inspiration
+
 Check out [Fitz's Workflow](https://github.com/FWJK1/workflow) for clean pipeline design.
 :::
-
 
 # This is the TIP OF THE ICEBERG {.bg-dark-texture}
 

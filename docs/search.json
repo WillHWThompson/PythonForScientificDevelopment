@@ -158,7 +158,7 @@
     "href": "presentation.html#environment-uv",
     "title": "There is Plenty of Room in Latent Space",
     "section": "1. Environment (UV)",
-    "text": "1. Environment (UV)\n\nSpeed: Muuuch faster than conda.\nExact Reproducability: uv.lock ensures reproducibility.\nLinked Dependencies: Dependcy linking prevents identical redundant binaries across environments\n\n# pyproject.toml\n[project]\nname = \"scientific_dev\"\nrequires-python = \"&gt;=3.12\"\ndependencies = [\n    \"jax&gt;=0.9.0\",\n    \"snakemake&gt;=8.4.0\",\n    \"pydantic&gt;=2.12.5\",\n]"
+    "text": "1. Environment (UV)\n\nSpeed: Muuuch faster than conda.\nExact Reproducibility: uv.lock ensures reproducibility.\nLinked Dependencies: Dependency linking prevents identical redundant binaries across environments\n\n# pyproject.toml\n[project]\nname = \"scientific_dev\"\nrequires-python = \"&gt;=3.12\"\ndependencies = [\n    \"jax&gt;=0.9.0\",\n    \"snakemake&gt;=8.4.0\",\n    \"pydantic&gt;=2.12.5\",\n]"
   },
   {
     "objectID": "presentation.html#acceleration-jax-pytorch",
@@ -228,7 +228,7 @@
     "href": "presentation.html#publication-quarto",
     "title": "There is Plenty of Room in Latent Space",
     "section": "Publication (Quarto)",
-    "text": "Publication (Quarto)\n\nUnified Logic: Use LaTeX, Python, and Javascript in one document.\nBetter Notebooks: Use python to analyze data, pass results to javascript for interctive plots\nOne Framework, Many Formats: Make Websties/Presentaions/PDFs and Latex Documents\nReproducible: One command to render the whole dashboard/paper.\n\n# Theoretical Loss\n$$\n\\mathcal{L}(\\theta) = \\frac{1}{N} \\sum_{i=1}^N \\text{CrossEntropy}(f_\\theta(x_i), y_i)\n$$\n\n# Python Visualization\n```python\nimport seaborn as sns\nsns.lineplot(data=df, x='epoch', y='loss')\n```"
+    "text": "Publication (Quarto)\n\nUnified Logic: Use LaTeX, Python, and Javascript in one document.\nBetter Notebooks: Use python to analyze data, pass results to javascript for interactive plots\nOne Framework, Many Formats: Make Websites/Presentations/PDFs and Latex Documents\nReproducible: One command to render the whole dashboard/paper.\n\n# Theoretical Loss\n$$\n\\mathcal{L}(\\theta) = \\frac{1}{N} \\sum_{i=1}^N \\text{CrossEntropy}(f_\\theta(x_i), y_i)\n$$\n\n# Python Visualization\n```python\nimport seaborn as sns\nsns.lineplot(data=df, x='epoch', y='loss')\n```"
   },
   {
     "objectID": "presentation.html#ai-tools-for-students",
@@ -499,5 +499,12 @@
     "title": "There is Plenty of Room in Latent Space",
     "section": "The Iron Rule of Scientific Software Development",
     "text": "The Iron Rule of Scientific Software Development\n\n\nIf you take the time to build out code the right way you will never use it\n\n\n\n\nIf you write sloppy code it will bite you in the ass\n\n\n\n\nDamned if you do. Damned if you don’t."
+  },
+  {
+    "objectID": "presentation.html#opportunity-cost-of-good-software-dev-practices",
+    "href": "presentation.html#opportunity-cost-of-good-software-dev-practices",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Opportunity Cost of Good Software Dev Practices",
+    "text": "Opportunity Cost of Good Software Dev Practices\n\n\n\n(Source: XKCD)"
   }
 ]
