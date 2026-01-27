@@ -443,7 +443,7 @@ def simulate_trajectories(
 -   **Linked Dependencies**: Dependency linking prevents identical redundant binaries across environments
 
 ``` toml
-# [pyproject.toml](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/pyproject.toml)
+# pyproject.toml
 [project]
 name = "scientific_dev"
 requires-python = ">=3.12"
@@ -483,7 +483,7 @@ scores = batch_score(large_input_matrix)
 -   **Auto-IDs**: Generate run names from hyperparameters.
 
 ``` python
-# [src/core/schema.py](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/schema.py)
+# src/core/schema.py
 class NLPModelConfig(BaseModel):
     model_name: str = Field(default="distilbert-base-uncased")
     adapter_dim: int = Field(default=256)
@@ -523,7 +523,7 @@ preview:
 -   **Amnesia Proof**: Only runs what has changed.
 
 ``` python
-# [workflow/rules/train.smk](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/workflow/rules/train.smk)
+# workflow/rules/train.smk
 rule train_bert_classifier:
     output:
         weights = "results/{cfg_name}/{params_path}/model.pt",
@@ -544,14 +544,14 @@ rule train_bert_classifier:
 -   **Actions**: Run everything on every push to ensure trust.
 
 ``` python
-# [tests/test_nlp_logic.py](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/tests/test_nlp_logic.py)
+# tests/test_nlp_logic.py
 def test_validation():
     with pytest.raises(ValueError):
         NLPModelConfig(adapter_dim=-1)
 ```
 
 ``` yaml
-# [.github/workflows/ci.yml](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/.github/workflows/ci.yml)
+# .github/workflows/ci.yml
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -568,7 +568,7 @@ jobs:
 -   **Reproducible**: Every run is versioned and tagged.
 
 ``` python
-# [src/core/trainer.py](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/trainer.py)
+# src/core/trainer.py
 def init_logger(self):
     wandb.init(
         project="neural-adapter-research",
