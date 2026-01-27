@@ -737,23 +737,6 @@ sns.lineplot(data=df, x='epoch', y='loss')
 Check out [Fitz's Workflow](https://github.com/FWJK1/workflow) for clean pipeline design.
 :::
 
-## Automation via [MCP](https://modelcontextprotocol.io) {.smaller}
-
-
-::::: columns
-::: {.column width="60%" .fragment}
-::: glass-card
-### Scientific Agents
-- **Context RAGs**: Bridge Zotero & NotebookLM into your agent's reasoning.
-- **Orchestration**: Agents can launch Snakemake & monitor VACC jobs in real-time.
-:::
-:::
-
-::: {.column width="40%" .fragment}
-![MCP Architecture](https://mintcdn.com/mcp/bEUxYpZqie0DsluH/images/mcp-simple-diagram.png?w=2500&fit=max&auto=format&n=bEUxYpZqie0DsluH&q=85&s=dc4ab238184b6c70e06e871681c921c5){fig-align="right" width="400px"}
-:::
-:::::
-
 
 # This is the TIP OF THE ICEBERG {.bg-dark-texture}
 
