@@ -46,6 +46,12 @@ Investing in modern development practices might feel slow initially, but it prev
 | Experiment Tracking      | **Weights and Biases**             |
 | Publication/Dashboards   | **Quarto**                         |
 
+**Reproducible**: One command to render the whole dashboard/paper.
+
+### Key Files
+- [`notebooks/quarto/presentation.qmd`](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/notebooks/quarto/presentation.qmd) - Reveal.js presentation source.
+- [`notebooks/quarto/dashboard.qmd`](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/notebooks/quarto/dashboard.qmd) - Interactive dashboard source.
+
 # 1. The Foundation
 
 ## Python Features
@@ -143,6 +149,11 @@ rule train_bert_classifier:
         "--output {output.weights}"
 ```
 
+### Key Files
+- [`Snakefile`](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/Snakefile) - Top-level workflow entry point.
+- [`configs/`](https://github.com/WillHWThompson/PythonForScientificDevelopment/tree/main/configs) - YAML configuration files for experiments.
+- [`workflow/profiles/slurm/`](https://github.com/WillHWThompson/PythonForScientificDevelopment/tree/main/workflow/profiles/slurm) - SLURM cluster execution profile.
+
 [View Full Rule](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/workflow/rules/train.smk)
 
 ## Testing (Pytest) & CI (GitHub Actions)
@@ -158,6 +169,10 @@ def test_validation():
 
 [View CI Workflow](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/.github/workflows/ci.yml)
 
+### Key Files
+- [`tests/`](https://github.com/WillHWThompson/PythonForScientificDevelopment/tree/main/tests) - Unit and integration tests.
+- [`.github/workflows/ci.yml`](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/.github/workflows/ci.yml) - CI/CD pipeline definition.
+
 ## Tracking & Logs (WandB)
 
 [Weights and Biases](https://wandb.ai) provides real-time tracking of experiments and ensures every run is versioned.
@@ -172,6 +187,9 @@ wandb.log({
 
 [View Trainer](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/trainer.py)
 
+### Key Files
+- [`src/core/trainer.py`](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/trainer.py#L61-L68) - Real-time WandB logging hooks.
+
 ## Data Storage (DuckDB)
 
 Use [DuckDB](https://duckdb.org/) to query Parquet files using standard SQL.
@@ -182,6 +200,19 @@ FROM read_parquet('results/**/training_stats.parquet') s
 LEFT JOIN read_parquet('results/**/test_metrics.parquet') m 
   ON s.full_run_name = m.full_run_name
 ```
+
+### Key Files
+- [`notebooks/quarto/dashboard.qmd`](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/notebooks/quarto/dashboard.qmd) - SQL queries visualized in Quarto.
+- [`src/core/schema.py`](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/schema.py) - SQLModel/Pydantic schema definitions.
+- [MYDB (UVM WebDB)](https://webdb.uvm.edu) - UVM's hosted MySQL service.
+
+## Publication (Quarto)
+
+One command to render the whole dashboard/paper.
+
+### Key Files
+- [`notebooks/quarto/presentation.qmd`](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/notebooks/quarto/presentation.qmd) - Reveal.js presentation source.
+- [`notebooks/quarto/dashboard.qmd`](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/notebooks/quarto/dashboard.qmd) - Interactive dashboard source.
 
 # 3. Resources & AI Integration
 
@@ -199,3 +230,6 @@ Use the [Model Context Protocol](https://modelcontextprotocol.io) to bridge your
 ## Workflow Inspiration
 
 For clean pipeline design and project organization, refer to [Fitz's Workflow](https://github.com/FWJK1/workflow).
+
+## Visualization Style
+- [`src/core/fig_style.py`](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/fig_style.py) - Centralized matplotlib/seaborn styling.

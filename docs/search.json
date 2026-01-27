@@ -32,7 +32,7 @@
     "href": "guide.html#environment-management-uv",
     "title": "Technical Manifesto: Scientific Software Development",
     "section": "Environment Management (UV)",
-    "text": "Environment Management (UV)\nUV is a modern replacement for Conda that is significantly faster and more reliable.\n# pyproject.toml\n[project]\nname = \"scientific_dev\"\nrequires-python = \"&gt;=3.12\"\ndependencies = [\n    \"jax&gt;=0.9.0\",\n    \"snakemake&gt;=8.4.0\",\n    \"pydantic&gt;=2.12.5\",\n]"
+    "text": "Environment Management (UV)\nUV is a modern replacement for Conda that is significantly faster and more reliable.\n# [pyproject.toml](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/pyproject.toml)\n[project]\nname = \"scientific_dev\"\nrequires-python = \"&gt;=3.12\"\ndependencies = [\n    \"jax&gt;=0.9.0\",\n    \"snakemake&gt;=8.4.0\",\n    \"pydantic&gt;=2.12.5\",\n]"
   },
   {
     "objectID": "guide.html#acceleration-jax-pytorch",
@@ -67,7 +67,7 @@
     "href": "guide.html#testing-pytest-ci-github-actions",
     "title": "Technical Manifesto: Scientific Software Development",
     "section": "Testing (Pytest) & CI (GitHub Actions)",
-    "text": "Testing (Pytest) & CI (GitHub Actions)\nValidate research code quality and ensure reproducibility on every push.\n# tests/test_nlp_logic.py\ndef test_validation():\n    with pytest.raises(ValueError):\n        NLPModelConfig(adapter_dim=-1)\nView CI Workflow"
+    "text": "Testing (Pytest) & CI (GitHub Actions)\nValidate research code quality and ensure reproducibility on every push.\n# [tests/test_nlp_logic.py](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/tests/test_nlp_logic.py)\ndef test_validation():\n    with pytest.raises(ValueError):\n        NLPModelConfig(adapter_dim=-1)\nView CI Workflow"
   },
   {
     "objectID": "guide.html#tracking-logs-wandb",
