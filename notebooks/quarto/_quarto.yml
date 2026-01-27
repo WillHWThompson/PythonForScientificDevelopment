@@ -1,12 +1,19 @@
 project:
   type: website
   output-dir: ../../docs
+  render:
+    - index.qmd
+    - paper_draft.qmd
+    - supplementary.qmd
+    - notes/01-24-26.qmd
 
 project-render:
   - "!**/.git"
   - "!**/.venv"
   - "!**/.snakemake"
   - "!**/.quarto"
+  - "!presentation.qmd"
+  - "!dashboard.qmd"
 
 website:
   title: "Neural Adapter Research"
@@ -25,10 +32,6 @@ website:
         - section: "January 2026"
           contents:
             - notes/01-24-26.qmd
-    - title: "Interactions"
-      contents:
-        - dashboard.qmd
-        - presentation.qmd
 
 format:
   html:

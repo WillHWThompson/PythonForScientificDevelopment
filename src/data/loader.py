@@ -20,6 +20,11 @@ class TextClassifierDataLoader(BaseModel):
     # Use PrivateAttr for external objects that shouldn't be part of the schema
     _tokenizer: Any = PrivateAttr()
 
+    @property
+    def tokenizer(self) -> Any:
+        """Expose the internal tokenizer."""
+        return self._tokenizer
+
     def model_post_init(self, __context: Any) -> None:
         """Initialize the tokenizer after the model is validated."""
         self._tokenizer = AutoTokenizer.from_pretrained(self.model_name)

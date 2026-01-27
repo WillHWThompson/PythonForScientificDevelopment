@@ -43,6 +43,8 @@ class BertAdapterClassifier(nn.Module):
         combined_output = cls_output + adapted_output
         
         # 4. Final classification
+        # We return raw logits because nn.CrossEntropyLoss in PyTorch applies LogSoftmax internally,
+        # which is more numerically stable than applying Softmax manually.
         logits = self.classifier(self.dropout(combined_output))
         
         return logits

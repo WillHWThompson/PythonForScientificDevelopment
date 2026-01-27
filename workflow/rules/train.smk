@@ -11,7 +11,7 @@ rule train_bert_classifier:
     resources:
         mem_mb=16000,
         gpu=1,
-        runtime="4h"
+    runtime="4h"
     params:
         # Resolve config logic in params to keep shell command clean
         cfg = lambda w: workflow.configfiles[0] if workflow.configfiles else f"configs/{w.cfg_name}.yaml",

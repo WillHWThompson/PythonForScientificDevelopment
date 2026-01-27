@@ -140,6 +140,16 @@ viewof min_acc = Inputs.range(
   [0, 1], 
   {label: "Min Accuracy", step: 0.01, value: 0.5}
 )
+
+// Utility to convert column-oriented data from ojs_define to row-oriented
+transpose = (obj) => {
+  const keys = Object.keys(obj);
+  return obj[keys[0]].map((_, i) => {
+    const r = {};
+    keys.forEach(k => r[k] = obj[k][i]);
+    return r;
+  });
+}
 ```
 
 ::::: grid
@@ -192,7 +202,7 @@ Plot.plot({
 ::: g-col-4
 ### Run Metadata
 
-``` ojs
+```{ojs}
 Inputs.table(filtered_data, {
   columns: ["full_name", "adapter_dim", "learning_rate", "accuracy", "f1_score", "auroc"],
   header: {

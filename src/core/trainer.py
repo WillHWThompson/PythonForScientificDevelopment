@@ -57,7 +57,6 @@ class TextClassifierTrainer:
             
             total_loss += loss.item()
             progress_bar.set_postfix({"loss": loss.item()})
-            
             # Real-time step logging
             if self.config.wandb_enabled and step % self.config.training.log_interval == 0:
                 import wandb

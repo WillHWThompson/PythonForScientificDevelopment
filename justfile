@@ -3,15 +3,15 @@ config := "configs/nlp_baseline.yaml"
 
 ## Run full pipeline. Usage: just all [profile] [config]
 all p="local" c=config:
-    uv run snakemake --workflow-profile workflow/profiles/{{p}} --configfile {{c}}
+    uv run snakemake --workflow-profile ./workflow/profiles/{{p}} --configfile {{c}}
 
-## Run training. Usage: just train [profile] [config]  (e.g., just train local configs/nlp_baseline.yaml)
+## Run training. Usage: just train [profile] [config]
 train p="local" c=config:
-    uv run snakemake train_all --workflow-profile workflow/profiles/{{p}} --configfile {{c}}
+    uv run snakemake train_all --workflow-profile ./workflow/profiles/{{p}} --configfile {{c}}
 
-## Run evaluation. Usage: just test [profile] [config]  (e.g., just test local configs/nlp_baseline.yaml)
+## Run evaluation. Usage: just test [profile] [config]
 test p="local" c=config:
-    uv run snakemake test_all --workflow-profile workflow/profiles/{{p}} --configfile {{c}}
+    uv run snakemake test_all --workflow-profile ./workflow/profiles/{{p}} --configfile {{c}}
 
 ## Sync training results from VACC cluster
 sync:

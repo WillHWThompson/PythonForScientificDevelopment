@@ -33,6 +33,8 @@ dependencies = [
     "datasets>=4.5.0",
     "evaluate>=0.4.6",
     "scikit-learn>=1.8.0",
+    "sqlmodel>=0.0.22",
+    "duckdb-engine>=0.13.0",
 ]
 
 [dependency-groups]
@@ -47,3 +49,10 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
+python_classes = "Test*"
+addopts = "-ra -q --ignore=results"

@@ -256,7 +256,7 @@
     "href": "dashboard.html",
     "title": "BERT News Classification Dashboard",
     "section": "",
-    "text": "/Users/willthompson/Documents/CSDS/side_projects/PythonForScientificDevelopment/.venv/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html\n  from .autonotebook import tqdm as notebook_tqdm",
+    "text": "/Users/willthompson/Documents/CSDS/side_projects/PythonForScientificDevelopment/.venv/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html\n  from .autonotebook import tqdm as notebook_tqdm\nUsing the latest cached version of the dataset since ag_news couldn't be found on the Hugging Face Hub\nFound the latest cached dataset configuration 'default' at /Users/willthompson/.cache/huggingface/datasets/ag_news/default/0.0.0/eb185aade064a813bc0b7f42de02595523103ca4 (last modified on Mon Jan 26 10:18:06 2026).",
     "crumbs": [
       "BERT News Classification Dashboard"
     ]
@@ -294,21 +294,21 @@
   {
     "objectID": "presentation.html#the-iron-rule-of-scientific-software-development",
     "href": "presentation.html#the-iron-rule-of-scientific-software-development",
-    "title": "I Suck At Coding: A Manifesto",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
     "section": "The Iron Rule of Scientific Software Development",
     "text": "The Iron Rule of Scientific Software Development\n\n\nIf you take the time to build out code the right way you will never use it\n\n\n\n\nIf you write sloppy code it will bite you in the ass\n\n\n\n\nDamned if you do. Damned if you don’t.",
     "crumbs": [
-      "I Suck At Coding: A Manifesto"
+      "Scientific Software Development Practices in the Era of Vibecoding"
     ]
   },
   {
     "objectID": "presentation.html#section",
     "href": "presentation.html#section",
-    "title": "Python for Scientific Development",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
     "section": "",
-    "text": "Python is a TERRIBLE language for scientific computing.\n\n\n\n\nNothing about the language is inherently good for science.\n\n\n\n\nMost tools were developed by researchers as a “side-hustle.”\n\n\n\n\nThe Goal: How can we contort Python to be at least “okay”?",
+    "text": "{background-iframe=“https://api.wandb.ai/links/whwthompson-university-of-vermont/i0010klt”}",
     "crumbs": [
-      "Python for Scientific Development"
+      "Scientific Software Development Practices in the Era of Vibecoding"
     ]
   },
   {
@@ -316,7 +316,7 @@
     "href": "presentation.html#the-python-paradox",
     "title": "I Suck At Coding: A Manifesto",
     "section": "The Python Paradox",
-    "text": "The Python Paradox\n\n\n\n\nPython is a TERRIBLE language for scientific computing.\nNothing about the language is inherently good for science.\nMost tools were developed by researchers as a “side-hustle.”\n\n\n\n\nThe Goal: How can we contort Python to be at least “okay”?\n\n\n\n\n\n\n\nDependency (Source: XKCD)",
+    "text": "The Python Paradox\n\n\n\n\nPython is a TERRIBLE language for scientific computing.\nNothing about the language is inherently good for science.\nMost tools were developed by researchers as a “side-hustle.”\n\n\n\n\nThe Goal: How can we contort Python to be at least “okay”?",
     "crumbs": [
       "I Suck At Coding: A Manifesto"
     ]
@@ -324,11 +324,11 @@
   {
     "objectID": "presentation.html#research-dashboard",
     "href": "presentation.html#research-dashboard",
-    "title": "I Suck At Coding: A Manifesto",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
     "section": "Research Dashboard",
-    "text": "Research Dashboard\n\nWe don’t just generate plots; we generate interactive insights.\n\n\n\nimport { view } from \"@observablehq/inputs\"\n\n// Placeholder for interactive OJS component demonstration\nmd`### 📊 [View Integrated Dashboard](dashboard.qmd)`",
+    "text": "Research Dashboard\n\n\n\nReal-time Tracking\n\nWeights & Biases integration\nLoss curves and gradient distributions\nArtifact tracking for model checkpoints\n\n\n\n# wandb/run-20260126_185750/\n# ├── files/\n# │   ├── config.yaml\n# │   └── wandb-metadata.json\n# └── logs/",
     "crumbs": [
-      "I Suck At Coding: A Manifesto"
+      "Scientific Software Development Practices in the Era of Vibecoding"
     ]
   },
   {
@@ -444,31 +444,31 @@
   {
     "objectID": "presentation.html#the-environment",
     "href": "presentation.html#the-environment",
-    "title": "I Suck At Coding: A Manifesto",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
     "section": "1. The Environment",
-    "text": "1. The Environment\n\n\n\nReproducible UV\n\nSpeed: Orders of magnitude faster than pip/conda.\nLocking: uv.lock ensures your code runs everywhere.\n\n\n\n\nModular Source\n\nNo More Notebooks: Logic lives in .py modules.\nGit Flow: Use Pull Requests to manage complexity.\n\n\n\n\nDocs: astral.sh/uv | git-scm.comhttps://github.com/WillHWThompson/PythonForScientificDevelopment",
+    "text": "1. The Environment\n\n\nReproducible UV\n\nSpeed: Orders of magnitude faster than pip/conda.\nLocking: uv.lock ensures your code runs everywhere.\nExamples: pyproject.toml, uv.lock\n\n\n\n\nDocs: astral.sh/uv | git-scm.comhttps://github.com/WillHWThompson/PythonForScientificDevelopment",
     "crumbs": [
-      "I Suck At Coding: A Manifesto"
+      "Scientific Software Development Practices in the Era of Vibecoding"
     ]
   },
   {
     "objectID": "presentation.html#the-workflow",
     "href": "presentation.html#the-workflow",
-    "title": "I Suck At Coding: A Manifesto",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
     "section": "2. The Workflow",
-    "text": "2. The Workflow\n\n\n\nWorkflow Management\n\nAutomation: Snakemake tracks results and dependencies.\nVACC Scaling: Integrated Slurm profiles for zero-effort submission.\nAmnesia Proof: Automatically identifies stale results.\nLocal vs Cloud: Run 1 locally; run 1,000 on the cluster.\n\n\n\n\nWorkflow DAG\n\n\n\nExample Snakemake DAG\n\n\n\n\n\nDocs: snakemake.github.io | vacc.uvm.edu",
+    "text": "2. The Workflow\n\n\nSnakemake\n\nAutomatic workflow generation: Specify components, Snakemake automatically builds the whole sweep.\nSlurm Integration: Manages Slurm jobs without bespoke batch scripts.\nAmnesia Proof: Only runs what hasn’t been run, identifies stale results.\nExamples: Snakefile, ./workflows\n\n\n\n\n\n\n\nExample Snakemake DAG\n\n\n\n\nDocs: snakemake.github.io | vacc.uvm.edu",
     "crumbs": [
-      "I Suck At Coding: A Manifesto"
+      "Scientific Software Development Practices in the Era of Vibecoding"
     ]
   },
   {
     "objectID": "presentation.html#the-data-lifecycle",
     "href": "presentation.html#the-data-lifecycle",
-    "title": "I Suck At Coding: A Manifesto",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
     "section": "3. The Data Lifecycle",
-    "text": "3. The Data Lifecycle\n\n\n\nValidated Data\n\nPydantic: Catch errors at the boundary.\nLLM Context: Structured slots for model reasoning.\n\n\n\n\nHigh-Perf Analytics\n\nParquet + DuckDB: SQL speed on flat files.\nTesting: Shape checks to verify the “vibe.”\n\n\n\n\nDocs: duckdb.org | pydantic.dev",
+    "text": "3. The Data Lifecycle\n\n\n\nValidated Data\n\nPydantic: Catch errors at the boundary.\nLLM Context: Type-validated data structures make it much easier for LLMs to reason about inputs and outputs\n\n\n\n\nHigh-Perf Analytics\n\nParquet + DuckDB: SQL speed on flat files.\nTesting: Shape checks to verify the “vibe.”\n\n\n\n\nDocs: duckdb.org | pydantic.dev",
     "crumbs": [
-      "I Suck At Coding: A Manifesto"
+      "Scientific Software Development Practices in the Era of Vibecoding"
     ]
   },
   {
@@ -504,41 +504,41 @@
   {
     "objectID": "presentation.html#a-moral-failure",
     "href": "presentation.html#a-moral-failure",
-    "title": "I Suck At Coding: A Manifesto",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
     "section": "A Moral Failure",
     "text": "A Moral Failure",
     "crumbs": [
-      "I Suck At Coding: A Manifesto"
+      "Scientific Software Development Practices in the Era of Vibecoding"
     ]
   },
   {
     "objectID": "presentation.html#your-workflow",
     "href": "presentation.html#your-workflow",
-    "title": "I Suck At Coding: A Manifesto",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
     "section": "Your Workflow",
-    "text": "Your Workflow\n\n\n\nThe Process\n\nYou have data & simulation parameters.\nYou have a model (statistical/ML/physics).\nYou want to run sweeps with fixed logic.\nYou want to collect & visualize results.\nYou want to turn plots into a publication.\n\n\n\n\nThe Goal\nAutomate the plumbing so you can focus on the science.",
+    "text": "Your Workflow\n\nThe Process\n\nYou have data or simulation parameters.\nYou have a model (ABM/statistical/ML).\nYou want to run sweeps with fixed logic.\nYou want to collect & visualize results.\nYou want to turn plots into a publication.\n\n\n\n\nThe Goal\nAutomate the plumbing so you can focus on the science.",
     "crumbs": [
-      "I Suck At Coding: A Manifesto"
+      "Scientific Software Development Practices in the Era of Vibecoding"
     ]
   },
   {
     "objectID": "presentation.html#modularity",
     "href": "presentation.html#modularity",
-    "title": "I Suck At Coding: A Manifesto",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
     "section": "1. Modularity",
     "text": "1. Modularity",
     "crumbs": [
-      "I Suck At Coding: A Manifesto"
+      "Scientific Software Development Practices in the Era of Vibecoding"
     ]
   },
   {
     "objectID": "presentation.html#unit-testing",
     "href": "presentation.html#unit-testing",
-    "title": "I Suck At Coding: A Manifesto",
-    "section": "4. Unit Testing",
-    "text": "4. Unit Testing\n\n\n\nPytest Rigor\n\nLogic Checks: Validate each part of your research code.\nIntegration: Ensure the whole system plays together nicely.\n\n\n\n\nGitHub Actions\n\nAutomation: Run tests on every push.\nTrust: Know your “vibe” is actually correct.\n\n\n\n\nDocs: pytest.org | github.com/features/actions",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "3. Unit Testing",
+    "text": "3. Unit Testing\n\n\n\n\nPytest Rigor\n\nLogic Checks: Validate each part of your research code.\nIntegration: Ensure the whole system plays together nicely.\nExamples: tests/test_nlp_logic.py\n\n\n\n\n\n\nGitHub Actions\n\nAutomation: Run tests on every push.\nTrust: Know your “vibe” is actually correct.\n, .github/workflows/ci.yml\n\n\n\n\n\n\nDocs: pytest.org | github.com/features/actions",
     "crumbs": [
-      "I Suck At Coding: A Manifesto"
+      "Scientific Software Development Practices in the Era of Vibecoding"
     ]
   },
   {
@@ -559,6 +559,136 @@
     "text": "2. The Workflow\n\n\n\nThe Automation\n\nSnakemake: Declarative workflow that tracks results and dependencies.\nSLURM Compatible: Zero-effort submission to the VACC cluster.\nAmnesia Proof: Automatically identifies stale results.\n\n\n\nHPC Scaling\n\nVACC Profiles: Integrated Slurm profiles.\nScaling: Run 1 locally; run 1,000 on the cluster.\n\n\n\n\nWorkflow DAG\n\n\n\nExample Snakemake DAG\n\n\n\n\n\nDocs: snakemake.github.io | vacc.uvm.edu\n\nHigh-Perf Data Storage\n\nParquet + DuckDB: SQL speed on flat files.",
     "crumbs": [
       "I Suck At Coding: A Manifesto"
+    ]
+  },
+  {
+    "objectID": "presentation.html#expectation-vs.-reality",
+    "href": "presentation.html#expectation-vs.-reality",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "Expectation vs. Reality",
+    "text": "Expectation vs. Reality\n\n\n\n\nWhat I Imagined\n\n\nCode\ndata_imagined = [\n  {name: \"Reading/Understanding\", value: 20, color: \"#861388\"},\n  {name: \"Thinking Deeply\", value: 60, color: \"#E15A97\"},\n  {name: \"Writing Code\", value: 10, color: \"#2F6690\"},\n  {name: \"Communicating\", value: 10, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_imagined, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_imagined, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; `${d.name}\\n(${d.value}%)`,\n      fill: \"white\",\n      fontSize: 14\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Reality\n\n\nCode\ndata_reality_1 = [\n  {name: \"Reading\", value: 10, color: \"#861388\"},\n  {name: \"Writing Code\", value: 80, color: \"#2F6690\"},\n  {name: \"Thinking\", value: 5, color: \"#E15A97\"},\n  {name: \"Making Slides\", value: 5, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_reality_1, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_reality_1, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; d.value &gt; 5 ? `${d.name}\\n(${d.value}%)` : \"\",\n      fill: \"white\",\n      fontSize: 14\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})",
+    "crumbs": [
+      "Scientific Software Development Practices in the Era of Vibecoding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#expectation-vs.-reality-1",
+    "href": "presentation.html#expectation-vs.-reality-1",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "Expectation vs. Reality",
+    "text": "Expectation vs. Reality\n\n\n\nExpectations\n\n\nCode\n// Redefine to keep auto-animate happy, or OJS will handle reactivity\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_imagined, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_imagined, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; `${d.name}\\n(${d.value}%)`,\n      fill: \"white\",\n      fontSize: 14\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})\n\n\n\n\n\n\n\n\n\n\nReality Breakdown\n\n\nCode\ndata_reality_detailed = [\n  {name: \"Reading\", value: 10, color: \"#861388\"},\n  {name: \"Conda Hell\", value: 10, color: \"#132a3b\"},\n  {name: \"Actual Algorithm\", value: 10, color: \"#19374d\"},\n  {name: \"Boilerplate/IO\", value: 20, color: \"#1f4460\"},\n  {name: \"Off-by-one bugs\", value: 10, color: \"#29597e\"},\n  {name: \"SLURM Queues\", value: 10, color: \"#2F6690\"},\n  {name: \"Matplotlib Ticks\", value: 10, color: \"#4483b3\"},\n  {name: \"Terminal Staring\", value: 10, color: \"#71a3c9\"},\n  {name: \"Thinking\", value: 5, color: \"#E15A97\"},\n  {name: \"Making Slides\", value: 5, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_reality_detailed, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_reality_detailed, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; d.value &gt;= 10 ? d.name : \"\",\n      fill: d =&gt; [\"#71a3c9\", \"#9dc3df\"].includes(d.color) ? \"#2d3436\" : \"white\",\n      fontSize: 11\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})",
+    "crumbs": [
+      "Scientific Software Development Practices in the Era of Vibecoding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#opprotunity-cost-of-good-software-dev-practices",
+    "href": "presentation.html#opprotunity-cost-of-good-software-dev-practices",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "Opprotunity Cost of Good Software Dev Practices",
+    "text": "Opprotunity Cost of Good Software Dev Practices\n\n\n\n(Source: XKCD)",
+    "crumbs": [
+      "Scientific Software Development Practices in the Era of Vibecoding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#what-python-already-offers",
+    "href": "presentation.html#what-python-already-offers",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "1. What Python Already Offers",
+    "text": "1. What Python Already Offers\n\nNo Logic Notebooks: Logic lives in .py source code files make your source code portable and pip installable\nType Hinting: Python is dynamically types but it has a type-annotation system, USE IT!\nGit Branches and PRs: Especially when collaborating on a codebase, USE branches, branch often and use pull-requests to merge changes back into main",
+    "crumbs": [
+      "Scientific Software Development Practices in the Era of Vibecoding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#custom-data-structures-and-type-validation",
+    "href": "presentation.html#custom-data-structures-and-type-validation",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "4. Custom Data Structures and Type Validation",
+    "text": "4. Custom Data Structures and Type Validation\n\n\n\nValidated Data\n\nPydantic: Ensure the inputs and outputs have the right structure\nLLM Context: Type-validated data structures make it much easier for LLMs to reason about inputs and outputs\nExamples: src/core/schema.py, src/data/loader.py\n\n\n\n\n\nDocs: pydantic.dev",
+    "crumbs": [
+      "Scientific Software Development Practices in the Era of Vibecoding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#high-performance-analytics",
+    "href": "presentation.html#high-performance-analytics",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "5. High Performance Analytics",
+    "text": "5. High Performance Analytics\n\n\nDatabases\n\nPydantic ORM: Use SQLModel for a type-safe Python interface to DuckDB/WebDB.\nParquet + DuckDB: SQL speed on flat files.\nTesting: Shape checks to verify the “vibe.”\nExamples: notebooks/quarto/dashboard.qmd\n\n\n\n\nDocs: UVM WebDB|duckdb.org",
+    "crumbs": [
+      "Scientific Software Development Practices in the Era of Vibecoding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#ad-and-hardware-acceleration",
+    "href": "presentation.html#ad-and-hardware-acceleration",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "AD and Hardware Acceleration",
+    "text": "AD and Hardware Acceleration\n\n\n\nNot just for deep learning\n\nRule of Thumb: If it’s vectorized in Numpy, it’s ready for the GPU np. to jnp..\nParraell Processing Across GPUS: Jax’s vmap makes it easy to run 1,000s of simulations on a single GPU in parralell\nAutomatic Differentiation: Gradients for any simulation, ODE solver, or Agent-Based Model (ABM).\nExamples: src/models/bert_adapter.py\n\n\n\n\n\nDocs: jax.readthedocs.io | pytorch.org",
+    "crumbs": [
+      "Scientific Software Development Practices in the Era of Vibecoding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#interactive-sql-console",
+    "href": "presentation.html#interactive-sql-console",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "6. Interactive SQL Console",
+    "text": "6. Interactive SQL Console\n\n\n\n\n\n\n\n\n\nCode\ndb = DuckDBClient.of({\n  results: transpose(res_data)\n})\n\nviewof query = Inputs.text({\n  label: \"SQL Query\", \n  value: \"SELECT * FROM results LIMIT 10\",\n  placeholder: \"Type your SQL here...\",\n  width: \"100%\"\n})\n\nresults_data = db.query(query)\n\nInputs.table(results_data)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPowered by DuckDB-Wasm & OJS (Aggregating {python} len(parquet_files) runs)",
+    "crumbs": [
+      "Scientific Software Development Practices in the Era of Vibecoding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#scientific-software-checklist",
+    "href": "presentation.html#scientific-software-checklist",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "Scientific Software Checklist",
+    "text": "Scientific Software Checklist\n\n\n\n\nProblem\nSolution\n\n\n\n\nReproducible Environment\nUV package manager & lockfiles\n\n\nData Validation\nPydantic schemas & types\n\n\nHardware Acceleration\nPyTorch and JAX\n\n\nCode Reliability\nPytest and CI/CD\n\n\nWorkflow Automation\nSnakemake pipelines\n\n\nExperiment Tracking\nWeights and Biases\n\n\nPublication/Dashboards\nQuarto",
+    "crumbs": [
+      "Scientific Software Development Practices in the Era of Vibecoding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#wandb-dashboard",
+    "href": "presentation.html#wandb-dashboard",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "WandB Dashboard",
+    "text": "WandB Dashboard",
+    "crumbs": [
+      "Scientific Software Development Practices in the Era of Vibecoding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#storing-data",
+    "href": "presentation.html#storing-data",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "5. Storing Data",
+    "text": "5. Storing Data\n\n\n\nDatabases\n\nPydantic ORM: Use SQLModel for a type-safe Python interface to DuckDB/WebDB.\nParquet + DuckDB: SQL speed on flat files.\nExamples: notebooks/quarto/dashboard.qmd,\n\n\n\n\n\nDocs: UVM WebDB|duckdb.org",
+    "crumbs": [
+      "Scientific Software Development Practices in the Era of Vibecoding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#interactive-dashboard",
+    "href": "presentation.html#interactive-dashboard",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "Interactive Dashboard",
+    "text": "Interactive Dashboard",
+    "crumbs": [
+      "Scientific Software Development Practices in the Era of Vibecoding"
+    ]
+  },
+  {
+    "objectID": "presentation.html#section-1",
+    "href": "presentation.html#section-1",
+    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "section": "",
+    "text": "{background-iframe=“dashboard.html”}",
+    "crumbs": [
+      "Scientific Software Development Practices in the Era of Vibecoding"
     ]
   }
 ]
