@@ -2,22 +2,16 @@
 title: "There is Plenty of Room in Latent Space"
 subtitle: "Scientific Workflows on the Eve of the Butlerian Jihad"
 author: "W. H. W. Thompson"
+footer: "Scientific Software Development Practices in the Era of Vibecoding"
 format: 
   revealjs:
     theme: [white, custom.scss]
     transition: slide 
     background-transition: fade
     slide-number: c/t
-    preview-links: false
-    hash: false
-    history: false
-    controls: false
-    progress: true
-    click-navigation: false
-    touch: true
-    keyboard: true
+    preview-links: auto
     highlight-style: monokai
-    auto-animate: false
+    auto-animate: true
     title-slide-attributes:
       data-background-color: "#861388"
       data-background-image: "https://www.transparenttextures.com/patterns/cubes.png"
@@ -292,8 +286,9 @@ html`<div style="display: flex; justify-content: center; align-items: center; he
 -   You want to turn plots into a **publication**.
 :::
 
-::: {.solid-card .fragment .fade-up}
+::: {.pop-up-card .fragment .fade-up}
 ### The Goal
+
 **Automate the plumbing** so you can focus on the **science**.
 :::
 
@@ -423,7 +418,7 @@ ${Inputs.table(transpose(dataset_samples), {
 
 # The Foundation {.bg-primary}
 
-## 1. Python Features {.smaller}
+## 1. [Python](https://docs.python.org/3/) Features {.smaller}
 
 -   **Logic in Source**: Keep logic in `.py` files. Portable and testable.
 -   **Type Hinting**: Python is dynamic, but annotations catch bugs early.
@@ -441,7 +436,7 @@ def simulate_trajectories(
 
 -   **Git Workflow**: Use branches and Pull Requests (PRs) always.
 
-## 1. Environment ( UV) {.smaller}
+## 1. Environment ([UV](https://github.com/astral-sh/uv)) {.smaller}
 
 -   **Speed**: Muuuch faster than conda.
 -   **Exact Reproducability**: `uv.lock` ensures reproducibility.
@@ -459,7 +454,7 @@ dependencies = [
 ]
 ```
 
-## Acceleration ( JAX /  PyTorch) {.smaller}
+## Acceleration ([JAX](https://jax.readthedocs.io/) / [PyTorch](https://pytorch.org/)) {.smaller}
 
 -   **Rule of Thumb**: If it can be done with numpy vectorized operations it will be faster on a GPU
 -   **Auto-Diff**: Get gradients for ODE or ABM simulations.
@@ -481,7 +476,7 @@ batch_score = vmap(compute_score)
 scores = batch_score(large_input_matrix)
 ```
 
-## Validation ( Pydantic) {.smaller}
+## Validation ([Pydantic](https://docs.pydantic.dev/)) {.smaller}
 
 -   **Enforce Structure**: Ensure inputs/outputs are type-safe.
 -   **LLM Ready**: Validated schemas make it easier for agents to reason.
@@ -504,7 +499,7 @@ class NLPModelConfig(BaseModel):
 
 # The Plumbing {.bg-primary}
 
-## Command Center ( Just) {.smaller}
+## Command Center ([Just](https://github.com/casey/just)) {.smaller}
 
 -   **Abstraction Layer**: Hide complex `snakemake` or `uv` commands behind simple aliases.
 -   **Reproducible**: Ensure everyone runs the same commands in the same environment.
@@ -521,7 +516,7 @@ preview:
 
 [View Justfile](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/justfile)
 
-## Orchestration ( Snakemake) {.smaller}
+## Orchestration ([Snakemake](https://snakemake.github.io/)) {.smaller}
 
 -   **Automatic workflow generation**: Build the whole sweep automatically.
 -   **Slurm Integration**: Manages VACC jobs without bespoke batch scripts.
@@ -543,7 +538,7 @@ rule train_bert_classifier:
 
 [View Full Rule](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/workflow/rules/train.smk)
 
-## Testing ( Pytest) &  CI {.smaller}
+## Testing ([Pytest](https://docs.pytest.org/)) & [CI](https://github.com/features/actions) {.smaller}
 
 -   **Pytest Rigor**: Validate each part of research code.
 -   **Actions**: Run everything on every push to ensure trust.
@@ -567,7 +562,7 @@ jobs:
 
 [View CI Workflow](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/.github/workflows/ci.yml)
 
-## Sync ( WandB) {.smaller}
+## Sync ([WandB](https://wandb.ai)) {.smaller}
 
 -   **Track Metrics**: Log losses and gradients in real-time.
 -   **Reproducible**: Every run is versioned and tagged.
@@ -592,7 +587,7 @@ wandb.log({
 
 [View Trainer](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/trainer.py)
 
-## Storing Data ( DuckDB) {.smaller}
+## Storing Data ([DuckDB](https://duckdb.org/)) {.smaller}
 
 -   **Parquet + DuckDB**: Use SQL to query directories of parquet files
 
@@ -681,7 +676,7 @@ Inputs.table(results_data)
 
 ## Live Metrics Tracking {background-iframe="https://api.wandb.ai/links/whwthompson-university-of-vermont/i0010klt" background-interactive="true"}
 
-## Publication ( Quarto) {.smaller}
+## Publication ([Quarto](https://quarto.org)) {.smaller}
 
 -   **Unified Logic**: Use LaTeX, Python, and Javascript in one document.
 -   **Better Notebooks**: Use python to analyze data, pass results to javascript for interctive plots
@@ -742,7 +737,7 @@ sns.lineplot(data=df, x='epoch', y='loss')
 Check out [Fitz's Workflow](https://github.com/FWJK1/workflow) for clean pipeline design.
 :::
 
-## Automation via MCP {.smaller}
+## Automation via [MCP](https://modelcontextprotocol.io) {.smaller}
 
 
 ::::: columns
