@@ -217,7 +217,7 @@ Plot.plot({
 -   **Damned if you do. Damned if you don't.**
 :::
 
-## Opprotunity Cost of Good Software Dev Practices
+## Opportunity Cost of Good Software Dev Practices
 
 ![(Source: XKCD)](https://imgs.xkcd.com/comics/is_it_worth_the_time_2x.png){fig-align="center" height="450px"}
 
@@ -294,8 +294,8 @@ html`<div style="display: flex; justify-content: center; align-items: center; he
 
 # Example Project
 
--   Train a BERT to correctly classifer thhe AG news dataset
-    -   4 classes: Buisness, Sci/Tech, Sports/World
+-   Train a BERT to correctly classifier the AG news dataset
+    -   4 classes: Business, Sci/Tech, Sports/World
 -   Train an MLP classifier on BERT embeddings
 
 ```{python}
@@ -439,8 +439,8 @@ def simulate_trajectories(
 ## 1. Environment ([UV](https://github.com/astral-sh/uv)) {.smaller}
 
 -   **Speed**: Muuuch faster than conda.
--   **Exact Reproducability**: `uv.lock` ensures reproducibility.
--   **Linked Dependencies**: Dependcy linking prevents identical redundant binaries across environments
+-   **Exact Reproducibility**: `uv.lock` ensures reproducibility.
+-   **Linked Dependencies**: Dependency linking prevents identical redundant binaries across environments
 
 ``` toml
 # pyproject.toml
@@ -679,8 +679,8 @@ Inputs.table(results_data)
 ## Publication ([Quarto](https://quarto.org)) {.smaller}
 
 -   **Unified Logic**: Use LaTeX, Python, and Javascript in one document.
--   **Better Notebooks**: Use python to analyze data, pass results to javascript for interctive plots
--   **One Framework, Many Formats**: Make Websties/Presentaions/PDFs and Latex Documents
+-   **Better Notebooks**: Use python to analyze data, pass results to javascript for interactive plots
+-   **One Framework, Many Formats**: Make Websites/Presentations/PDFs and Latex Documents
 -   **Reproducible**: One command to render the whole dashboard/paper.
 
 ```` markdown
