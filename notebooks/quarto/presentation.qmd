@@ -12,7 +12,6 @@ format:
     preview-links: auto
     highlight-style: monokai
     auto-animate: true
-    logo: https://www.python.org/static/community_logos/python-logo-only.png
     title-slide-attributes:
       data-background-color: "#861388"
       data-background-image: "https://www.transparenttextures.com/patterns/cubes.png"
