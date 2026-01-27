@@ -6,14 +6,15 @@ project:
     - paper_draft.qmd
     - supplementary.qmd
     - notes/01-24-26.qmd
-
-project-render:
-  - "!**/.git"
-  - "!**/.venv"
-  - "!**/.snakemake"
-  - "!**/.quarto"
-  - "!presentation.qmd"
-  - "!dashboard.qmd"
+    - notes/01-25-26.qmd
+    - notes/01-26-26.qmd
+    - presentation.qmd
+    - dashboard.qmd
+    - guide.qmd
+    - "!**/.git"
+    - "!**/.venv"
+    - "!**/.snakemake"
+    - "!**/.quarto"
 
 website:
   title: "Neural Adapter Research"
@@ -23,6 +24,12 @@ website:
         text: Home
       - href: paper_draft.qmd
         text: Paper Draft
+      - href: presentation.qmd
+        text: Manifesto
+      - href: dashboard.qmd
+        text: Dashboard
+      - href: guide.qmd
+        text: Guide
       - href: supplementary.qmd
         text: Supplement
   sidebar:
@@ -32,6 +39,8 @@ website:
         - section: "January 2026"
           contents:
             - notes/01-24-26.qmd
+            - notes/01-25-26.qmd
+            - notes/01-26-26.qmd
 
 format:
   html:

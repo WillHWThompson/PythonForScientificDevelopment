@@ -10,7 +10,7 @@ import duckdb
 import numpy as np
 from pathlib import Path
 
-# Result discovery - look up from notebooks/quarto/
+# Result discovery
 results_dir = Path("../../results")
 has_results = results_dir.exists() and any(results_dir.glob("**/*.parquet"))
 
@@ -72,10 +72,9 @@ else:
         'accuracy': 0.5 + 0.4 * (1 - np.exp(-epochs/3))
     })
 
-# Load Data Samples for Exploration
+# Load Data Samples
 from datasets import load_dataset
 try:
-    # Increased sample size for better exploration variety
     ds = load_dataset("ag_news", split="train").select(range(500))
     label_map = {0: "World", 1: "Sports", 2: "Business", 3: "Sci/Tech"}
     data_samples = pd.DataFrame({
@@ -109,16 +108,28 @@ except Exception as e:
         for c in ["World", "Sports", "Business", "Sci/Tech"] for x in np.linspace(0, 1, 20)
     ])
 
-# Pass data to Observable JS
+# Pass data to OJS
 ojs_define(research_data = all_data)
 ojs_define(dataset_samples = data_samples)
 ojs_define(roc_curves = roc_all)
 ```
 
+```{ojs}
+//| echo: false
+// Define Brand Styles
+brandPalette = ["#861388", "#E15A97", "#2F6690", "#0CBABA"]
+brandText = "#2d3436"
+
+html`<style>
+  body { font-family: 'Inter', sans-serif; color: ${brandText}; }
+  h1, h2, h3 { color: ${brandPalette[0]}; font-weight: 700; }
+  .sidebar { background: #f8f9fa; border-right: 1px solid #dee2e6; }
+</style>`
+```
+
 ## Interactive Explorer
 
-Use the controls below to filter and compare different training runs in real-time.
-
+::: sidebar
 ```{ojs}
 //| panel: sidebar
 viewof selected_exp = Inputs.select(
@@ -151,6 +162,7 @@ transpose = (obj) => {
   });
 }
 ```
+:::
 
 ::::: grid
 ::: g-col-8
@@ -171,7 +183,8 @@ filtered_data = {
 // Interactive Plot using Observable Plot
 Plot.plot({
   grid: true,
-  color: {legend: true},
+  style: {background: "transparent", color: brandText},
+  color: {range: brandPalette, legend: true},
   y: {label: "Value"},
   marks: [
     Plot.line(filtered_data, {
@@ -193,7 +206,7 @@ Plot.plot({
       fill: "full_name"
     }),
     // Baseline for the plot
-    Plot.ruleY([0])
+    Plot.ruleY([0], {stroke: "#dfe6e9"})
   ]
 })
 ```
@@ -241,9 +254,10 @@ final_stats = {
 
 Plot.plot({
   marginRight: 120,
+  style: {background: "transparent", color: brandText},
   x: {grid: true, label: "Score"},
   y: {label: "Run Name", padding: 0.2},
-  color: {scheme: "viridis", label: "Value"},
+  color: {range: brandPalette, label: "Value"},
   marks: [
     Plot.barX(final_stats, {
       y: "full_name", 
@@ -251,7 +265,7 @@ Plot.plot({
       fill: sort_metric,
       tip: true
     }),
-    Plot.ruleX([0])
+    Plot.ruleX([0], {stroke: "#dfe6e9"})
   ]
 })
 ```
@@ -288,11 +302,12 @@ filtered_roc = {
 Plot.plot({
   grid: true,
   aspectRatio: 1,
+  style: {background: "transparent", color: brandText},
+  color: {range: brandPalette, legend: true},
   x: {label: "False Positive Rate (FPR)", domain: [0, 1]},
   y: {label: "True Positive Rate (TPR)", domain: [0, 1]},
-  color: {legend: true},
   marks: [
-    Plot.line([0, 1], {x: d => d, y: d => d, stroke: "#ccc", strokeDasharray: "4,4"}), // Random chance line
+    Plot.line([0, 1], {x: d => d, y: d => d, stroke: "#dfe6e9", strokeDasharray: "4,4"}), // Random chance line
     Plot.line(filtered_roc, {
       x: "fpr", 
       y: "tpr", 
@@ -307,7 +322,7 @@ Plot.plot({
 ::: g-col-4
 ### Performance Summary
 
-Analyze the class-wise separation. High TPR at low FPR indicates a high-fidelity classifier for that news category.
+Analyze the class-wise separation. High TPR at low FPR indicates a high-fidelity classifier.
 :::
 :::::
 
@@ -315,9 +330,10 @@ Analyze the class-wise separation. High TPR at low FPR indicates a high-fidelity
 
 Browse the raw research inputs to understand the linguistic complexity of the AG News dataset.
 
-::: panel-tabset
+:::: panel-tabset
 ### Sample Browser
 
+::: sidebar
 ```{ojs}
 //| panel: sidebar
 viewof selected_cat = Inputs.radio(
@@ -329,7 +345,10 @@ filtered_samples = {
   const data = transpose(dataset_samples);
   return selected_cat === "All" ? data : data.filter(d => d.label === selected_cat);
 }
+```
+:::
 
+```{ojs}
 Inputs.table(filtered_samples, {
   columns: ["label", "text"],
   rows: 20,
@@ -341,16 +360,17 @@ Inputs.table(filtered_samples, {
 
 ```{ojs}
 Plot.plot({
+  style: {background: "transparent", color: brandText},
   y: {grid: true},
   marks: [
-    Plot.barY(transpose(dataset_samples), Plot.groupX({y: "count"}, {x: "label", fill: "#4ca1af"}))
+    Plot.barY(transpose(dataset_samples), Plot.groupX({y: "count"}, {x: "label", fill: brandPalette[3]}))
   ]
 })
 ```
-:::
+::::
 
 ## 🚀 Scientific Insights
 
--   **Real-time Interactivity**: Observable JS allows us to query the aggregated Parquet results instantly without server-side re-renders.
--   **PEFT Monitoring**: High-granularity step logging (integrated in `trainer.py`) reveals exactly where models begin to plateau.
--   **Architectural Trade-offs**: Compare how different `adapter_dim` values impact convergence speed vs. final accuracy across the sidebar sections.
+-   **Real-time Interactivity**: Observable JS allows us to query the aggregated Parquet results instantly.
+-   **PEFT Monitoring**: High-granularity step logging reveals plateau points.
+-   **Architectural Trade-offs**: Compare how different `adapter_dim` values impact convergence.

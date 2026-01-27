@@ -1,25 +1,29 @@
 % Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
-]{article}
-
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+\usepackage{xcolor}
 \usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
 \usepackage{iftex}
 \ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
 \else % if luatex or xetex
-  \usepackage{unicode-math}
+  \usepackage{unicode-math} % this also loads fontspec
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
 \fi
 \usepackage{lmodern}
-\ifPDFTeX\else  
-    % xetex/luatex font selection
+\ifPDFTeX\else
+  % xetex/luatex font selection
 \fi
 % Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -30,25 +34,37 @@
 \makeatletter
 \@ifundefined{KOMAClassName}{% if non-KOMA class
   \IfFileExists{parskip.sty}{%
-    % pass
+    \usepackage{parskip}
   }{% else
     \setlength{\parindent}{0pt}
     \setlength{\parskip}{6pt plus 2pt minus 1pt}}
 }{% if KOMA class
   \KOMAoptions{parskip=half}}
 \makeatother
-\usepackage{xcolor}
-\setlength{\emergencystretch}{3em} % prevent overfull lines
-\setcounter{secnumdepth}{5}
 % Make \paragraph and \subparagraph free-standing
+\makeatletter
 \ifx\paragraph\undefined\else
   \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
 \fi
 \ifx\subparagraph\undefined\else
   \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
 \fi
+\makeatother
+
 
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
@@ -77,6 +93,39 @@
 \makeatother
 
 
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 
 
@@ -88,10 +137,9 @@
 
 
  
-\usepackage[]{natbib}
-\bibliographystyle{icml2024}
 
 
+\KOMAoption{captions}{tableheading}
 \makeatletter
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \AtBeginDocument{%
@@ -133,15 +181,9 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
-\usepackage[]{natbib}
-\bibliographystyle{icml2024}
 \usepackage{bookmark}
-
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
-\urlstyle{same} % disable monospaced font for URLs
+\urlstyle{same}
 \hypersetup{
   pdftitle={Efficient Fine-Tuning with BERT Adapters: A Network Science Perspective},
   pdfauthor={W. H. W. Thompson},
@@ -154,109 +196,13 @@ Science, Network Science},
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
 
-%%%%%%%% ICML 2024 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
 
-% Recommended, but optional, packages for figures and better typesetting:
-\usepackage{microtype}
-\usepackage{graphicx}
-% \usepackage{subfigure}
-\usepackage{booktabs} % for professional tables
-
-% hyperref makes hyperlinks in the resulting PDF.
-% If your build breaks (sometimes temporarily if a hyperlink spans a page)
-% please comment out the following usepackage line and replace
-% \usepackage{icml2024} with \usepackage[nohyperref]{icml2024} above.
-\usepackage{hyperref}
-
-
-% Attempt to make hyperref and algorithmic work together better:
-\newcommand{\theHalgorithm}{\arabic{algorithm}}
-
-% Use the following line for the initial blind version submitted for review:
-\usepackage[accepted]{icml2024}
-
-% If accepted, instead use the following line for the camera-ready submission:
-% \usepackage[accepted]{icml2024}
-
-% For theorems and such
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{mathtools}
-\usepackage{amsthm}
-
-% if you use cleveref..
-\usepackage[capitalize,noabbrev]{cleveref}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% THEOREMS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \theoremstyle{plain}
-% \newtheorem{theorem}{Theorem}[section]
-% \newtheorem{proposition}[theorem]{Proposition}
-% \newtheorem{lemma}[theorem]{Lemma}
-% \newtheorem{corollary}[theorem]{Corollary}
-% \theoremstyle{definition}
-% \newtheorem{definition}[theorem]{Definition}
-% \newtheorem{assumption}[theorem]{Assumption}
-% \theoremstyle{remark}
-% \newtheorem{remark}[theorem]{Remark}
-
-% Todonotes is useful during development; simply uncomment the next line
-%    and comment out the line below the next line to turn off comments
-%\usepackage[disable,textsize=tiny]{todonotes}
-\usepackage[textsize=tiny]{todonotes}
-
-
-% The \icmltitle you define below is probably too long as a header.
-% Therefore, a short form for the running title is supplied here:
-
-
-\icmltitlerunning{Efficient Fine-Tuning with BERT Adapters: A Network
-Science Perspective}
-
-\begin{document}
-\twocolumn[
-\icmltitle{Efficient Fine-Tuning with BERT Adapters: A Network Science
+\title{Efficient Fine-Tuning with BERT Adapters: A Network Science
 Perspective}
-% It is OKAY to include author information, even for blind
-% submissions: the style file will automatically remove it for you
-% unless you've provided the [accepted] option to the icml2024
-% package.
-
-% List of affiliations: The first argument should be a (short)
-% identifier you will use later to specify author affiliations
-% Academic affiliations should list Department, University, City, Region, Country
-% Industry affiliations should list Company, City, Region, Country
-
-% You can specify symbols, otherwise they are numbered in order.
-% Ideally, you should not use this facility. Affiliations will be numbered
-% in order of appearance and this is the preferred way.
-\icmlsetsymbol{equal}{*}
-
-\begin{icmlauthorlist}
-\icmlauthor{W. H. W. Thompson}{aff-1}
-\icmlcorrespondingauthor{W. H. W. Thompson}{will.thompson@uvm.edu}
-\end{icmlauthorlist}
-
-\icmlaffiliation{aff-1}{Complex Systems and Data Science
-(CSDS), University of Vermont,  }
-\icmlaffiliation{chicago}{Department of XXX, University of YYY, Location, Country}
-
-
-\vskip 0.3in
-]
-
-% this must go after the closing bracket ] following \twocolumn[ ...
-
-% This command actually creates the footnote in the first column
-% listing the affiliations and the copyright notice.
-% The command takes one argument, which is text to display at the start of the footnote.
-% The \icmlEqualContribution command is standard text for equal contribution.
-% Remove it (just {}) if you do not need this facility.
-
-%\printAffiliationsAndNotice{}  % leave blank if no need to mention equal contribution
-\printAffiliationsAndNotice{\icmlEqualContribution} % otherwise use the standard text.
-
+\author{W. H. W. Thompson}
+\date{}
+\begin{document}
+\maketitle
 \begin{abstract}
 As language models continue to scale, full parameter fine-tuning becomes
 increasingly computationally expensive. Bottleneck adapters offer a
@@ -268,22 +214,23 @@ demonstrate that adapters can achieve competitive results while training
 less than 1\% of the original model parameters.
 \end{abstract}
 
+
 \section{Introduction}\label{introduction}
 
 Large-scale language models (LLMs) have revolutionized natural language
-processing (NLP). However, as mentioned in \citet{bert2019}, full
+processing (NLP). However, as mentioned in Devlin et al. (2018), full
 parameter fine-tuning requires significant computational resources,
 especially when dealing with domain-specific datasets in fields like
 Network Science.
 
 \section{Methodology}\label{methodology}
 
-We utilize the bottleneck architecture described in \citet{houlsby2019}.
-This approach inserts two modules per transformer layer: one after the
-multi-head attention and one after the feed-forward layer. Each module
-consists of a down-projection, a non-linear activation, and an
-up-projection, effectively reducing the number of trainable parameters
-while maintaining representation quality.
+We utilize the bottleneck architecture described in Houlsby et al.
+(2019). This approach inserts two modules per transformer layer: one
+after the multi-head attention and one after the feed-forward layer.
+Each module consists of a down-projection, a non-linear activation, and
+an up-projection, effectively reducing the number of trainable
+parameters while maintaining representation quality.
 
 \section{Results and Discussion}\label{results-and-discussion}
 
@@ -294,6 +241,22 @@ modularity compared to their fully fine-tuned counterparts, suggesting
 that adapters preserve the original model's ``backbone'' more
 effectively.
 
+\begin{figure}
+
+\centering{
+
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{plots/fig1_roc_sweep.png}
+
+}
+
+\caption{\label{fig-roc}\textbf{Figure 1: ROC Curves Across
+Hyperparameter Sweep.} The curves demonstrate the robustness of BERT
+adapters across different bottleneck dimensions and learning rates. All
+configurations achieve an AUC \textgreater{} 0.92, with the \(d=512\)
+configuration showing the fastest convergence.}
+
+\end{figure}%
+
 \section{Conclusion}\label{conclusion}
 
 We have demonstrated that BERT adapters are a highly efficient tool for
@@ -303,8 +266,20 @@ academic-scale hardware.
 
 \section{References}\label{references}
 
-\renewcommand{\bibsection}{}
-\bibliography{references.bib}
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-bert2019}
+Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2018.
+{``BERT: Pre-Training of Deep Bidirectional Transformers for Language
+Understanding.''} \emph{arXiv Preprint arXiv:1810.04805}.
+
+\bibitem[\citeproctext]{ref-houlsby2019}
+Houlsby, Neil, Andrei Giurgiu, Stanislaw Jastrzebski, Brando Morrone,
+Quentin Larsson, Mansi Sharma, and Dmitry Kalenichenko. 2019.
+{``Parameter-Efficient Transfer Learning for NLP.''} In
+\emph{International Conference on Machine Learning}, 2790--99. PMLR.
+
+\end{CSLReferences}
 
 
 

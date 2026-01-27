@@ -1,121 +1,324 @@
 [
   {
-    "objectID": "presentation.html#the-overhead-trade-off",
-    "href": "presentation.html#the-overhead-trade-off",
-    "title": "I Suck At Coding",
-    "section": "The Overhead Trade-off",
-    "text": "The Overhead Trade-off\nThe eternal struggle: Time spent to automate vs. overhead accumulated.\n\n\n\n\n\nAutomation (Source: XKCD)\n\n\n\n\nLLM ROI\n“I have a tendency to over-engineer pipelines I will never use. Now I can do this guilt-free with LLMs!”",
+    "objectID": "guide.html",
+    "href": "guide.html",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "",
+    "text": "In scientific research, we often imagine ourselves spending most of our time thinking deeply and understanding complex systems. However, the reality of computational research is often dominated by “plumbing”: managing environments, fighting with SLURM, and debugging boilerplate code.\nThe goal of this manifesto is to automate the plumbing so you can focus on the science."
+  },
+  {
+    "objectID": "guide.html#expectation-vs.-reality",
+    "href": "guide.html#expectation-vs.-reality",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "",
+    "text": "In scientific research, we often imagine ourselves spending most of our time thinking deeply and understanding complex systems. However, the reality of computational research is often dominated by “plumbing”: managing environments, fighting with SLURM, and debugging boilerplate code.\nThe goal of this manifesto is to automate the plumbing so you can focus on the science."
+  },
+  {
+    "objectID": "guide.html#opportunity-cost",
+    "href": "guide.html#opportunity-cost",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Opportunity Cost",
+    "text": "Opportunity Cost\nInvesting in modern development practices might feel slow initially, but it prevents the “Conda Hell” and “Terminal Staring” that consume the majority of research time."
+  },
+  {
+    "objectID": "guide.html#python-features",
+    "href": "guide.html#python-features",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Python Features",
+    "text": "Python Features\nKeep logic in .py files rather than notebooks to ensure it is portable and testable. Use type annotations to catch bugs before they reach the cluster.\n# Type-safe scientific logic\ndef simulate_trajectories(\n    n_agents: int, \n    time_steps: int, \n    params: dict[str, float]\n) -&gt; list[np.ndarray]:\n    \"\"\"Simulates N trajectories over T steps.\"\"\"\n    ..."
+  },
+  {
+    "objectID": "guide.html#environment-management-uv",
+    "href": "guide.html#environment-management-uv",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Environment Management (UV)",
+    "text": "Environment Management (UV)\nUV is a modern replacement for Conda that is significantly faster and more reliable.\n# pyproject.toml\n[project]\nname = \"scientific_dev\"\nrequires-python = \"&gt;=3.12\"\ndependencies = [\n    \"jax&gt;=0.9.0\",\n    \"snakemake&gt;=8.4.0\",\n    \"pydantic&gt;=2.12.5\",\n]"
+  },
+  {
+    "objectID": "guide.html#acceleration-jax-pytorch",
+    "href": "guide.html#acceleration-jax-pytorch",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Acceleration (JAX / PyTorch)",
+    "text": "Acceleration (JAX / PyTorch)\nIf a computation can be vectorized, it should be offloaded to a GPU. JAX’s vmap is particularly powerful for running thousands of simulations in parallel.\nimport jax.numpy as jnp\nfrom jax import vmap\n\ndef compute_score(x):\n    return jnp.sum(jnp.sin(x) ** 2)\n\nbatch_score = vmap(compute_score)\nscores = batch_score(large_input_matrix)"
+  },
+  {
+    "objectID": "guide.html#validation-pydantic",
+    "href": "guide.html#validation-pydantic",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Validation (Pydantic)",
+    "text": "Validation (Pydantic)\nEnforce structure on your parameters and results using Pydantic. This makes your code more robust and easier for AI agents to reason about.\nclass NLPModelConfig(BaseModel):\n    model_name: str = Field(default=\"distilbert-base-uncased\")\n    adapter_dim: int = Field(default=256)\n\n    @field_validator('adapter_dim')\n    def validate_adapter_dim(cls, v: int):\n        if v &lt;= 0:\n            raise ValueError(\"adapter_dim must be positive\")\n        return v\nView Schema"
+  },
+  {
+    "objectID": "guide.html#command-abstraction-just",
+    "href": "guide.html#command-abstraction-just",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Command Abstraction (Just)",
+    "text": "Command Abstraction (Just)\nUse a Justfile to hide complex commands behind simple aliases. This ensures reproducibility across the team.\n# Run full pipeline\nall p=\"local\" c=\"configs/nlp_baseline.yaml\":\n    uv run snakemake --workflow-profile ./workflow/profiles/{{p}} --configfile {{c}}\nView Justfile"
+  },
+  {
+    "objectID": "guide.html#orchestration-snakemake",
+    "href": "guide.html#orchestration-snakemake",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Orchestration (Snakemake)",
+    "text": "Orchestration (Snakemake)\nSnakemake manages complex dependency graphs and integrates seamlessly with Slurm for VACC execution.\nrule train_bert_classifier:\n    output:\n        weights = \"results/{cfg_name}/{params_path}/model.pt\",\n        stats = \"results/{cfg_name}/{params_path}/training_stats.parquet\"\n    resources:\n        gpu=1\n    shell:\n        \"PYTHONPATH=src python scripts/run_training.py \"\n        \"--config configs/{wildcards.cfg_name}.yaml \"\n        \"--output {output.weights}\"\nView Full Rule"
+  },
+  {
+    "objectID": "guide.html#testing-pytest-ci-github-actions",
+    "href": "guide.html#testing-pytest-ci-github-actions",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Testing (Pytest) & CI (GitHub Actions)",
+    "text": "Testing (Pytest) & CI (GitHub Actions)\nValidate research code quality and ensure reproducibility on every push.\n# tests/test_nlp_logic.py\ndef test_validation():\n    with pytest.raises(ValueError):\n        NLPModelConfig(adapter_dim=-1)\nView CI Workflow"
+  },
+  {
+    "objectID": "guide.html#tracking-logs-wandb",
+    "href": "guide.html#tracking-logs-wandb",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Tracking & Logs (WandB)",
+    "text": "Tracking & Logs (WandB)\nWeights and Biases provides real-time tracking of experiments and ensures every run is versioned.\nwandb.log({\n    \"train/step_loss\": loss.item(),\n    \"train/learning_rate\": self.optimizer.param_groups[0][\"lr\"],\n    \"train/global_step\": epoch * len(self.train_loader) + step\n})\nView Trainer"
+  },
+  {
+    "objectID": "guide.html#data-storage-duckdb",
+    "href": "guide.html#data-storage-duckdb",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Data Storage (DuckDB)",
+    "text": "Data Storage (DuckDB)\nUse DuckDB to query Parquet files using standard SQL.\nSELECT s.*, m.\"test/auroc\" \nFROM read_parquet('results/**/training_stats.parquet') s\nLEFT JOIN read_parquet('results/**/test_metrics.parquet') m \n  ON s.full_run_name = m.full_run_name"
+  },
+  {
+    "objectID": "guide.html#ai-tools",
+    "href": "guide.html#ai-tools",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "AI Tools",
+    "text": "AI Tools\n\nIDEs: VSCode and Cursor are the gold standard for AI-assisted research.\nLLMs: Gemini Pro and Claude provide high-context reasoning for complex math and code."
+  },
+  {
+    "objectID": "guide.html#automation-mcp",
+    "href": "guide.html#automation-mcp",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Automation & MCP",
+    "text": "Automation & MCP\nUse the Model Context Protocol to bridge your research library (Zotero, NotebookLM) directly into your AI agent’s reasoning.\n\n\n\nMCP Architecture"
+  },
+  {
+    "objectID": "guide.html#workflow-inspiration",
+    "href": "guide.html#workflow-inspiration",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Workflow Inspiration",
+    "text": "Workflow Inspiration\nFor clean pipeline design and project organization, refer to Fitz’s Workflow."
+  },
+  {
+    "objectID": "presentation.html#expectation-vs.-reality",
+    "href": "presentation.html#expectation-vs.-reality",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Expectation vs. Reality",
+    "text": "Expectation vs. Reality\n\n// Global utility for Quarto/OJS data transformation\ntranspose = (obj) =&gt; {\n  if (!obj || Object.keys(obj).length === 0) return [];\n  const keys = Object.keys(obj);\n  if (keys.length === 0 || !obj[keys[0]]) return [];\n  return obj[keys[0]].map((_, i) =&gt; {\n    const r = {};\n    keys.forEach(k =&gt; r[k] = obj[k][i]);\n    return r;\n  });\n}\n\n\n\n\n\n\n\n\n\nWhat I Imagined\n\ndata_imagined = [\n  {name: \"Reading/Understanding\", value: 20, color: \"#861388\"},\n  {name: \"Thinking Deeply\", value: 60, color: \"#E15A97\"},\n  {name: \"Writing Code\", value: 10, color: \"#2F6690\"},\n  {name: \"Communicating\", value: 10, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_imagined, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_imagined, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; `${d.name}\\n(${d.value}%)`,\n      fill: \"white\",\n      fontSize: 14\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Reality\n\ndata_reality_1 = [\n  {name: \"Reading\", value: 10, color: \"#861388\"},\n  {name: \"Writing Code\", value: 80, color: \"#2F6690\"},\n  {name: \"Thinking\", value: 5, color: \"#E15A97\"},\n  {name: \"Making Slides\", value: 5, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_reality_1, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_reality_1, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; d.value &gt; 5 ? `${d.name}\\n(${d.value}%)` : \"\",\n      fill: \"white\",\n      fontSize: 14\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})"
+  },
+  {
+    "objectID": "presentation.html#expectation-vs.-reality-1",
+    "href": "presentation.html#expectation-vs.-reality-1",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Expectation vs. Reality",
+    "text": "Expectation vs. Reality\n\n\nExpectations\n\n// Redefine to keep auto-animate happy, or OJS will handle reactivity\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_imagined, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_imagined, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; `${d.name}\\n(${d.value}%)`,\n      fill: \"white\",\n      fontSize: 14\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})\n\n\n\n\n\n\n\nReality Breakdown\n\ndata_reality_detailed = [\n  {name: \"Reading\", value: 10, color: \"#861388\"},\n  {name: \"Conda Hell\", value: 10, color: \"#132a3b\"},\n  {name: \"Actual Algorithm\", value: 10, color: \"#19374d\"},\n  {name: \"Boilerplate/IO\", value: 20, color: \"#1f4460\"},\n  {name: \"Off-by-one bugs\", value: 10, color: \"#29597e\"},\n  {name: \"SLURM Queues\", value: 10, color: \"#2F6690\"},\n  {name: \"Matplotlib Ticks\", value: 10, color: \"#4483b3\"},\n  {name: \"Terminal Staring\", value: 10, color: \"#71a3c9\"},\n  {name: \"Thinking\", value: 5, color: \"#E15A97\"},\n  {name: \"Making Slides\", value: 5, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_reality_detailed, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_reality_detailed, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; d.value &gt;= 10 ? d.name : \"\",\n      fill: d =&gt; [\"#71a3c9\", \"#9dc3df\"].includes(d.color) ? \"#2d3436\" : \"white\",\n      fontSize: 11\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})"
+  },
+  {
+    "objectID": "presentation.html#a-moral-failure",
+    "href": "presentation.html#a-moral-failure",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "A Moral Failure",
+    "text": "A Moral Failure"
+  },
+  {
+    "objectID": "presentation.html#opprotunity-cost-of-good-software-dev-practices",
+    "href": "presentation.html#opprotunity-cost-of-good-software-dev-practices",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Opprotunity Cost of Good Software Dev Practices",
+    "text": "Opprotunity Cost of Good Software Dev Practices\n\n\n\n(Source: XKCD)"
+  },
+  {
+    "objectID": "presentation.html#your-workflow",
+    "href": "presentation.html#your-workflow",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Your Workflow",
+    "text": "Your Workflow\n\nThe Process\n\nYou have data or simulation parameters.\nYou have a model (ABM/statistical/ML).\nYou want to run sweeps with fixed logic.\nYou want to collect & visualize results.\nYou want to turn plots into a publication.\n\n\n\nThe Goal\nAutomate the plumbing so you can focus on the science."
+  },
+  {
+    "objectID": "presentation.html#scientific-software-checklist",
+    "href": "presentation.html#scientific-software-checklist",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Scientific Software Checklist",
+    "text": "Scientific Software Checklist\n\n\n\n\nProblem\nSolution\n\n\n\n\nReproducible Environment\nUV package manager & lockfiles\n\n\nData Validation\nPydantic schemas & types\n\n\nHardware Acceleration\nPyTorch and JAX\n\n\nCode Reliability\nPytest and CI/CD\n\n\nWorkflow Automation\nSnakemake pipelines\n\n\nExperiment Tracking\nWeights and Biases\n\n\nPublication/Dashboards\nQuarto"
+  },
+  {
+    "objectID": "presentation.html#python-features",
+    "href": "presentation.html#python-features",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "1. Python Features",
+    "text": "1. Python Features\n\nLogic in Source: Keep logic in .py files. Portable and testable.\nType Hinting: Python is dynamic, but annotations catch bugs early.\n\n# Type-safe scientific logic\ndef simulate_trajectories(\n    n_agents: int, \n    time_steps: int, \n    params: dict[str, float]\n) -&gt; list[np.ndarray]:\n    \"\"\"Simulates N trajectories over T steps.\"\"\"\n    ...\n\nGit Workflow: Use branches and Pull Requests (PRs) always."
+  },
+  {
+    "objectID": "presentation.html#environment-uv",
+    "href": "presentation.html#environment-uv",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "1. Environment (UV)",
+    "text": "1. Environment (UV)\n\nSpeed: Muuuch faster than conda.\nExact Reproducability: uv.lock ensures reproducibility.\nLinked Dependencies: Dependcy linking prevents identical redundant binaries across environments\n\n# pyproject.toml\n[project]\nname = \"scientific_dev\"\nrequires-python = \"&gt;=3.12\"\ndependencies = [\n    \"jax&gt;=0.9.0\",\n    \"snakemake&gt;=8.4.0\",\n    \"pydantic&gt;=2.12.5\",\n]"
+  },
+  {
+    "objectID": "presentation.html#acceleration-jax-pytorch",
+    "href": "presentation.html#acceleration-jax-pytorch",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Acceleration (JAX / PyTorch)",
+    "text": "Acceleration (JAX / PyTorch)\n\nRule of Thumb: If it can be done with numpy vectorized operations it will be faster on a GPU\nAuto-Diff: Get gradients for ODE or ABM simulations.\nBatching: vmap runs 1,000s of simulations in parallel on 1 GPU.\nDrop in Replacement: With Jax just replace np with jnp to get immediate hardware accelration.\n\nimport jax.numpy as jnp\nfrom jax import vmap\n\n# A standard function for one data-point\ndef compute_score(x):\n    return jnp.sum(jnp.sin(x) ** 2)\n\n# Automatically vectorize to handle batches\nbatch_score = vmap(compute_score)\n\n# Result: Instant GPU acceleration for 10,000 samples\nscores = batch_score(large_input_matrix)"
+  },
+  {
+    "objectID": "presentation.html#validation-pydantic",
+    "href": "presentation.html#validation-pydantic",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Validation (Pydantic)",
+    "text": "Validation (Pydantic)\n\nEnforce Structure: Ensure inputs/outputs are type-safe.\nLLM Ready: Validated schemas make it easier for agents to reason.\nAuto-IDs: Generate run names from hyperparameters.\n\n# src/core/schema.py\nclass NLPModelConfig(BaseModel):\n    model_name: str = Field(default=\"distilbert-base-uncased\")\n    adapter_dim: int = Field(default=256)\n\n    @field_validator('adapter_dim')\n    def validate_adapter_dim(cls, v: int):\n        if v &lt;= 0:\n            raise ValueError(\"adapter_dim must be positive\")\n        return v\nView Schema"
+  },
+  {
+    "objectID": "presentation.html#command-center-just",
+    "href": "presentation.html#command-center-just",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Command Center (Just)",
+    "text": "Command Center (Just)\n\nAbstraction Layer: Hide complex snakemake or uv commands behind simple aliases.\nReproducible: Ensure everyone runs the same commands in the same environment.\n\n# Run full pipeline\nall p=\"local\" c=\"configs/nlp_baseline.yaml\":\n    uv run snakemake --workflow-profile ./workflow/profiles/{{p}} --configfile {{c}}\n\n# Run local Quarto preview\npreview:\n    cd notebooks/quarto && quarto preview . --no-browser\nView Justfile"
+  },
+  {
+    "objectID": "presentation.html#orchestration-snakemake",
+    "href": "presentation.html#orchestration-snakemake",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Orchestration (Snakemake)",
+    "text": "Orchestration (Snakemake)\n\nAutomatic workflow generation: Build the whole sweep automatically.\nSlurm Integration: Manages VACC jobs without bespoke batch scripts.\nAmnesia Proof: Only runs what has changed.\n\n# workflow/rules/train.smk\nrule train_bert_classifier:\n    output:\n        weights = \"results/{cfg_name}/{params_path}/model.pt\",\n        stats = \"results/{cfg_name}/{params_path}/training_stats.parquet\"\n    resources:\n        gpu=1\n    shell:\n        \"PYTHONPATH=src python scripts/run_training.py \"\n        \"--config configs/{wildcards.cfg_name}.yaml \"\n        \"--output {output.weights}\"\nView Full Rule"
+  },
+  {
+    "objectID": "presentation.html#testing-pytest-ci",
+    "href": "presentation.html#testing-pytest-ci",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Testing (Pytest) & CI",
+    "text": "Testing (Pytest) & CI\n\nPytest Rigor: Validate each part of research code.\nActions: Run everything on every push to ensure trust.\n\n# tests/test_nlp_logic.py\ndef test_validation():\n    with pytest.raises(ValueError):\n        NLPModelConfig(adapter_dim=-1)\n# .github/workflows/ci.yml\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: uv run pytest tests/\nView CI Workflow"
+  },
+  {
+    "objectID": "presentation.html#sync-wandb",
+    "href": "presentation.html#sync-wandb",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Sync (WandB)",
+    "text": "Sync (WandB)\n\nTrack Metrics: Log losses and gradients in real-time.\nReproducible: Every run is versioned and tagged.\n\n# src/core/trainer.py\ndef init_logger(self):\n    wandb.init(\n        project=\"neural-adapter-research\",\n        config=self.config.model_dump(),\n        name=self.config.full_run_name\n    )\nwandb.log({\n    \"train/step_loss\": loss.item(),\n    \"train/learning_rate\": self.optimizer.param_groups[0][\"lr\"],\n    \"train/global_step\": epoch * len(self.train_loader) + step\n})\nView Trainer"
+  },
+  {
+    "objectID": "presentation.html#storing-data-duckdb",
+    "href": "presentation.html#storing-data-duckdb",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Storing Data (DuckDB)",
+    "text": "Storing Data (DuckDB)\n\nParquet + DuckDB: Use SQL to query directories of parquet files\n\nSELECT s.*, m.\"test/auroc\" \nFROM read_parquet('results/**/training_stats.parquet') s\nLEFT JOIN read_parquet('results/**/test_metrics.parquet') m \n  ON s.full_run_name = m.full_run_name\n\nSQLModel: Type-safe Python Object Relational Mapping (ORM)\n\nfrom sqlmodel import select, Session\nfrom src.core.models import TrainingRun\n\nwith Session(engine) as session:\n    statement = select(TrainingRun).where(TrainingRun.val_loss &lt; 0.5)\n    results = session.exec(statement).all()\n\nMYDB: For data-intensive projects use MYDB to host MySQL server"
+  },
+  {
+    "objectID": "presentation.html#interactive-sql-console",
+    "href": "presentation.html#interactive-sql-console",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "6. Interactive SQL Console",
+    "text": "6. Interactive SQL Console\n\n\n\n\n\n\n\n\ndb = DuckDBClient.of({\n  results: transpose(res_data)\n})\n\nviewof query = Inputs.text({\n  label: \"SQL Query\", \n  value: \"SELECT * FROM results LIMIT 10\",\n  placeholder: \"Type your SQL here...\",\n  width: \"100%\"\n})\n\n\n\nresults_data = db.query(query)\n\nInputs.table(results_data)"
+  },
+  {
+    "objectID": "presentation.html#live-metrics-tracking",
+    "href": "presentation.html#live-metrics-tracking",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Live Metrics Tracking",
+    "text": "Live Metrics Tracking"
+  },
+  {
+    "objectID": "presentation.html#publication-quarto",
+    "href": "presentation.html#publication-quarto",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Publication (Quarto)",
+    "text": "Publication (Quarto)\n\nUnified Logic: Use LaTeX, Python, and Javascript in one document.\nBetter Notebooks: Use python to analyze data, pass results to javascript for interctive plots\nOne Framework, Many Formats: Make Websties/Presentaions/PDFs and Latex Documents\nReproducible: One command to render the whole dashboard/paper.\n\n# Theoretical Loss\n$$\n\\mathcal{L}(\\theta) = \\frac{1}{N} \\sum_{i=1}^N \\text{CrossEntropy}(f_\\theta(x_i), y_i)\n$$\n\n# Python Visualization\n```python\nimport seaborn as sns\nsns.lineplot(data=df, x='epoch', y='loss')\n```"
+  },
+  {
+    "objectID": "presentation.html#ai-tools-for-students",
+    "href": "presentation.html#ai-tools-for-students",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "AI Tools for Students",
+    "text": "AI Tools for Students\n\n\n\nIDEs\nNo excuse not to use Cursor/VSCode\n\nVSCode (Standard)\nCursor (Student Free)\nAntigravity (Agent Labs)\n\n\n\n\n\n\nLLMs\nHigh-Context Research Partners\n\nGemini Pro (2M Tokens)\nGitHub Copilot (Free)\nClaude Campus (Credits)\n\n\n\n\n💡 Workflow Inspiration\nCheck out Fitz’s Workflow for clean pipeline design."
+  },
+  {
+    "objectID": "presentation.html#automation-via-mcp",
+    "href": "presentation.html#automation-via-mcp",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Automation via MCP",
+    "text": "Automation via MCP\n\n\n\nScientific Agents\n\nContext RAGs: Bridge Zotero & NotebookLM into your agent’s reasoning.\nOrchestration: Agents can launch Snakemake & monitor VACC jobs in real-time.\n\n\n\n\n\n\nMCP Architecture"
+  },
+  {
+    "objectID": "presentation.html#yes-you-can-do-this",
+    "href": "presentation.html#yes-you-can-do-this",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Yes, you can do this",
+    "text": "Yes, you can do this\n\n\nSwarm Vibe\n\nviewof settings = Inputs.form({\n  N: Inputs.range([50, 800], {label: \"Agent Count\", step: 10, value: 400}),\n  radius: Inputs.range([10, 150], {label: \"Radius\", step: 5, value: 45}),\n  noise: Inputs.range([0, 1], {label: \"Entropy\", step: 0.05, value: 0.15}),\n  speed: Inputs.range([1, 10], {label: \"Velocity\", step: 0.5, value: 4.5}),\n  attraction: Inputs.range([0, 5], {label: \"Attraction\", step: 0.1, value: 2.5})\n})\n\nhtml`\n&lt;style&gt;\n  /* Compact Vertical Sidebar styling */\n  form.inputs-form { \n    display: flex !important; \n    flex-direction: column !important; \n    gap: 0.75rem !important;\n    background: rgba(255, 255, 255, 0.04) !important;\n    backdrop-filter: blur(15px) !important;\n    padding: 1rem !important;\n    border-radius: 12px !important;\n    border: 1px solid rgba(255, 255, 255, 0.1) !important;\n    color: white !important;\n  }\n  \n  form.inputs-form &gt; div { \n    margin: 0 !important; \n    display: flex !important;\n    flex-direction: column !important;\n  }\n  \n  form.inputs-form label { \n    color: #0CBABA !important; \n    font-weight: 800 !important; \n    font-size: 0.5rem !important;\n    text-transform: uppercase !important;\n    letter-spacing: 1px !important;\n    margin-bottom: 4px !important;\n  }\n  \n  form.inputs-form input[type=range] {\n    width: 100% !important;\n    accent-color: #0CBABA !important;\n  }\n  \n  form.inputs-form output {\n    font-size: 0.7rem !important;\n    color: #eee !important;\n    margin-top: 2px !important;\n  }\n\n  form.inputs-form h3 { display: none !important; }\n&lt;/style&gt;\n`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n// High-performance Vicsek Model in OJS\n{\n  const width = 800;\n  const height = 550;\n  const canvas = html`&lt;canvas width=\"${width}\" height=\"${height}\" style=\"width: 100%; height: 550px; border-radius: 12px; background: #000; cursor: crosshair; box-shadow: 0 20px 50px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);\"&gt;&lt;/canvas&gt;`;\n  const ctx = canvas.getContext(\"2d\");\n\n  // State\n  let agents = Array.from({length: settings.N}, () =&gt; ({\n    x: Math.random() * width,\n    y: Math.random() * height,\n    theta: Math.random() * Math.PI * 2\n  }));\n\n  // Track mouse\n  let mouse = {x: -1000, y: -1000};\n  canvas.addEventListener(\"mousemove\", (e) =&gt; {\n    const rect = canvas.getBoundingClientRect();\n    mouse.x = (e.clientX - rect.left) * (width / rect.width);\n    mouse.y = (e.clientY - rect.top) * (height / rect.height);\n  });\n  canvas.addEventListener(\"mouseleave\", () =&gt; {\n    mouse.x = -1000;\n    mouse.y = -1000;\n  });\n\n  function update() {\n    if (agents.length !== settings.N) {\n      if (agents.length &lt; settings.N) {\n        for (let i = agents.length; i &lt; settings.N; i++) {\n          agents.push({ x: Math.random() * width, y: Math.random() * height, theta: Math.random() * Math.PI * 2 });\n        }\n      } else {\n        agents = agents.slice(0, settings.N);\n      }\n    }\n\n    const nextAgents = agents.map((a, i) =&gt; {\n      let sumSin = 0;\n      let sumCos = 0;\n      let count = 0;\n\n      for (let j = 0; j &lt; agents.length; j++) {\n        const b = agents[j];\n        let dx = b.x - a.x;\n        let dy = b.y - a.y;\n        if (dx &gt; width/2) dx -= width;\n        if (dx &lt; -width/2) dx += width;\n        if (dy &gt; height/2) dy -= height;\n        if (dy &lt; -height/2) dy += height;\n\n        if (dx*dx + dy*dy &lt; settings.radius * settings.radius) {\n          sumSin += Math.sin(b.theta);\n          sumCos += Math.cos(b.theta);\n          count++;\n        }\n      }\n\n      let avgTheta = Math.atan2(sumSin / count, sumCos / count);\n      \n      if (mouse.x &gt; 0) {\n        let mdx = mouse.x - a.x;\n        let mdy = mouse.y - a.y;\n        if (mdx &gt; width/2) mdx -= width;\n        if (mdx &lt; -width/2) mdx += width;\n        if (mdy &gt; height/2) mdy -= height;\n        if (mdy &lt; -height/2) mdy += height;\n        \n        const angleToMouse = Math.atan2(mdy, mdx);\n        let diff = angleToMouse - avgTheta;\n        while (diff &gt; Math.PI) diff -= Math.PI * 2;\n        while (diff &lt; -Math.PI) diff += Math.PI * 2;\n        avgTheta += diff * (settings.attraction / 10);\n      }\n\n      const newTheta = avgTheta + (Math.random() - 0.5) * settings.noise;\n      \n      let nextX = a.x + Math.cos(newTheta) * settings.speed;\n      let nextY = a.y + Math.sin(newTheta) * settings.speed;\n\n      if (nextX &lt; 0) nextX += width;\n      if (nextX &gt;= width) nextX -= width;\n      if (nextY &lt; 0) nextY += height;\n      if (nextY &gt;= height) nextY -= height;\n\n      return { x: nextX, y: nextY, theta: newTheta };\n    });\n\n    agents = nextAgents;\n  }\n\n  function draw() {\n    ctx.fillStyle = \"rgba(0, 5, 15, 0.45)\";\n    ctx.fillRect(0, 0, width, height);\n\n    ctx.lineWidth = 2.5;\n    agents.forEach((a, i) =&gt; {\n      const hue = 280 + Math.sin(a.theta) * 45;\n      ctx.strokeStyle = `hsla(${hue}, 85%, 65%, 0.8)`;\n      ctx.beginPath();\n      ctx.moveTo(a.x, a.y);\n      ctx.lineTo(a.x - Math.cos(a.theta) * 12, a.y - Math.sin(a.theta) * 12);\n      ctx.stroke();\n      \n      ctx.fillStyle = `hsla(${hue}, 95%, 75%, 1)`;\n      ctx.beginPath();\n      ctx.arc(a.x, a.y, 2.2, 0, Math.PI * 2);\n      ctx.fill();\n    });\n\n    update();\n    requestAnimationFrame(draw);\n  }\n\n  requestAnimationFrame(draw);\n  return canvas;\n}"
+  },
+  {
+    "objectID": "notes/01-25-26.html",
+    "href": "notes/01-25-26.html",
+    "title": "Research Notes: Jan 25, 2026",
+    "section": "",
+    "text": "Technicalize the presentation and integrate repository source code.",
     "crumbs": [
-      "I Suck At Coding"
+      "January 2026",
+      "Research Notes: Jan 25, 2026"
     ]
   },
   {
-    "objectID": "presentation.html#the-vibe-coder-thesis",
-    "href": "presentation.html#the-vibe-coder-thesis",
-    "title": "I Suck At Coding: A Manifesto",
-    "section": "The Vibe-Coder Thesis",
-    "text": "The Vibe-Coder Thesis\n\n“Being an effective vibe-coder is NOT the Kabbalah. It is not knowing about the esoteric secret prompt\n\nit is about ensuring the model has adequate context.”",
+    "objectID": "notes/01-25-26.html#objective",
+    "href": "notes/01-25-26.html#objective",
+    "title": "Research Notes: Jan 25, 2026",
+    "section": "",
+    "text": "Technicalize the presentation and integrate repository source code.",
     "crumbs": [
-      "I Suck At Coding: A Manifesto"
+      "January 2026",
+      "Research Notes: Jan 25, 2026"
     ]
   },
   {
-    "objectID": "presentation.html#vscode-cursor",
-    "href": "presentation.html#vscode-cursor",
-    "title": "I Suck At Coding",
-    "section": "1. VSCode / Cursor",
-    "text": "1. VSCode / Cursor\n\n\n\nModern IDE\n\nYou have no excuse not to use a modern IDE.\nVIM/EMACS are strictly worse for total project velocity.\n\n\n\n\nAnti-Pattern\n\nStop using Jupyter Notebooks for everything.\nNotebooks are for exploration, not logic.\n\n\n\n\nDoc: code.visualstudio.com | cursor.com",
+    "objectID": "notes/01-25-26.html#progress",
+    "href": "notes/01-25-26.html#progress",
+    "title": "Research Notes: Jan 25, 2026",
+    "section": "Progress",
+    "text": "Progress\n\nInitiated a deep technical overhaul of the Reveal.js presentation.\nMerged conceptual “glass cards” with live code snippets from src/ and tests/.\nIntegrated WandB and DuckDB examples into the core narrative.\nResolved Snakemake path issues on the VACC cluster related to profile directory naming.",
     "crumbs": [
-      "I Suck At Coding"
+      "January 2026",
+      "Research Notes: Jan 25, 2026"
     ]
   },
   {
-    "objectID": "presentation.html#project-structure",
-    "href": "presentation.html#project-structure",
-    "title": "I Suck At Coding",
-    "section": "2. Project Structure",
-    "text": "2. Project Structure\n\n\n\nModularity\n\nSeparate source code from sweeps.\nMake your source code a python module.\nExample: bert_adapter.py\n\n\n\n\nVersion Control\n\nGit early, git often.\nCollaborating? Use Pull Requests.\nExample: README.md\n\n\n\n\nDoc: git-scm.com",
+    "objectID": "notes/01-25-26.html#results-preview",
+    "href": "notes/01-25-26.html#results-preview",
+    "title": "Research Notes: Jan 25, 2026",
+    "section": "Results Preview",
+    "text": "Results Preview\nWe examined the training dynamics for the \\(d=256\\) bottleneck configuration.\n\n\n\n\n\n\n\n\nFigure 1: Training and Validation Loss for BERT Adapter (d=256)",
     "crumbs": [
-      "I Suck At Coding"
+      "January 2026",
+      "Research Notes: Jan 25, 2026"
     ]
   },
   {
-    "objectID": "presentation.html#uv-the-new-standard",
-    "href": "presentation.html#uv-the-new-standard",
-    "title": "I Suck At Coding",
-    "section": "3. UV: The New Standard",
-    "text": "3. UV: The New Standard\n\n\n\n\nSpeed: Orders of magnitude faster than pip.\nReproducibility: uv.lock is non-negotiable.\nExample: pyproject.toml\n\n\n\n\nReproducibility\nIf it doesn’t run on your collaborator’s machine, it’s not Science.\n\n\n\nDoc: docs.astral.sh/uv",
+    "objectID": "notes/01-25-26.html#next-steps",
+    "href": "notes/01-25-26.html#next-steps",
+    "title": "Research Notes: Jan 25, 2026",
+    "section": "Next Steps",
+    "text": "Next Steps\n\nPolish slide layouts for better space utilization.\nEmbed official documentation links on all tool slides.",
     "crumbs": [
-      "I Suck At Coding"
+      "January 2026",
+      "Research Notes: Jan 25, 2026"
     ]
   },
   {
-    "objectID": "presentation.html#uv-vs.-conda",
-    "href": "presentation.html#uv-vs.-conda",
-    "title": "I Suck At Coding",
-    "section": "UV vs. Conda",
-    "text": "UV vs. Conda\n\n\n\nThe Problems\n\nLocal vs. Cluster: “I developed code locally, but the VACC env crashes.”\nCollaboration: “It works for me, but my coworker has global numpy issues.”\n\n\n\n\nThe Solutions\n\nLocal Envs: Environments live in the project folder.\nReproducibility: Lockfile ensures byte-for-byte matching.\nExample: pyproject.toml\n\n\n\n\nDoc: docs.astral.sh/uv",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
+    "objectID": "supplementary.html",
+    "href": "supplementary.html",
+    "title": "Supplementary Materials",
+    "section": "",
+    "text": "The folgenden pseudocode describes the bottleneck adapter initialization used in our BERT model:\nimport torch.nn as nn\n\nclass Adapter(nn.Module):\n    def __init__(self, input_dim, adapter_dim):\n        super().__init__()\n        self.down_project = nn.Linear(input_dim, adapter_dim)\n        self.act = nn.GELU()\n        self.up_project = nn.Linear(adapter_dim, input_dim)\n        \n    def forward(self, x):\n        # Bottleneck architecture\n        residual = x\n        x = self.down_project(x)\n        x = self.act(x)\n        x = self.up_project(x)\n        return x + residual"
   },
   {
-    "objectID": "presentation.html#pydantic-strong-typing",
-    "href": "presentation.html#pydantic-strong-typing",
-    "title": "I Suck At Coding",
-    "section": "4. Pydantic: Strong Typing",
-    "text": "4. Pydantic: Strong Typing\n\n\n\nThe Problems\n\nBoilerplate: Constant manual parsing of nested lists/dicts.\nSilent Bugs: Passing \\(N \\times M\\) when \\(M \\times N\\) was expected.\n\n\n\n\nThe Solutions\n\nValidation: Catch errors at the boundary.\nLLM Context: Gives models the precise “slots” needed.\nExample: schema.py\n\n\n\n\nDoc: docs.pydantic.dev",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#tools-of-the-trade",
-    "href": "presentation.html#tools-of-the-trade",
-    "title": "Python for Scientific Development",
-    "section": "# Tools of the Trade",
-    "text": "# Tools of the Trade"
-  },
-  {
-    "objectID": "presentation.html#snakemake",
-    "href": "presentation.html#snakemake",
-    "title": "Python for Scientific Development",
-    "section": "Snakemake",
-    "text": "Snakemake\n\nProblem 1: Advisor wants you to regenerate a figure from 6 months ago—what was the script? What were the parameters?\nProblem 2: You changed src/core/utils.py and now you need to know which of your 500 simulation results are now invalid.\nThe Solution: Directed Acyclic Graphs (DAGs).\nAutomation: One command (snakemake) to run everything in the correct order.\nReproducibility: The Snakefile is the documentation."
-  },
-  {
-    "objectID": "presentation.html#snakemake-workflow-orchestration",
-    "href": "presentation.html#snakemake-workflow-orchestration",
-    "title": "Python for Scientific Development",
-    "section": "Snakemake: Workflow Orchestration",
-    "text": "Snakemake: Workflow Orchestration\n\n\nThe Problems\n\nAmnesia: “I changed code; what results are now invalid?”\nLost parameters: “How did I generate this figure 6 months ago?”\nBatch Hell: VACC repo littered with 10M Slurm batch files.\n\n\nThe Solutions\n\nDAG Generation: Snakemake knows exactly what needs to run.\nSelf-Documentation: The Snakefile is the record.\nRegistry: High-level rules replace manual Slurm scripts.\nExample: Snakefile"
-  },
-  {
-    "objectID": "presentation.html#defensive-coding-testing",
-    "href": "presentation.html#defensive-coding-testing",
-    "title": "Python for Scientific Development",
-    "section": "Defensive Coding: Testing",
-    "text": "Defensive Coding: Testing\n\nUnit Testing: Whenever you write a significant function, define what “correct” looks like.\n\nShape Checks: Is the matrix the size I expect?\nAnalytical Baseline: Does my numerical model match a known analytical solution?\nRegression: Does my “Optimized” algorithm give the same answer as my “Naive/Slow” one?\n\nIntegration Testing: Ensuring the “plumbing” works end-to-end.\n\nThe 1-Epoch Test: Does the pipeline run on a tiny dataset without crashing?\nThe Smoke Test: If I run for one epoch, does the loss decrease even a tiny bit?"
-  },
-  {
-    "objectID": "presentation.html#testing",
-    "href": "presentation.html#testing",
-    "title": "I Suck At Coding",
-    "section": "7. Testing",
-    "text": "7. Testing\n\n\n\nThe Problems\n\nSilent Regression: Results changed, and you don’t know why.\nVibe Blindness: Trusting LLM code without verification.\n\n\n\n\nThe Solutions\n\nUnit Tests: Shape checks & Baselines.\nVibe Coding: Use tests to verify LLM logic.\nExample: test_nlp_logic.py\n\n\n\n\nDoc: docs.pytest.org | ruff.rs",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#snakemake-orchestration",
-    "href": "presentation.html#snakemake-orchestration",
-    "title": "I Suck At Coding",
-    "section": "5. Snakemake: Orchestration",
-    "text": "5. Snakemake: Orchestration\n\n\n\nThe Problems\n\nAmnesia: “I changed code; what results are now invalid?”\nLost parameters: “How did I generate this figure 6 months ago?”\n\n\n\n\nThe Solutions\n\nDAG Generation: knows exactly what needs to run.\nSelf-Documentation: The Snakefile is the record.\nExample: Snakefile\n\n\n\n\nDoc: snakemake.github.io",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
+    "objectID": "supplementary.html#adapter-algorithm-example",
+    "href": "supplementary.html#adapter-algorithm-example",
+    "title": "Supplementary Materials",
+    "section": "",
+    "text": "The folgenden pseudocode describes the bottleneck adapter initialization used in our BERT model:\nimport torch.nn as nn\n\nclass Adapter(nn.Module):\n    def __init__(self, input_dim, adapter_dim):\n        super().__init__()\n        self.down_project = nn.Linear(input_dim, adapter_dim)\n        self.act = nn.GELU()\n        self.up_project = nn.Linear(adapter_dim, input_dim)\n        \n    def forward(self, x):\n        # Bottleneck architecture\n        residual = x\n        x = self.down_project(x)\n        x = self.act(x)\n        x = self.up_project(x)\n        return x + residual"
   },
   {
     "objectID": "index.html",
@@ -139,11 +342,18 @@
     "text": "Training Dashboard: Live Parquet-backed data visualization.\nLatest Presentation: High-level overview of our architecture."
   },
   {
+    "objectID": "paper_draft.html",
+    "href": "paper_draft.html",
+    "title": "Efficient Fine-Tuning with BERT Adapters: A Network Science Perspective",
+    "section": "",
+    "text": "Introduction\nLarge-scale language models (LLMs) have revolutionized natural language processing (NLP). However, as mentioned in Devlin et al. (2018), full parameter fine-tuning requires significant computational resources, especially when dealing with domain-specific datasets in fields like Network Science.\n\n\nMethodology\nWe utilize the bottleneck architecture described in Houlsby et al. (2019). This approach inserts two modules per transformer layer: one after the multi-head attention and one after the feed-forward layer. Each module consists of a down-projection, a non-linear activation, and an up-projection, effectively reducing the number of trainable parameters while maintaining representation quality.\n\n\nResults and Discussion\nOur experiments on the CSDS research dataset indicate that BERT adapters converge faster than full fine-tuning. We find that the structural properties of the attention weights in adapted models exhibit higher modularity compared to their fully fine-tuned counterparts, suggesting that adapters preserve the original model’s “backbone” more effectively.\n\n\n\n\n\n\nFigure 1: Figure 1: ROC Curves Across Hyperparameter Sweep. The curves demonstrate the robustness of BERT adapters across different bottleneck dimensions and learning rates. All configurations achieve an AUC &gt; 0.92, with the \\(d=512\\) configuration showing the fastest convergence.\n\n\n\n\n\nConclusion\nWe have demonstrated that BERT adapters are a highly efficient tool for scientific development in NLP. By minimizing the trainable parameter count, we enable more rapid iteration and experimentation on academic-scale hardware.\n\n\nReferences\n\n\nDevlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2018. “BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding.” arXiv Preprint arXiv:1810.04805.\n\n\nHoulsby, Neil, Andrei Giurgiu, Stanislaw Jastrzebski, Brando Morrone, Quentin Larsson, Mansi Sharma, and Dmitry Kalenichenko. 2019. “Parameter-Efficient Transfer Learning for NLP.” In International Conference on Machine Learning, 2790–99. PMLR."
+  },
+  {
     "objectID": "notes/01-24-26.html",
     "href": "notes/01-24-26.html",
     "title": "Research Notes: Jan 24, 2026",
     "section": "",
-    "text": "Establish the Quarto website structure and resolve VACC environment issues.\n\n\n\n\nSuccessfully refactored Snakemake rules to use independent .venv environments.\nImplemented real-time WandB logging with run grouping.\nEstablished the Quarto website architecture.\n\n\n\n\n\nMonitor VACC GPU runs.\nIntegrate WandB live dashboard into dashboard.qmd.",
+    "text": "Code\n// Global utility for Quarto/OJS data transformation\ntranspose = (obj) =&gt; {\n  if (!obj || Object.keys(obj).length === 0) return [];\n  const keys = Object.keys(obj);\n  if (keys.length === 0 || !obj[keys[0]]) return [];\n  return obj[keys[0]].map((_, i) =&gt; {\n    const r = {};\n    keys.forEach(k =&gt; r[k] = obj[k][i]);\n    return r;\n  });\n}",
     "crumbs": [
       "January 2026",
       "Research Notes: Jan 24, 2026"
@@ -153,8 +363,8 @@
     "objectID": "notes/01-24-26.html#objective",
     "href": "notes/01-24-26.html#objective",
     "title": "Research Notes: Jan 24, 2026",
-    "section": "",
-    "text": "Establish the Quarto website structure and resolve VACC environment issues.",
+    "section": "Objective",
+    "text": "Objective\nEstablish the Quarto website structure and resolve VACC environment issues.",
     "crumbs": [
       "January 2026",
       "Research Notes: Jan 24, 2026"
@@ -164,8 +374,8 @@
     "objectID": "notes/01-24-26.html#progress",
     "href": "notes/01-24-26.html#progress",
     "title": "Research Notes: Jan 24, 2026",
-    "section": "",
-    "text": "Successfully refactored Snakemake rules to use independent .venv environments.\nImplemented real-time WandB logging with run grouping.\nEstablished the Quarto website architecture.",
+    "section": "Progress",
+    "text": "Progress\n\nSuccessfully refactored Snakemake rules to use independent .venv environments.\nImplemented real-time WandB logging with run grouping.\nEstablished the Quarto website architecture.",
     "crumbs": [
       "January 2026",
       "Research Notes: Jan 24, 2026"
@@ -175,80 +385,77 @@
     "objectID": "notes/01-24-26.html#next-steps",
     "href": "notes/01-24-26.html#next-steps",
     "title": "Research Notes: Jan 24, 2026",
-    "section": "",
-    "text": "Monitor VACC GPU runs.\nIntegrate WandB live dashboard into dashboard.qmd.",
+    "section": "Next Steps",
+    "text": "Next Steps\n\nMonitor VACC GPU runs.\nIntegrate WandB live dashboard into dashboard.qmd.",
     "crumbs": [
       "January 2026",
       "Research Notes: Jan 24, 2026"
     ]
   },
   {
-    "objectID": "supplementary.html",
-    "href": "supplementary.html",
-    "title": "Supplementary Materials",
-    "section": "",
-    "text": "The folgenden pseudocode describes the bottleneck adapter initialization used in our BERT model:\nimport torch.nn as nn\n\nclass Adapter(nn.Module):\n    def __init__(self, input_dim, adapter_dim):\n        super().__init__()\n        self.down_project = nn.Linear(input_dim, adapter_dim)\n        self.act = nn.GELU()\n        self.up_project = nn.Linear(adapter_dim, input_dim)\n        \n    def forward(self, x):\n        # Bottleneck architecture\n        residual = x\n        x = self.down_project(x)\n        x = self.act(x)\n        x = self.up_project(x)\n        return x + residual"
-  },
-  {
-    "objectID": "supplementary.html#adapter-algorithm-example",
-    "href": "supplementary.html#adapter-algorithm-example",
-    "title": "Supplementary Materials",
-    "section": "",
-    "text": "The folgenden pseudocode describes the bottleneck adapter initialization used in our BERT model:\nimport torch.nn as nn\n\nclass Adapter(nn.Module):\n    def __init__(self, input_dim, adapter_dim):\n        super().__init__()\n        self.down_project = nn.Linear(input_dim, adapter_dim)\n        self.act = nn.GELU()\n        self.up_project = nn.Linear(adapter_dim, input_dim)\n        \n    def forward(self, x):\n        # Bottleneck architecture\n        residual = x\n        x = self.down_project(x)\n        x = self.act(x)\n        x = self.up_project(x)\n        return x + residual"
-  },
-  {
-    "objectID": "paper_draft.html",
-    "href": "paper_draft.html",
-    "title": "Efficient Fine-Tuning with BERT Adapters: A Network Science Perspective",
-    "section": "",
-    "text": "Introduction\nLarge-scale language models (LLMs) have revolutionized natural language processing (NLP). However, as mentioned in Devlin et al. (2018), full parameter fine-tuning requires significant computational resources, especially when dealing with domain-specific datasets in fields like Network Science.\n\n\nMethodology\nWe utilize the bottleneck architecture described in Houlsby et al. (2019). This approach inserts two modules per transformer layer: one after the multi-head attention and one after the feed-forward layer. Each module consists of a down-projection, a non-linear activation, and an up-projection, effectively reducing the number of trainable parameters while maintaining representation quality.\n\n\nResults and Discussion\nOur experiments on the CSDS research dataset indicate that BERT adapters converge faster than full fine-tuning. We find that the structural properties of the attention weights in adapted models exhibit higher modularity compared to their fully fine-tuned counterparts, suggesting that adapters preserve the original model’s “backbone” more effectively.\n\n\nConclusion\nWe have demonstrated that BERT adapters are a highly efficient tool for scientific development in NLP. By minimizing the trainable parameter count, we enable more rapid iteration and experimentation on academic-scale hardware.\n\n\nReferences\n\n\nDevlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2018. “BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding.” arXiv Preprint arXiv:1810.04805.\n\n\nHoulsby, Neil, Andrei Giurgiu, Stanislaw Jastrzebski, Brando Morrone, Quentin Larsson, Mansi Sharma, and Dmitry Kalenichenko. 2019. “Parameter-Efficient Transfer Learning for NLP.” In International Conference on Machine Learning, 2790–99. PMLR."
-  },
-  {
-    "objectID": "paper_draft.html#abstract",
-    "href": "paper_draft.html#abstract",
-    "title": "Paper Draft: Efficient Fine-Tuning with BERT Adapters",
-    "section": "",
-    "text": "This document outlines our findings on using bottleneck adapters for topic classification."
-  },
-  {
-    "objectID": "paper_draft.html#introduction",
-    "href": "paper_draft.html#introduction",
-    "title": "Paper Draft: Efficient Fine-Tuning with BERT Adapters",
-    "section": "",
-    "text": "As mentioned in Devlin et al. (2018), large-scale language models…"
-  },
-  {
-    "objectID": "paper_draft.html#methodology",
-    "href": "paper_draft.html#methodology",
-    "title": "Paper Draft: Efficient Fine-Tuning with BERT Adapters",
-    "section": "",
-    "text": "We utilize the architecture described in Houlsby et al. (2019)."
-  },
-  {
-    "objectID": "paper_draft.html#references",
-    "href": "paper_draft.html#references",
-    "title": "Paper Draft: Efficient Fine-Tuning with BERT Adapters",
-    "section": "",
-    "text": "Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2018. “BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding.” arXiv Preprint arXiv:1810.04805.\n\n\nHoulsby, Neil, Andrei Giurgiu, Stanislaw Jastrzebski, Brando Morrone, Quentin Larsson, Mansi Sharma, and Dmitry Kalenichenko. 2019. “Parameter-Efficient Transfer Learning for NLP.” In International Conference on Machine Learning, 2790–99. PMLR."
-  },
-  {
-    "objectID": "dashboard.html#interactive-explorer",
-    "href": "dashboard.html#interactive-explorer",
-    "title": "BERT News Classification Dashboard",
-    "section": "Interactive Explorer",
-    "text": "Interactive Explorer\nUse the controls below to filter and compare different training runs in real-time.\n\n\n\nCode\nviewof selected_exp = Inputs.select(\n  [...new Set(research_data.exp_name)], \n  {label: \"Experiment\", value: research_data.exp_name[0]}\n)\n\nviewof selected_dim = Inputs.select(\n  [null, ...new Set(research_data.adapter_dim)], \n  {label: \"Adapter Dim\", format: d =&gt; d === null ? \"All\" : d}\n)\n\nviewof selected_lr = Inputs.select(\n  [null, ...new Set(research_data.learning_rate)], \n  {label: \"Learning Rate\", format: d =&gt; d === null ? \"All\" : d}\n)\n\nviewof min_acc = Inputs.range(\n  [0, 1], \n  {label: \"Min Accuracy\", step: 0.01, value: 0.5}\n)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTraining Dynamics\n\n\nCode\nfiltered_data = {\n  const data = transpose(research_data);\n  return data.filter(d =&gt; \n    d.exp_name === selected_exp && \n    (selected_dim === null || d.adapter_dim === selected_dim) &&\n    (selected_lr === null || d.learning_rate === selected_lr) &&\n    d.accuracy &gt;= min_acc\n  );\n}\n\n// Interactive Plot using Observable Plot\nPlot.plot({\n  grid: true,\n  color: {legend: true},\n  y: {label: \"Value\"},\n  marks: [\n    Plot.line(filtered_data, {\n      x: \"epoch\", \n      y: \"train_loss\", \n      stroke: \"full_name\", \n      strokeDasharray: \"4,4\",\n      tip: true\n    }),\n    Plot.line(filtered_data, {\n      x: \"epoch\", \n      y: \"val_loss\", \n      stroke: \"full_name\",\n      tip: true\n    }),\n    Plot.dot(filtered_data, {\n      x: \"epoch\", \n      y: \"val_loss\", \n      fill: \"full_name\"\n    }),\n    // Baseline for the plot\n    Plot.ruleY([0])\n  ]\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRun Metadata\nInputs.table(filtered_data, {\n  columns: [\"full_name\", \"adapter_dim\", \"learning_rate\", \"accuracy\", \"f1_score\", \"auroc\"],\n  header: {\n    full_name: \"Run ID\",\n    adapter_dim: \"Dim\",\n    learning_rate: \"LR\",\n    accuracy: \"Acc\",\n    f1_score: \"F1\",\n    auroc: \"AUROC\"\n  }\n})\n\n\n\n\n\n🏆 Performance Ranking\n\n\nCode\nviewof sort_metric = Inputs.select(\n  [\"accuracy\", \"f1_score\", \"auroc\"], \n  {label: \"Sort By\", value: \"f1_score\"}\n)\n\n// Aggregate to final stats per run (latest epoch)\nfinal_stats = {\n  const data = transpose(research_data);\n  // Filter for only the last epoch available for each run\n  const runs = [...new Set(data.map(d =&gt; d.full_name))];\n  const last_points = runs.map(name =&gt; {\n    const run_points = data.filter(d =&gt; d.full_name === name);\n    return run_points.sort((a, b) =&gt; b.epoch - a.epoch)[0];\n  });\n  // Apply bar plot sorting\n  return d3.sort(last_points, (a, b) =&gt; d3.descending(a[sort_metric], b[sort_metric]));\n}\n\nPlot.plot({\n  marginRight: 120,\n  x: {grid: true, label: \"Score\"},\n  y: {label: \"Run Name\", padding: 0.2},\n  color: {scheme: \"viridis\", label: \"Value\"},\n  marks: [\n    Plot.barX(final_stats, {\n      y: \"full_name\", \n      x: sort_metric, \n      fill: sort_metric,\n      tip: true\n    }),\n    Plot.ruleX([0])\n  ]\n})",
+    "objectID": "notes/01-24-26.html#results-analysis",
+    "href": "notes/01-24-26.html#results-analysis",
+    "title": "Research Notes: Jan 24, 2026",
+    "section": "Results Analysis",
+    "text": "Results Analysis\n\nTraining Dynamics\n\n\n\n\n\n\n\n\n\nCode\nPlot.plot({\n  width: 600,\n  height: 400,\n  style: {background: \"transparent\", color: \"#2d3436\"},\n  y: {grid: true, label: \"Loss\"},\n  x: {label: \"Epoch\"},\n  marks: [\n    Plot.lineY(transpose(training_data), {\n      x: \"epoch\",\n      y: \"val_loss\",\n      stroke: \"full_run_name\",\n      strokeWidth: 2,\n      tip: true\n    }),\n    Plot.text(transpose(training_data), Plot.selectLast({\n      x: \"epoch\",\n      y: \"val_loss\",\n      text: \"adapter_dim\",\n      dx: 5,\n      textAnchor: \"start\"\n    }))\n  ]\n})\n\n\n\n\n\n\n\n\n\nPerformance Sweep\n\nStability: All configurations converge within 10 epochs.\nScaling: Larger adapter dimensions (\\(d=512\\)) show lower final validation loss.\nEfficiency: Only 1% of parameters trained.\n\n\n\n\n\n\nModel Evaluation (ROC)\n\n\n\n\n\n\n\n\n\nCode\nPlot.plot({\n  width: 600,\n  height: 400,\n  style: {background: \"transparent\", color: \"#2d3436\"},\n  x: {label: \"False Positive Rate\"},\n  y: {label: \"True Positive Rate\", grid: true},\n  marks: [\n    Plot.line(transpose(roc_data), {\n      x: \"fpr\",\n      y: \"tpr\",\n      stroke: \"full_run_name\",\n      strokeOpacity: 0.6\n    }),\n    Plot.ruleAb([0, 0], [1, 1], {stroke: \"#ccc\", strokeDasharray: \"4,4\"})\n  ]\n})\n\n\n\n\n\n\n\n\n\nROC Analysis\n\nTop Class: “Sports” achieves near-perfect AUC (&gt; 0.98).\nAmbiguity: “World” and “Business” show slight overlap.\nRobustness: High AUC maintained across all hyperparam settings.",
     "crumbs": [
-      "BERT News Classification Dashboard"
+      "January 2026",
+      "Research Notes: Jan 24, 2026"
     ]
   },
   {
-    "objectID": "dashboard.html#scientific-insights",
-    "href": "dashboard.html#scientific-insights",
-    "title": "BERT News Classification Dashboard",
-    "section": "🚀 Scientific Insights",
-    "text": "🚀 Scientific Insights\n\nReal-time Interactivity: Observable JS allows us to query the aggregated Parquet results instantly without server-side re-renders.\nPEFT Monitoring: High-granularity step logging (integrated in trainer.py) reveals exactly where models begin to plateau.\nArchitectural Trade-offs: Compare how different adapter_dim values impact convergence speed vs. final accuracy across the sidebar sections.",
+    "objectID": "notes/01-26-26.html",
+    "href": "notes/01-26-26.html",
+    "title": "Research Notes: Jan 26, 2026",
+    "section": "",
+    "text": "Finalize the “Technical Manifesto” presentation and resolve Quarto project render issues.",
     "crumbs": [
-      "BERT News Classification Dashboard"
+      "January 2026",
+      "Research Notes: Jan 26, 2026"
+    ]
+  },
+  {
+    "objectID": "notes/01-26-26.html#objective",
+    "href": "notes/01-26-26.html#objective",
+    "title": "Research Notes: Jan 26, 2026",
+    "section": "",
+    "text": "Finalize the “Technical Manifesto” presentation and resolve Quarto project render issues.",
+    "crumbs": [
+      "January 2026",
+      "Research Notes: Jan 26, 2026"
+    ]
+  },
+  {
+    "objectID": "notes/01-26-26.html#progress",
+    "href": "notes/01-26-26.html#progress",
+    "title": "Research Notes: Jan 26, 2026",
+    "section": "Progress",
+    "text": "Progress\n\nOptimized presentation space using .smaller classes on all technical slides.\nEmbedded documentation links directly into slide headers for Snakemake, UV, JAX, and Pydantic.\nAdded concrete technical examples:\n\nJAX vmap for GPU-parallelized simulations.\nPython type hints for static analysis in research functions.\nUV pyproject.toml dependency management.\n\nInvestigated Quarto project render conflicts and 404 errors for internal iframes.",
+    "crumbs": [
+      "January 2026",
+      "Research Notes: Jan 26, 2026"
+    ]
+  },
+  {
+    "objectID": "notes/01-26-26.html#model-performance-roc",
+    "href": "notes/01-26-26.html#model-performance-roc",
+    "title": "Research Notes: Jan 26, 2026",
+    "section": "Model Performance (ROC)",
+    "text": "Model Performance (ROC)\nThe final evaluation shows strong performance across all news categories.\n\n\n\n\n\n\n\n\nFigure 1: ROC Curves for AG News Classes (BERT Adapters)",
+    "crumbs": [
+      "January 2026",
+      "Research Notes: Jan 26, 2026"
+    ]
+  },
+  {
+    "objectID": "notes/01-26-26.html#next-steps",
+    "href": "notes/01-26-26.html#next-steps",
+    "title": "Research Notes: Jan 26, 2026",
+    "section": "Next Steps",
+    "text": "Next Steps\n\nFix Quarto output-dir mapping to ensure dashboard.html is accessible.\nFinalize the layout of the consolidated Quarto publication slide.",
+    "crumbs": [
+      "January 2026",
+      "Research Notes: Jan 26, 2026"
     ]
   },
   {
@@ -256,439 +463,41 @@
     "href": "dashboard.html",
     "title": "BERT News Classification Dashboard",
     "section": "",
-    "text": "/Users/willthompson/Documents/CSDS/side_projects/PythonForScientificDevelopment/.venv/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html\n  from .autonotebook import tqdm as notebook_tqdm\nUsing the latest cached version of the dataset since ag_news couldn't be found on the Hugging Face Hub\nFound the latest cached dataset configuration 'default' at /Users/willthompson/.cache/huggingface/datasets/ag_news/default/0.0.0/eb185aade064a813bc0b7f42de02595523103ca4 (last modified on Mon Jan 26 10:18:06 2026).",
-    "crumbs": [
-      "BERT News Classification Dashboard"
-    ]
+    "text": "/Users/willthompson/Documents/CSDS/side_projects/PythonForScientificDevelopment/.venv/lib/python3.12/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html\n  from .autonotebook import tqdm as notebook_tqdm\nUsing the latest cached version of the dataset since ag_news couldn't be found on the Hugging Face Hub\nFound the latest cached dataset configuration 'default' at /Users/willthompson/.cache/huggingface/datasets/ag_news/default/0.0.0/eb185aade064a813bc0b7f42de02595523103ca4 (last modified on Mon Jan 26 18:57:53 2026).\nCode\nbrandPalette = [\"#861388\", \"#E15A97\", \"#2F6690\", \"#0CBABA\"]\nbrandText = \"#2d3436\"\n\nhtml`&lt;style&gt;\n  body { font-family: 'Inter', sans-serif; color: ${brandText}; }\n  h1, h2, h3 { color: ${brandPalette[0]}; font-weight: 700; }\n  .sidebar { background: #f8f9fa; border-right: 1px solid #dee2e6; }\n&lt;/style&gt;`"
   },
   {
-    "objectID": "presentation.html",
-    "href": "presentation.html",
-    "title": "Python for Scientific Development",
-    "section": "",
-    "text": "Python is a TERRIBLE language for scientific computing.\n\n\n\n\nNothing about the language is inherently good for science.\n\n\n\n\nMost tools were developed by researchers as a “side-hustle.”\n\n\n\n\nThe Goal: How can we contort Python to be at least “okay”?",
-    "crumbs": [
-      "Python for Scientific Development"
-    ]
-  },
-  {
-    "objectID": "dashboard.html#data-explorer",
-    "href": "dashboard.html#data-explorer",
+    "objectID": "dashboard.html#interactive-explorer",
+    "href": "dashboard.html#interactive-explorer",
     "title": "BERT News Classification Dashboard",
-    "section": "🔍 Data Explorer",
-    "text": "🔍 Data Explorer\nBrowse the raw research inputs to understand the linguistic complexity of the AG News dataset.\n\nSample BrowserCategory Balance\n\n\n\n\nCode\nviewof selected_cat = Inputs.radio(\n  [\"All\", ...new Set(dataset_samples.label)], \n  {label: \"News Category\", value: \"All\"}\n)\n\nfiltered_samples = {\n  const data = transpose(dataset_samples);\n  return selected_cat === \"All\" ? data : data.filter(d =&gt; d.label === selected_cat);\n}\n\nInputs.table(filtered_samples, {\n  columns: [\"label\", \"text\"],\n  rows: 20,\n  layout: \"fixed\"\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nPlot.plot({\n  y: {grid: true},\n  marks: [\n    Plot.barY(transpose(dataset_samples), Plot.groupX({y: \"count\"}, {x: \"label\", fill: \"#4ca1af\"}))\n  ]\n})",
-    "crumbs": [
-      "BERT News Classification Dashboard"
-    ]
+    "section": "Interactive Explorer",
+    "text": "Interactive Explorer\n\n\n\nCode\nviewof selected_exp = Inputs.select(\n  [...new Set(research_data.exp_name)], \n  {label: \"Experiment\", value: research_data.exp_name[0]}\n)\n\nviewof selected_dim = Inputs.select(\n  [null, ...new Set(research_data.adapter_dim)], \n  {label: \"Adapter Dim\", format: d =&gt; d === null ? \"All\" : d}\n)\n\nviewof selected_lr = Inputs.select(\n  [null, ...new Set(research_data.learning_rate)], \n  {label: \"Learning Rate\", format: d =&gt; d === null ? \"All\" : d}\n)\n\nviewof min_acc = Inputs.range(\n  [0, 1], \n  {label: \"Min Accuracy\", step: 0.01, value: 0.5}\n)\n\n// Utility to convert column-oriented data from ojs_define to row-oriented\ntranspose = (obj) =&gt; {\n  const keys = Object.keys(obj);\n  return obj[keys[0]].map((_, i) =&gt; {\n    const r = {};\n    keys.forEach(k =&gt; r[k] = obj[k][i]);\n    return r;\n  });\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTraining Dynamics\n\n\nCode\nfiltered_data = {\n  const data = transpose(research_data);\n  return data.filter(d =&gt; \n    d.exp_name === selected_exp && \n    (selected_dim === null || d.adapter_dim === selected_dim) &&\n    (selected_lr === null || d.learning_rate === selected_lr) &&\n    d.accuracy &gt;= min_acc\n  );\n}\n\n// Interactive Plot using Observable Plot\nPlot.plot({\n  grid: true,\n  style: {background: \"transparent\", color: brandText},\n  color: {range: brandPalette, legend: true},\n  y: {label: \"Value\"},\n  marks: [\n    Plot.line(filtered_data, {\n      x: \"epoch\", \n      y: \"train_loss\", \n      stroke: \"full_name\", \n      strokeDasharray: \"4,4\",\n      tip: true\n    }),\n    Plot.line(filtered_data, {\n      x: \"epoch\", \n      y: \"val_loss\", \n      stroke: \"full_name\",\n      tip: true\n    }),\n    Plot.dot(filtered_data, {\n      x: \"epoch\", \n      y: \"val_loss\", \n      fill: \"full_name\"\n    }),\n    // Baseline for the plot\n    Plot.ruleY([0], {stroke: \"#dfe6e9\"})\n  ]\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRun Metadata\n\n\nCode\nInputs.table(filtered_data, {\n  columns: [\"full_name\", \"adapter_dim\", \"learning_rate\", \"accuracy\", \"f1_score\", \"auroc\"],\n  header: {\n    full_name: \"Run ID\",\n    adapter_dim: \"Dim\",\n    learning_rate: \"LR\",\n    accuracy: \"Acc\",\n    f1_score: \"F1\",\n    auroc: \"AUROC\"\n  }\n})\n\n\n\n\n\n\n\n\n\n\n🏆 Performance Ranking\n\n\nCode\nviewof sort_metric = Inputs.select(\n  [\"accuracy\", \"f1_score\", \"auroc\"], \n  {label: \"Sort By\", value: \"f1_score\"}\n)\n\n// Aggregate to final stats per run (latest epoch)\nfinal_stats = {\n  const data = transpose(research_data);\n  // Filter for only the last epoch available for each run\n  const runs = [...new Set(data.map(d =&gt; d.full_name))];\n  const last_points = runs.map(name =&gt; {\n    const run_points = data.filter(d =&gt; d.full_name === name);\n    return run_points.sort((a, b) =&gt; b.epoch - a.epoch)[0];\n  });\n  // Apply bar plot sorting\n  return d3.sort(last_points, (a, b) =&gt; d3.descending(a[sort_metric], b[sort_metric]));\n}\n\nPlot.plot({\n  marginRight: 120,\n  style: {background: \"transparent\", color: brandText},\n  x: {grid: true, label: \"Score\"},\n  y: {label: \"Run Name\", padding: 0.2},\n  color: {range: brandPalette, label: \"Value\"},\n  marks: [\n    Plot.barX(final_stats, {\n      y: \"full_name\", \n      x: sort_metric, \n      fill: sort_metric,\n      tip: true\n    }),\n    Plot.ruleX([0], {stroke: \"#dfe6e9\"})\n  ]\n})"
   },
   {
     "objectID": "dashboard.html#model-diagnostics",
     "href": "dashboard.html#model-diagnostics",
     "title": "BERT News Classification Dashboard",
     "section": "📈 Model Diagnostics",
-    "text": "📈 Model Diagnostics\nDetailed analysis of model confidence and class-wise discrimination.\n\n\nROC Curves (One-vs-Rest)\n\n\nCode\nviewof roc_dim = Inputs.select(\n  [...new Set(research_data.adapter_dim)], \n  {label: \"Model Dim\", value: 256}\n)\n\nviewof roc_lr = Inputs.select(\n  [...new Set(research_data.learning_rate)], \n  {label: \"Model LR\", value: 0.0001}\n)\n\n// Filter ROC data for specific hyperparameter pair\nfiltered_roc = {\n  const data = transpose(roc_curves);\n  return data.filter(d =&gt; \n    d.adapter_dim === roc_dim && \n    d.learning_rate === roc_lr\n  );\n}\n\nPlot.plot({\n  grid: true,\n  aspectRatio: 1,\n  x: {label: \"False Positive Rate (FPR)\", domain: [0, 1]},\n  y: {label: \"True Positive Rate (TPR)\", domain: [0, 1]},\n  color: {legend: true},\n  marks: [\n    Plot.line([0, 1], {x: d =&gt; d, y: d =&gt; d, stroke: \"#ccc\", strokeDasharray: \"4,4\"}), // Random chance line\n    Plot.line(filtered_roc, {\n      x: \"fpr\", \n      y: \"tpr\", \n      stroke: \"class\",\n      tip: true\n    })\n  ]\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPerformance Summary\nAnalyze the class-wise separation. High TPR at low FPR indicates a high-fidelity classifier for that news category.",
-    "crumbs": [
-      "BERT News Classification Dashboard"
-    ]
+    "text": "📈 Model Diagnostics\nDetailed analysis of model confidence and class-wise discrimination.\n\n\nROC Curves (One-vs-Rest)\n\n\nCode\nviewof roc_dim = Inputs.select(\n  [...new Set(research_data.adapter_dim)], \n  {label: \"Model Dim\", value: 256}\n)\n\nviewof roc_lr = Inputs.select(\n  [...new Set(research_data.learning_rate)], \n  {label: \"Model LR\", value: 0.0001}\n)\n\n// Filter ROC data for specific hyperparameter pair\nfiltered_roc = {\n  const data = transpose(roc_curves);\n  return data.filter(d =&gt; \n    d.adapter_dim === roc_dim && \n    d.learning_rate === roc_lr\n  );\n}\n\nPlot.plot({\n  grid: true,\n  aspectRatio: 1,\n  style: {background: \"transparent\", color: brandText},\n  color: {range: brandPalette, legend: true},\n  x: {label: \"False Positive Rate (FPR)\", domain: [0, 1]},\n  y: {label: \"True Positive Rate (TPR)\", domain: [0, 1]},\n  marks: [\n    Plot.line([0, 1], {x: d =&gt; d, y: d =&gt; d, stroke: \"#dfe6e9\", strokeDasharray: \"4,4\"}), // Random chance line\n    Plot.line(filtered_roc, {\n      x: \"fpr\", \n      y: \"tpr\", \n      stroke: \"class\",\n      tip: true\n    })\n  ]\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPerformance Summary\nAnalyze the class-wise separation. High TPR at low FPR indicates a high-fidelity classifier."
+  },
+  {
+    "objectID": "dashboard.html#data-explorer",
+    "href": "dashboard.html#data-explorer",
+    "title": "BERT News Classification Dashboard",
+    "section": "🔍 Data Explorer",
+    "text": "🔍 Data Explorer\nBrowse the raw research inputs to understand the linguistic complexity of the AG News dataset.\n\nSample BrowserCategory Balance\n\n\n\n\n\nCode\nviewof selected_cat = Inputs.radio(\n  [\"All\", ...new Set(dataset_samples.label)], \n  {label: \"News Category\", value: \"All\"}\n)\n\nfiltered_samples = {\n  const data = transpose(dataset_samples);\n  return selected_cat === \"All\" ? data : data.filter(d =&gt; d.label === selected_cat);\n}\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nInputs.table(filtered_samples, {\n  columns: [\"label\", \"text\"],\n  rows: 20,\n  layout: \"fixed\"\n})\n\n\n\n\n\n\n\n\n\n\n\nCode\nPlot.plot({\n  style: {background: \"transparent\", color: brandText},\n  y: {grid: true},\n  marks: [\n    Plot.barY(transpose(dataset_samples), Plot.groupX({y: \"count\"}, {x: \"label\", fill: brandPalette[3]}))\n  ]\n})"
+  },
+  {
+    "objectID": "dashboard.html#scientific-insights",
+    "href": "dashboard.html#scientific-insights",
+    "title": "BERT News Classification Dashboard",
+    "section": "🚀 Scientific Insights",
+    "text": "🚀 Scientific Insights\n\nReal-time Interactivity: Observable JS allows us to query the aggregated Parquet results instantly.\nPEFT Monitoring: High-granularity step logging reveals plateau points.\nArchitectural Trade-offs: Compare how different adapter_dim values impact convergence."
   },
   {
     "objectID": "presentation.html#the-iron-rule-of-scientific-software-development",
     "href": "presentation.html#the-iron-rule-of-scientific-software-development",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
+    "title": "There is Plenty of Room in Latent Space",
     "section": "The Iron Rule of Scientific Software Development",
-    "text": "The Iron Rule of Scientific Software Development\n\n\nIf you take the time to build out code the right way you will never use it\n\n\n\n\nIf you write sloppy code it will bite you in the ass\n\n\n\n\nDamned if you do. Damned if you don’t.",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#section",
-    "href": "presentation.html#section",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "",
-    "text": "{background-iframe=“https://api.wandb.ai/links/whwthompson-university-of-vermont/i0010klt”}",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#the-python-paradox",
-    "href": "presentation.html#the-python-paradox",
-    "title": "I Suck At Coding: A Manifesto",
-    "section": "The Python Paradox",
-    "text": "The Python Paradox\n\n\n\n\nPython is a TERRIBLE language for scientific computing.\nNothing about the language is inherently good for science.\nMost tools were developed by researchers as a “side-hustle.”\n\n\n\n\nThe Goal: How can we contort Python to be at least “okay”?",
-    "crumbs": [
-      "I Suck At Coding: A Manifesto"
-    ]
-  },
-  {
-    "objectID": "presentation.html#research-dashboard",
-    "href": "presentation.html#research-dashboard",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "Research Dashboard",
-    "text": "Research Dashboard\n\n\n\nReal-time Tracking\n\nWeights & Biases integration\nLoss curves and gradient distributions\nArtifact tracking for model checkpoints\n\n\n\n# wandb/run-20260126_185750/\n# ├── files/\n# │   ├── config.yaml\n# │   └── wandb-metadata.json\n# └── logs/",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#summer-school-optimism",
-    "href": "presentation.html#summer-school-optimism",
-    "title": "I Suck At Coding",
-    "section": "Summer School Optimism",
-    "text": "Summer School Optimism\n\n\n\nThe Project\n\nGoal: Fit opinion spreading models to real-world network data.\nStart: First year of grad school workshop.\nInitial Code: Quick & dirty PyTorch implementation.\n\n\n\n\nThe Vibe\n“It’ll be 6 months, tops, to a publication.” 🤡",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#feature-creep-portability",
-    "href": "presentation.html#feature-creep-portability",
-    "title": "I Suck At Coding",
-    "section": "Feature Creep & Portability",
-    "text": "Feature Creep & Portability\n\n\n\nPhase 1: Portability\n\nProblem: 5 collaborators on Mac, Linux, and Windows.\n“Solution”: JSON configs + nested POSIX-compliant shell scripts/Python wrappers.\n\n\n\n\nPhase 2: The HPC (VACC)\n\nProblem: Local prototyping vs. Cluster batch jobs.\n“Solution”: J2 templating to auto-generate .sh scripts.",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#architecture-overkill",
-    "href": "presentation.html#architecture-overkill",
-    "title": "I Suck At Coding",
-    "section": "Architecture Overkill",
-    "text": "Architecture Overkill\n\n\n\nData & Concurrency\n\nFilename char limits? Build an ORM.\nSQLite locking? Move to MySQL.\nMySQL behind firewall? Polymorphic IO.\n\n\n\n\nTotal Collapse\n\nAgnostic formatters for every possible output.\nAgnostic inputs for polymorphic data classes.\nThe End: 2026, no publication, the framework is now so convoluted my collaborators just start writing their own code from scratch in Jupter notebooks and force-pushing to main because they hate the code.",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#logic-of-my-life",
-    "href": "presentation.html#logic-of-my-life",
-    "title": "I Suck At Coding: A Manifesto",
-    "section": "Logic of my Life",
-    "text": "Logic of my Life\nThe eternal struggle: Time spent to automate vs. overhead accumulated.\n\n\n\nIs it worth the time? (Source: XKCD)",
-    "crumbs": [
-      "I Suck At Coding: A Manifesto"
-    ]
-  },
-  {
-    "objectID": "presentation.html#the-world-if",
-    "href": "presentation.html#the-world-if",
-    "title": "I Suck At Coding",
-    "section": "The World If…",
-    "text": "The World If…\n\n\n\n…researchers used Claude Code and Snakemake",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#hpc-scaling-vacc",
-    "href": "presentation.html#hpc-scaling-vacc",
-    "title": "I Suck At Coding",
-    "section": "6. HPC Scaling: VACC",
-    "text": "6. HPC Scaling: VACC\n\n\n\nThe Descent\n\nThe Struggle: Writing batch scripts by hand.\nThe Chaos: Managing environment vars across nodes.\n\n\n\n\nThe Solution\n\nProfiles: Decouple logic from infrastructure.\nResource Management: Auto-submit 100s of jobs.\nExample: config.yaml\n\n\n\n\nDoc: VACC Guide",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#duckdb-result-aggregation",
-    "href": "presentation.html#duckdb-result-aggregation",
-    "title": "I Suck At Coding",
-    "section": "8. DuckDB: Result Aggregation",
-    "text": "8. DuckDB: Result Aggregation\n\n\n\nThe Breaking Point\n\nScaling: Filename char limits & SQLite locking.\nComplexity: Writing polymorphic IO for every DB.\n\n\n\n\nThe Solution\n\nParquet: Binary, columnar, and lightning fast.\nDuckDB: SQL analytics on top of flat files.\nExample: dashboard.qmd\n\n\n\n\nDoc: duckdb.org",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#duckdb-result-aggregation-1",
-    "href": "presentation.html#duckdb-result-aggregation-1",
-    "title": "I Suck At Coding",
-    "section": "8. DuckDB: Result Aggregation",
-    "text": "8. DuckDB: Result Aggregation\n\n\n\nThe Breaking Point\n\nScaling: Filename char limits & SQLite locking.\nComplexity: Writing polymorphic IO for every DB.\n\n\n\n\nThe Solution\n\nParquet: Binary, columnar, and lightning fast.\nDuckDB: SQL analytics on top of flat files.\nExample: dashboard.qmd\n\n\n\n\nDoc: duckdb.org",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#bad-scientific-software-d",
-    "href": "presentation.html#bad-scientific-software-d",
-    "title": "I Suck At Coding",
-    "section": "Bad Scientific Software d",
-    "text": "Bad Scientific Software d\n\n\n\n…researchers used Claude Code and Snakemake",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#bad-scientific-software",
-    "href": "presentation.html#bad-scientific-software",
-    "title": "I Suck At Coding",
-    "section": "Bad Scientific Software",
-    "text": "Bad Scientific Software\n\n\n\n…researchers used Claude Code and Snakemake",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#bad-scientific-software-development-is-a-sin",
-    "href": "presentation.html#bad-scientific-software-development-is-a-sin",
-    "title": "I Suck At Coding",
-    "section": "Bad Scientific Software Development IS A SIN",
-    "text": "Bad Scientific Software Development IS A SIN\n\n\n\nYou knew how to do",
-    "crumbs": [
-      "I Suck At Coding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#the-environment",
-    "href": "presentation.html#the-environment",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "1. The Environment",
-    "text": "1. The Environment\n\n\nReproducible UV\n\nSpeed: Orders of magnitude faster than pip/conda.\nLocking: uv.lock ensures your code runs everywhere.\nExamples: pyproject.toml, uv.lock\n\n\n\n\nDocs: astral.sh/uv | git-scm.comhttps://github.com/WillHWThompson/PythonForScientificDevelopment",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#the-workflow",
-    "href": "presentation.html#the-workflow",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "2. The Workflow",
-    "text": "2. The Workflow\n\n\nSnakemake\n\nAutomatic workflow generation: Specify components, Snakemake automatically builds the whole sweep.\nSlurm Integration: Manages Slurm jobs without bespoke batch scripts.\nAmnesia Proof: Only runs what hasn’t been run, identifies stale results.\nExamples: Snakefile, ./workflows\n\n\n\n\n\n\n\nExample Snakemake DAG\n\n\n\n\nDocs: snakemake.github.io | vacc.uvm.edu",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#the-data-lifecycle",
-    "href": "presentation.html#the-data-lifecycle",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "3. The Data Lifecycle",
-    "text": "3. The Data Lifecycle\n\n\n\nValidated Data\n\nPydantic: Catch errors at the boundary.\nLLM Context: Type-validated data structures make it much easier for LLMs to reason about inputs and outputs\n\n\n\n\nHigh-Perf Analytics\n\nParquet + DuckDB: SQL speed on flat files.\nTesting: Shape checks to verify the “vibe.”\n\n\n\n\nDocs: duckdb.org | pydantic.dev",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#the-summer-school-trap",
-    "href": "presentation.html#the-summer-school-trap",
-    "title": "I Suck At Coding: A Manifesto",
-    "section": "The Summer School Trap",
-    "text": "The Summer School Trap\n\n\n\nThe Project\n\nGoal: Fit opinion spreading models to network data.\nStart: First year of grad school workshop.\nInitial Code: Quick & dirty PyTorch.\n\n\n\n\nThe Vibe\n“It’ll be 6 months, tops, to a publication.” 🤡",
-    "crumbs": [
-      "I Suck At Coding: A Manifesto"
-    ]
-  },
-  {
-    "objectID": "presentation.html#the-descent-feature-creep",
-    "href": "presentation.html#the-descent-feature-creep",
-    "title": "I Suck At Coding: A Manifesto",
-    "section": "The Descent: Feature Creep",
-    "text": "The Descent: Feature Creep\n\n\n\nPhase 1: Portability\n\nProblem: 5 collaborators on every OS.\n“Solution”: JSON configs + nested Shell wrappers.\n\n\n\n\nPhase 2: HPC (VACC)\n\nProblem: Local vs. Cluster batch jobs.\n“Solution”: Custom J2 templating system.",
-    "crumbs": [
-      "I Suck At Coding: A Manifesto"
-    ]
-  },
-  {
-    "objectID": "presentation.html#the-final-collapse",
-    "href": "presentation.html#the-final-collapse",
-    "title": "I Suck At Coding: A Manifesto",
-    "section": "The Final Collapse",
-    "text": "The Final Collapse\n\n\n\nOver-Engineering\n\nSQLite locking? Move to MySQL.\nUVM Firewall? Polymorphic IO.\nFilename limits? Build an ORM.\n\n\n\n\nThe End\n\n2026: No publication.\nFramework is too convoluted to use.\nCollaborators keep force-pushing to main because they hate the code.",
-    "crumbs": [
-      "I Suck At Coding: A Manifesto"
-    ]
-  },
-  {
-    "objectID": "presentation.html#a-moral-failure",
-    "href": "presentation.html#a-moral-failure",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "A Moral Failure",
-    "text": "A Moral Failure",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#your-workflow",
-    "href": "presentation.html#your-workflow",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "Your Workflow",
-    "text": "Your Workflow\n\nThe Process\n\nYou have data or simulation parameters.\nYou have a model (ABM/statistical/ML).\nYou want to run sweeps with fixed logic.\nYou want to collect & visualize results.\nYou want to turn plots into a publication.\n\n\n\n\nThe Goal\nAutomate the plumbing so you can focus on the science.",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#modularity",
-    "href": "presentation.html#modularity",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "1. Modularity",
-    "text": "1. Modularity",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#unit-testing",
-    "href": "presentation.html#unit-testing",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "3. Unit Testing",
-    "text": "3. Unit Testing\n\n\n\n\nPytest Rigor\n\nLogic Checks: Validate each part of your research code.\nIntegration: Ensure the whole system plays together nicely.\nExamples: tests/test_nlp_logic.py\n\n\n\n\n\n\nGitHub Actions\n\nAutomation: Run tests on every push.\nTrust: Know your “vibe” is actually correct.\n, .github/workflows/ci.yml\n\n\n\n\n\n\nDocs: pytest.org | github.com/features/actions",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#the-data-lifecycle-1",
-    "href": "presentation.html#the-data-lifecycle-1",
-    "title": "I Suck At Coding: A Manifesto",
-    "section": "3. The Data Lifecycle",
-    "text": "3. The Data Lifecycle\n\n\n\nValidated Data\n\nPydantic: Catch errors at the boundary.\nLLM Context: Structured slots for model reasoning.\n\n\n\n\n\n2. The Workflow\n\n\n\nThe Automation\n\nSnakemake: Declarative workflow that tracks results and dependencies.\nSLURM Compatible: Zero-effort submission to the VACC cluster.\nAmnesia Proof: Automatically identifies stale results.\n\n\n\nHPC Scaling\n\nVACC Profiles: Integrated Slurm profiles.\nScaling: Run 1 locally; run 1,000 on the cluster.\n\n\n\n\nWorkflow DAG\n\n\n\nExample Snakemake DAG\n\n\n\n\n\nDocs: snakemake.github.io | vacc.uvm.edu\n\nHigh-Perf Data Storage\n\nParquet + DuckDB: SQL speed on flat files.\n\n\n\n\n\nDocs: duckdb.org | pydantic.dev",
-    "crumbs": [
-      "I Suck At Coding: A Manifesto"
-    ]
-  },
-  {
-    "objectID": "presentation.html#the-workflow-1",
-    "href": "presentation.html#the-workflow-1",
-    "title": "I Suck At Coding: A Manifesto",
-    "section": "2. The Workflow",
-    "text": "2. The Workflow\n\n\n\nThe Automation\n\nSnakemake: Declarative workflow that tracks results and dependencies.\nSLURM Compatible: Zero-effort submission to the VACC cluster.\nAmnesia Proof: Automatically identifies stale results.\n\n\n\nHPC Scaling\n\nVACC Profiles: Integrated Slurm profiles.\nScaling: Run 1 locally; run 1,000 on the cluster.\n\n\n\n\nWorkflow DAG\n\n\n\nExample Snakemake DAG\n\n\n\n\n\nDocs: snakemake.github.io | vacc.uvm.edu\n\nHigh-Perf Data Storage\n\nParquet + DuckDB: SQL speed on flat files.",
-    "crumbs": [
-      "I Suck At Coding: A Manifesto"
-    ]
-  },
-  {
-    "objectID": "presentation.html#expectation-vs.-reality",
-    "href": "presentation.html#expectation-vs.-reality",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "Expectation vs. Reality",
-    "text": "Expectation vs. Reality\n\n\n\n\nWhat I Imagined\n\n\nCode\ndata_imagined = [\n  {name: \"Reading/Understanding\", value: 20, color: \"#861388\"},\n  {name: \"Thinking Deeply\", value: 60, color: \"#E15A97\"},\n  {name: \"Writing Code\", value: 10, color: \"#2F6690\"},\n  {name: \"Communicating\", value: 10, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_imagined, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_imagined, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; `${d.name}\\n(${d.value}%)`,\n      fill: \"white\",\n      fontSize: 14\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Reality\n\n\nCode\ndata_reality_1 = [\n  {name: \"Reading\", value: 10, color: \"#861388\"},\n  {name: \"Writing Code\", value: 80, color: \"#2F6690\"},\n  {name: \"Thinking\", value: 5, color: \"#E15A97\"},\n  {name: \"Making Slides\", value: 5, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_reality_1, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_reality_1, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; d.value &gt; 5 ? `${d.name}\\n(${d.value}%)` : \"\",\n      fill: \"white\",\n      fontSize: 14\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#expectation-vs.-reality-1",
-    "href": "presentation.html#expectation-vs.-reality-1",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "Expectation vs. Reality",
-    "text": "Expectation vs. Reality\n\n\n\nExpectations\n\n\nCode\n// Redefine to keep auto-animate happy, or OJS will handle reactivity\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_imagined, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_imagined, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; `${d.name}\\n(${d.value}%)`,\n      fill: \"white\",\n      fontSize: 14\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})\n\n\n\n\n\n\n\n\n\n\nReality Breakdown\n\n\nCode\ndata_reality_detailed = [\n  {name: \"Reading\", value: 10, color: \"#861388\"},\n  {name: \"Conda Hell\", value: 10, color: \"#132a3b\"},\n  {name: \"Actual Algorithm\", value: 10, color: \"#19374d\"},\n  {name: \"Boilerplate/IO\", value: 20, color: \"#1f4460\"},\n  {name: \"Off-by-one bugs\", value: 10, color: \"#29597e\"},\n  {name: \"SLURM Queues\", value: 10, color: \"#2F6690\"},\n  {name: \"Matplotlib Ticks\", value: 10, color: \"#4483b3\"},\n  {name: \"Terminal Staring\", value: 10, color: \"#71a3c9\"},\n  {name: \"Thinking\", value: 5, color: \"#E15A97\"},\n  {name: \"Making Slides\", value: 5, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_reality_detailed, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_reality_detailed, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; d.value &gt;= 10 ? d.name : \"\",\n      fill: d =&gt; [\"#71a3c9\", \"#9dc3df\"].includes(d.color) ? \"#2d3436\" : \"white\",\n      fontSize: 11\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#opprotunity-cost-of-good-software-dev-practices",
-    "href": "presentation.html#opprotunity-cost-of-good-software-dev-practices",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "Opprotunity Cost of Good Software Dev Practices",
-    "text": "Opprotunity Cost of Good Software Dev Practices\n\n\n\n(Source: XKCD)",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#what-python-already-offers",
-    "href": "presentation.html#what-python-already-offers",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "1. What Python Already Offers",
-    "text": "1. What Python Already Offers\n\nNo Logic Notebooks: Logic lives in .py source code files make your source code portable and pip installable\nType Hinting: Python is dynamically types but it has a type-annotation system, USE IT!\nGit Branches and PRs: Especially when collaborating on a codebase, USE branches, branch often and use pull-requests to merge changes back into main",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#custom-data-structures-and-type-validation",
-    "href": "presentation.html#custom-data-structures-and-type-validation",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "4. Custom Data Structures and Type Validation",
-    "text": "4. Custom Data Structures and Type Validation\n\n\n\nValidated Data\n\nPydantic: Ensure the inputs and outputs have the right structure\nLLM Context: Type-validated data structures make it much easier for LLMs to reason about inputs and outputs\nExamples: src/core/schema.py, src/data/loader.py\n\n\n\n\n\nDocs: pydantic.dev",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#high-performance-analytics",
-    "href": "presentation.html#high-performance-analytics",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "5. High Performance Analytics",
-    "text": "5. High Performance Analytics\n\n\nDatabases\n\nPydantic ORM: Use SQLModel for a type-safe Python interface to DuckDB/WebDB.\nParquet + DuckDB: SQL speed on flat files.\nTesting: Shape checks to verify the “vibe.”\nExamples: notebooks/quarto/dashboard.qmd\n\n\n\n\nDocs: UVM WebDB|duckdb.org",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#ad-and-hardware-acceleration",
-    "href": "presentation.html#ad-and-hardware-acceleration",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "AD and Hardware Acceleration",
-    "text": "AD and Hardware Acceleration\n\n\n\nNot just for deep learning\n\nRule of Thumb: If it’s vectorized in Numpy, it’s ready for the GPU np. to jnp..\nParraell Processing Across GPUS: Jax’s vmap makes it easy to run 1,000s of simulations on a single GPU in parralell\nAutomatic Differentiation: Gradients for any simulation, ODE solver, or Agent-Based Model (ABM).\nExamples: src/models/bert_adapter.py\n\n\n\n\n\nDocs: jax.readthedocs.io | pytorch.org",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#interactive-sql-console",
-    "href": "presentation.html#interactive-sql-console",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "6. Interactive SQL Console",
-    "text": "6. Interactive SQL Console\n\n\n\n\n\n\n\n\n\nCode\ndb = DuckDBClient.of({\n  results: transpose(res_data)\n})\n\nviewof query = Inputs.text({\n  label: \"SQL Query\", \n  value: \"SELECT * FROM results LIMIT 10\",\n  placeholder: \"Type your SQL here...\",\n  width: \"100%\"\n})\n\nresults_data = db.query(query)\n\nInputs.table(results_data)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPowered by DuckDB-Wasm & OJS (Aggregating {python} len(parquet_files) runs)",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#scientific-software-checklist",
-    "href": "presentation.html#scientific-software-checklist",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "Scientific Software Checklist",
-    "text": "Scientific Software Checklist\n\n\n\n\nProblem\nSolution\n\n\n\n\nReproducible Environment\nUV package manager & lockfiles\n\n\nData Validation\nPydantic schemas & types\n\n\nHardware Acceleration\nPyTorch and JAX\n\n\nCode Reliability\nPytest and CI/CD\n\n\nWorkflow Automation\nSnakemake pipelines\n\n\nExperiment Tracking\nWeights and Biases\n\n\nPublication/Dashboards\nQuarto",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#wandb-dashboard",
-    "href": "presentation.html#wandb-dashboard",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "WandB Dashboard",
-    "text": "WandB Dashboard",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#storing-data",
-    "href": "presentation.html#storing-data",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "5. Storing Data",
-    "text": "5. Storing Data\n\n\n\nDatabases\n\nPydantic ORM: Use SQLModel for a type-safe Python interface to DuckDB/WebDB.\nParquet + DuckDB: SQL speed on flat files.\nExamples: notebooks/quarto/dashboard.qmd,\n\n\n\n\n\nDocs: UVM WebDB|duckdb.org",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#interactive-dashboard",
-    "href": "presentation.html#interactive-dashboard",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "Interactive Dashboard",
-    "text": "Interactive Dashboard",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
-  },
-  {
-    "objectID": "presentation.html#section-1",
-    "href": "presentation.html#section-1",
-    "title": "Scientific Software Development Practices in the Era of Vibecoding",
-    "section": "",
-    "text": "{background-iframe=“dashboard.html”}",
-    "crumbs": [
-      "Scientific Software Development Practices in the Era of Vibecoding"
-    ]
+    "text": "The Iron Rule of Scientific Software Development\n\n\nIf you take the time to build out code the right way you will never use it\n\n\n\n\nIf you write sloppy code it will bite you in the ass\n\n\n\n\nDamned if you do. Damned if you don’t."
   }
 ]

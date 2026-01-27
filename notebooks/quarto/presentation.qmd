@@ -1,8 +1,8 @@
 ---
-title: "Scientific Software Development Practices in the Era of Vibecoding"
-subtitle: "A Manifesto"
+title: "There is Plenty of Room in Latent Space"
+subtitle: "Scientific Workflows on the Eve of the Butlerian Jihad"
 author: "W. H. W. Thompson"
-footer: "Scientific Software Development In the Era of Vibecoding"
+footer: "Scientific Software Development Practices in the Era of Vibecoding"
 format: 
   revealjs:
     theme: [white, custom.scss]
@@ -19,9 +19,22 @@ format:
       data-background-opacity: "0.1"
 ---
 
-------------------------------------------------------------------------
-
 ## Expectation vs. Reality {auto-animate="true"}
+
+```{ojs}
+//| echo: false
+// Global utility for Quarto/OJS data transformation
+transpose = (obj) => {
+  if (!obj || Object.keys(obj).length === 0) return [];
+  const keys = Object.keys(obj);
+  if (keys.length === 0 || !obj[keys[0]]) return [];
+  return obj[keys[0]].map((_, i) => {
+    const r = {};
+    keys.forEach(k => r[k] = obj[k][i]);
+    return r;
+  });
+}
+```
 
 <!-- TO-DO: Add interactive oJS window -->
 
@@ -189,7 +202,7 @@ Plot.plot({
 
 <!-- TO-DO: Ple -->
 
-# Without SLURM We Would Have Cured Cancer By Now {.bg-dark-texture}
+# Without SLURM We Would Have Cured Cancer By Now {.bg-dark-texture .text-center}
 
 ## The Iron Rule of Scientific Software Development
 
@@ -406,127 +419,200 @@ ${Inputs.table(transpose(dataset_samples), {
 
 # The Foundation {.bg-primary}
 
-## 1. What Python Already Offers
+## 1. [Python](https://docs.python.org/3/) Features {.smaller}
 
--   **No Logic Notebooks**: Logic lives in `.py` source code files make your source code portable and pip installable
--   **Type Hinting**: Python is dynamically types but it has a type-annotation system, USE IT!
--   **Git Branches and PRs**: Especially when collaborating on a codebase, USE branches, branch often and use pull-requests to merge changes back into main
+-   **Logic in Source**: Keep logic in `.py` files. Portable and testable.
+-   **Type Hinting**: Python is dynamic, but annotations catch bugs early.
 
-## 1. The Environment {auto-animate="true"}
+``` python
+# Type-safe scientific logic
+def simulate_trajectories(
+    n_agents: int, 
+    time_steps: int, 
+    params: dict[str, float]
+) -> list[np.ndarray]:
+    """Simulates N trajectories over T steps."""
+    ...
+```
 
-::: {.glass-card .fragment}
-### Reproducible UV
+-   **Git Workflow**: Use branches and Pull Requests (PRs) always.
 
--   **Speed**: Orders of magnitude faster than pip/conda.
--   **Locking**: `uv.lock` ensures your code runs *everywhere*.
--   **Examples**: `pyproject.toml`, `uv.lock`
-:::
+## 1. Environment ([UV](https://github.com/astral-sh/uv)) {.smaller}
 
-::: footer
-Docs: [astral.sh/uv](https://docs.astral.sh/uv/) \| [git-scm.com](https://git-scm.com)https://github.com/WillHWThompson/PythonForScientificDevelopment
-:::
+-   **Speed**: Muuuch faster than conda.
+-   **Exact Reproducability**: `uv.lock` ensures reproducibility.
+-   **Linked Dependencies**: Dependcy linking prevents identical redundant binaries across environments
 
-## AD and Hardware Acceleration
+``` toml
+# pyproject.toml
+[project]
+name = "scientific_dev"
+requires-python = ">=3.12"
+dependencies = [
+    "jax>=0.9.0",
+    "snakemake>=8.4.0",
+    "pydantic>=2.12.5",
+]
+```
 
-:::: v-center
-::: {.glass-card .fragment}
-### Not just for deep learning
+## Acceleration ([JAX](https://jax.readthedocs.io/) / [PyTorch](https://pytorch.org/)) {.smaller}
 
--   **Rule of Thumb**: If it's vectorized in Numpy, it's ready for the GPU `np.` to `jnp.`.
+-   **Rule of Thumb**: If it can be done with numpy vectorized operations it will be faster on a GPU
+-   **Auto-Diff**: Get gradients for ODE or ABM simulations.
+-   **Batching**: `vmap` runs 1,000s of simulations in parallel on 1 GPU.
+-   **Drop in Replacement**: With Jax just replace `np` with `jnp` to get immediate hardware accelration.
 
--   **Parraell Processing Across GPUS**: Jax's `vmap` makes it easy to run 1,000s of simulations on a single GPU in parralell
+``` python
+import jax.numpy as jnp
+from jax import vmap
 
--   **Automatic Differentiation**: Gradients for *any* simulation, ODE solver, or Agent-Based Model (ABM).
+# A standard function for one data-point
+def compute_score(x):
+    return jnp.sum(jnp.sin(x) ** 2)
 
--   **Examples**: `src/models/bert_adapter.py`
-:::
-::::
+# Automatically vectorize to handle batches
+batch_score = vmap(compute_score)
 
-::: footer
-Docs: [jax.readthedocs.io](https://jax.readthedocs.io/) \| [pytorch.org](https://pytorch.org/)
-:::
+# Result: Instant GPU acceleration for 10,000 samples
+scores = batch_score(large_input_matrix)
+```
 
-## 4. Custom Data Structures and Type Validation {auto-animate="true"}
+## Validation ([Pydantic](https://docs.pydantic.dev/)) {.smaller}
 
-:::: v-center
-::: {.glass-card .fragment}
-### Validated Data
+-   **Enforce Structure**: Ensure inputs/outputs are type-safe.
+-   **LLM Ready**: Validated schemas make it easier for agents to reason.
+-   **Auto-IDs**: Generate run names from hyperparameters.
 
--   **Pydantic**: Ensure the inputs and outputs have the right structure
--   **LLM Context**: Type-validated data structures make it much easier for LLMs to reason about inputs and outputs
--   **Examples**: `src/core/schema.py`, `src/data/loader.py`
-:::
-::::
+``` python
+# src/core/schema.py
+class NLPModelConfig(BaseModel):
+    model_name: str = Field(default="distilbert-base-uncased")
+    adapter_dim: int = Field(default=256)
 
-::: footer
-Docs: [pydantic.dev](https://docs.pydantic.dev/)
-:::
+    @field_validator('adapter_dim')
+    def validate_adapter_dim(cls, v: int):
+        if v <= 0:
+            raise ValueError("adapter_dim must be positive")
+        return v
+```
 
-# Data Plumbing {.bg-primary}
+[View Schema](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/schema.py)
 
-## 2. The Workflow {auto-animate="true"}
+# The Plumbing {.bg-primary}
 
-::: {.glass-card .fragment .smaller}
-### Snakemake
+## Command Center ([Just](https://github.com/casey/just)) {.smaller}
 
--   **Automatic workflow generation**: Specify components, Snakemake automatically builds the whole sweep.
--   **Slurm Integration**: Manages Slurm jobs without bespoke batch scripts.
--   **Amnesia Proof**: Only runs what hasn't been run, identifies stale results.
--   **Examples**: `Snakefile`, `./workflows`
-:::
+-   **Abstraction Layer**: Hide complex `snakemake` or `uv` commands behind simple aliases.
+-   **Reproducible**: Ensure everyone runs the same commands in the same environment.
 
-::: {.fragment fig-align="center"}
-![Example Snakemake DAG](assets/snakemake_dag.svg){width="100%" height="300px"}
-:::
+``` make
+# Run full pipeline
+all p="local" c="configs/nlp_baseline.yaml":
+    uv run snakemake --workflow-profile ./workflow/profiles/{{p}} --configfile {{c}}
 
-::: footer
-Docs: [snakemake.github.io](https://snakemake.github.io/) \| [vacc.uvm.edu](https://www.uvm.edu/vacc/docs/)
-:::
+# Run local Quarto preview
+preview:
+    cd notebooks/quarto && quarto preview . --no-browser
+```
 
-## 3. Unit Testing {auto-animate="true"}
+[View Justfile](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/justfile)
 
-::::::: columns
-:::: {.column width="50%"}
-::: {.glass-card .fragment}
-### Pytest Rigor
+## Orchestration ([Snakemake](https://snakemake.github.io/)) {.smaller}
 
--   **Logic Checks**: Validate each part of your research code.
--   **Integration**: Ensure the whole system plays together nicely.
--   **Examples**: `tests/test_nlp_logic.py`
-:::
-::::
+-   **Automatic workflow generation**: Build the whole sweep automatically.
+-   **Slurm Integration**: Manages VACC jobs without bespoke batch scripts.
+-   **Amnesia Proof**: Only runs what has changed.
 
-:::: {.column width="50%"}
-::: {.glass-card .fragment}
-### GitHub Actions
+``` python
+# workflow/rules/train.smk
+rule train_bert_classifier:
+    output:
+        weights = "results/{cfg_name}/{params_path}/model.pt",
+        stats = "results/{cfg_name}/{params_path}/training_stats.parquet"
+    resources:
+        gpu=1
+    shell:
+        "PYTHONPATH=src python scripts/run_training.py "
+        "--config configs/{wildcards.cfg_name}.yaml "
+        "--output {output.weights}"
+```
 
--   **Automation**: Run tests on every push.
--   **Trust**: Know your "vibe" is actually correct.
--   , `.github/workflows/ci.yml`
-:::
-::::
-:::::::
+[View Full Rule](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/workflow/rules/train.smk)
 
-::: footer
-Docs: [pytest.org](https://docs.pytest.org/) \| [github.com/features/actions](https://github.com/features/actions)
-:::
+## Testing ([Pytest](https://docs.pytest.org/)) & [CI](https://github.com/features/actions) {.smaller}
 
-## 5. Storing Data {auto-animate="true"}
+-   **Pytest Rigor**: Validate each part of research code.
+-   **Actions**: Run everything on every push to ensure trust.
 
-:::: v-center
-::: {.glass-card .fragment}
-### Databases
+``` python
+# tests/test_nlp_logic.py
+def test_validation():
+    with pytest.raises(ValueError):
+        NLPModelConfig(adapter_dim=-1)
+```
 
--   **WebDB:** UVM Hosted MySQL
--   **Pydantic ORM**: Use `SQLModel` for a type-safe Python interface to DuckDB/WebDB.
--   **Parquet + DuckDB**: SQL speed on flat files.
--   **Examples**: `notebooks/quarto/dashboard.qmd`,
-:::
-::::
+``` yaml
+# .github/workflows/ci.yml
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: uv run pytest tests/
+```
 
-::: footer
-Docs: [UVM WebDB](https://webdb.uvm.edu/)\|[duckdb.org](https://duckdb.org/)
-:::
+[View CI Workflow](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/.github/workflows/ci.yml)
+
+## Sync ([WandB](https://wandb.ai)) {.smaller}
+
+-   **Track Metrics**: Log losses and gradients in real-time.
+-   **Reproducible**: Every run is versioned and tagged.
+
+``` python
+# src/core/trainer.py
+def init_logger(self):
+    wandb.init(
+        project="neural-adapter-research",
+        config=self.config.model_dump(),
+        name=self.config.full_run_name
+    )
+```
+
+``` python
+wandb.log({
+    "train/step_loss": loss.item(),
+    "train/learning_rate": self.optimizer.param_groups[0]["lr"],
+    "train/global_step": epoch * len(self.train_loader) + step
+})
+```
+
+[View Trainer](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/trainer.py)
+
+## Storing Data ([DuckDB](https://duckdb.org/)) {.smaller}
+
+-   **Parquet + DuckDB**: Use SQL to query directories of parquet files
+
+``` sql
+SELECT s.*, m."test/auroc" 
+FROM read_parquet('results/**/training_stats.parquet') s
+LEFT JOIN read_parquet('results/**/test_metrics.parquet') m 
+  ON s.full_run_name = m.full_run_name
+```
+
+-   **SQLModel**: Type-safe Python Object Relational Mapping (ORM)
+
+``` python
+from sqlmodel import select, Session
+from src.core.models import TrainingRun
+
+with Session(engine) as session:
+    statement = select(TrainingRun).where(TrainingRun.val_loss < 0.5)
+    results = session.exec(statement).all()
+```
+
+-   **MYDB**: For data-intensive projects use [MYDB](https://webdb.uvm.edu) to host MySQL server
+
+<!-- TODO: Implement automated backup for DuckDB local files -->
 
 ## 6. Interactive SQL Console {auto-animate="true"}
 
@@ -546,9 +632,15 @@ try:
     files = list(Path("results").glob("**/training_stats.parquet"))
     if files:
         # Use union_by_name=True to handle schema variations gracefully
-        all_results = con.execute(f"SELECT * FROM read_parquet('{results_pattern}', union_by_name=True)").df()
+        query = f"""
+            SELECT s.*, m."test/auroc" 
+            FROM read_parquet('{results_pattern}') s
+            LEFT JOIN read_parquet('results/**/test_metrics.parquet') m 
+              ON s.full_run_name = m.full_run_name
+        """
+        all_results = con.execute(query).df()
     else:
-        all_results = pd.DataFrame(columns=["epoch", "train_loss", "val_loss", "accuracy", "full_run_name"])
+        all_results = pd.DataFrame(columns=["epoch", "train_loss", "val_loss", "accuracy", "full_run_name", "test/auroc"])
 except Exception as e:
     print(f"Error loading results: {e}")
     all_results = pd.DataFrame(columns=["error"])
@@ -574,6 +666,8 @@ viewof query = Inputs.text({
   width: "100%"
 })
 
+
+
 results_data = db.query(query)
 
 Inputs.table(results_data)
@@ -581,80 +675,279 @@ Inputs.table(results_data)
 :::
 ::::
 
-::: footer
-Powered by DuckDB-Wasm & OJS (Aggregating {python} len(parquet_files) runs)
-:::
+## Live Metrics Tracking {background-iframe="https://api.wandb.ai/links/whwthompson-university-of-vermont/i0010klt" background-interactive="true"}
 
-# Vizualizing Data {.bg-accent-1}
+## Publication ([Quarto](https://quarto.org)) {.smaller}
 
-## Research Dashboard
+-   **Unified Logic**: Use LaTeX, Python, and Javascript in one document.
+-   **Better Notebooks**: Use python to analyze data, pass results to javascript for interctive plots
+-   **One Framework, Many Formats**: Make Websties/Presentaions/PDFs and Latex Documents
+-   **Reproducible**: One command to render the whole dashboard/paper.
 
-::::: columns
-::: {.column width="60%"}
-### Real-time Tracking
+```` markdown
+# Theoretical Loss
+$$
+\mathcal{L}(\theta) = \frac{1}{N} \sum_{i=1}^N \text{CrossEntropy}(f_\theta(x_i), y_i)
+$$
 
--   [Weights & Biases](https://wandb.ai) integration
--   Loss curves and gradient distributions
--   Artifact tracking for model checkpoints
-:::
-
-::: {.column width="40%"}
-``` python
-# wandb/run-20260126_185750/
-# ├── files/
-# │   ├── config.yaml
-# │   └── wandb-metadata.json
-# └── logs/
+# Python Visualization
+```python
+import seaborn as sns
+sns.lineplot(data=df, x='epoch', y='loss')
 ```
-:::
-:::::
-
-##  {background-iframe="https://api.wandb.ai/links/whwthompson-university-of-vermont/i0010klt" background-interactive="true"}
-
-## Why Quarto? {.bg-accent-2}
-
-::::: columns
-::: {.column width="60%"}
-### The Scientific "Glue"
-
--   **Multi-language**: Python, R, Julia, OJS
--   **Unified Output**: Reports, Slides, Dashboards, Books
--   **Reproducible**: Executable code blocks + version control
-:::
-
-::: {.column width="40%"}
-``` yaml
-# _quarto.yml
-project:
-  type: website
-  
-format:
-  html:
-    code-fold: true
-```
-:::
-:::::
+````
 
 ##  {background-iframe="dashboard.html" background-interactive="true"}
 
-# Summary {.bg-primary}
+# Resources & More {.bg-dark-texture}
 
-::: {.glass-card .fragment .fade-up}
-1.  **Accept that you are a Developer.** We are all software engineers now.
+## AI Tools for Students {.smaller}
+
+
+::::: columns
+::: {.column width="45%" .fragment}
+::: glass-card
+### IDEs
+*No excuse not to use Cursor/VSCode*
+
+- [**VSCode**](https://code.visualstudio.com) (Standard)
+- [**Cursor**](https://cursor.com/students) (Student Free)
+- [**Antigravity**](https://antigravity.google/) (Agent Labs)
+:::
 :::
 
-::: {.glass-card .fragment .fade-up}
-2.  **Standardize Environments.** Use **UV** and lockfiles.
+::: {.column width="5%"}
+<!-- spacer -->
 :::
 
-::: {.glass-card .fragment .fade-up}
-3.  **Automate Workflows.** Let **Snakemake** handle the graph.
+::: {.column width="45%" .fragment}
+::: glass-card
+### LLMs
+*High-Context Research Partners*
+
+- [**Gemini Pro**](https://gemini.google/students/) (2M Tokens)
+- [**GitHub Copilot**](https://github.com/education) (Free)
+- [**Claude Campus**](https://claude.com/programs/campus) (Credits)
+:::
+:::
+:::::
+
+
+::: {.solid-card .fragment}
+### 💡 Workflow Inspiration
+Check out [Fitz's Workflow](https://github.com/FWJK1/workflow) for clean pipeline design.
 :::
 
-::: {.glass-card .fragment .fade-up}
-4.  **Verify and Aggregate.** Use **DuckDB** for insane speed.
+## Automation via [MCP](https://modelcontextprotocol.io) {.smaller}
+
+
+::::: columns
+::: {.column width="60%" .fragment}
+::: glass-card
+### Scientific Agents
+- **Context RAGs**: Bridge Zotero & NotebookLM into your agent's reasoning.
+- **Orchestration**: Agents can launch Snakemake & monitor VACC jobs in real-time.
+:::
 :::
 
-::: {.glass-card .fragment .fade-up}
-5.  **Focus on the Science.** Let automation handle the heavy lifting.
+::: {.column width="40%" .fragment}
+![MCP Architecture](https://mintcdn.com/mcp/bEUxYpZqie0DsluH/images/mcp-simple-diagram.png?w=2500&fit=max&auto=format&n=bEUxYpZqie0DsluH&q=85&s=dc4ab238184b6c70e06e871681c921c5){fig-align="right" width="400px"}
 :::
+:::::
+
+
+# This is the TIP OF THE ICEBERG {.bg-dark-texture}
+
+## Yes, you can do this {auto-animate="true"}
+
+::::: columns
+::: {.column width="25%"}
+### Swarm Vibe
+
+```{ojs}
+//| echo: false
+// Compact Vertical Control Panel
+viewof settings = Inputs.form({
+  N: Inputs.range([50, 800], {label: "Agent Count", step: 10, value: 400}),
+  radius: Inputs.range([10, 150], {label: "Radius", step: 5, value: 45}),
+  noise: Inputs.range([0, 1], {label: "Entropy", step: 0.05, value: 0.15}),
+  speed: Inputs.range([1, 10], {label: "Velocity", step: 0.5, value: 4.5}),
+  attraction: Inputs.range([0, 5], {label: "Attraction", step: 0.1, value: 2.5})
+})
+
+html`
+<style>
+  /* Compact Vertical Sidebar styling */
+  form.inputs-form { 
+    display: flex !important; 
+    flex-direction: column !important; 
+    gap: 0.75rem !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    backdrop-filter: blur(15px) !important;
+    padding: 1rem !important;
+    border-radius: 12px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+  }
+  
+  form.inputs-form > div { 
+    margin: 0 !important; 
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  form.inputs-form label { 
+    color: #0CBABA !important; 
+    font-weight: 800 !important; 
+    font-size: 0.5rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 4px !important;
+  }
+  
+  form.inputs-form input[type=range] {
+    width: 100% !important;
+    accent-color: #0CBABA !important;
+  }
+  
+  form.inputs-form output {
+    font-size: 0.7rem !important;
+    color: #eee !important;
+    margin-top: 2px !important;
+  }
+
+  form.inputs-form h3 { display: none !important; }
+</style>
+`
+```
+:::
+
+::: {.column width="75%"}
+```{ojs}
+//| echo: false
+// High-performance Vicsek Model in OJS
+{
+  const width = 800;
+  const height = 550;
+  const canvas = html`<canvas width="${width}" height="${height}" style="width: 100%; height: 550px; border-radius: 12px; background: #000; cursor: crosshair; box-shadow: 0 20px 50px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);"></canvas>`;
+  const ctx = canvas.getContext("2d");
+
+  // State
+  let agents = Array.from({length: settings.N}, () => ({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    theta: Math.random() * Math.PI * 2
+  }));
+
+  // Track mouse
+  let mouse = {x: -1000, y: -1000};
+  canvas.addEventListener("mousemove", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = (e.clientX - rect.left) * (width / rect.width);
+    mouse.y = (e.clientY - rect.top) * (height / rect.height);
+  });
+  canvas.addEventListener("mouseleave", () => {
+    mouse.x = -1000;
+    mouse.y = -1000;
+  });
+
+  function update() {
+    if (agents.length !== settings.N) {
+      if (agents.length < settings.N) {
+        for (let i = agents.length; i < settings.N; i++) {
+          agents.push({ x: Math.random() * width, y: Math.random() * height, theta: Math.random() * Math.PI * 2 });
+        }
+      } else {
+        agents = agents.slice(0, settings.N);
+      }
+    }
+
+    const nextAgents = agents.map((a, i) => {
+      let sumSin = 0;
+      let sumCos = 0;
+      let count = 0;
+
+      for (let j = 0; j < agents.length; j++) {
+        const b = agents[j];
+        let dx = b.x - a.x;
+        let dy = b.y - a.y;
+        if (dx > width/2) dx -= width;
+        if (dx < -width/2) dx += width;
+        if (dy > height/2) dy -= height;
+        if (dy < -height/2) dy += height;
+
+        if (dx*dx + dy*dy < settings.radius * settings.radius) {
+          sumSin += Math.sin(b.theta);
+          sumCos += Math.cos(b.theta);
+          count++;
+        }
+      }
+
+      let avgTheta = Math.atan2(sumSin / count, sumCos / count);
+      
+      if (mouse.x > 0) {
+        let mdx = mouse.x - a.x;
+        let mdy = mouse.y - a.y;
+        if (mdx > width/2) mdx -= width;
+        if (mdx < -width/2) mdx += width;
+        if (mdy > height/2) mdy -= height;
+        if (mdy < -height/2) mdy += height;
+        
+        const angleToMouse = Math.atan2(mdy, mdx);
+        let diff = angleToMouse - avgTheta;
+        while (diff > Math.PI) diff -= Math.PI * 2;
+        while (diff < -Math.PI) diff += Math.PI * 2;
+        avgTheta += diff * (settings.attraction / 10);
+      }
+
+      const newTheta = avgTheta + (Math.random() - 0.5) * settings.noise;
+      
+      let nextX = a.x + Math.cos(newTheta) * settings.speed;
+      let nextY = a.y + Math.sin(newTheta) * settings.speed;
+
+      if (nextX < 0) nextX += width;
+      if (nextX >= width) nextX -= width;
+      if (nextY < 0) nextY += height;
+      if (nextY >= height) nextY -= height;
+
+      return { x: nextX, y: nextY, theta: newTheta };
+    });
+
+    agents = nextAgents;
+  }
+
+  function draw() {
+    ctx.fillStyle = "rgba(0, 5, 15, 0.45)";
+    ctx.fillRect(0, 0, width, height);
+
+    ctx.lineWidth = 2.5;
+    agents.forEach((a, i) => {
+      const hue = 280 + Math.sin(a.theta) * 45;
+      ctx.strokeStyle = `hsla(${hue}, 85%, 65%, 0.8)`;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      ctx.lineTo(a.x - Math.cos(a.theta) * 12, a.y - Math.sin(a.theta) * 12);
+      ctx.stroke();
+      
+      ctx.fillStyle = `hsla(${hue}, 95%, 75%, 1)`;
+      ctx.beginPath();
+      ctx.arc(a.x, a.y, 2.2, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    update();
+    requestAnimationFrame(draw);
+  }
+
+  requestAnimationFrame(draw);
+  return canvas;
+}
+```
+:::
+:::::
+
+# We have a couple of year until they turn us into paper clips, let's make the most of it {.bg-primary}
+
+<!--  -->
+
+<!--  -->

@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="W. H. W. Thompson">
-<meta name="keywords" content="BERT, Adapters, Fine-Tuning, Computational Social Science, Network Science">
 
-<title>Efficient Fine-Tuning with BERT Adapters: A Network Science Perspective – Neural Adapter Research</title>
+<title>quarto-input3b99caea5f8bb61e – Neural Adapter Research</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,47 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+</style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b337f537912f5ab074b938eebad4c5d7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-b337f537912f5ab074b938eebad4c5d7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -121,17 +99,17 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Neural Adapter Research</span>
     </a>
   </div>
@@ -142,27 +120,27 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./paper_draft.html" aria-current="page"> 
+    <a class="nav-link" href="../paper_draft.html"> 
 <span class="menu-text">Paper Draft</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./presentation.html"> 
+    <a class="nav-link" href="../presentation.html"> 
 <span class="menu-text">Manifesto</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./dashboard.html"> 
+    <a class="nav-link" href="../dashboard.html"> 
 <span class="menu-text">Dashboard</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./guide.html"> 
+    <a class="nav-link" href="../guide.html"> 
 <span class="menu-text">Guide</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./supplementary.html"> 
+    <a class="nav-link" href="../supplementary.html"> 
 <span class="menu-text">Supplement</span></a>
   </li>  
 </ul>
@@ -171,107 +149,128 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-24-26.html">January 2026</a></li><li class="breadcrumb-item"><a href="../notes/01-25-26.html">Research Notes: Jan 25, 2026</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">January 2026</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/01-24-26.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Research Notes: Jan 24, 2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/01-25-26.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Research Notes: Jan 25, 2026</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../notes/01-26-26.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Research Notes: Jan 26, 2026</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a></li>
-  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#objective" id="toc-objective" class="nav-link active" data-scroll-target="#objective">Objective</a></li>
+  <li><a href="#progress" id="toc-progress" class="nav-link" data-scroll-target="#progress">Progress</a></li>
+  <li><a href="#results-preview" id="toc-results-preview" class="nav-link" data-scroll-target="#results-preview">Results Preview</a></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="paper_draft.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../notes/01-24-26.html">January 2026</a></li><li class="breadcrumb-item"><a href="../notes/01-25-26.html">Research Notes: Jan 25, 2026</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Efficient Fine-Tuning with BERT Adapters: A Network Science Perspective</h1>
+<h1 class="title">Research Notes: Jan 25, 2026</h1>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Author</div>
-  <div class="quarto-title-meta-heading">Affiliation</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">W. H. W. Thompson <a href="mailto:will.thompson@uvm.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            University of Vermont
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
+    
   
     
   </div>
   
-<div>
-  <div class="abstract">
-    <div class="block-title">Abstract</div>
-    <p>As language models continue to scale, full parameter fine-tuning becomes increasingly computationally expensive. Bottleneck adapters offer a parameter-efficient alternative by inserting small, trainable modules within the layers of a pre-trained model. In this paper, we investigate the effectiveness of BERT adapters for topic classification in network science research. We characterize the performance-compute trade-off and demonstrate that adapters can achieve competitive results while training less than 1% of the original model parameters.</p>
-  </div>
-</div>
 
-<div>
-  <div class="keywords">
-    <div class="block-title">Keywords</div>
-    <p>BERT, Adapters, Fine-Tuning, Computational Social Science, Network Science</p>
-  </div>
-</div>
 
 </header>
 
 
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
-<p>Large-scale language models (LLMs) have revolutionized natural language processing (NLP). However, as mentioned in <span class="citation" data-cites="bert2019">Devlin et al. (<a href="#ref-bert2019" role="doc-biblioref">2018</a>)</span>, full parameter fine-tuning requires significant computational resources, especially when dealing with domain-specific datasets in fields like Network Science.</p>
+<section id="objective" class="level2">
+<h2 class="anchored" data-anchor-id="objective">Objective</h2>
+<p>Technicalize the presentation and integrate repository source code.</p>
 </section>
-<section id="methodology" class="level1">
-<h1>Methodology</h1>
-<p>We utilize the bottleneck architecture described in <span class="citation" data-cites="houlsby2019">Houlsby et al. (<a href="#ref-houlsby2019" role="doc-biblioref">2019</a>)</span>. This approach inserts two modules per transformer layer: one after the multi-head attention and one after the feed-forward layer. Each module consists of a down-projection, a non-linear activation, and an up-projection, effectively reducing the number of trainable parameters while maintaining representation quality.</p>
+<section id="progress" class="level2">
+<h2 class="anchored" data-anchor-id="progress">Progress</h2>
+<ul>
+<li>Initiated a deep technical overhaul of the Reveal.js presentation.</li>
+<li>Merged conceptual “glass cards” with live code snippets from <code>src/</code> and <code>tests/</code>.</li>
+<li>Integrated <a href="https://wandb.ai">WandB</a> and <a href="https://duckdb.org">DuckDB</a> examples into the core narrative.</li>
+<li>Resolved Snakemake path issues on the VACC cluster related to profile directory naming.</li>
+</ul>
 </section>
-<section id="results-and-discussion" class="level1">
-<h1>Results and Discussion</h1>
-<p>Our experiments on the CSDS research dataset indicate that BERT adapters converge faster than full fine-tuning. We find that the structural properties of the attention weights in adapted models exhibit higher modularity compared to their fully fine-tuned counterparts, suggesting that adapters preserve the original model’s “backbone” more effectively.</p>
-<div id="fig-roc" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<section id="results-preview" class="level2">
+<h2 class="anchored" data-anchor-id="results-preview">Results Preview</h2>
+<p>We examined the training dynamics for the <span class="math inline">\(d=256\)</span> bottleneck configuration.</p>
+<div id="cell-fig-training-loss" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div id="fig-training-loss" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-roc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="plots/fig1_roc_sweep.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%">
+<div aria-describedby="fig-training-loss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="01-25-26_files/figure-html/fig-training-loss-output-1.png" width="672" height="449" class="figure-img">
 </div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-roc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: <strong>Figure 1: ROC Curves Across Hyperparameter Sweep.</strong> The curves demonstrate the robustness of BERT adapters across different bottleneck dimensions and learning rates. All configurations achieve an AUC &gt; 0.92, with the <span class="math inline">\(d=512\)</span> configuration showing the fastest convergence.
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-training-loss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Training and Validation Loss for BERT Adapter (d=256)
 </figcaption>
 </figure>
 </div>
+</div>
+</div>
 </section>
-<section id="conclusion" class="level1">
-<h1>Conclusion</h1>
-<p>We have demonstrated that BERT adapters are a highly efficient tool for scientific development in NLP. By minimizing the trainable parameter count, we enable more rapid iteration and experimentation on academic-scale hardware.</p>
-</section>
-<section id="references" class="level1">
-<h1>References</h1>
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-bert2019" class="csl-entry" role="listitem">
-Devlin, Jacob, Ming-Wei Chang, Kenton Lee, and Kristina Toutanova. 2018. <span>“BERT: Pre-Training of Deep Bidirectional Transformers for Language Understanding.”</span> <em>arXiv Preprint arXiv:1810.04805</em>.
-</div>
-<div id="ref-houlsby2019" class="csl-entry" role="listitem">
-Houlsby, Neil, Andrei Giurgiu, Stanislaw Jastrzebski, Brando Morrone, Quentin Larsson, Mansi Sharma, and Dmitry Kalenichenko. 2019. <span>“Parameter-Efficient Transfer Learning for NLP.”</span> In <em>International Conference on Machine Learning</em>, 2790–99. PMLR.
-</div>
-</div>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next Steps</h2>
+<ul>
+<li>Polish slide layouts for better space utilization.</li>
+<li>Embed official documentation links on all tool slides.</li>
+</ul>
 
 
 </section>

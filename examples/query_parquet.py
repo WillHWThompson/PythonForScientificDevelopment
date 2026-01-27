@@ -1,7 +1,5 @@
 import duckdb
-import pandas as pd
 from pydantic import BaseModel, ConfigDict
-from datetime import datetime
 from typing import List
 
 # This shows the "Vibecoding" power: 

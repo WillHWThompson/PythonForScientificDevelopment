@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import Optional
 from sqlmodel import Field, SQLModel, create_engine, Session, select
 
 # SQLModel combines Pydantic and SQLAlchemy

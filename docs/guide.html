@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.26">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="W. H. W. Thompson">
+<meta name="dcterms.date" content="2026-01-27">
+
+<title>Technical Manifesto: Scientific Software Development – Neural Adapter Research</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-9e05abaf0c4d7ef785fecc2ac9f6505e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Neural Adapter Research</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./paper_draft.html"> 
+<span class="menu-text">Paper Draft</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./presentation.html"> 
+<span class="menu-text">Manifesto</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./dashboard.html"> 
+<span class="menu-text">Dashboard</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./guide.html" aria-current="page"> 
+<span class="menu-text">Guide</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./supplementary.html"> 
+<span class="menu-text">Supplement</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-vision" id="toc-the-vision" class="nav-link active" data-scroll-target="#the-vision">The Vision</a>
+  <ul class="collapse">
+  <li><a href="#expectation-vs.-reality" id="toc-expectation-vs.-reality" class="nav-link" data-scroll-target="#expectation-vs.-reality">Expectation vs.&nbsp;Reality</a></li>
+  </ul></li>
+  <li><a href="#without-slurm-we-would-have-cured-cancer-by-now" id="toc-without-slurm-we-would-have-cured-cancer-by-now" class="nav-link" data-scroll-target="#without-slurm-we-would-have-cured-cancer-by-now">Without SLURM We Would Have Cured Cancer By Now</a></li>
+  <li><a href="#the-iron-rule-of-scientific-software-development" id="toc-the-iron-rule-of-scientific-software-development" class="nav-link" data-scroll-target="#the-iron-rule-of-scientific-software-development">The Iron Rule of Scientific Software Development</a>
+  <ul class="collapse">
+  <li><a href="#opportunity-cost" id="toc-opportunity-cost" class="nav-link" data-scroll-target="#opportunity-cost">Opportunity Cost</a></li>
+  </ul></li>
+  <li><a href="#the-scientific-software-checklist" id="toc-the-scientific-software-checklist" class="nav-link" data-scroll-target="#the-scientific-software-checklist">The Scientific Software Checklist</a></li>
+  <li><a href="#the-foundation" id="toc-the-foundation" class="nav-link" data-scroll-target="#the-foundation">1. The Foundation</a>
+  <ul class="collapse">
+  <li><a href="#python-features" id="toc-python-features" class="nav-link" data-scroll-target="#python-features">Python Features</a></li>
+  <li><a href="#environment-management-uv" id="toc-environment-management-uv" class="nav-link" data-scroll-target="#environment-management-uv">Environment Management (UV)</a></li>
+  <li><a href="#acceleration-jax-pytorch" id="toc-acceleration-jax-pytorch" class="nav-link" data-scroll-target="#acceleration-jax-pytorch">Acceleration (JAX / PyTorch)</a></li>
+  <li><a href="#validation-pydantic" id="toc-validation-pydantic" class="nav-link" data-scroll-target="#validation-pydantic">Validation (Pydantic)</a></li>
+  </ul></li>
+  <li><a href="#the-plumbing" id="toc-the-plumbing" class="nav-link" data-scroll-target="#the-plumbing">2. The Plumbing</a>
+  <ul class="collapse">
+  <li><a href="#command-abstraction-just" id="toc-command-abstraction-just" class="nav-link" data-scroll-target="#command-abstraction-just">Command Abstraction (Just)</a></li>
+  <li><a href="#orchestration-snakemake" id="toc-orchestration-snakemake" class="nav-link" data-scroll-target="#orchestration-snakemake">Orchestration (Snakemake)</a></li>
+  <li><a href="#testing-pytest-ci-github-actions" id="toc-testing-pytest-ci-github-actions" class="nav-link" data-scroll-target="#testing-pytest-ci-github-actions">Testing (Pytest) &amp; CI (GitHub Actions)</a></li>
+  <li><a href="#tracking-logs-wandb" id="toc-tracking-logs-wandb" class="nav-link" data-scroll-target="#tracking-logs-wandb">Tracking &amp; Logs (WandB)</a></li>
+  <li><a href="#data-storage-duckdb" id="toc-data-storage-duckdb" class="nav-link" data-scroll-target="#data-storage-duckdb">Data Storage (DuckDB)</a></li>
+  </ul></li>
+  <li><a href="#resources-ai-integration" id="toc-resources-ai-integration" class="nav-link" data-scroll-target="#resources-ai-integration">3. Resources &amp; AI Integration</a>
+  <ul class="collapse">
+  <li><a href="#ai-tools" id="toc-ai-tools" class="nav-link" data-scroll-target="#ai-tools">AI Tools</a></li>
+  <li><a href="#automation-mcp" id="toc-automation-mcp" class="nav-link" data-scroll-target="#automation-mcp">Automation &amp; MCP</a></li>
+  <li><a href="#workflow-inspiration" id="toc-workflow-inspiration" class="nav-link" data-scroll-target="#workflow-inspiration">Workflow Inspiration</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="guide.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Technical Manifesto: Scientific Software Development</h1>
+<p class="subtitle lead">A Handbook for Scientific Workflows in the Era of Vibecoding</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>W. H. W. Thompson </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">January 27, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="the-vision" class="level1">
+<h1>The Vision</h1>
+<section id="expectation-vs.-reality" class="level2">
+<h2 class="anchored" data-anchor-id="expectation-vs.-reality">Expectation vs.&nbsp;Reality</h2>
+<p>In scientific research, we often imagine ourselves spending most of our time thinking deeply and understanding complex systems. However, the reality of computational research is often dominated by “plumbing”: managing environments, fighting with SLURM, and debugging boilerplate code.</p>
+<p>The goal of this manifesto is to <strong>automate the plumbing</strong> so you can focus on the <strong>science</strong>.</p>
+</section>
+</section>
+<section id="without-slurm-we-would-have-cured-cancer-by-now" class="level1 text-center">
+<h1 class="text-center">Without SLURM We Would Have Cured Cancer By Now</h1>
+</section>
+<section id="the-iron-rule-of-scientific-software-development" class="level1">
+<h1>The Iron Rule of Scientific Software Development</h1>
+<ol type="1">
+<li>If you take the time to build out code the right way, you will never use it.</li>
+<li>If you write sloppy code, it will bite you in the ass.</li>
+<li><strong>Damned if you do. Damned if you don’t.</strong></li>
+</ol>
+<section id="opportunity-cost" class="level2">
+<h2 class="anchored" data-anchor-id="opportunity-cost">Opportunity Cost</h2>
+<p>Investing in modern development practices might feel slow initially, but it prevents the “Conda Hell” and “Terminal Staring” that consume the majority of research time.</p>
+</section>
+</section>
+<section id="the-scientific-software-checklist" class="level1">
+<h1>The Scientific Software Checklist</h1>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Recommended Tool</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Reproducible Environment</td>
+<td><strong>UV</strong> package manager &amp; lockfiles</td>
+</tr>
+<tr class="even">
+<td>Data Validation</td>
+<td><strong>Pydantic</strong> schemas &amp; types</td>
+</tr>
+<tr class="odd">
+<td>Hardware Acceleration</td>
+<td><strong>PyTorch</strong> and <strong>JAX</strong></td>
+</tr>
+<tr class="even">
+<td>Code Reliability</td>
+<td><strong>Pytest</strong> and <strong>CI/CD</strong></td>
+</tr>
+<tr class="odd">
+<td>Workflow Automation</td>
+<td><strong>Snakemake</strong> pipelines</td>
+</tr>
+<tr class="even">
+<td>Experiment Tracking</td>
+<td><strong>Weights and Biases</strong></td>
+</tr>
+<tr class="odd">
+<td>Publication/Dashboards</td>
+<td><strong>Quarto</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-foundation" class="level1">
+<h1>1. The Foundation</h1>
+<section id="python-features" class="level2">
+<h2 class="anchored" data-anchor-id="python-features">Python Features</h2>
+<p>Keep logic in <code>.py</code> files rather than notebooks to ensure it is portable and testable. Use type annotations to catch bugs before they reach the cluster.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Type-safe scientific logic</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_trajectories(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    n_agents: <span class="bu">int</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    time_steps: <span class="bu">int</span>, </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    params: <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">float</span>]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>) <span class="op">-&gt;</span> <span class="bu">list</span>[np.ndarray]:</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Simulates N trajectories over T steps."""</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    ...</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="environment-management-uv" class="level2">
+<h2 class="anchored" data-anchor-id="environment-management-uv">Environment Management (UV)</h2>
+<p><a href="https://github.com/astral-sh/uv">UV</a> is a modern replacement for Conda that is significantly faster and more reliable.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pyproject.toml</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">[project]</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"scientific_dev"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">requires-python</span> <span class="op">=</span> <span class="st">"&gt;=3.12"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">dependencies</span> <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"jax&gt;=0.9.0"</span><span class="op">,</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"snakemake&gt;=8.4.0"</span><span class="op">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pydantic&gt;=2.12.5"</span><span class="op">,</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="op">]</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="acceleration-jax-pytorch" class="level2">
+<h2 class="anchored" data-anchor-id="acceleration-jax-pytorch">Acceleration (JAX / PyTorch)</h2>
+<p>If a computation can be vectorized, it should be offloaded to a GPU. JAX’s <code>vmap</code> is particularly powerful for running thousands of simulations in parallel.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> jax.numpy <span class="im">as</span> jnp</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> jax <span class="im">import</span> vmap</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> compute_score(x):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> jnp.<span class="bu">sum</span>(jnp.sin(x) <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>batch_score <span class="op">=</span> vmap(compute_score)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> batch_score(large_input_matrix)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="validation-pydantic" class="level2">
+<h2 class="anchored" data-anchor-id="validation-pydantic">Validation (Pydantic)</h2>
+<p>Enforce structure on your parameters and results using <a href="https://docs.pydantic.dev/">Pydantic</a>. This makes your code more robust and easier for AI agents to reason about.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> NLPModelConfig(BaseModel):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    model_name: <span class="bu">str</span> <span class="op">=</span> Field(default<span class="op">=</span><span class="st">"distilbert-base-uncased"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    adapter_dim: <span class="bu">int</span> <span class="op">=</span> Field(default<span class="op">=</span><span class="dv">256</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">@field_validator</span>(<span class="st">'adapter_dim'</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> validate_adapter_dim(cls, v: <span class="bu">int</span>):</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> v <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span> <span class="pp">ValueError</span>(<span class="st">"adapter_dim must be positive"</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> v</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/schema.py">View Schema</a></p>
+</section>
+</section>
+<section id="the-plumbing" class="level1">
+<h1>2. The Plumbing</h1>
+<section id="command-abstraction-just" class="level2">
+<h2 class="anchored" data-anchor-id="command-abstraction-just">Command Abstraction (Just)</h2>
+<p>Use a <a href="https://github.com/casey/just">Justfile</a> to hide complex commands behind simple aliases. This ensures reproducibility across the team.</p>
+<pre class="make"><code># Run full pipeline
+all p="local" c="configs/nlp_baseline.yaml":
+    uv run snakemake --workflow-profile ./workflow/profiles/{{p}} --configfile {{c}}</code></pre>
+<p><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/justfile">View Justfile</a></p>
+</section>
+<section id="orchestration-snakemake" class="level2">
+<h2 class="anchored" data-anchor-id="orchestration-snakemake">Orchestration (Snakemake)</h2>
+<p><a href="https://snakemake.github.io/">Snakemake</a> manages complex dependency graphs and integrates seamlessly with Slurm for VACC execution.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>rule train_bert_classifier:</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    output:</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        weights <span class="op">=</span> <span class="st">"results/</span><span class="sc">{cfg_name}</span><span class="st">/</span><span class="sc">{params_path}</span><span class="st">/model.pt"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        stats <span class="op">=</span> <span class="st">"results/</span><span class="sc">{cfg_name}</span><span class="st">/</span><span class="sc">{params_path}</span><span class="st">/training_stats.parquet"</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    resources:</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        gpu<span class="op">=</span><span class="dv">1</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    shell:</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="co">"PYTHONPATH=src python scripts/run_training.py "</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">"--config configs/{wildcards.cfg_name}.yaml "</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">"--output {output.weights}"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/workflow/rules/train.smk">View Full Rule</a></p>
+</section>
+<section id="testing-pytest-ci-github-actions" class="level2">
+<h2 class="anchored" data-anchor-id="testing-pytest-ci-github-actions">Testing (Pytest) &amp; CI (GitHub Actions)</h2>
+<p>Validate research code quality and ensure reproducibility on every push.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tests/test_nlp_logic.py</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_validation():</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> pytest.raises(<span class="pp">ValueError</span>):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        NLPModelConfig(adapter_dim<span class="op">=-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/.github/workflows/ci.yml">View CI Workflow</a></p>
+</section>
+<section id="tracking-logs-wandb" class="level2">
+<h2 class="anchored" data-anchor-id="tracking-logs-wandb">Tracking &amp; Logs (WandB)</h2>
+<p><a href="https://wandb.ai">Weights and Biases</a> provides real-time tracking of experiments and ensures every run is versioned.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>wandb.log({</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"train/step_loss"</span>: loss.item(),</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"train/learning_rate"</span>: <span class="va">self</span>.optimizer.param_groups[<span class="dv">0</span>][<span class="st">"lr"</span>],</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"train/global_step"</span>: epoch <span class="op">*</span> <span class="bu">len</span>(<span class="va">self</span>.train_loader) <span class="op">+</span> step</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/trainer.py">View Trainer</a></p>
+</section>
+<section id="data-storage-duckdb" class="level2">
+<h2 class="anchored" data-anchor-id="data-storage-duckdb">Data Storage (DuckDB)</h2>
+<p>Use <a href="https://duckdb.org/">DuckDB</a> to query Parquet files using standard SQL.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> s.<span class="op">*</span>, m.<span class="ot">"test/auroc"</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> read_parquet(<span class="st">'results/**/training_stats.parquet'</span>) s</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> read_parquet(<span class="st">'results/**/test_metrics.parquet'</span>) m </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> s.full_run_name <span class="op">=</span> m.full_run_name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="resources-ai-integration" class="level1">
+<h1>3. Resources &amp; AI Integration</h1>
+<section id="ai-tools" class="level2">
+<h2 class="anchored" data-anchor-id="ai-tools">AI Tools</h2>
+<ul>
+<li><strong>IDEs</strong>: <a href="https://code.visualstudio.com">VSCode</a> and <a href="https://cursor.com/students">Cursor</a> are the gold standard for AI-assisted research.</li>
+<li><strong>LLMs</strong>: <a href="https://gemini.google/students/">Gemini Pro</a> and <a href="https://claude.com/programs/campus">Claude</a> provide high-context reasoning for complex math and code.</li>
+</ul>
+</section>
+<section id="automation-mcp" class="level2">
+<h2 class="anchored" data-anchor-id="automation-mcp">Automation &amp; MCP</h2>
+<p>Use the <a href="https://modelcontextprotocol.io">Model Context Protocol</a> to bridge your research library (Zotero, NotebookLM) directly into your AI agent’s reasoning.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://mintcdn.com/mcp/bEUxYpZqie0DsluH/images/mcp-simple-diagram.png?w=2500&amp;fit=max&amp;auto=format&amp;n=bEUxYpZqie0DsluH&amp;q=85&amp;s=dc4ab238184b6c70e06e871681c921c5" class="img-fluid figure-img"></p>
+<figcaption>MCP Architecture</figcaption>
+</figure>
+</div>
+</section>
+<section id="workflow-inspiration" class="level2">
+<h2 class="anchored" data-anchor-id="workflow-inspiration">Workflow Inspiration</h2>
+<p>For clean pipeline design and project organization, refer to <a href="https://github.com/FWJK1/workflow">Fitz’s Workflow</a>.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,27 @@
+# workflow/profiles/vacc/config.yaml
+
+executor: slurm
+jobs: 10
+latency-wait: 60
+keep-going: true
+printshellcmds: true
+
+# Default resources for VACC (pi-cdanfort)
+default-resources:
+  slurm_account: "pi-cdanfort"
+  slurm_partition: "general"
+  runtime: "4h"
+  mem_mb: 4000
+
+# Map Slurm-specific flags for the plugin
+set-resources:
+  train_bert_classifier:
+    slurm_partition: "nvgpu"
+    gpu: 1
+    mem_mb: 16000
+    runtime: "12h"
+  test_bert_classifier:
+    slurm_partition: "nvgpu"
+    gpu: 1
+    mem_mb: 8000
+    runtime: "1h"

@@ -12,10 +12,9 @@ abstract: |
   As language models continue to scale, full parameter fine-tuning becomes increasingly computationally expensive. Bottleneck adapters offer a parameter-efficient alternative by inserting small, trainable modules within the layers of a pre-trained model. In this paper, we investigate the effectiveness of BERT adapters for topic classification in network science research. We characterize the performance-compute trade-off and demonstrate that adapters can achieve competitive results while training less than 1% of the original model parameters.
 keywords: [BERT, Adapters, Fine-Tuning, Computational Social Science, Network Science]
 format:
-  icml-pdf:
+  pdf:
     keep-tex: true
-    submission: true # Change to false for camera-ready
-  icml-html: default
+  html: default
 bibliography: references.bib
 ---
 

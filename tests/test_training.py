@@ -1,5 +1,3 @@
-import pytest
-import torch
 from src.core.schema import NLPExperimentConfig
 from src.data.loader import TextClassifierDataLoader
 from src.models.bert_adapter import BertAdapterClassifier

@@ -1,0 +1,201 @@
+---
+title: "Technical Manifesto: Scientific Software Development"
+subtitle: "A Handbook for Scientific Workflows in the Era of Vibecoding"
+author: "W. H. W. Thompson"
+date: last-modified
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-copy: true
+  pdf:
+    toc: true
+    number-sections: true
+    colorlinks: true
+---
+
+# The Vision
+
+## Expectation vs. Reality
+
+In scientific research, we often imagine ourselves spending most of our time thinking deeply and understanding complex systems. However, the reality of computational research is often dominated by "plumbing": managing environments, fighting with SLURM, and debugging boilerplate code.
+
+The goal of this manifesto is to **automate the plumbing** so you can focus on the **science**.
+
+# Without SLURM We Would Have Cured Cancer By Now {.text-center}
+
+# The Iron Rule of Scientific Software Development
+
+1.  If you take the time to build out code the right way, you will never use it.
+2.  If you write sloppy code, it will bite you in the ass.
+3.  **Damned if you do. Damned if you don't.**
+
+## Opportunity Cost
+
+Investing in modern development practices might feel slow initially, but it prevents the "Conda Hell" and "Terminal Staring" that consume the majority of research time.
+
+# The Scientific Software Checklist
+
+| Component                | Recommended Tool                   |
+|--------------------------|------------------------------------|
+| Reproducible Environment | **UV** package manager & lockfiles |
+| Data Validation          | **Pydantic** schemas & types       |
+| Hardware Acceleration    | **PyTorch** and **JAX**            |
+| Code Reliability         | **Pytest** and **CI/CD**           |
+| Workflow Automation      | **Snakemake** pipelines            |
+| Experiment Tracking      | **Weights and Biases**             |
+| Publication/Dashboards   | **Quarto**                         |
+
+# 1. The Foundation
+
+## Python Features
+
+Keep logic in `.py` files rather than notebooks to ensure it is portable and testable. Use type annotations to catch bugs before they reach the cluster.
+
+``` python
+# Type-safe scientific logic
+def simulate_trajectories(
+    n_agents: int, 
+    time_steps: int, 
+    params: dict[str, float]
+) -> list[np.ndarray]:
+    """Simulates N trajectories over T steps."""
+    ...
+```
+
+## Environment Management (UV)
+
+[UV](https://github.com/astral-sh/uv) is a modern replacement for Conda that is significantly faster and more reliable.
+
+``` toml
+# pyproject.toml
+[project]
+name = "scientific_dev"
+requires-python = ">=3.12"
+dependencies = [
+    "jax>=0.9.0",
+    "snakemake>=8.4.0",
+    "pydantic>=2.12.5",
+]
+```
+
+## Acceleration (JAX / PyTorch)
+
+If a computation can be vectorized, it should be offloaded to a GPU. JAX's `vmap` is particularly powerful for running thousands of simulations in parallel.
+
+``` python
+import jax.numpy as jnp
+from jax import vmap
+
+def compute_score(x):
+    return jnp.sum(jnp.sin(x) ** 2)
+
+batch_score = vmap(compute_score)
+scores = batch_score(large_input_matrix)
+```
+
+## Validation (Pydantic)
+
+Enforce structure on your parameters and results using [Pydantic](https://docs.pydantic.dev/). This makes your code more robust and easier for AI agents to reason about.
+
+``` python
+class NLPModelConfig(BaseModel):
+    model_name: str = Field(default="distilbert-base-uncased")
+    adapter_dim: int = Field(default=256)
+
+    @field_validator('adapter_dim')
+    def validate_adapter_dim(cls, v: int):
+        if v <= 0:
+            raise ValueError("adapter_dim must be positive")
+        return v
+```
+
+[View Schema](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/schema.py)
+
+# 2. The Plumbing
+
+## Command Abstraction (Just)
+
+Use a [Justfile](https://github.com/casey/just) to hide complex commands behind simple aliases. This ensures reproducibility across the team.
+
+``` make
+# Run full pipeline
+all p="local" c="configs/nlp_baseline.yaml":
+    uv run snakemake --workflow-profile ./workflow/profiles/{{p}} --configfile {{c}}
+```
+
+[View Justfile](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/justfile)
+
+## Orchestration (Snakemake)
+
+[Snakemake](https://snakemake.github.io/) manages complex dependency graphs and integrates seamlessly with Slurm for VACC execution.
+
+``` python
+rule train_bert_classifier:
+    output:
+        weights = "results/{cfg_name}/{params_path}/model.pt",
+        stats = "results/{cfg_name}/{params_path}/training_stats.parquet"
+    resources:
+        gpu=1
+    shell:
+        "PYTHONPATH=src python scripts/run_training.py "
+        "--config configs/{wildcards.cfg_name}.yaml "
+        "--output {output.weights}"
+```
+
+[View Full Rule](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/workflow/rules/train.smk)
+
+## Testing (Pytest) & CI (GitHub Actions)
+
+Validate research code quality and ensure reproducibility on every push.
+
+``` python
+# tests/test_nlp_logic.py
+def test_validation():
+    with pytest.raises(ValueError):
+        NLPModelConfig(adapter_dim=-1)
+```
+
+[View CI Workflow](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/.github/workflows/ci.yml)
+
+## Tracking & Logs (WandB)
+
+[Weights and Biases](https://wandb.ai) provides real-time tracking of experiments and ensures every run is versioned.
+
+``` python
+wandb.log({
+    "train/step_loss": loss.item(),
+    "train/learning_rate": self.optimizer.param_groups[0]["lr"],
+    "train/global_step": epoch * len(self.train_loader) + step
+})
+```
+
+[View Trainer](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/trainer.py)
+
+## Data Storage (DuckDB)
+
+Use [DuckDB](https://duckdb.org/) to query Parquet files using standard SQL.
+
+``` sql
+SELECT s.*, m."test/auroc" 
+FROM read_parquet('results/**/training_stats.parquet') s
+LEFT JOIN read_parquet('results/**/test_metrics.parquet') m 
+  ON s.full_run_name = m.full_run_name
+```
+
+# 3. Resources & AI Integration
+
+## AI Tools
+
+-   **IDEs**: [VSCode](https://code.visualstudio.com) and [Cursor](https://cursor.com/students) are the gold standard for AI-assisted research.
+-   **LLMs**: [Gemini Pro](https://gemini.google/students/) and [Claude](https://claude.com/programs/campus) provide high-context reasoning for complex math and code.
+
+## Automation & MCP
+
+Use the [Model Context Protocol](https://modelcontextprotocol.io) to bridge your research library (Zotero, NotebookLM) directly into your AI agent's reasoning.
+
+![MCP Architecture](https://mintcdn.com/mcp/bEUxYpZqie0DsluH/images/mcp-simple-diagram.png?w=2500&fit=max&auto=format&n=bEUxYpZqie0DsluH&q=85&s=dc4ab238184b6c70e06e871681c921c5)
+
+## Workflow Inspiration
+
+For clean pipeline design and project organization, refer to [Fitz's Workflow](https://github.com/FWJK1/workflow).
