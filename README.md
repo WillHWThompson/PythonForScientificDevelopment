@@ -1,79 +1,56 @@
-# BERT Text Classification with Modular Adapters
+# PythonForScientificDevelopment
 
-A professional scientific research template for NLP, demonstrating **Parameter-Efficient Fine-Tuning (PEFT)** using DistilBERT and Linear Adapters. This project uses the **AG News** dataset (120,000 headlines) to classify news into four categories: World, Sports, Business, and Sci/Tech.
+![Status](https://img.shields.io/badge/status-research%20artifact-blue)
+![Language](https://img.shields.io/badge/language-Python-informational)
+![Workflow](https://img.shields.io/badge/workflow-Snakemake-success)
 
-## 🚀 Key Features
+A presentation-ready scientific software repository for NLP experiments with modular BERT adapters, reproducible workflow orchestration, and Quarto-based analysis outputs.
 
-- **Functional Architecture**: Modular codebase organized into `models/`, `data/`, and `core/` for high maintainability.
-- **Parameter Efficiency**: Uses a Linear Bottleneck Adapter (our MLP head) over a frozen DistilBERT backbone. Only ~1% of parameters are trainable.
-- **Dynamic Hyperparameter Sweeps**: A robust Snakemake orchestration layer that automatically handles experiment grids.
-- **Self-Validating Schemas**: Advanced Pydantic schemas with automatic experiment name generation and scientific parameter validation.
-- **DuckDB Results Aggregation**: High-performance analysis using DuckDB to scan experiment JSONs directly into a research dashboard.
+## Project Highlights
+- Adapter-based DistilBERT training with a modular `src/` layout.
+- Reproducible local and SLURM workflow execution via Snakemake profiles.
+- Config-driven experiment design using YAML in `configs/`.
+- Results aggregation and scientific reporting through Quarto docs and dashboards.
 
-## 📁 Project Structure
+## Repository Layout
+- `src/` — package code (`models`, `data`, `core`)
+- `configs/` — baseline and sweep experiment definitions
+- `scripts/` — entry points for training, testing, and plotting
+- `workflow/` — Snakemake rules and execution profiles (`local`, `slurm`, `vacc`)
+- `notebooks/` — Quarto notebooks and exploratory analysis
+- `docs/` — generated rendered docs/site artifacts
+- `tests/` — unit and integration tests
 
-```text
-├── configs/            # YAML experiment configurations
-├── scripts/            # Training entry points
-├── src/
-│   ├── models/         # BERT architectures and Adapter heads
-│   ├── data/           # Hugging Face data loaders and tokenizers
-│   └── core/           # Schemas, Trainers, and core logic
-├── workflow/
-│   ├── rules/          # Modular Snakemake rules
-│   └── profiles/       # Site-specific executor settings (Slurm, Local)
-├── notebooks/          # Quarto analysis and dashboard
-└── Snakefile           # Main workflow orchestrator
-```
-
-### Local Installation
+## Quickstart
 ```bash
-# Install dependencies
+cd PythonForScientificDevelopment
 uv sync
 ```
 
-### VACC (Cluster) Installation
-On the VACC (or any HPC Slurm cluster), we recommend using the standalone installer:
+Run a local baseline workflow:
 
 ```bash
-# 1. Install uv
-curl -LsSf https://astral.sh/uv/install.sh | sh
-source $HOME/.cargo/env
-
-# 2. Setup environment (inside project folder)
-uv sync
-
-# 3. (Optional) Install specific Python version if needed
-uv python install 3.12
+uv run snakemake \
+  --workflow-profile workflow/profiles/local \
+  --configfile configs/nlp_baseline.yaml
 ```
 
-## 📈 Running Experiments
+## Example Notebook
+Start with:
+- `notebooks/quickstart_overview.ipynb`
 
-We use **Snakemake Profiles** found in `workflow/profiles/` to manage execution across different environments.
+Then explore:
+- `notebooks/quarto/guide.qmd`
+- `notebooks/quarto/dashboard.qmd`
+- `notebooks/writeup.qmd`
 
-### 1. Basic Experiment
-```bash
-uv run snakemake --workflow-profile workflow/profiles/local --configfile configs/nlp_baseline.yaml
-```
+## Cluster Notes (SLURM/VACC)
+Use the `workflow/profiles/slurm` or `workflow/profiles/vacc` profile for cluster runs. Ensure the account/partition fields in profile config files match your cluster allocation before submitting large sweeps.
 
-### 2. High-Performance Sweeps (Slurm)
-The pipeline automatically detects the `sweep` section in your YAML and parallelizes the jobs.
+## Project Status
+- Maturity: research-grade template / educational artifact
+- Focus: software engineering patterns for computational science in Python
+- Scope: optimized for clarity and reproducibility over production deployment hardening
 
-**Note on Slurm Accounts**: Most GPU partitions on clusters like the VACC require an explicit `--account` flag. To find yours, try these commands:
-1. `sacctmgr show user $USER format=Account%30`
-2. `sshare -U $USER` (Check the **Account** column)
-3. `id -gn` (Your primary unix group is often used as the account)
-Update the `slurm_account` field in `workflow/profiles/slurm/config.yaml` with the output.
-
-```bash
-uv run snakemake --workflow-profile workflow/profiles/slurm --configfile configs/nlp_baseline.yaml
-```
-
-## 📊 Research Dashboard
-
-View your results aggregated via DuckDB in an interactive dashboard:
-
-```bash
-cd notebooks
-quarto preview dashboard.qmd
-```
+## Author
+Will Thompson
