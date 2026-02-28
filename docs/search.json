@@ -4,14 +4,14 @@
     "href": "guide.html",
     "title": "Technical Manifesto: Scientific Software Development",
     "section": "",
-    "text": "In scientific research, we often imagine ourselves spending most of our time thinking deeply and understanding complex systems. However, the reality of computational research is often dominated by “plumbing”: managing environments, fighting with SLURM, and debugging boilerplate code.\nThe goal of this manifesto is to automate the plumbing so you can focus on the science."
+    "text": "View Source on GitHub"
   },
   {
     "objectID": "guide.html#expectation-vs.-reality",
     "href": "guide.html#expectation-vs.-reality",
     "title": "Technical Manifesto: Scientific Software Development",
-    "section": "",
-    "text": "In scientific research, we often imagine ourselves spending most of our time thinking deeply and understanding complex systems. However, the reality of computational research is often dominated by “plumbing”: managing environments, fighting with SLURM, and debugging boilerplate code.\nThe goal of this manifesto is to automate the plumbing so you can focus on the science."
+    "section": "Expectation vs. Reality",
+    "text": "Expectation vs. Reality\nIn scientific research, we often imagine ourselves spending most of our time thinking deeply and understanding complex systems. However, the reality of computational research is often dominated by “plumbing”: managing environments, fighting with SLURM, and debugging boilerplate code.\nThe goal of this manifesto is to automate the plumbing so you can focus on the science."
   },
   {
     "objectID": "guide.html#opportunity-cost",
@@ -60,28 +60,28 @@
     "href": "guide.html#orchestration-snakemake",
     "title": "Technical Manifesto: Scientific Software Development",
     "section": "Orchestration (Snakemake)",
-    "text": "Orchestration (Snakemake)\nSnakemake manages complex dependency graphs and integrates seamlessly with Slurm for VACC execution.\nrule train_bert_classifier:\n    output:\n        weights = \"results/{cfg_name}/{params_path}/model.pt\",\n        stats = \"results/{cfg_name}/{params_path}/training_stats.parquet\"\n    resources:\n        gpu=1\n    shell:\n        \"PYTHONPATH=src python scripts/run_training.py \"\n        \"--config configs/{wildcards.cfg_name}.yaml \"\n        \"--output {output.weights}\"\nView Full Rule"
+    "text": "Orchestration (Snakemake)\nSnakemake manages complex dependency graphs and integrates seamlessly with Slurm for VACC execution.\nrule train_bert_classifier:\n    output:\n        weights = \"results/{cfg_name}/{params_path}/model.pt\",\n        stats = \"results/{cfg_name}/{params_path}/training_stats.parquet\"\n    resources:\n        gpu=1\n    shell:\n        \"PYTHONPATH=src python scripts/run_training.py \"\n        \"--config configs/{wildcards.cfg_name}.yaml \"\n        \"--output {output.weights}\"\n\nKey Files\n\nSnakefile - Top-level workflow entry point.\nconfigs/ - YAML configuration files for experiments.\nworkflow/profiles/slurm/ - SLURM cluster execution profile.\n\nView Full Rule"
   },
   {
     "objectID": "guide.html#testing-pytest-ci-github-actions",
     "href": "guide.html#testing-pytest-ci-github-actions",
     "title": "Technical Manifesto: Scientific Software Development",
     "section": "Testing (Pytest) & CI (GitHub Actions)",
-    "text": "Testing (Pytest) & CI (GitHub Actions)\nValidate research code quality and ensure reproducibility on every push.\n# [tests/test_nlp_logic.py](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/tests/test_nlp_logic.py)\ndef test_validation():\n    with pytest.raises(ValueError):\n        NLPModelConfig(adapter_dim=-1)\nView CI Workflow"
+    "text": "Testing (Pytest) & CI (GitHub Actions)\nValidate research code quality and ensure reproducibility on every push.\n# [tests/test_nlp_logic.py](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/tests/test_nlp_logic.py)\ndef test_validation():\n    with pytest.raises(ValueError):\n        NLPModelConfig(adapter_dim=-1)\nView CI Workflow\n\nKey Files\n\ntests/ - Unit and integration tests.\n.github/workflows/ci.yml - CI/CD pipeline definition."
   },
   {
     "objectID": "guide.html#tracking-logs-wandb",
     "href": "guide.html#tracking-logs-wandb",
     "title": "Technical Manifesto: Scientific Software Development",
     "section": "Tracking & Logs (WandB)",
-    "text": "Tracking & Logs (WandB)\nWeights and Biases provides real-time tracking of experiments and ensures every run is versioned.\nwandb.log({\n    \"train/step_loss\": loss.item(),\n    \"train/learning_rate\": self.optimizer.param_groups[0][\"lr\"],\n    \"train/global_step\": epoch * len(self.train_loader) + step\n})\nView Trainer"
+    "text": "Tracking & Logs (WandB)\nWeights and Biases provides real-time tracking of experiments and ensures every run is versioned.\nwandb.log({\n    \"train/step_loss\": loss.item(),\n    \"train/learning_rate\": self.optimizer.param_groups[0][\"lr\"],\n    \"train/global_step\": epoch * len(self.train_loader) + step\n})\nView Trainer\n\nKey Files\n\nsrc/core/trainer.py - Real-time WandB logging hooks."
   },
   {
     "objectID": "guide.html#data-storage-duckdb",
     "href": "guide.html#data-storage-duckdb",
     "title": "Technical Manifesto: Scientific Software Development",
     "section": "Data Storage (DuckDB)",
-    "text": "Data Storage (DuckDB)\nUse DuckDB to query Parquet files using standard SQL.\nSELECT s.*, m.\"test/auroc\" \nFROM read_parquet('results/**/training_stats.parquet') s\nLEFT JOIN read_parquet('results/**/test_metrics.parquet') m \n  ON s.full_run_name = m.full_run_name"
+    "text": "Data Storage (DuckDB)\nUse DuckDB to query Parquet files using standard SQL.\nSELECT s.*, m.\"test/auroc\" \nFROM read_parquet('results/**/training_stats.parquet') s\nLEFT JOIN read_parquet('results/**/test_metrics.parquet') m \n  ON s.full_run_name = m.full_run_name\n\nKey Files\n\nnotebooks/quarto/dashboard.qmd - SQL queries visualized in Quarto.\nsrc/core/schema.py - SQLModel/Pydantic schema definitions.\nMYDB (UVM WebDB) - UVM’s hosted MySQL service."
   },
   {
     "objectID": "guide.html#ai-tools",
@@ -109,7 +109,7 @@
     "href": "presentation.html#expectation-vs.-reality",
     "title": "There is Plenty of Room in Latent Space",
     "section": "Expectation vs. Reality",
-    "text": "Expectation vs. Reality\n\n// Global utility for Quarto/OJS data transformation\ntranspose = (obj) =&gt; {\n  if (!obj || Object.keys(obj).length === 0) return [];\n  const keys = Object.keys(obj);\n  if (keys.length === 0 || !obj[keys[0]]) return [];\n  return obj[keys[0]].map((_, i) =&gt; {\n    const r = {};\n    keys.forEach(k =&gt; r[k] = obj[k][i]);\n    return r;\n  });\n}\n\n\n\n\n\n\n\n\n\nWhat I Imagined\n\ndata_imagined = [\n  {name: \"Reading/Understanding\", value: 20, color: \"#861388\"},\n  {name: \"Thinking Deeply\", value: 60, color: \"#E15A97\"},\n  {name: \"Writing Code\", value: 10, color: \"#2F6690\"},\n  {name: \"Communicating\", value: 10, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_imagined, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_imagined, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; `${d.name}\\n(${d.value}%)`,\n      fill: \"white\",\n      fontSize: 14\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe Reality\n\ndata_reality_1 = [\n  {name: \"Reading\", value: 10, color: \"#861388\"},\n  {name: \"Writing Code\", value: 80, color: \"#2F6690\"},\n  {name: \"Thinking\", value: 5, color: \"#E15A97\"},\n  {name: \"Making Slides\", value: 5, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 480,\n  height: 400,\n  marks: [\n    Plot.barY(data_reality_1, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_reality_1, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; d.value &gt; 5 ? `${d.name}\\n(${d.value}%)` : \"\",\n      fill: \"white\",\n      fontSize: 14\n    }))\n  ],\n  coordinate: \"polar\",\n  style: {background: \"transparent\", margin: \"auto\"},\n  axis: null\n})"
+    "text": "Expectation vs. Reality\nHere is the mismatch that motivated this whole workflow rethink.\n\n\n\nWhat I Imagined\n\ndata_imagined = [\n  {name: \"Reading/Understanding\", value: 20, color: \"#861388\"},\n  {name: \"Thinking Deeply\", value: 60, color: \"#E15A97\"},\n  {name: \"Writing Code\", value: 10, color: \"#2F6690\"},\n  {name: \"Communicating\", value: 10, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 420,\n  height: 360,\n  marks: [\n    Plot.barY(data_imagined, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_imagined, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; `${d.name}\\n(${d.value}%)`,\n      fill: \"white\",\n      fontSize: 12\n    }))\n  ],\n  coordinate: \"polar\",\n  axis: null\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat Actually Happened\n\ndata_reality = [\n  {name: \"Reading\", value: 10, color: \"#861388\"},\n  {name: \"Conda Hell\", value: 10, color: \"#132a3b\"},\n  {name: \"Actual Algorithm\", value: 10, color: \"#19374d\"},\n  {name: \"Boilerplate/IO\", value: 20, color: \"#1f4460\"},\n  {name: \"Off-by-one bugs\", value: 10, color: \"#29597e\"},\n  {name: \"SLURM Queues\", value: 10, color: \"#2F6690\"},\n  {name: \"Matplotlib Ticks\", value: 10, color: \"#4483b3\"},\n  {name: \"Terminal Staring\", value: 10, color: \"#71a3c9\"},\n  {name: \"Thinking\", value: 5, color: \"#E15A97\"},\n  {name: \"Making Slides\", value: 5, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 420,\n  height: 360,\n  marks: [\n    Plot.barY(data_reality, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_reality, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; d.value &gt;= 10 ? d.name : \"\",\n      fill: d =&gt; [\"#71a3c9\"].includes(d.color) ? \"#2d3436\" : \"white\",\n      fontSize: 10\n    }))\n  ],\n  coordinate: \"polar\",\n  axis: null\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe lesson is not “software is annoying.” The lesson is that if you do not invest in structure up front, the friction compounds."
   },
   {
     "objectID": "presentation.html#expectation-vs.-reality-1",
@@ -144,7 +144,7 @@
     "href": "presentation.html#scientific-software-checklist",
     "title": "There is Plenty of Room in Latent Space",
     "section": "Scientific Software Checklist",
-    "text": "Scientific Software Checklist\n\n\n\n\nProblem\nSolution\n\n\n\n\nReproducible Environment\nUV package manager & lockfiles\n\n\nData Validation\nPydantic schemas & types\n\n\nHardware Acceleration\nPyTorch and JAX\n\n\nCode Reliability\nPytest and CI/CD\n\n\nWorkflow Automation\nSnakemake pipelines\n\n\nExperiment Tracking\nWeights and Biases\n\n\nPublication/Dashboards\nQuarto"
+    "text": "Scientific Software Checklist\nEach layer in the pipeline maps to a tool with a clear job:\n\n\n\nProblem\nTooling Choice\n\n\n\n\nReproducible environment\nuv + lockfiles\n\n\nData validation\nPydantic schemas\n\n\nHardware acceleration\nPyTorch / JAX\n\n\nReliability\nPytest + CI\n\n\nWorkflow automation\nSnakemake\n\n\nExperiment tracking\nWeights & Biases\n\n\nPublication and dashboards\nQuarto\n\n\n\nThis is not the only valid stack. It is one coherent stack that minimizes glue code and hidden state."
   },
   {
     "objectID": "presentation.html#python-features",
@@ -506,5 +506,215 @@
     "title": "There is Plenty of Room in Latent Space",
     "section": "Opportunity Cost of Good Software Dev Practices",
     "text": "Opportunity Cost of Good Software Dev Practices\n\n\n\n(Source: XKCD)"
+  },
+  {
+    "objectID": "guide.html#publication-quarto",
+    "href": "guide.html#publication-quarto",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Publication (Quarto)",
+    "text": "Publication (Quarto)\nOne command to render the whole dashboard/paper.\n\nKey Files\n\nnotebooks/quarto/presentation.qmd - Reveal.js presentation source.\nnotebooks/quarto/dashboard.qmd - Interactive dashboard source."
+  },
+  {
+    "objectID": "guide.html#visualization-style",
+    "href": "guide.html#visualization-style",
+    "title": "Technical Manifesto: Scientific Software Development",
+    "section": "Visualization Style",
+    "text": "Visualization Style\n\nsrc/core/fig_style.py - Centralized matplotlib/seaborn styling."
+  },
+  {
+    "objectID": "presentation.html",
+    "href": "presentation.html",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "",
+    "text": "Most of us did not get into research because we love debugging environments, waiting on queues, or fighting invisible data bugs. We got into research because we want to answer hard questions.\nModern scientific work is a software project. If your codebase is brittle, your science is brittle. If your workflow is reproducible, your science scales.\nThis post is a practical field guide: what breaks, what helps, and what I would actually recommend to students doing serious technical work in 2026.\n\ntranspose = (obj) =&gt; {\n  if (!obj || Object.keys(obj).length === 0) return [];\n  const keys = Object.keys(obj);\n  if (keys.length === 0 || !obj[keys[0]]) return [];\n  return obj[keys[0]].map((_, i) =&gt; {\n    const r = {};\n    keys.forEach(k =&gt; r[k] = obj[k][i]);\n    return r;\n  });\n}"
+  },
+  {
+    "objectID": "presentation.html#why-this-post-exists",
+    "href": "presentation.html#why-this-post-exists",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "",
+    "text": "Most of us did not get into research because we love debugging environments, waiting on queues, or fighting invisible data bugs. We got into research because we want to answer hard questions.\nModern scientific work is a software project. If your codebase is brittle, your science is brittle. If your workflow is reproducible, your science scales.\nThis post is a practical field guide: what breaks, what helps, and what I would actually recommend to students doing serious technical work in 2026.\n\ntranspose = (obj) =&gt; {\n  if (!obj || Object.keys(obj).length === 0) return [];\n  const keys = Object.keys(obj);\n  if (keys.length === 0 || !obj[keys[0]]) return [];\n  return obj[keys[0]].map((_, i) =&gt; {\n    const r = {};\n    keys.forEach(k =&gt; r[k] = obj[k][i]);\n    return r;\n  });\n}"
+  },
+  {
+    "objectID": "presentation.html#the-iron-rule",
+    "href": "presentation.html#the-iron-rule",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "The Iron Rule",
+    "text": "The Iron Rule\n\nIf you take the time to build software the right way, you worry you will not reuse it.\nIf you skip structure, the project eventually punishes you.\n\nBoth are true. The strategy is to build just enough structure that your future self (or collaborator) can trust and extend the work."
+  },
+  {
+    "objectID": "presentation.html#a-concrete-example-project",
+    "href": "presentation.html#a-concrete-example-project",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "A Concrete Example Project",
+    "text": "A Concrete Example Project\nConsider a small but realistic pipeline:\n\nFine-tune a BERT model on AG News (4 classes).\nTrain a lightweight adapter/MLP on extracted embeddings.\nRun parameter sweeps.\nCompare results and publish figures automatically.\n\n\n\n\n\n\n\nhtml`&lt;div class=\"minimal-table\"&gt;\n${Inputs.table(transpose(dataset_samples), {\n  columns: [\"label\", \"text\"],\n  rows: 10,\n  layout: \"fixed\"\n})}\n&lt;/div&gt;`"
+  },
+  {
+    "objectID": "presentation.html#the-foundation",
+    "href": "presentation.html#the-foundation",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "The Foundation",
+    "text": "The Foundation\n\n1. Keep Core Logic in Python Source\nNotebooks are great for exploration. They are poor as the only source of truth for production logic.\n\n\n2. Reproducible Environments with uv\n[project]\nname = \"scientific_dev\"\nrequires-python = \"&gt;=3.12\"\ndependencies = [\n    \"jax&gt;=0.9.0\",\n    \"snakemake&gt;=8.4.0\",\n    \"pydantic&gt;=2.12.5\",\n]\n\n\n3. Validation with Pydantic\n\n\n4. Hardware Acceleration Where It Matters\nIf your workload can be vectorized, GPU acceleration usually pays for itself immediately."
+  },
+  {
+    "objectID": "presentation.html#the-plumbing",
+    "href": "presentation.html#the-plumbing",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "The Plumbing",
+    "text": "The Plumbing\n\n1. Command Layer (just)\nall p=\"local\" c=\"configs/nlp_baseline.yaml\":\n    uv run snakemake --workflow-profile ./workflow/profiles/{{p}} --configfile {{c}}\n\npreview:\n    cd notebooks/quarto && quarto preview . --no-browser\n\n\n2. Orchestration (snakemake)\n\n\n3. Testing and CI\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: uv run pytest tests/\n\n\n4. Tracking (wandb)\n\n\n5. Storage and Querying (Parquet + DuckDB)\nSELECT s.*, m.\"test/auroc\"\nFROM read_parquet('results/**/training_stats.parquet') s\nLEFT JOIN read_parquet('results/**/test_metrics.parquet') m\n  ON s.full_run_name = m.full_run_name"
+  },
+  {
+    "objectID": "presentation.html#interactive-query-console",
+    "href": "presentation.html#interactive-query-console",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Interactive Query Console",
+    "text": "Interactive Query Console\n\n\n\n\n\n\ndb = DuckDBClient.of({ results: transpose(res_data) })\nviewof query = Inputs.text({\n  label: \"SQL Query\",\n  value: \"SELECT * FROM results LIMIT 10\",\n  width: \"100%\"\n})\nresults_data = db.query(query)\nInputs.table(results_data)"
+  },
+  {
+    "objectID": "presentation.html#why-quarto-matters",
+    "href": "presentation.html#why-quarto-matters",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Why Quarto Matters",
+    "text": "Why Quarto Matters\nQuarto is not just a rendering tool. It is the integration layer where analysis, narrative, equations, and interactivity can live in one reproducible artifact.\nThat matters for collaboration and for publication. It is harder to misplace a figure or lose a parameter setting when the notebook that generated it is the document."
+  },
+  {
+    "objectID": "presentation.html#a-live-toy-model",
+    "href": "presentation.html#a-live-toy-model",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "A Live Toy Model",
+    "text": "A Live Toy Model\nInteractive simulations build intuition faster than static plots and let you probe edge cases without touching code.\n\nviewof settings = Inputs.form({\n  N: Inputs.range([50, 800], {label: \"Agent Count\", step: 10, value: 400}),\n  radius: Inputs.range([10, 150], {label: \"Radius\", step: 5, value: 45}),\n  noise: Inputs.range([0, 1], {label: \"Entropy\", step: 0.05, value: 0.15}),\n  speed: Inputs.range([1, 10], {label: \"Velocity\", step: 0.5, value: 4.5}),\n  attraction: Inputs.range([0, 5], {label: \"Attraction\", step: 0.1, value: 2.5})\n})\n\n\n\n\n\n\n\n{\n  const width = 780;\n  const height = 480;\n  const canvas = html`&lt;canvas width=\"${width}\" height=\"${height}\" style=\"width: 100%; height: 480px; border-radius: 12px; background: #000;\"&gt;&lt;/canvas&gt;`;\n  const ctx = canvas.getContext(\"2d\");\n\n  let agents = Array.from({length: settings.N}, () =&gt; ({\n    x: Math.random() * width,\n    y: Math.random() * height,\n    theta: Math.random() * Math.PI * 2\n  }));\n\n  function update() {\n    if (agents.length !== settings.N) {\n      if (agents.length &lt; settings.N) {\n        for (let i = agents.length; i &lt; settings.N; i++) {\n          agents.push({x: Math.random() * width, y: Math.random() * height, theta: Math.random() * Math.PI * 2});\n        }\n      } else {\n        agents = agents.slice(0, settings.N);\n      }\n    }\n\n    agents = agents.map((a) =&gt; {\n      let sumSin = 0, sumCos = 0, count = 0;\n      for (const b of agents) {\n        let dx = b.x - a.x, dy = b.y - a.y;\n        if (dx &gt; width/2) dx -= width;\n        if (dx &lt; -width/2) dx += width;\n        if (dy &gt; height/2) dy -= height;\n        if (dy &lt; -height/2) dy += height;\n        if (dx*dx + dy*dy &lt; settings.radius * settings.radius) {\n          sumSin += Math.sin(b.theta);\n          sumCos += Math.cos(b.theta);\n          count++;\n        }\n      }\n      const avgTheta = Math.atan2(sumSin / Math.max(count, 1), sumCos / Math.max(count, 1));\n      const newTheta = avgTheta + (Math.random() - 0.5) * settings.noise;\n      let x = a.x + Math.cos(newTheta) * settings.speed;\n      let y = a.y + Math.sin(newTheta) * settings.speed;\n      if (x &lt; 0) x += width; if (x &gt;= width) x -= width;\n      if (y &lt; 0) y += height; if (y &gt;= height) y -= height;\n      return {x, y, theta: newTheta};\n    });\n  }\n\n  function draw() {\n    ctx.fillStyle = \"rgba(0, 5, 15, 0.45)\";\n    ctx.fillRect(0, 0, width, height);\n    for (const a of agents) {\n      const hue = 280 + Math.sin(a.theta) * 45;\n      ctx.strokeStyle = `hsla(${hue}, 85%, 65%, 0.8)`;\n      ctx.beginPath();\n      ctx.moveTo(a.x, a.y);\n      ctx.lineTo(a.x - Math.cos(a.theta) * 10, a.y - Math.sin(a.theta) * 10);\n      ctx.stroke();\n    }\n    update();\n    requestAnimationFrame(draw);\n  }\n  requestAnimationFrame(draw);\n  return canvas;\n}"
+  },
+  {
+    "objectID": "presentation.html#what-id-tell-students",
+    "href": "presentation.html#what-id-tell-students",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "What I’d Tell Students",
+    "text": "What I’d Tell Students\n\nBuild one reproducible pipeline end-to-end before optimizing anything.\nKeep your core logic in modules, not only notebooks.\nLet CI fail early instead of discovering mistakes during final writeup week.\nUse LLMs as force multipliers, not as replacements for structure."
+  },
+  {
+    "objectID": "presentation.html#closing",
+    "href": "presentation.html#closing",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Closing",
+    "text": "Closing\nThe future is not “AI replaces scientific programming.” The future is that scientific programming becomes more ambitious because the fixed costs of good engineering drop.\nThat only works if we still care about validation, reproducibility, and clarity.\nIn other words: let the tools remove friction, but keep your scientific standards high."
+  },
+  {
+    "objectID": "blog_post.html",
+    "href": "blog_post.html",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "",
+    "text": "transpose = (obj) =&gt; {\n  if (!obj || Object.keys(obj).length === 0) return [];\n  const keys = Object.keys(obj);\n  if (keys.length === 0 || !obj[keys[0]]) return [];\n  return obj[keys[0]].map((_, i) =&gt; {\n    const r = {};\n    keys.forEach(k =&gt; r[k] = obj[k][i]);\n    return r;\n  });\n}"
+  },
+  {
+    "objectID": "blog_post.html#why-this-post-exists",
+    "href": "blog_post.html#why-this-post-exists",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Why This Post Exists",
+    "text": "Why This Post Exists\nMost of us did not get into research because we love debugging environments, waiting on queues, or fighting invisible data bugs. We got into research because we want to answer hard questions.\nModern scientific work is a software project. Full stop. If your codebase is brittle, your science is brittle. If your workflow is reproducible, your science scales. The degree to which you invest in structure determines whether your future self can trust and extend the work, or will spend a week re-excavating what past-you was thinking.\nThis post is a practical field guide drawn from a talk: what breaks, what helps, and what I would actually recommend to students trying to do serious technical work in 2026."
+  },
+  {
+    "objectID": "blog_post.html#expectation-vs.-reality",
+    "href": "blog_post.html#expectation-vs.-reality",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Expectation vs. Reality",
+    "text": "Expectation vs. Reality\nThe biggest mismatch in scientific programming is not about intelligence or domain knowledge. It is about where the time actually goes.\n\n\n\nWhat I Imagined\n\ndata_imagined = [\n  {name: \"Reading/Understanding\", value: 20, color: \"#861388\"},\n  {name: \"Thinking Deeply\", value: 60, color: \"#E15A97\"},\n  {name: \"Writing Code\", value: 10, color: \"#2F6690\"},\n  {name: \"Communicating\", value: 10, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 420,\n  height: 360,\n  marks: [\n    Plot.barY(data_imagined, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_imagined, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; `${d.name}\\n(${d.value}%)`,\n      fill: \"white\",\n      fontSize: 12\n    }))\n  ],\n  coordinate: \"polar\",\n  axis: null\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nWhat Actually Happened\n\ndata_reality = [\n  {name: \"Reading\", value: 10, color: \"#861388\"},\n  {name: \"Conda Hell\", value: 10, color: \"#132a3b\"},\n  {name: \"Actual Algorithm\", value: 10, color: \"#19374d\"},\n  {name: \"Boilerplate/IO\", value: 20, color: \"#1f4460\"},\n  {name: \"Off-by-one bugs\", value: 10, color: \"#29597e\"},\n  {name: \"SLURM Queues\", value: 10, color: \"#2F6690\"},\n  {name: \"Matplotlib Ticks\", value: 10, color: \"#4483b3\"},\n  {name: \"Terminal Staring\", value: 10, color: \"#71a3c9\"},\n  {name: \"Thinking\", value: 5, color: \"#E15A97\"},\n  {name: \"Making Slides\", value: 5, color: \"#0CBABA\"}\n]\n\nPlot.plot({\n  width: 420,\n  height: 360,\n  marks: [\n    Plot.barY(data_reality, {\n      x: \"1\",\n      y: \"value\",\n      fill: \"color\",\n      stroke: \"white\",\n      title: d =&gt; `${d.name}: ${d.value}%`\n    }),\n    Plot.text(data_reality, Plot.stackY({\n      x: \"1\",\n      y: \"value\",\n      text: d =&gt; d.value &gt;= 10 ? d.name : \"\",\n      fill: d =&gt; [\"#71a3c9\"].includes(d.color) ? \"#2d3436\" : \"white\",\n      fontSize: 10\n    }))\n  ],\n  coordinate: \"polar\",\n  axis: null\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n“Conda Hell” is not a joke. It is a tax levied on anyone who did not invest early in environment hygiene. The lesson is not that software is annoying — the lesson is that if you do not invest in structure up front, the friction compounds. Each unresolved environment issue, each manually re-run cell, each figure you cannot reproduce six months later, is a compounding interest payment on technical debt."
+  },
+  {
+    "objectID": "blog_post.html#a-moral-failure",
+    "href": "blog_post.html#a-moral-failure",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "A Moral Failure",
+    "text": "A Moral Failure\n\n\n\n\n\nThe “world if” meme is funny but the underlying point is serious. Enormous amounts of scientific compute have been consumed not on the science but on the scaffolding — re-running lost experiments, porting code that was never meant to be portable, debugging race conditions in ad-hoc parallel scripts. Without SLURM we would have cured cancer by now (probably not, but the sentiment captures real frustration).\nThe fix is not to heroically tolerate the friction. It is to reduce it structurally."
+  },
+  {
+    "objectID": "blog_post.html#the-iron-rule",
+    "href": "blog_post.html#the-iron-rule",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "The Iron Rule",
+    "text": "The Iron Rule\nThere is a tension every researcher hits:\n\nIf you take the time to build software the right way, you worry you will never reuse it.\nIf you write sloppy code, it will eventually bite you.\nDamned if you do. Damned if you don’t.\n\nThe way out of this dilemma is a calibrated investment in structure — not gold-plating, not cowboy scripts, but just enough that your future self (or a collaborator) can trust and extend the work.\nHow much structure is “just enough”? The XKCD chart below is a reasonable heuristic:\n\n\n\nIs It Worth The Time? (XKCD)\n\n\nIf you will run a task once a week and automation takes a week to build, it pays for itself in two years. If you run it daily and it takes a day to automate, you break even in a month. Most scientific pipelines fall firmly in the “worth automating” zone."
+  },
+  {
+    "objectID": "blog_post.html#the-virtuous-cycle-of-vibecoding",
+    "href": "blog_post.html#the-virtuous-cycle-of-vibecoding",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "The Virtuous Cycle of Vibecoding",
+    "text": "The Virtuous Cycle of Vibecoding\nOne underappreciated dynamic in 2026: LLMs and good engineering practices are mutually reinforcing, not in tension.\n\nhtml`&lt;div style=\"display: flex; justify-content: center; align-items: center; width: 100%; position: relative; font-family: sans-serif; margin: 2rem 0;\"&gt;\n  &lt;svg width=\"900\" height=\"320\" viewBox=\"0 0 900 320\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"&gt;\n    &lt;path d=\"M320 100 Q 450 30 580 100\" stroke=\"#861388\" stroke-width=\"3.5\" marker-end=\"url(#arrow-magenta)\" fill=\"none\" /&gt;\n    &lt;path d=\"M580 220 Q 450 290 320 220\" stroke=\"#0CBABA\" stroke-width=\"3.5\" marker-end=\"url(#arrow-teal)\" fill=\"none\" /&gt;\n    &lt;defs&gt;\n      &lt;marker id=\"arrow-magenta\" markerWidth=\"10\" markerHeight=\"10\" refX=\"9\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\"&gt;\n        &lt;path d=\"M0,0 L0,6 L9,3 z\" fill=\"#861388\" /&gt;\n      &lt;/marker&gt;\n      &lt;marker id=\"arrow-teal\" markerWidth=\"10\" markerHeight=\"10\" refX=\"9\" refY=\"3\" orient=\"auto\" markerUnits=\"strokeWidth\"&gt;\n        &lt;path d=\"M0,0 L0,6 L9,3 z\" fill=\"#0CBABA\" /&gt;\n      &lt;/marker&gt;\n    &lt;/defs&gt;\n    &lt;foreignObject x=\"30\" y=\"110\" width=\"290\" height=\"100\"&gt;\n      &lt;div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"background: rgba(134,19,136,0.08); border-radius: 10px; padding: 18px; border-left: 5px solid #861388; font-size: 15px; font-weight: 600; color: #2d3436; line-height: 1.4;\"&gt;\n        LLMs lower the barrier for adopting tools &amp; dev practices\n      &lt;/div&gt;\n    &lt;/foreignObject&gt;\n    &lt;foreignObject x=\"580\" y=\"110\" width=\"290\" height=\"100\"&gt;\n      &lt;div xmlns=\"http://www.w3.org/1999/xhtml\" style=\"background: rgba(12,186,186,0.08); border-radius: 10px; padding: 18px; border-left: 5px solid #0CBABA; font-size: 15px; font-weight: 600; color: #2d3436; line-height: 1.4;\"&gt;\n        Good development practices make LLMs more effective\n      &lt;/div&gt;\n    &lt;/foreignObject&gt;\n  &lt;/svg&gt;\n&lt;/div&gt;`\n\n\n\n\n\n\nGood structure — typed interfaces, modular functions, clear config files — makes an LLM a far better collaborator. The LLM can read your Pydantic schema and generate valid configs. It can read your Snakemake rules and extend the pipeline. An unstructured notebook full of global state gives a model nothing useful to reason over.\nConversely, LLMs lower the activation energy for adopting practices that once seemed expensive: writing tests, setting up CI, adding type annotations. The cost-benefit calculation has shifted. A tool that would have taken two days to configure in 2022 can be scaffolded in twenty minutes in 2026."
+  },
+  {
+    "objectID": "blog_post.html#the-workflow-you-are-actually-building",
+    "href": "blog_post.html#the-workflow-you-are-actually-building",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "The Workflow You Are Actually Building",
+    "text": "The Workflow You Are Actually Building\nBefore diving into specific tools, it helps to be explicit about the shape of the problem:\n\nYou have data or simulation parameters.\nYou have a model — ABM, statistical, or ML.\nYou want to run sweeps over parameter space with fixed logic.\nYou want to collect and visualize results without manual copy-paste.\nYou want to turn plots into a publication or shareable artifact.\n\nThe goal is to automate the plumbing so that you can focus on the science. Every hour spent hand-managing results is an hour not spent thinking about what those results mean."
+  },
+  {
+    "objectID": "blog_post.html#a-concrete-example",
+    "href": "blog_post.html#a-concrete-example",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "A Concrete Example",
+    "text": "A Concrete Example\nTo make this tangible, consider a small but realistic pipeline:\n\nFine-tune a BERT model on AG News (4 classes: World, Sports, Business, Sci/Tech).\nTrain a lightweight adapter/MLP on extracted embeddings.\nRun parameter sweeps over adapter dimension and learning rate.\nCompare results and publish figures automatically.\n\nHere is a sample of the dataset:\n\n\n\n\n\n\nhtml`&lt;div class=\"minimal-table\"&gt;\n${Inputs.table(transpose(dataset_samples), {\n  columns: [\"label\", \"text\"],\n  rows: 10,\n  layout: \"fixed\"\n})}\n&lt;/div&gt;`\n\n\n\n\n\n\nEach layer in the pipeline maps to a specific tool. Here is the full stack at a glance:"
+  },
+  {
+    "objectID": "blog_post.html#the-stack",
+    "href": "blog_post.html#the-stack",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "The Stack",
+    "text": "The Stack\n\n\n\nProblem\nTooling Choice\n\n\n\n\nReproducible environment\nuv + lockfiles\n\n\nData validation\nPydantic schemas\n\n\nHardware acceleration\nPyTorch / JAX\n\n\nCode reliability\nPytest + CI\n\n\nWorkflow automation\nSnakemake\n\n\nExperiment tracking\nWeights & Biases\n\n\nPublication and dashboards\nQuarto\n\n\n\nThis is not the only valid stack. It is one coherent stack where every tool has a clear job and the tools compose cleanly. Glue code is the enemy — every shell script that bridges two incompatible conventions is a liability."
+  },
+  {
+    "objectID": "blog_post.html#the-foundation",
+    "href": "blog_post.html#the-foundation",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "The Foundation",
+    "text": "The Foundation\n\n1. Keep Core Logic in Python Source\nNotebooks are excellent for exploration. They are poor as the only source of truth for production logic. If your model or simulation lives only in a .ipynb, it is not testable, not importable, and nearly impossible to version cleanly.\nThe pattern is: write the core logic in .py files in a src/ directory, then import it into notebooks for exploration and into scripts for batch runs.\nType annotations are not just documentation. They are the interface contract between components, and they are what let a static analysis tool (or an LLM) reason about your code accurately.\n\n\n2. Reproducible Environments with uv\nuv is significantly faster than conda and produces exact lockfiles that make environments reproducible across machines — including HPC clusters. The core concept is simple: declare your dependencies in pyproject.toml, commit the uv.lock file, and anyone with uv installed gets an identical environment.\n[project]\nname = \"scientific_dev\"\nrequires-python = \"&gt;=3.12\"\ndependencies = [\n    \"jax&gt;=0.9.0\",\n    \"snakemake&gt;=8.4.0\",\n    \"pydantic&gt;=2.12.5\",\n]\nLinked dependencies also prevent identical binaries from being duplicated across environments, which matters when disk quotas are tight on shared HPC systems.\n\n\n3. Hardware Acceleration with JAX / PyTorch\nThe rule of thumb: if your computation can be expressed as vectorized operations over arrays, it will run faster on a GPU. The jump in throughput for embarrassingly parallel workloads — parameter sweeps, ensemble simulations, batch inference — is typically one to two orders of magnitude.\nJAX is particularly well-suited to scientific computing because it supports automatic differentiation through arbitrary programs, including ODE solvers and agent-based models. vmap turns a function over one data point into a function over a batch, with no manual batching logic:\nPyTorch is the default for neural networks and has a larger ecosystem of pretrained models. For custom simulations or differentiable physics, JAX is often the better fit.\n\n\n4. Validation with Pydantic\nAd-hoc config dictionaries are a silent source of bugs. A typo in a key, a float where an int is expected, a missing required field — all of these can propagate deep into a run before surfacing. Pydantic catches them at construction time.\nValidated schemas also have a second benefit in 2026: LLMs can read a Pydantic model and generate valid configurations, valid test fixtures, and accurate documentation without guessing at the types. Structured code is LLM-legible code."
+  },
+  {
+    "objectID": "blog_post.html#the-plumbing",
+    "href": "blog_post.html#the-plumbing",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "The Plumbing",
+    "text": "The Plumbing\n\n1. Command Layer with just\njust is a command runner that acts as a project-wide vocabulary of tasks. Instead of each collaborator needing to remember the exact flags for snakemake or quarto, they run just all or just preview. It also enforces that everyone runs tasks in the same environment.\n# Run the full pipeline (local profile, baseline config)\nall p=\"local\" c=\"configs/nlp_baseline.yaml\":\n    uv run snakemake --workflow-profile ./workflow/profiles/{{p}} --configfile {{c}}\n\n# Preview the Quarto site locally\npreview:\n    cd notebooks/quarto && quarto preview . --no-browser\nView Justfile →\n\n\n2. Orchestration with Snakemake\nSnakemake is a workflow manager that automatically determines what needs to run based on what already exists. If a model checkpoint is present, it skips training and goes straight to evaluation. If you add a new config, it runs only the missing experiments. This “amnesia proof” property is critical for large sweeps where some runs succeed and others fail.\nIt also integrates natively with SLURM, so a local run and a cluster run use the same workflow definition — only the profile changes.\nView Full Rule →\n\n\n3. Testing and CI\nA test suite is not bureaucracy. It is the thing that tells you, in thirty seconds, whether the change you just made broke something downstream. For scientific code, the most valuable tests are often not unit tests of individual functions but integration tests that check the full pipeline on a small synthetic dataset.\nCI runs those tests on every push, so breakage surfaces in the branch, not in the final writeup week.\n# .github/workflows/ci.yml\njobs:\n  test:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: uv run pytest tests/\nView CI Workflow →\n\n\n4. Experiment Tracking with WandB\nOnce sweeps exceed more than a handful of runs, you need somewhere to store metrics that is not a directory of CSV files. WandB logs metrics in real time, versions every run, and makes it trivial to compare runs across dimensions.\nThe config=self.config.model_dump() pattern is where Pydantic and WandB meet: every hyperparameter is automatically logged without manual bookkeeping, and every run is reproducible because the config is versioned alongside the weights.\nView Trainer →\n\n\n5. Storage and Querying with Parquet + DuckDB\nParquet files are the right format for scientific results: columnar, compressed, and queryable with SQL via DuckDB without loading everything into memory. DuckDB’s glob syntax lets you query entire result directories as if they were a single table.\nSELECT s.*, m.\"test/auroc\"\nFROM read_parquet('results/**/training_stats.parquet') s\nLEFT JOIN read_parquet('results/**/test_metrics.parquet') m\n  ON s.full_run_name = m.full_run_name\nFor projects with more relational structure, SQLModel provides a type-safe Python ORM on top of a conventional database."
+  },
+  {
+    "objectID": "blog_post.html#interactive-query-console",
+    "href": "blog_post.html#interactive-query-console",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Interactive Query Console",
+    "text": "Interactive Query Console\nThe OJS cell below wires a DuckDB client to the results data loaded from Python. You can type arbitrary SQL and explore the sweep results without leaving the document.\n\n\n\n\n\n\ndb = DuckDBClient.of({ results: transpose(res_data) })\nviewof query = Inputs.text({\n  label: \"SQL Query\",\n  value: \"SELECT * FROM results LIMIT 10\",\n  width: \"100%\"\n})\nresults_data = db.query(query)\nInputs.table(results_data)"
+  },
+  {
+    "objectID": "blog_post.html#why-quarto-matters",
+    "href": "blog_post.html#why-quarto-matters",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Why Quarto Matters",
+    "text": "Why Quarto Matters\nQuarto is not just a rendering tool. It is the integration layer where analysis, narrative, equations, and interactivity can live in one reproducible artifact.\nThe typical alternative is a patchwork: a Jupyter notebook for analysis, a separate LaTeX file for the paper, figures exported manually and embedded as static images. Every time results change, you update three things and hope they stay in sync. Quarto collapses this into one source of truth. The notebook that generated the figure is the document. It is harder to misplace a figure or lose a parameter setting when the notebook that generated it is the document.\nIt also supports multiple output formats from the same source — HTML, PDF, revealjs slides, Word — which matters when you need to hand the same content to a conference, a collaborator, and a journal."
+  },
+  {
+    "objectID": "blog_post.html#ai-tools-for-students",
+    "href": "blog_post.html#ai-tools-for-students",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "AI Tools for Students",
+    "text": "AI Tools for Students\nTwo categories are worth calling out explicitly:\nIDEs with integrated AI assistance:\n\nVSCode — the standard; integrates with Copilot and Claude\nCursor — free for students; strong multi-file context\nProject IDX / Antigravity — agent-native workspace\n\nLLMs as high-context research partners:\n\nGemini Pro — 2M token context; good for large codebases\nGitHub Copilot — free for students via GitHub Education\nClaude Campus — available with campus credits\n\nThe key word in all of these is partner, not replacement. An LLM cannot tell you whether your experimental design has a confound, whether your loss curve looks right, or whether your evaluation metric is appropriate for your task. Those judgments require domain expertise. What an LLM can do is eliminate the time spent on boilerplate, configuration, and lookup — which, as the pie chart above shows, is a substantial fraction of a researcher’s actual hours."
+  },
+  {
+    "objectID": "blog_post.html#a-live-toy-model",
+    "href": "blog_post.html#a-live-toy-model",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "A Live Toy Model",
+    "text": "A Live Toy Model\nInteractive simulations build intuition faster than static plots and let you probe edge cases without touching code. The simulation below is a Vicsek model: each agent aligns its heading with the local average heading of its neighbors, plus a noise term. Move your mouse over the canvas to attract the swarm.\n\nviewof settings = Inputs.form({\n  N: Inputs.range([50, 800], {label: \"Agent Count\", step: 10, value: 400}),\n  radius: Inputs.range([10, 150], {label: \"Interaction Radius\", step: 5, value: 45}),\n  noise: Inputs.range([0, 1], {label: \"Entropy (Noise)\", step: 0.05, value: 0.15}),\n  speed: Inputs.range([1, 10], {label: \"Velocity\", step: 0.5, value: 4.5}),\n  attraction: Inputs.range([0, 5], {label: \"Mouse Attraction\", step: 0.1, value: 2.5})\n})\n\n\n\n\n\n\n\n{\n  const width = 780;\n  const height = 480;\n  const canvas = html`&lt;canvas width=\"${width}\" height=\"${height}\" style=\"width: 100%; height: 480px; border-radius: 12px; background: #000; cursor: crosshair;\"&gt;&lt;/canvas&gt;`;\n  const ctx = canvas.getContext(\"2d\");\n\n  let agents = Array.from({length: settings.N}, () =&gt; ({\n    x: Math.random() * width,\n    y: Math.random() * height,\n    theta: Math.random() * Math.PI * 2\n  }));\n\n  let mouse = {x: -1000, y: -1000};\n  canvas.addEventListener(\"mousemove\", (e) =&gt; {\n    const rect = canvas.getBoundingClientRect();\n    mouse.x = (e.clientX - rect.left) * (width / rect.width);\n    mouse.y = (e.clientY - rect.top) * (height / rect.height);\n  });\n  canvas.addEventListener(\"mouseleave\", () =&gt; { mouse.x = -1000; mouse.y = -1000; });\n\n  function update() {\n    if (agents.length !== settings.N) {\n      if (agents.length &lt; settings.N) {\n        for (let i = agents.length; i &lt; settings.N; i++) {\n          agents.push({x: Math.random() * width, y: Math.random() * height, theta: Math.random() * Math.PI * 2});\n        }\n      } else {\n        agents = agents.slice(0, settings.N);\n      }\n    }\n\n    agents = agents.map((a) =&gt; {\n      let sumSin = 0, sumCos = 0, count = 0;\n      for (const b of agents) {\n        let dx = b.x - a.x, dy = b.y - a.y;\n        if (dx &gt; width/2) dx -= width;\n        if (dx &lt; -width/2) dx += width;\n        if (dy &gt; height/2) dy -= height;\n        if (dy &lt; -height/2) dy += height;\n        if (dx*dx + dy*dy &lt; settings.radius * settings.radius) {\n          sumSin += Math.sin(b.theta);\n          sumCos += Math.cos(b.theta);\n          count++;\n        }\n      }\n      let avgTheta = Math.atan2(sumSin / Math.max(count, 1), sumCos / Math.max(count, 1));\n\n      if (mouse.x &gt; 0) {\n        let mdx = mouse.x - a.x, mdy = mouse.y - a.y;\n        if (mdx &gt; width/2) mdx -= width;\n        if (mdx &lt; -width/2) mdx += width;\n        if (mdy &gt; height/2) mdy -= height;\n        if (mdy &lt; -height/2) mdy += height;\n        const angleToMouse = Math.atan2(mdy, mdx);\n        let diff = angleToMouse - avgTheta;\n        while (diff &gt; Math.PI) diff -= Math.PI * 2;\n        while (diff &lt; -Math.PI) diff += Math.PI * 2;\n        avgTheta += diff * (settings.attraction / 10);\n      }\n\n      const newTheta = avgTheta + (Math.random() - 0.5) * settings.noise;\n      let x = a.x + Math.cos(newTheta) * settings.speed;\n      let y = a.y + Math.sin(newTheta) * settings.speed;\n      if (x &lt; 0) x += width; if (x &gt;= width) x -= width;\n      if (y &lt; 0) y += height; if (y &gt;= height) y -= height;\n      return {x, y, theta: newTheta};\n    });\n  }\n\n  function draw() {\n    ctx.fillStyle = \"rgba(0, 5, 15, 0.45)\";\n    ctx.fillRect(0, 0, width, height);\n    ctx.lineWidth = 2.5;\n    for (const a of agents) {\n      const hue = 280 + Math.sin(a.theta) * 45;\n      ctx.strokeStyle = `hsla(${hue}, 85%, 65%, 0.8)`;\n      ctx.beginPath();\n      ctx.moveTo(a.x, a.y);\n      ctx.lineTo(a.x - Math.cos(a.theta) * 12, a.y - Math.sin(a.theta) * 12);\n      ctx.stroke();\n      ctx.fillStyle = `hsla(${hue}, 95%, 75%, 1)`;\n      ctx.beginPath();\n      ctx.arc(a.x, a.y, 2.2, 0, Math.PI * 2);\n      ctx.fill();\n    }\n    update();\n    requestAnimationFrame(draw);\n  }\n  requestAnimationFrame(draw);\n  return canvas;\n}\n\n\n\n\n\n\nThe order-disorder transition in the Vicsek model is a phase transition in a statistical physics sense: below a critical noise threshold the system spontaneously coordinates; above it, the agents are incoherent. The point is not that your data is a flock of birds — it is that a forty-line simulation running in a browser gives you physical intuition about collective behavior that a static diagram cannot. Quarto is how you ship that."
+  },
+  {
+    "objectID": "blog_post.html#what-id-tell-a-student",
+    "href": "blog_post.html#what-id-tell-a-student",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "What I’d Tell a Student",
+    "text": "What I’d Tell a Student\n\nBuild one reproducible pipeline end-to-end before optimizing anything. Optimization on a fragile foundation just makes the fragility faster.\nKeep your core logic in modules, not only notebooks. If you cannot import it, you cannot test it. If you cannot test it, you cannot trust it.\nLet CI catch failures early rather than during the final writeup. A failing test at 2pm on a Tuesday is a minor annoyance. The same failure discovered the night before a submission deadline is a crisis.\nUse LLMs as force multipliers, not as replacements for scientific judgment. They are excellent at boilerplate, configuration, and lookup. They cannot tell you whether your experimental design is valid."
+  },
+  {
+    "objectID": "blog_post.html#closing",
+    "href": "blog_post.html#closing",
+    "title": "There is Plenty of Room in Latent Space",
+    "section": "Closing",
+    "text": "Closing\nWe are a few years — maybe less — until the tools turn substantially more autonomous. The question is not whether to adopt them, but whether the codebase you hand to a more capable agent is something it can work with.\nBrittle notebooks, implicit state, hard-coded paths, and untested logic are not just inconvenient for human collaborators. They are opaque to AI collaborators too. The virtuous cycle only closes if the code is structured well enough for the tool to understand it.\nThe future is not that AI replaces scientific programming. The future is that scientific programming becomes more ambitious because the fixed costs of good engineering drop. That only works if we still care about validation, reproducibility, and clarity.\nLet the tools remove friction. Keep your scientific standards high. And maybe, with the time saved, we can cure cancer after all."
   }
 ]

@@ -2,27 +2,29 @@
 title: "There is Plenty of Room in Latent Space"
 subtitle: "Scientific Workflows on the Eve of the Butlerian Jihad"
 author: "W. H. W. Thompson"
-footer: "Scientific Software Development Practices in the Era of Vibecoding"
-format: 
-  revealjs:
-    theme: [white, custom.scss]
-    transition: slide 
-    background-transition: fade
-    slide-number: c/t
-    preview-links: auto
-    highlight-style: monokai
-    auto-animate: true
-    title-slide-attributes:
-      data-background-color: "#861388"
-      data-background-image: "https://www.transparenttextures.com/patterns/cubes.png"
-      data-background-opacity: "0.1"
+date: "2026-02-26"
+description: "A practical manifesto for scientific software in the era of vibecoding: what actually helps, what breaks, and how to ship reproducible research faster."
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    code-fold: false
+execute:
+  echo: false
 ---
 
-## Expectation vs. Reality {auto-animate="true"}
+## Why This Post Exists
+
+Most of us did not get into research because we love debugging environments, waiting on queues, or fighting invisible data bugs. We got into research because we want to answer hard questions.
+
+Modern scientific work is a software project. If your codebase is brittle, your science is brittle. If your workflow is reproducible, your science scales.
+
+This post is a practical field guide: what breaks, what helps, and what I would actually recommend to students doing serious technical work in 2026.
 
 ```{ojs}
 //| echo: false
-// Global utility for Quarto/OJS data transformation
 transpose = (obj) => {
   if (!obj || Object.keys(obj).length === 0) return [];
   const keys = Object.keys(obj);
@@ -35,7 +37,9 @@ transpose = (obj) => {
 }
 ```
 
-<!-- TO-DO: Add interactive oJS window -->
+## Expectation vs. Reality
+
+Here is the mismatch that motivated this whole workflow rethink.
 
 ::::: columns
 ::: {.column width="50%"}
@@ -51,8 +55,8 @@ data_imagined = [
 ]
 
 Plot.plot({
-  width: 480,
-  height: 400,
+  width: 420,
+  height: 360,
   marks: [
     Plot.barY(data_imagined, {
       x: "1",
@@ -66,96 +70,21 @@ Plot.plot({
       y: "value",
       text: d => `${d.name}\n(${d.value}%)`,
       fill: "white",
-      fontSize: 14
+      fontSize: 12
     }))
   ],
   coordinate: "polar",
-  style: {background: "transparent", margin: "auto"},
-  axis: null
-})
-```
-:::
-
-::: {.column .fragment width="50%"}
-### The Reality
-
-```{ojs}
-//| echo: false
-data_reality_1 = [
-  {name: "Reading", value: 10, color: "#861388"},
-  {name: "Writing Code", value: 80, color: "#2F6690"},
-  {name: "Thinking", value: 5, color: "#E15A97"},
-  {name: "Making Slides", value: 5, color: "#0CBABA"}
-]
-
-Plot.plot({
-  width: 480,
-  height: 400,
-  marks: [
-    Plot.barY(data_reality_1, {
-      x: "1",
-      y: "value",
-      fill: "color",
-      stroke: "white",
-      title: d => `${d.name}: ${d.value}%`
-    }),
-    Plot.text(data_reality_1, Plot.stackY({
-      x: "1",
-      y: "value",
-      text: d => d.value > 5 ? `${d.name}\n(${d.value}%)` : "",
-      fill: "white",
-      fontSize: 14
-    }))
-  ],
-  coordinate: "polar",
-  style: {background: "transparent", margin: "auto"},
-  axis: null
-})
-```
-:::
-:::::
-
-## Expectation vs. Reality {auto-animate="false"}
-
-::::: columns
-::: {.column width="50%"}
-### Expectations
-
-```{ojs}
-//| echo: false
-// Redefine to keep auto-animate happy, or OJS will handle reactivity
-Plot.plot({
-  width: 480,
-  height: 400,
-  marks: [
-    Plot.barY(data_imagined, {
-      x: "1",
-      y: "value",
-      fill: "color",
-      stroke: "white",
-      title: d => `${d.name}: ${d.value}%`
-    }),
-    Plot.text(data_imagined, Plot.stackY({
-      x: "1",
-      y: "value",
-      text: d => `${d.name}\n(${d.value}%)`,
-      fill: "white",
-      fontSize: 14
-    }))
-  ],
-  coordinate: "polar",
-  style: {background: "transparent", margin: "auto"},
   axis: null
 })
 ```
 :::
 
 ::: {.column width="50%"}
-### Reality Breakdown
+### What Actually Happened
 
 ```{ojs}
 //| echo: false
-data_reality_detailed = [
+data_reality = [
   {name: "Reading", value: 10, color: "#861388"},
   {name: "Conda Hell", value: 10, color: "#132a3b"},
   {name: "Actual Algorithm", value: 10, color: "#19374d"},
@@ -169,150 +98,77 @@ data_reality_detailed = [
 ]
 
 Plot.plot({
-  width: 480,
-  height: 400,
+  width: 420,
+  height: 360,
   marks: [
-    Plot.barY(data_reality_detailed, {
+    Plot.barY(data_reality, {
       x: "1",
       y: "value",
       fill: "color",
       stroke: "white",
       title: d => `${d.name}: ${d.value}%`
     }),
-    Plot.text(data_reality_detailed, Plot.stackY({
+    Plot.text(data_reality, Plot.stackY({
       x: "1",
       y: "value",
       text: d => d.value >= 10 ? d.name : "",
-      fill: d => ["#71a3c9", "#9dc3df"].includes(d.color) ? "#2d3436" : "white",
-      fontSize: 11
+      fill: d => ["#71a3c9"].includes(d.color) ? "#2d3436" : "white",
+      fontSize: 10
     }))
   ],
   coordinate: "polar",
-  style: {background: "transparent", margin: "auto"},
   axis: null
 })
 ```
 :::
 :::::
 
-## A Moral Failure
+The lesson is not "software is annoying." The lesson is that if you do not invest in structure up front, the friction compounds.
 
-![](assets/world_if_meme.jpg){fig-align="center" height="500px"}
+## The Iron Rule
 
-<!-- TO-DO: Ple -->
+- If you take the time to build software the right way, you worry you will not reuse it.
+- If you skip structure, the project eventually punishes you.
 
-# Without SLURM We Would Have Cured Cancer By Now {.bg-dark-texture .text-center}
+Both are true. The strategy is to build **just enough structure** that your future self (or collaborator) can trust and extend the work.
 
-## The Iron Rule of Scientific Software Development
+## A Concrete Example Project
 
-::: {.glass-card .fragment .fade-up}
--   If you take the time to build out code the right way you will never use it
-:::
+Consider a small but realistic pipeline:
 
-::: {.glass-card .fragment .fade-up}
--   If you write sloppy code it will bite you in the ass
-:::
-
-::: {.glass-card .fragment .fade-up}
--   **Damned if you do. Damned if you don't.**
-:::
-
-## Opportunity Cost of Good Software Dev Practices
-
-![(Source: XKCD)](https://imgs.xkcd.com/comics/is_it_worth_the_time_2x.png){fig-align="center" height="450px"}
-
-# Virtuous Cycle of Vibecoding {.bg-accent-1}
-
-```{ojs}
-//| echo: false
-html`<div style="display: flex; justify-content: center; align-items: center; height: 500px; width: 100%; position: relative; font-family: sans-serif;">
-  <svg width="1000" height="400" viewBox="0 0 1000 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- Arrows -->
-    <path d="M350 120 Q 500 50 650 120" stroke="#861388" stroke-width="4" marker-end="url(#arrow-magenta)" fill="none" class="animated-path" />
-    <path d="M650 280 Q 500 350 350 280" stroke="#0CBABA" stroke-width="4" marker-end="url(#arrow-teal)" fill="none" class="animated-path" />
-    
-    <!-- Definitions for markers -->
-    <defs>
-      <marker id="arrow-magenta" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-        <path d="M0,0 L0,6 L9,3 z" fill="#861388" />
-      </marker>
-      <marker id="arrow-teal" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-        <path d="M0,0 L0,6 L9,3 z" fill="#0CBABA" />
-      </marker>
-      
-      <filter id="glass" x="-20%" y="-20%" width="140%" height="140%">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
-      </filter>
-    </defs>
-    
-    <!-- Left Box -->
-    <foreignObject x="50" y="140" width="300" height="120">
-      <div style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); border-radius: 12px; padding: 20px; border: 1px solid rgba(255, 255, 255, 0.5); border-left: 8px solid #861388; box-shadow: 0 10px 30px rgba(0,0,0,0.1); height: 100%; box-sizing: border-box; display: flex; align-items: center; text-align: center; font-weight: 600; font-size: 18px; color: #2d3436;">
-        LLMs lower the barrier for adopting tools & dev practices
-      </div>
-    </foreignObject>
-    
-    <!-- Right Box -->
-    <foreignObject x="650" y="140" width="300" height="120">
-      <div style="background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(8px); border-radius: 12px; padding: 20px; border: 1px solid rgba(255, 255, 255, 0.5); border-left: 8px solid #0CBABA; box-shadow: 0 10px 30px rgba(0,0,0,0.1); height: 100%; box-sizing: border-box; display: flex; align-items: center; text-align: center; font-weight: 600; font-size: 18px; color: #2d3436;">
-        Good development practices make LLMs more efficient
-      </div>
-    </foreignObject>
-  </svg>
-  
-  <style>
-    .animated-path {
-      stroke-dasharray: 1000;
-      stroke-dashoffset: 1000;
-      animation: draw 2s linear forwards infinite;
-    }
-    @keyframes draw {
-      from { stroke-dashoffset: 1000; }
-      to { stroke-dashoffset: 0; }
-    }
-  </style>
-</div>`
-```
-
-## Your Workflow {.bg-accent-1}
-
-::: solid-card
-### The Process
-
--   You have data or simulation parameters.
--   You have a model (ABM/statistical/ML).
--   You want to run sweeps with fixed logic.
--   You want to collect & visualize results.
--   You want to turn plots into a **publication**.
-:::
-
-::: {.pop-up-card .fragment .fade-up}
-### The Goal
-
-**Automate the plumbing** so you can focus on the **science**.
-:::
-
-# Example Project
-
--   Train a BERT to correctly classifier the AG news dataset
-    -   4 classes: Business, Sci/Tech, Sports/World
--   Train an MLP classifier on BERT embeddings
+1. Fine-tune a BERT model on AG News (4 classes).
+2. Train a lightweight adapter/MLP on extracted embeddings.
+3. Run parameter sweeps.
+4. Compare results and publish figures automatically.
 
 ```{python}
-#| echo: false
-from datasets import load_dataset
 import pandas as pd
 
-# Load a small slice of the dataset for demonstration
-dataset = load_dataset("ag_news", split="train")
-samples = dataset.select(range(100))
-df_samples = pd.DataFrame(samples)
+try:
+    from datasets import load_dataset
+    dataset = load_dataset("ag_news", split="train")
+    samples = dataset.select(range(100))
+    df_samples = pd.DataFrame(samples)
+    label_names = {0: "World", 1: "Sports", 2: "Business", 3: "Sci/Tech"}
+    df_samples["label"] = df_samples["label"].map(label_names)
+except Exception:
+    # Fallback keeps the post renderable without the datasets package/network access.
+    df_samples = pd.DataFrame(
+        [
+            {"label": "World", "text": "UN climate talks resume with new pledges."},
+            {"label": "Sports", "text": "Underdog team secures dramatic overtime win."},
+            {"label": "Business", "text": "Quarterly earnings beat analyst expectations."},
+            {"label": "Sci/Tech", "text": "New chip architecture improves model throughput."},
+            {"label": "World", "text": "Election coalition negotiations continue overnight."},
+            {"label": "Sports", "text": "Star striker returns after minor injury scare."},
+            {"label": "Business", "text": "Central bank signals pause in rate hikes."},
+            {"label": "Sci/Tech", "text": "Open-source release adds accelerated training kernels."},
+            {"label": "World", "text": "Regional summit focuses on migration and trade."},
+            {"label": "Business", "text": "Startup closes Series B for logistics tooling."},
+        ]
+    )
 
-# Map numeric labels to names
-label_names = {0: "World", 1: "Sports", 2: "Business", 3: "Sci/Tech"}
-df_samples["label"] = df_samples["label"].map(label_names)
-
-ojs_define(dataset_samples = df_samples)
+ojs_define(dataset_samples=df_samples)
 ```
 
 ```{ojs}
@@ -323,127 +179,46 @@ ${Inputs.table(transpose(dataset_samples), {
   rows: 10,
   layout: "fixed"
 })}
-</div>
-
-<style>
-.minimal-table table {
-  border-collapse: collapse;
-  width: 100%;
-  font-family: inherit;
-  font-size: 0.8em;
-}
-
-.minimal-table thead th {
-  background-color: #861388;
-  color: white;
-  text-align: left;
-  padding: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 600;
-  border-bottom: 2px solid #0CBABA;
-}
-
-.minimal-table tbody td {
-  padding: 10px 12px;
-  border-bottom: 1px solid rgba(12, 186, 186, 0.2);
-  color: #2d3436;
-}
-
-.minimal-table tbody tr:nth-child(even) {
-  background-color: rgba(134, 19, 136, 0.03);
-}
-
-.minimal-table .observablehq--table-container {
-  border: 1px solid rgba(134, 19, 136, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-</style>`
+</div>`
 ```
-
-------------------------------------------------------------------------
 
 ## Scientific Software Checklist
 
-::: minimal-table
-| Problem                  | Solution                           |
-|--------------------------|------------------------------------|
-| Reproducible Environment | **UV** package manager & lockfiles |
-| Data Validation          | **Pydantic** schemas & types       |
-| Hardware Acceleration    | **PyTorch** and **JAX**            |
-| Code Reliability         | **Pytest** and **CI/CD**           |
-| Workflow Automation      | **Snakemake** pipelines            |
-| Experiment Tracking      | **Weights and Biases**             |
-| Publication/Dashboards   | **Quarto**                         |
-:::
+Each layer in the pipeline maps to a tool with a clear job:
 
-```{=html}
-<style>
-.minimal-table table {
-  border-collapse: collapse;
-  width: 100%;
-  font-family: inherit;
-  font-size: 0.75em;
-  margin-top: 20px;
-}
+| Problem | Tooling Choice |
+|---|---|
+| Reproducible environment | `uv` + lockfiles |
+| Data validation | Pydantic schemas |
+| Hardware acceleration | PyTorch / JAX |
+| Reliability | Pytest + CI |
+| Workflow automation | Snakemake |
+| Experiment tracking | Weights & Biases |
+| Publication and dashboards | Quarto |
 
-.minimal-table thead th {
-  background-color: #861388;
-  color: white;
-  text-align: left;
-  padding: 15px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 600;
-  border-bottom: 3px solid #0CBABA;
-}
+This is not the only valid stack. It is one coherent stack that minimizes glue code and hidden state.
 
-.minimal-table tbody td {
-  padding: 12px 15px;
-  border-bottom: 1px solid rgba(12, 186, 186, 0.15);
-  color: #2d3436;
-}
+## The Foundation
 
-.minimal-table tbody tr:nth-child(even) {
-  background-color: rgba(134, 19, 136, 0.02);
-}
+### 1. Keep Core Logic in Python Source
 
-.minimal-table tbody tr.fragment.visible {
-  border-left: 5px solid #0CBABA;
-}
-</style>
-```
+Notebooks are great for exploration. They are poor as the only source of truth for production logic.
 
-# The Foundation {.bg-primary}
-
-## 1. [Python](https://docs.python.org/3/) Features {.smaller}
-
--   **Logic in Source**: Keep logic in `.py` files. Portable and testable.
--   **Type Hinting**: Python is dynamic, but annotations catch bugs early.
-
-``` python
+```{python}
+#| eval: false
 # Type-safe scientific logic
 def simulate_trajectories(
-    n_agents: int, 
-    time_steps: int, 
-    params: dict[str, float]
+    n_agents: int,
+    time_steps: int,
+    params: dict[str, float],
 ) -> list[np.ndarray]:
     """Simulates N trajectories over T steps."""
     ...
 ```
 
--   **Git Workflow**: Use branches and Pull Requests (PRs) always.
+### 2. Reproducible Environments with `uv`
 
-## 1. Environment ([UV](https://github.com/astral-sh/uv)) {.smaller}
-
--   **Speed**: Muuuch faster than conda.
--   **Exact Reproducibility**: `uv.lock` ensures reproducibility.
--   **Linked Dependencies**: Dependency linking prevents identical redundant binaries across environments
-
-``` toml
-# pyproject.toml
+```{toml}
 [project]
 name = "scientific_dev"
 requires-python = ">=3.12"
@@ -454,76 +229,53 @@ dependencies = [
 ]
 ```
 
-## Acceleration ([JAX](https://jax.readthedocs.io/) / [PyTorch](https://pytorch.org/)) {.smaller}
+### 3. Validation with Pydantic
 
--   **Rule of Thumb**: If it can be done with numpy vectorized operations it will be faster on a GPU
--   **Auto-Diff**: Get gradients for ODE or ABM simulations.
--   **Batching**: `vmap` runs 1,000s of simulations in parallel on 1 GPU.
--   **Drop in Replacement**: With Jax just replace `np` with `jnp` to get immediate hardware accelration.
-
-``` python
-import jax.numpy as jnp
-from jax import vmap
-
-# A standard function for one data-point
-def compute_score(x):
-    return jnp.sum(jnp.sin(x) ** 2)
-
-# Automatically vectorize to handle batches
-batch_score = vmap(compute_score)
-
-# Result: Instant GPU acceleration for 10,000 samples
-scores = batch_score(large_input_matrix)
-```
-
-## Validation ([Pydantic](https://docs.pydantic.dev/)) {.smaller}
-
--   **Enforce Structure**: Ensure inputs/outputs are type-safe.
--   **LLM Ready**: Validated schemas make it easier for agents to reason.
--   **Auto-IDs**: Generate run names from hyperparameters.
-
-``` python
-# src/core/schema.py
+```{python}
+#| eval: false
 class NLPModelConfig(BaseModel):
     model_name: str = Field(default="distilbert-base-uncased")
     adapter_dim: int = Field(default=256)
 
-    @field_validator('adapter_dim')
+    @field_validator("adapter_dim")
     def validate_adapter_dim(cls, v: int):
         if v <= 0:
             raise ValueError("adapter_dim must be positive")
         return v
 ```
 
-[View Schema](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/schema.py)
+### 4. Hardware Acceleration Where It Matters
 
-# The Plumbing {.bg-primary}
+If your workload can be vectorized, GPU acceleration usually pays for itself immediately.
 
-## Command Center ([Just](https://github.com/casey/just)) {.smaller}
+```{python}
+#| eval: false
+import jax.numpy as jnp
+from jax import vmap
 
--   **Abstraction Layer**: Hide complex `snakemake` or `uv` commands behind simple aliases.
--   **Reproducible**: Ensure everyone runs the same commands in the same environment.
+def compute_score(x):
+    return jnp.sum(jnp.sin(x) ** 2)
 
-``` make
-# Run full pipeline
+batch_score = vmap(compute_score)
+scores = batch_score(large_input_matrix)
+```
+
+## The Plumbing
+
+### 1. Command Layer (`just`)
+
+```{make}
 all p="local" c="configs/nlp_baseline.yaml":
     uv run snakemake --workflow-profile ./workflow/profiles/{{p}} --configfile {{c}}
 
-# Run local Quarto preview
 preview:
     cd notebooks/quarto && quarto preview . --no-browser
 ```
 
-[View Justfile](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/justfile)
+### 2. Orchestration (`snakemake`)
 
-## Orchestration ([Snakemake](https://snakemake.github.io/)) {.smaller}
-
--   **Automatic workflow generation**: Build the whole sweep automatically.
--   **Slurm Integration**: Manages VACC jobs without bespoke batch scripts.
--   **Amnesia Proof**: Only runs what has changed.
-
-``` python
-# workflow/rules/train.smk
+```{python}
+#| eval: false
 rule train_bert_classifier:
     output:
         weights = "results/{cfg_name}/{params_path}/model.pt",
@@ -536,22 +288,16 @@ rule train_bert_classifier:
         "--output {output.weights}"
 ```
 
-[View Full Rule](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/workflow/rules/train.smk)
+### 3. Testing and CI
 
-## Testing ([Pytest](https://docs.pytest.org/)) & [CI](https://github.com/features/actions) {.smaller}
-
--   **Pytest Rigor**: Validate each part of research code.
--   **Actions**: Run everything on every push to ensure trust.
-
-``` python
-# tests/test_nlp_logic.py
+```{python}
+#| eval: false
 def test_validation():
     with pytest.raises(ValueError):
         NLPModelConfig(adapter_dim=-1)
 ```
 
-``` yaml
-# .github/workflows/ci.yml
+```{yaml}
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -560,195 +306,78 @@ jobs:
       - run: uv run pytest tests/
 ```
 
-[View CI Workflow](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/.github/workflows/ci.yml)
+### 4. Tracking (`wandb`)
 
-## Sync ([WandB](https://wandb.ai)) {.smaller}
-
--   **Track Metrics**: Log losses and gradients in real-time.
--   **Reproducible**: Every run is versioned and tagged.
-
-``` python
-# src/core/trainer.py
-def init_logger(self):
-    wandb.init(
-        project="neural-adapter-research",
-        config=self.config.model_dump(),
-        name=self.config.full_run_name
-    )
+```{python}
+#| eval: false
+wandb.init(
+    project="neural-adapter-research",
+    config=self.config.model_dump(),
+    name=self.config.full_run_name,
+)
 ```
 
-``` python
-wandb.log({
-    "train/step_loss": loss.item(),
-    "train/learning_rate": self.optimizer.param_groups[0]["lr"],
-    "train/global_step": epoch * len(self.train_loader) + step
-})
-```
+### 5. Storage and Querying (Parquet + DuckDB)
 
-[View Trainer](https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/trainer.py)
-
-## Storing Data ([DuckDB](https://duckdb.org/)) {.smaller}
-
--   **Parquet + DuckDB**: Use SQL to query directories of parquet files
-
-``` sql
-SELECT s.*, m."test/auroc" 
+```{sql}
+SELECT s.*, m."test/auroc"
 FROM read_parquet('results/**/training_stats.parquet') s
-LEFT JOIN read_parquet('results/**/test_metrics.parquet') m 
+LEFT JOIN read_parquet('results/**/test_metrics.parquet') m
   ON s.full_run_name = m.full_run_name
 ```
 
--   **SQLModel**: Type-safe Python Object Relational Mapping (ORM)
-
-``` python
-from sqlmodel import select, Session
-from src.core.models import TrainingRun
-
-with Session(engine) as session:
-    statement = select(TrainingRun).where(TrainingRun.val_loss < 0.5)
-    results = session.exec(statement).all()
-```
-
--   **MYDB**: For data-intensive projects use [MYDB](https://webdb.uvm.edu) to host MySQL server
-
-<!-- TODO: Implement automated backup for DuckDB local files -->
-
-## 6. Interactive SQL Console {auto-animate="true"}
+## Interactive Query Console
 
 ```{python}
-#| echo: false
 import pandas as pd
-import duckdb
 from pathlib import Path
 
-# Aggregate all training stats for the interactive console
-# Using DuckDB's native globbing on the symlinked results folder
 results_pattern = "results/**/training_stats.parquet"
 
 try:
+    import duckdb
     con = duckdb.connect()
-    # Check if any files match before querying
     files = list(Path("results").glob("**/training_stats.parquet"))
     if files:
-        # Use union_by_name=True to handle schema variations gracefully
         query = f"""
-            SELECT s.*, m."test/auroc" 
+            SELECT s.*, m."test/auroc"
             FROM read_parquet('{results_pattern}') s
-            LEFT JOIN read_parquet('results/**/test_metrics.parquet') m 
+            LEFT JOIN read_parquet('results/**/test_metrics.parquet') m
               ON s.full_run_name = m.full_run_name
         """
         all_results = con.execute(query).df()
     else:
         all_results = pd.DataFrame(columns=["epoch", "train_loss", "val_loss", "accuracy", "full_run_name", "test/auroc"])
-except Exception as e:
-    print(f"Error loading results: {e}")
+except Exception:
     all_results = pd.DataFrame(columns=["error"])
 
-# Always define res_data for OJS
-ojs_define(res_data = all_results)
+ojs_define(res_data=all_results)
 ```
 
-:::: v-center
-::: glass-card
 ```{ojs}
 //| echo: false
-// Create a DuckDB client from the Python-defined data
-// We transpose the column-oriented res_data into row-oriented format
-db = DuckDBClient.of({
-  results: transpose(res_data)
-})
-
+db = DuckDBClient.of({ results: transpose(res_data) })
 viewof query = Inputs.text({
-  label: "SQL Query", 
+  label: "SQL Query",
   value: "SELECT * FROM results LIMIT 10",
-  placeholder: "Type your SQL here...",
   width: "100%"
 })
-
-
-
 results_data = db.query(query)
-
 Inputs.table(results_data)
 ```
-:::
-::::
 
-## Live Metrics Tracking {background-iframe="https://api.wandb.ai/links/whwthompson-university-of-vermont/i0010klt" background-interactive="true"}
+## Why Quarto Matters
 
-## Publication ([Quarto](https://quarto.org)) {.smaller}
+Quarto is not just a rendering tool. It is the integration layer where analysis, narrative, equations, and interactivity can live in one reproducible artifact.
 
--   **Unified Logic**: Use LaTeX, Python, and Javascript in one document.
--   **Better Notebooks**: Use python to analyze data, pass results to javascript for interactive plots
--   **One Framework, Many Formats**: Make Websites/Presentations/PDFs and Latex Documents
--   **Reproducible**: One command to render the whole dashboard/paper.
+That matters for collaboration and for publication. It is harder to misplace a figure or lose a parameter setting when the notebook that generated it is the document.
 
-```` markdown
-# Theoretical Loss
-$$
-\mathcal{L}(\theta) = \frac{1}{N} \sum_{i=1}^N \text{CrossEntropy}(f_\theta(x_i), y_i)
-$$
+## A Live Toy Model
 
-# Python Visualization
-```python
-import seaborn as sns
-sns.lineplot(data=df, x='epoch', y='loss')
-```
-````
-
-##  {background-iframe="dashboard.html" background-interactive="true"}
-
-# Resources & More {.bg-dark-texture}
-
-## AI Tools for Students {.smaller}
-
-:::::::: columns
-:::: {.column .fragment width="45%"}
-::: glass-card
-### IDEs
-
-*No excuse not to use Cursor/VSCode*
-
--   [**VSCode**](https://code.visualstudio.com) (Standard)
--   [**Cursor**](https://cursor.com/students) (Student Free)
--   [**Antigravity**](https://antigravity.google/) (Agent Labs)
-:::
-::::
-
-::: {.column width="5%"}
-<!-- spacer -->
-:::
-
-:::: {.column .fragment width="45%"}
-::: glass-card
-### LLMs
-
-*High-Context Research Partners*
-
--   [**Gemini Pro**](https://gemini.google/students/) (2M Tokens)
--   [**GitHub Copilot**](https://github.com/education) (Free)
--   [**Claude Campus**](https://claude.com/programs/campus) (Credits)
-:::
-::::
-::::::::
-
-::: {.solid-card .fragment}
-### 💡 Workflow Inspiration
-
-Check out [Fitz's Workflow](https://github.com/FWJK1/workflow) for clean pipeline design.
-:::
-
-# This is the TIP OF THE ICEBERG {.bg-dark-texture}
-
-## Yes, you can do this {auto-animate="true"}
-
-::::: columns
-::: {.column width="25%"}
-### Swarm Vibe
+Interactive simulations build intuition faster than static plots and let you probe edge cases without touching code.
 
 ```{ojs}
 //| echo: false
-// Compact Vertical Control Panel
 viewof settings = Inputs.form({
   N: Inputs.range([50, 800], {label: "Agent Count", step: 10, value: 400}),
   radius: Inputs.range([10, 150], {label: "Radius", step: 5, value: 45}),
@@ -756,180 +385,87 @@ viewof settings = Inputs.form({
   speed: Inputs.range([1, 10], {label: "Velocity", step: 0.5, value: 4.5}),
   attraction: Inputs.range([0, 5], {label: "Attraction", step: 0.1, value: 2.5})
 })
-
-html`
-<style>
-  /* Compact Vertical Sidebar styling */
-  form.inputs-form { 
-    display: flex !important; 
-    flex-direction: column !important; 
-    gap: 0.75rem !important;
-    background: rgba(255, 255, 255, 0.04) !important;
-    backdrop-filter: blur(15px) !important;
-    padding: 1rem !important;
-    border-radius: 12px !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    color: white !important;
-  }
-  
-  form.inputs-form > div { 
-    margin: 0 !important; 
-    display: flex !important;
-    flex-direction: column !important;
-  }
-  
-  form.inputs-form label { 
-    color: #0CBABA !important; 
-    font-weight: 800 !important; 
-    font-size: 0.5rem !important;
-    text-transform: uppercase !important;
-    letter-spacing: 1px !important;
-    margin-bottom: 4px !important;
-  }
-  
-  form.inputs-form input[type=range] {
-    width: 100% !important;
-    accent-color: #0CBABA !important;
-  }
-  
-  form.inputs-form output {
-    font-size: 0.7rem !important;
-    color: #eee !important;
-    margin-top: 2px !important;
-  }
-
-  form.inputs-form h3 { display: none !important; }
-</style>
-`
 ```
-:::
 
-::: {.column width="75%"}
 ```{ojs}
 //| echo: false
-// High-performance Vicsek Model in OJS
 {
-  const width = 800;
-  const height = 550;
-  const canvas = html`<canvas width="${width}" height="${height}" style="width: 100%; height: 550px; border-radius: 12px; background: #000; cursor: crosshair; box-shadow: 0 20px 50px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);"></canvas>`;
+  const width = 780;
+  const height = 480;
+  const canvas = html`<canvas width="${width}" height="${height}" style="width: 100%; height: 480px; border-radius: 12px; background: #000;"></canvas>`;
   const ctx = canvas.getContext("2d");
 
-  // State
   let agents = Array.from({length: settings.N}, () => ({
     x: Math.random() * width,
     y: Math.random() * height,
     theta: Math.random() * Math.PI * 2
   }));
 
-  // Track mouse
-  let mouse = {x: -1000, y: -1000};
-  canvas.addEventListener("mousemove", (e) => {
-    const rect = canvas.getBoundingClientRect();
-    mouse.x = (e.clientX - rect.left) * (width / rect.width);
-    mouse.y = (e.clientY - rect.top) * (height / rect.height);
-  });
-  canvas.addEventListener("mouseleave", () => {
-    mouse.x = -1000;
-    mouse.y = -1000;
-  });
-
   function update() {
     if (agents.length !== settings.N) {
       if (agents.length < settings.N) {
         for (let i = agents.length; i < settings.N; i++) {
-          agents.push({ x: Math.random() * width, y: Math.random() * height, theta: Math.random() * Math.PI * 2 });
+          agents.push({x: Math.random() * width, y: Math.random() * height, theta: Math.random() * Math.PI * 2});
         }
       } else {
         agents = agents.slice(0, settings.N);
       }
     }
 
-    const nextAgents = agents.map((a, i) => {
-      let sumSin = 0;
-      let sumCos = 0;
-      let count = 0;
-
-      for (let j = 0; j < agents.length; j++) {
-        const b = agents[j];
-        let dx = b.x - a.x;
-        let dy = b.y - a.y;
+    agents = agents.map((a) => {
+      let sumSin = 0, sumCos = 0, count = 0;
+      for (const b of agents) {
+        let dx = b.x - a.x, dy = b.y - a.y;
         if (dx > width/2) dx -= width;
         if (dx < -width/2) dx += width;
         if (dy > height/2) dy -= height;
         if (dy < -height/2) dy += height;
-
         if (dx*dx + dy*dy < settings.radius * settings.radius) {
           sumSin += Math.sin(b.theta);
           sumCos += Math.cos(b.theta);
           count++;
         }
       }
-
-      let avgTheta = Math.atan2(sumSin / count, sumCos / count);
-      
-      if (mouse.x > 0) {
-        let mdx = mouse.x - a.x;
-        let mdy = mouse.y - a.y;
-        if (mdx > width/2) mdx -= width;
-        if (mdx < -width/2) mdx += width;
-        if (mdy > height/2) mdy -= height;
-        if (mdy < -height/2) mdy += height;
-        
-        const angleToMouse = Math.atan2(mdy, mdx);
-        let diff = angleToMouse - avgTheta;
-        while (diff > Math.PI) diff -= Math.PI * 2;
-        while (diff < -Math.PI) diff += Math.PI * 2;
-        avgTheta += diff * (settings.attraction / 10);
-      }
-
+      const avgTheta = Math.atan2(sumSin / Math.max(count, 1), sumCos / Math.max(count, 1));
       const newTheta = avgTheta + (Math.random() - 0.5) * settings.noise;
-      
-      let nextX = a.x + Math.cos(newTheta) * settings.speed;
-      let nextY = a.y + Math.sin(newTheta) * settings.speed;
-
-      if (nextX < 0) nextX += width;
-      if (nextX >= width) nextX -= width;
-      if (nextY < 0) nextY += height;
-      if (nextY >= height) nextY -= height;
-
-      return { x: nextX, y: nextY, theta: newTheta };
+      let x = a.x + Math.cos(newTheta) * settings.speed;
+      let y = a.y + Math.sin(newTheta) * settings.speed;
+      if (x < 0) x += width; if (x >= width) x -= width;
+      if (y < 0) y += height; if (y >= height) y -= height;
+      return {x, y, theta: newTheta};
     });
-
-    agents = nextAgents;
   }
 
   function draw() {
     ctx.fillStyle = "rgba(0, 5, 15, 0.45)";
     ctx.fillRect(0, 0, width, height);
-
-    ctx.lineWidth = 2.5;
-    agents.forEach((a, i) => {
+    for (const a of agents) {
       const hue = 280 + Math.sin(a.theta) * 45;
       ctx.strokeStyle = `hsla(${hue}, 85%, 65%, 0.8)`;
       ctx.beginPath();
       ctx.moveTo(a.x, a.y);
-      ctx.lineTo(a.x - Math.cos(a.theta) * 12, a.y - Math.sin(a.theta) * 12);
+      ctx.lineTo(a.x - Math.cos(a.theta) * 10, a.y - Math.sin(a.theta) * 10);
       ctx.stroke();
-      
-      ctx.fillStyle = `hsla(${hue}, 95%, 75%, 1)`;
-      ctx.beginPath();
-      ctx.arc(a.x, a.y, 2.2, 0, Math.PI * 2);
-      ctx.fill();
-    });
-
+    }
     update();
     requestAnimationFrame(draw);
   }
-
   requestAnimationFrame(draw);
   return canvas;
 }
 ```
-:::
-:::::
 
-# We have a couple of year until they turn us into paper clips, let's make the most of it {.bg-primary}
+## What I’d Tell Students
 
-<!--  -->
+1. Build one reproducible pipeline end-to-end before optimizing anything.
+2. Keep your core logic in modules, not only notebooks.
+3. Let CI fail early instead of discovering mistakes during final writeup week.
+4. Use LLMs as force multipliers, not as replacements for structure.
 
-<!--  -->
+## Closing
+
+The future is not "AI replaces scientific programming." The future is that scientific programming becomes more ambitious because the fixed costs of good engineering drop.
+
+That only works if we still care about validation, reproducibility, and clarity.
+
+In other words: let the tools remove friction, but keep your scientific standards high.

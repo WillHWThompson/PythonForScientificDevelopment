@@ -176,7 +176,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#opportunity-cost" id="toc-opportunity-cost" class="nav-link" data-scroll-target="#opportunity-cost">Opportunity Cost</a></li>
   </ul></li>
-  <li><a href="#the-scientific-software-checklist" id="toc-the-scientific-software-checklist" class="nav-link" data-scroll-target="#the-scientific-software-checklist">The Scientific Software Checklist</a></li>
+  <li><a href="#the-scientific-software-checklist" id="toc-the-scientific-software-checklist" class="nav-link" data-scroll-target="#the-scientific-software-checklist">The Scientific Software Checklist</a>
+  <ul class="collapse">
+  <li><a href="#key-files" id="toc-key-files" class="nav-link" data-scroll-target="#key-files">Key Files</a></li>
+  </ul></li>
   <li><a href="#the-foundation" id="toc-the-foundation" class="nav-link" data-scroll-target="#the-foundation">1. The Foundation</a>
   <ul class="collapse">
   <li><a href="#python-features" id="toc-python-features" class="nav-link" data-scroll-target="#python-features">Python Features</a></li>
@@ -187,16 +190,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#the-plumbing" id="toc-the-plumbing" class="nav-link" data-scroll-target="#the-plumbing">2. The Plumbing</a>
   <ul class="collapse">
   <li><a href="#command-abstraction-just" id="toc-command-abstraction-just" class="nav-link" data-scroll-target="#command-abstraction-just">Command Abstraction (Just)</a></li>
-  <li><a href="#orchestration-snakemake" id="toc-orchestration-snakemake" class="nav-link" data-scroll-target="#orchestration-snakemake">Orchestration (Snakemake)</a></li>
-  <li><a href="#testing-pytest-ci-github-actions" id="toc-testing-pytest-ci-github-actions" class="nav-link" data-scroll-target="#testing-pytest-ci-github-actions">Testing (Pytest) &amp; CI (GitHub Actions)</a></li>
-  <li><a href="#tracking-logs-wandb" id="toc-tracking-logs-wandb" class="nav-link" data-scroll-target="#tracking-logs-wandb">Tracking &amp; Logs (WandB)</a></li>
-  <li><a href="#data-storage-duckdb" id="toc-data-storage-duckdb" class="nav-link" data-scroll-target="#data-storage-duckdb">Data Storage (DuckDB)</a></li>
+  <li><a href="#orchestration-snakemake" id="toc-orchestration-snakemake" class="nav-link" data-scroll-target="#orchestration-snakemake">Orchestration (Snakemake)</a>
+  <ul class="collapse">
+  <li><a href="#key-files-1" id="toc-key-files-1" class="nav-link" data-scroll-target="#key-files-1">Key Files</a></li>
+  </ul></li>
+  <li><a href="#testing-pytest-ci-github-actions" id="toc-testing-pytest-ci-github-actions" class="nav-link" data-scroll-target="#testing-pytest-ci-github-actions">Testing (Pytest) &amp; CI (GitHub Actions)</a>
+  <ul class="collapse">
+  <li><a href="#key-files-2" id="toc-key-files-2" class="nav-link" data-scroll-target="#key-files-2">Key Files</a></li>
+  </ul></li>
+  <li><a href="#tracking-logs-wandb" id="toc-tracking-logs-wandb" class="nav-link" data-scroll-target="#tracking-logs-wandb">Tracking &amp; Logs (WandB)</a>
+  <ul class="collapse">
+  <li><a href="#key-files-3" id="toc-key-files-3" class="nav-link" data-scroll-target="#key-files-3">Key Files</a></li>
+  </ul></li>
+  <li><a href="#data-storage-duckdb" id="toc-data-storage-duckdb" class="nav-link" data-scroll-target="#data-storage-duckdb">Data Storage (DuckDB)</a>
+  <ul class="collapse">
+  <li><a href="#key-files-4" id="toc-key-files-4" class="nav-link" data-scroll-target="#key-files-4">Key Files</a></li>
+  </ul></li>
+  <li><a href="#publication-quarto" id="toc-publication-quarto" class="nav-link" data-scroll-target="#publication-quarto">Publication (Quarto)</a>
+  <ul class="collapse">
+  <li><a href="#key-files-5" id="toc-key-files-5" class="nav-link" data-scroll-target="#key-files-5">Key Files</a></li>
+  </ul></li>
   </ul></li>
   <li><a href="#resources-ai-integration" id="toc-resources-ai-integration" class="nav-link" data-scroll-target="#resources-ai-integration">3. Resources &amp; AI Integration</a>
   <ul class="collapse">
   <li><a href="#ai-tools" id="toc-ai-tools" class="nav-link" data-scroll-target="#ai-tools">AI Tools</a></li>
   <li><a href="#automation-mcp" id="toc-automation-mcp" class="nav-link" data-scroll-target="#automation-mcp">Automation &amp; MCP</a></li>
   <li><a href="#workflow-inspiration" id="toc-workflow-inspiration" class="nav-link" data-scroll-target="#workflow-inspiration">Workflow Inspiration</a></li>
+  <li><a href="#visualization-style" id="toc-visualization-style" class="nav-link" data-scroll-target="#visualization-style">Visualization Style</a></li>
   </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="guide.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
@@ -236,6 +256,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<p><strong><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment">View Source on GitHub</a></strong></p>
 <section id="the-vision" class="level1">
 <h1>The Vision</h1>
 <section id="expectation-vs.-reality" class="level2">
@@ -299,6 +320,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
+<p><strong>Reproducible</strong>: One command to render the whole dashboard/paper.</p>
+<section id="key-files" class="level3">
+<h3 class="anchored" data-anchor-id="key-files">Key Files</h3>
+<ul>
+<li><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/notebooks/quarto/presentation.qmd"><code>notebooks/quarto/presentation.qmd</code></a> - Reveal.js presentation source.</li>
+<li><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/notebooks/quarto/dashboard.qmd"><code>notebooks/quarto/dashboard.qmd</code></a> - Interactive dashboard source.</li>
+</ul>
+</section>
 </section>
 <section id="the-foundation" class="level1">
 <h1>1. The Foundation</h1>
@@ -377,7 +406,15 @@ all p="local" c="configs/nlp_baseline.yaml":
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="co">"PYTHONPATH=src python scripts/run_training.py "</span></span>
 <span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">"--config configs/{wildcards.cfg_name}.yaml "</span></span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">"--output {output.weights}"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="key-files-1" class="level3">
+<h3 class="anchored" data-anchor-id="key-files-1">Key Files</h3>
+<ul>
+<li><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/Snakefile"><code>Snakefile</code></a> - Top-level workflow entry point.</li>
+<li><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/tree/main/configs"><code>configs/</code></a> - YAML configuration files for experiments.</li>
+<li><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/tree/main/workflow/profiles/slurm"><code>workflow/profiles/slurm/</code></a> - SLURM cluster execution profile.</li>
+</ul>
 <p><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/workflow/rules/train.smk">View Full Rule</a></p>
+</section>
 </section>
 <section id="testing-pytest-ci-github-actions" class="level2">
 <h2 class="anchored" data-anchor-id="testing-pytest-ci-github-actions">Testing (Pytest) &amp; CI (GitHub Actions)</h2>
@@ -387,6 +424,13 @@ all p="local" c="configs/nlp_baseline.yaml":
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> pytest.raises(<span class="pp">ValueError</span>):</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        NLPModelConfig(adapter_dim<span class="op">=-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/.github/workflows/ci.yml">View CI Workflow</a></p>
+<section id="key-files-2" class="level3">
+<h3 class="anchored" data-anchor-id="key-files-2">Key Files</h3>
+<ul>
+<li><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/tree/main/tests"><code>tests/</code></a> - Unit and integration tests.</li>
+<li><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/.github/workflows/ci.yml"><code>.github/workflows/ci.yml</code></a> - CI/CD pipeline definition.</li>
+</ul>
+</section>
 </section>
 <section id="tracking-logs-wandb" class="level2">
 <h2 class="anchored" data-anchor-id="tracking-logs-wandb">Tracking &amp; Logs (WandB)</h2>
@@ -397,6 +441,12 @@ all p="local" c="configs/nlp_baseline.yaml":
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"train/global_step"</span>: epoch <span class="op">*</span> <span class="bu">len</span>(<span class="va">self</span>.train_loader) <span class="op">+</span> step</span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/trainer.py">View Trainer</a></p>
+<section id="key-files-3" class="level3">
+<h3 class="anchored" data-anchor-id="key-files-3">Key Files</h3>
+<ul>
+<li><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/trainer.py#L61-L68"><code>src/core/trainer.py</code></a> - Real-time WandB logging hooks.</li>
+</ul>
+</section>
 </section>
 <section id="data-storage-duckdb" class="level2">
 <h2 class="anchored" data-anchor-id="data-storage-duckdb">Data Storage (DuckDB)</h2>
@@ -405,6 +455,25 @@ all p="local" c="configs/nlp_baseline.yaml":
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> read_parquet(<span class="st">'results/**/training_stats.parquet'</span>) s</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> read_parquet(<span class="st">'results/**/test_metrics.parquet'</span>) m </span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">ON</span> s.full_run_name <span class="op">=</span> m.full_run_name</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="key-files-4" class="level3">
+<h3 class="anchored" data-anchor-id="key-files-4">Key Files</h3>
+<ul>
+<li><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/notebooks/quarto/dashboard.qmd"><code>notebooks/quarto/dashboard.qmd</code></a> - SQL queries visualized in Quarto.</li>
+<li><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/schema.py"><code>src/core/schema.py</code></a> - SQLModel/Pydantic schema definitions.</li>
+<li><a href="https://webdb.uvm.edu">MYDB (UVM WebDB)</a> - UVM’s hosted MySQL service.</li>
+</ul>
+</section>
+</section>
+<section id="publication-quarto" class="level2">
+<h2 class="anchored" data-anchor-id="publication-quarto">Publication (Quarto)</h2>
+<p>One command to render the whole dashboard/paper.</p>
+<section id="key-files-5" class="level3">
+<h3 class="anchored" data-anchor-id="key-files-5">Key Files</h3>
+<ul>
+<li><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/notebooks/quarto/presentation.qmd"><code>notebooks/quarto/presentation.qmd</code></a> - Reveal.js presentation source.</li>
+<li><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/notebooks/quarto/dashboard.qmd"><code>notebooks/quarto/dashboard.qmd</code></a> - Interactive dashboard source.</li>
+</ul>
+</section>
 </section>
 </section>
 <section id="resources-ai-integration" class="level1">
@@ -429,6 +498,12 @@ all p="local" c="configs/nlp_baseline.yaml":
 <section id="workflow-inspiration" class="level2">
 <h2 class="anchored" data-anchor-id="workflow-inspiration">Workflow Inspiration</h2>
 <p>For clean pipeline design and project organization, refer to <a href="https://github.com/FWJK1/workflow">Fitz’s Workflow</a>.</p>
+</section>
+<section id="visualization-style" class="level2">
+<h2 class="anchored" data-anchor-id="visualization-style">Visualization Style</h2>
+<ul>
+<li><a href="https://github.com/WillHWThompson/PythonForScientificDevelopment/blob/main/src/core/fig_style.py"><code>src/core/fig_style.py</code></a> - Centralized matplotlib/seaborn styling.</li>
+</ul>
 
 
 </section>
