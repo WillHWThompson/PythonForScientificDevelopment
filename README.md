@@ -4,7 +4,8 @@
 ![Language](https://img.shields.io/badge/language-Python-informational)
 ![Workflow](https://img.shields.io/badge/workflow-Snakemake-success)
 
-A presentation-ready scientific software repository for NLP experiments with modular BERT adapters, reproducible workflow orchestration, and Quarto-based analysis outputs.
+This repo is intended as an example of good scientific software development practices and tools. 
+It uses NLP experiments with modular BERT adapters, reproducible workflow orchestration with Snakemake and Quarto-based analysis outputs.
 
 ## Project Highlights
 - Adapter-based DistilBERT training with a modular `src/` layout.
